@@ -1,0 +1,122 @@
+{
+  "version": 2,
+  "dgSpecHash": "BeuSOoziJgw=",
+  "success": false,
+  "projectFilePath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\T.I\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.0\\microsoft.entityframeworkcore.7.0.0.nupkg.sha512",
+    "C:\\Users\\T.I\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.0\\microsoft.entityframeworkcore.sqlserver.7.0.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8). O pacote Microsoft.EntityFrameworkCore 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "projectPath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "filePath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "libraryId": "Microsoft.EntityFrameworkCore",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8). O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "projectPath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "filePath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win. O pacote Microsoft.EntityFrameworkCore 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "projectPath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "filePath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "libraryId": "Microsoft.EntityFrameworkCore",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win. O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "projectPath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "filePath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win-arm64. O pacote Microsoft.EntityFrameworkCore 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "projectPath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "filePath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "libraryId": "Microsoft.EntityFrameworkCore",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win-arm64"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win-arm64. O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "projectPath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "filePath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win-arm64"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win-x64. O pacote Microsoft.EntityFrameworkCore 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "projectPath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "filePath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "libraryId": "Microsoft.EntityFrameworkCore",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win-x64"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win-x64. O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "projectPath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "filePath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win-x64"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win-x86. O pacote Microsoft.EntityFrameworkCore 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "projectPath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "filePath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "libraryId": "Microsoft.EntityFrameworkCore",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win-x86"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win-x86. O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "projectPath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "filePath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win-x86"
+      ]
+    }
+  ]
+}

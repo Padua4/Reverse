@@ -1,0 +1,244 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.8": {
+      "Microsoft.EntityFrameworkCore/7.0.0": {
+        "type": "package"
+      },
+      "Microsoft.EntityFrameworkCore.SqlServer/7.0.0": {
+        "type": "package"
+      }
+    },
+    ".NETFramework,Version=v4.8/win": {
+      "Microsoft.EntityFrameworkCore/7.0.0": {
+        "type": "package"
+      },
+      "Microsoft.EntityFrameworkCore.SqlServer/7.0.0": {
+        "type": "package"
+      }
+    },
+    ".NETFramework,Version=v4.8/win-arm64": {
+      "Microsoft.EntityFrameworkCore/7.0.0": {
+        "type": "package"
+      },
+      "Microsoft.EntityFrameworkCore.SqlServer/7.0.0": {
+        "type": "package"
+      }
+    },
+    ".NETFramework,Version=v4.8/win-x64": {
+      "Microsoft.EntityFrameworkCore/7.0.0": {
+        "type": "package"
+      },
+      "Microsoft.EntityFrameworkCore.SqlServer/7.0.0": {
+        "type": "package"
+      }
+    },
+    ".NETFramework,Version=v4.8/win-x86": {
+      "Microsoft.EntityFrameworkCore/7.0.0": {
+        "type": "package"
+      },
+      "Microsoft.EntityFrameworkCore.SqlServer/7.0.0": {
+        "type": "package"
+      }
+    }
+  },
+  "libraries": {
+    "Microsoft.EntityFrameworkCore/7.0.0": {
+      "sha512": "9W+IfmAzMrp2ZpKZLhgTlWljSBM9Erldis1us61DAGi+L7Q6vilTbe1G2zDxtYO8F2H0I0Qnupdx5Cp4s2xoZw==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore/7.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "buildTransitive/net6.0/Microsoft.EntityFrameworkCore.props",
+        "lib/net6.0/Microsoft.EntityFrameworkCore.dll",
+        "lib/net6.0/Microsoft.EntityFrameworkCore.xml",
+        "microsoft.entityframeworkcore.7.0.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.SqlServer/7.0.0": {
+      "sha512": "+43PF5c5s8VQQl1ZKCQmkRGA/C1agHki31DgJGS0In+KI/xiUanqN3Z8v4BKTWBQYG3W9/me7Z199gOX6OKb+g==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.sqlserver/7.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/net6.0/Microsoft.EntityFrameworkCore.SqlServer.dll",
+        "lib/net6.0/Microsoft.EntityFrameworkCore.SqlServer.xml",
+        "microsoft.entityframeworkcore.sqlserver.7.0.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.sqlserver.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.8": [
+      "Microsoft.EntityFrameworkCore >= 7.0.0",
+      "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\T.I\\.nuget\\packages\\": {},
+    "D:\\Visual Studio SDK\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "projectName": "Reverse",
+      "projectPath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Reverse.csproj",
+      "packagesPath": "C:\\Users\\T.I\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\obj\\",
+      "projectStyle": "PackageReference",
+      "skipContentFileWrite": true,
+      "UsingMicrosoftNETSdk": false,
+      "fallbackFolders": [
+        "D:\\Visual Studio SDK\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\T.I\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net48"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net48": {
+          "projectReferences": {}
+        }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      }
+    },
+    "frameworks": {
+      "net48": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[7.0.0, )"
+          },
+          "Microsoft.EntityFrameworkCore.SqlServer": {
+            "target": "Package",
+            "version": "[7.0.0, )"
+          }
+        }
+      }
+    },
+    "runtimes": {
+      "win": {
+        "#import": []
+      },
+      "win-arm64": {
+        "#import": []
+      },
+      "win-x64": {
+        "#import": []
+      },
+      "win-x86": {
+        "#import": []
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8). O pacote Microsoft.EntityFrameworkCore 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "Microsoft.EntityFrameworkCore",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8). O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win. O pacote Microsoft.EntityFrameworkCore 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "Microsoft.EntityFrameworkCore",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win. O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win-arm64. O pacote Microsoft.EntityFrameworkCore 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "Microsoft.EntityFrameworkCore",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win-arm64"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win-arm64. O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win-arm64"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win-x64. O pacote Microsoft.EntityFrameworkCore 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "Microsoft.EntityFrameworkCore",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win-x64"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win-x64. O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win-x64"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win-x86. O pacote Microsoft.EntityFrameworkCore 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "Microsoft.EntityFrameworkCore",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win-x86"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 não é compatível com net48 (.NETFramework,Version=v4.8) / win-x86. O pacote Microsoft.EntityFrameworkCore.SqlServer 7.0.0 dá suporte a: net6.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8/win-x86"
+      ]
+    }
+  ]
+}
