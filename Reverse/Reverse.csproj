@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\PdfiumViewer.Native.x86.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86.v8-xfa.props" Condition="Exists('..\packages\PdfiumViewer.Native.x86.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86.v8-xfa.props')" />
   <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -14,7 +15,10 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\T.I\Documents\Reverse Build Test 0.1\</PublishUrl>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>C:\Users\T.I\Desktop\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -24,15 +28,11 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -43,6 +43,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -52,6 +53,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>79FE363503E143F1CB013A245CB848A827FC1077</ManifestCertificateThumbprint>
@@ -65,19 +67,166 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>globinho_recortado.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AdvancedDataGridView, Version=0.1.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ADGV.0.1.0.10\lib\net40\AdvancedDataGridView.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.4.0\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.105.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.105.0\lib\netstandard2.0\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML.Parser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1d5f7376574c51ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.Parser.2.0.0\lib\netstandard2.0\ClosedXML.Parser.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.3.1.1\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml.Framework, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.Framework.3.1.1\lib\net46\DocumentFormat.OpenXml.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=8.0.8.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.8.0.8\lib\net462\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.Interfaces.8.0.0\lib\net462\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.6.0.0\lib\net462\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=8.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.8.0.1\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=8.0.0.2, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.2\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=8.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.8.0.1\lib\net462\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=8.0.0.2, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.8.0.2\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=8.0.0.2, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.8.0.2\lib\net462\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.8.0.0\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.3.0.1\lib\netstandard2.0\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3537.50, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.3537.50\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.3537.50, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.3537.50\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.3537.50, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.3537.50\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfiumViewer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=6.2.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.2.1\lib\netstandard2.0\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.BarCodes, Version=6.2.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.2.1\lib\netstandard2.0\PdfSharp.BarCodes.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=6.2.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.2.1\lib\netstandard2.0\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Cryptography, Version=6.2.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.2.1\lib\netstandard2.0\PdfSharp.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Quality, Version=6.2.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.2.1\lib\netstandard2.0\PdfSharp.Quality.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Shared, Version=6.2.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.2.1\lib\netstandard2.0\PdfSharp.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Snippets, Version=6.2.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.2.1\lib\netstandard2.0\PdfSharp.Snippets.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.System, Version=6.2.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.2.1\lib\netstandard2.0\PdfSharp.System.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.WPFonts, Version=6.2.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.2.1\lib\netstandard2.0\PdfSharp.WPFonts.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="RBush, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c77e27b81f4d0187, processorArchitecture=MSIL">
+      <HintPath>..\packages\RBush.Signed.4.0.0\lib\net47\RBush.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.Fonts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
+      <HintPath>..\packages\SixLabors.Fonts.1.0.0\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.0\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SqlClient, Version=4.6.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SqlClient.4.9.0\lib\net462\System.Data.SqlClient.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.119.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.2.0.1\lib\net471\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.119.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.2.0.1\lib\net471\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.8.0.1\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.0\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.0\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.0\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Pkcs, Version=8.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Pkcs.8.0.1\lib\net462\System.Security.Cryptography.Pkcs.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Xml, Version=8.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.8.0.2\lib\net462\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -87,113 +236,481 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UglyToad.PdfPig, Version=0.1.11.0, Culture=neutral, PublicKeyToken=605d367334e74123, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPig.0.1.11\lib\net471\UglyToad.PdfPig.dll</HintPath>
+    </Reference>
+    <Reference Include="UglyToad.PdfPig.Core, Version=0.1.11.0, Culture=neutral, PublicKeyToken=605d367334e74123, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPig.0.1.11\lib\net471\UglyToad.PdfPig.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="UglyToad.PdfPig.DocumentLayoutAnalysis, Version=0.1.11.0, Culture=neutral, PublicKeyToken=605d367334e74123, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPig.0.1.11\lib\net471\UglyToad.PdfPig.DocumentLayoutAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="UglyToad.PdfPig.Fonts, Version=0.1.11.0, Culture=neutral, PublicKeyToken=605d367334e74123, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPig.0.1.11\lib\net471\UglyToad.PdfPig.Fonts.dll</HintPath>
+    </Reference>
+    <Reference Include="UglyToad.PdfPig.Package, Version=0.1.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPig.0.1.11\lib\net471\UglyToad.PdfPig.Package.dll</HintPath>
+    </Reference>
+    <Reference Include="UglyToad.PdfPig.Tokenization, Version=0.1.11.0, Culture=neutral, PublicKeyToken=605d367334e74123, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPig.0.1.11\lib\net471\UglyToad.PdfPig.Tokenization.dll</HintPath>
+    </Reference>
+    <Reference Include="UglyToad.PdfPig.Tokens, Version=0.1.11.0, Culture=neutral, PublicKeyToken=605d367334e74123, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPig.0.1.11\lib\net471\UglyToad.PdfPig.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\ControleTriagemForm.cs">
+    <Compile Include="Forms\FormsComercial\ComercialFormComercialHub.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ControleTriagemForm.Designer.cs">
-      <DependentUpon>ControleTriagemForm.cs</DependentUpon>
+    <Compile Include="Forms\FormsComercial\ComercialFormComercialHub.Designer.cs">
+      <DependentUpon>ComercialFormComercialHub.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LoginForm.cs">
+    <Compile Include="Forms\FormsComercial\ComercialFormVenda.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\LoginForm.Designer.cs">
-      <DependentUpon>LoginForm.cs</DependentUpon>
+    <Compile Include="Forms\FormsComercial\ComercialFormVenda.Designer.cs">
+      <DependentUpon>ComercialFormVenda.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainForm.cs">
+    <Compile Include="Forms\FormsExpedicao\CustomFontResolver.cs" />
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormCadastro.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormCadastro.Designer.cs">
+      <DependentUpon>ExpedicaoFormCadastro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormControle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormControle.Designer.cs">
+      <DependentUpon>ExpedicaoFormControle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormControleMes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormControleMes.Designer.cs">
+      <DependentUpon>ExpedicaoFormControleMes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormBalanco.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormBalanco.Designer.cs">
+      <DependentUpon>ExpedicaoFormBalanco.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormEstoque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormEstoque.Designer.cs">
+      <DependentUpon>ExpedicaoFormEstoque.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormExpHub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormExpHub.Designer.cs">
+      <DependentUpon>ExpedicaoFormExpHub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormFrete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormFrete.Designer.cs">
+      <DependentUpon>ExpedicaoFormFrete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormLancamentos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormLancamentos.Designer.cs">
+      <DependentUpon>ExpedicaoFormLancamentos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormLaudo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormLaudo.Designer.cs">
+      <DependentUpon>ExpedicaoFormLaudo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormMaterialEstoque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormMaterialEstoque.Designer.cs">
+      <DependentUpon>ExpedicaoFormMaterialEstoque.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormMotorista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormMotorista.Designer.cs">
+      <DependentUpon>ExpedicaoFormMotorista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormTickets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormTickets.Designer.cs">
+      <DependentUpon>ExpedicaoFormTickets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormVeiculos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormVeiculos.Designer.cs">
+      <DependentUpon>ExpedicaoFormVeiculos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormClientes.Designer.cs">
+      <DependentUpon>FinanceiroFormClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormContasSelecionar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormContasSelecionar.Designer.cs">
+      <DependentUpon>FinanceiroFormContasSelecionar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormExportarPDF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormExportarPDF.Designer.cs">
+      <DependentUpon>FinanceiroFormExportarPDF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormFinanceiroHub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormFinanceiroHub.Designer.cs">
+      <DependentUpon>FinanceiroFormFinanceiroHub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormGraficos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FormGraficos.Designer.cs">
+      <DependentUpon>FinanceiroFormGraficos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormLotesReceber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\formLotesReceber.Designer.cs">
+      <DependentUpon>FinanceiroFormLotesReceber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormPagar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormPagar.Designer.cs">
+      <DependentUpon>FinanceiroFormPagar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormReceber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormReceber.Designer.cs">
+      <DependentUpon>FinanceiroFormReceber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormRelatorioReceber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormRelatorioReceber.Designer.cs">
+      <DependentUpon>FinanceiroFormRelatorioReceber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormSelecionarData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormSelecionarData.Designer.cs">
+      <DependentUpon>FinanceiroFormSelecionarData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsLogin\FormConfigU.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsLogin\FormConfigU.Designer.cs">
+      <DependentUpon>FormConfigU.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsRH\CustomScrollPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsRH\RHFormCestaBasica.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsRH\RHFormCestaBasica.Designer.cs">
+      <DependentUpon>RHFormCestaBasica.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsRH\RHFormCurriculosNovos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsRH\RHFormCurriculosNovos.Designer.cs">
+      <DependentUpon>RHFormCurriculosNovos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsRH\RHFormFuncionariosInativos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsRH\RHFormFuncionariosInativos.Designer.cs">
+      <DependentUpon>RHFormFuncionariosInativos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsRH\RHFormFuncionarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsRH\RHFormFuncionarios.Designer.cs">
+      <DependentUpon>RHFormFuncionarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsRH\RHFormParticipantesAptos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsRH\RHFormParticipantesAptos.Designer.cs">
+      <DependentUpon>RHFormParticipantesAptos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsRH\RHFormRHHub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsRH\RHFormRHHub.Designer.cs">
+      <DependentUpon>RHFormRHHub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsTriagem\TriagemControleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsTriagem\TriagemControleForm.Designer.cs">
+      <DependentUpon>TriagemControleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsLogin\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsLogin\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsLogin\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\NfeModels.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Forms\RegisterForm.cs">
+    <Compile Include="Forms\FormsTriagem\TriagemForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\RegisterForm.Designer.cs">
-      <DependentUpon>RegisterForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\TriagemForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\TriagemForm.Designer.cs">
+    <Compile Include="Forms\FormsTriagem\TriagemForm.Designer.cs">
       <DependentUpon>TriagemForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Forms\ControleTriagemForm.resx">
-      <DependentUpon>ControleTriagemForm.cs</DependentUpon>
+    <Compile Include="Forms\FormsTriagem\TriagemFormHub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsTriagem\TriagemFormHub.Designer.cs">
+      <DependentUpon>TriagemFormHub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsTriagem\TriagemFormPalete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsTriagem\TriagemFormPalete.Designer.cs">
+      <DependentUpon>TriagemFormPalete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsTriagem\TriagemPaleteDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsTriagem\TriagemPaleteDialog.Designer.cs">
+      <DependentUpon>TriagemPaleteDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsTriagem\TriagemPaleteSelectorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsTriagem\TriagemPaleteSelectorForm.Designer.cs">
+      <DependentUpon>TriagemPaleteSelectorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsTriagem\TriagemProdutoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsTriagem\TriagemProdutoForm.Designer.cs">
+      <DependentUpon>TriagemProdutoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsTriagem\TriagemSelecionarPaletesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsTriagem\TriagemSelecionarPaletesForm.Designer.cs">
+      <DependentUpon>TriagemSelecionarPaletesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Microsoft\VisualBasic\Interaction.cs" />
+    <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Estoque.cs" />
+    <Compile Include="Models\ExcelImportService.cs" />
+    <Compile Include="Models\ItemPalete.cs" />
+    <Compile Include="Models\Material.cs" />
+    <Compile Include="Models\Palete.cs" />
+    <Compile Include="Models\Permissao.cs" />
+    <Compile Include="Models\Produto.cs" />
+    <Compile Include="Models\ProdutoService.cs" />
+    <Compile Include="Models\ReverseContext.cs" />
+    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Forms\FormsLogin\RegisterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsLogin\RegisterForm.Designer.cs">
+      <DependentUpon>RegisterForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\FormsComercial\ComercialFormComercialHub.resx">
+      <DependentUpon>ComercialFormComercialHub.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LoginForm.resx">
+    <EmbeddedResource Include="Forms\FormsComercial\ComercialFormVenda.resx">
+      <DependentUpon>ComercialFormVenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormCadastro.resx">
+      <DependentUpon>ExpedicaoFormCadastro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormControle.resx">
+      <DependentUpon>ExpedicaoFormControle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormControleMes.resx">
+      <DependentUpon>ExpedicaoFormControleMes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormBalanco.resx">
+      <DependentUpon>ExpedicaoFormBalanco.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormEstoque.resx">
+      <DependentUpon>ExpedicaoFormEstoque.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormExpHub.resx">
+      <DependentUpon>ExpedicaoFormExpHub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormFrete.resx">
+      <DependentUpon>ExpedicaoFormFrete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormLancamentos.resx">
+      <DependentUpon>ExpedicaoFormLancamentos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormLaudo.resx">
+      <DependentUpon>ExpedicaoFormLaudo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormMaterialEstoque.resx">
+      <DependentUpon>ExpedicaoFormMaterialEstoque.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormMotorista.resx">
+      <DependentUpon>ExpedicaoFormMotorista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormTickets.resx">
+      <DependentUpon>ExpedicaoFormTickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormVeiculos.resx">
+      <DependentUpon>ExpedicaoFormVeiculos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormClientes.resx">
+      <DependentUpon>FinanceiroFormClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormContasSelecionar.resx">
+      <DependentUpon>FinanceiroFormContasSelecionar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormExportarPDF.resx">
+      <DependentUpon>FinanceiroFormExportarPDF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormFinanceiroHub.resx">
+      <DependentUpon>FinanceiroFormFinanceiroHub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsFinanceiro\FormGraficos.resx">
+      <DependentUpon>FinanceiroFormGraficos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsFinanceiro\formLotesReceber.resx">
+      <DependentUpon>FinanceiroFormLotesReceber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormPagar.resx">
+      <DependentUpon>FinanceiroFormPagar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormReceber.resx">
+      <DependentUpon>FinanceiroFormReceber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormRelatorioReceber.resx">
+      <DependentUpon>FinanceiroFormRelatorioReceber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormSelecionarData.resx">
+      <DependentUpon>FinanceiroFormSelecionarData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsLogin\FormConfigU.resx">
+      <DependentUpon>FormConfigU.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsRH\RHFormCestaBasica.resx">
+      <DependentUpon>RHFormCestaBasica.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsRH\RHFormCurriculosNovos.resx">
+      <DependentUpon>RHFormCurriculosNovos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsRH\RHFormFuncionariosInativos.resx">
+      <DependentUpon>RHFormFuncionariosInativos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsRH\RHFormFuncionarios.resx">
+      <DependentUpon>RHFormFuncionarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsRH\RHFormParticipantesAptos.resx">
+      <DependentUpon>RHFormParticipantesAptos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsRH\RHFormRHHub.resx">
+      <DependentUpon>RHFormRHHub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsTriagem\TriagemControleForm.resx">
+      <DependentUpon>TriagemControleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsLogin\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
+    <EmbeddedResource Include="Forms\FormsLogin\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsTriagem\TriagemForm.resx">
+      <DependentUpon>TriagemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsTriagem\TriagemFormHub.resx">
+      <DependentUpon>TriagemFormHub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsTriagem\TriagemFormPalete.resx">
+      <DependentUpon>TriagemFormPalete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsTriagem\TriagemPaleteDialog.resx">
+      <DependentUpon>TriagemPaleteDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsTriagem\TriagemPaleteSelectorForm.resx">
+      <DependentUpon>TriagemPaleteSelectorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsTriagem\TriagemProdutoForm.resx">
+      <DependentUpon>TriagemProdutoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsTriagem\TriagemSelecionarPaletesForm.resx">
+      <DependentUpon>TriagemSelecionarPaletesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <EmbeddedResource Include="Forms\RegisterForm.resx">
+    <EmbeddedResource Include="Forms\FormsLogin\RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TriagemForm.resx">
-      <DependentUpon>TriagemForm.cs</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Fonts\LiberationSans-Bold.ttf" />
+    <EmbeddedResource Include="Fonts\LiberationSans-BoldItalic.ttf" />
+    <EmbeddedResource Include="Fonts\LiberationSans-Italic.ttf" />
+    <EmbeddedResource Include="Fonts\LiberationSans-Regular.ttf" />
+    <EmbeddedResource Include="Fonts\TimesNewRoman-BoldItalic.ttf" />
+    <EmbeddedResource Include="Fonts\TimesNewRoman-Bold.ttf" />
+    <EmbeddedResource Include="Fonts\TimesNewRoman-Italic.ttf" />
+    <EmbeddedResource Include="Fonts\TimesNewRoman-Regular.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Resources\LaudoBaseEditable.pdf" />
+    <EmbeddedResource Include="Resources\LaudoPadrao.pdf" />
     <None Include="Reverse_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Image Login.png" />
+    <None Include="Resources\Image_Login.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ChatGPT Image 23 de jul. de 2025, 15_47_43.png" />
+    <None Include="Resources\Triagem.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\20250723_1556_Módulo Triagem Doméstica_simple_compose_01k0wa5mbtf17b1f5qfnn58zsd.png" />
+    <None Include="Resources\Almoxarifado.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\20250723_1604_Módulo Almoxarifado_simple_compose_01k0wap73vepdr2snpzy1f8tpj.png" />
+    <None Include="Resources\RH.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\20250723_1608_Módulo RH Criativo_simple_compose_01k0wavzwmeaq8rcjkpfjqr4mb.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\20250723_1611_Módulo Financeiro Ilustrado_simple_compose_01k0wb2b3be0qtt5t7q6ry2tby.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\20250723_1629_Setor Triagem Ilustrado_remix_01k0wc2njmf7creq2p7yhvj108.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\20250723_1633_Setor Almoxarifado Ilustrado_remix_01k0wc9z41fa78c8mteezcz80d.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\20250723_1637_Setor Recursos Humanos_remix_01k0wcgqs4ezvb7vrd27147a2n.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\20250723_1637_Setor Recursos Humanos_remix_01k0wcgqs4ezvb7vrd27147a2n1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\20250724_1051_Setor Financeiro Ilustrado_remix_01k0yb3tk5fwss77c2m3yc19kk.png" />
+    <None Include="Resources\Financeiro.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -207,7 +724,87 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bolsa-de-compras.ico" />
+    <Content Include="globinho.ico" />
+    <Content Include="globinho_recortado.ico" />
+    <Content Include="ImagensCategorias\11.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\15.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\17.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\23.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\27.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\28.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\29.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\35.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\36.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\41.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\42.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\43.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\44.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\45.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\47.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\48.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\50.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\53.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\56.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\57.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImagensCategorias\8.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Resources\AssinaturaLaudo.jpg" />
+    <EmbeddedResource Include="Resources\CertificadoTemplate.png" />
+    <EmbeddedResource Include="Resources\logo_dld.jpg" />
+    <None Include="Resources\groupIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -215,6 +812,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\PdfiumViewer.Native.x86.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86.v8-xfa.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PdfiumViewer.Native.x86.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86.v8-xfa.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Web.WebView2.1.0.3537.50\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.WebView2.1.0.3537.50\build\Microsoft.Web.WebView2.targets'))" />
   </Target>
   <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Microsoft.Web.WebView2.1.0.3537.50\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.3537.50\build\Microsoft.Web.WebView2.targets')" />
 </Project>
