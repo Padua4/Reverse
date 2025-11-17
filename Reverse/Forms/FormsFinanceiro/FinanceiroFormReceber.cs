@@ -444,7 +444,7 @@ namespace Reverse.Forms.FormsFinanceiro
 
         private void btnSelecionarLote_Click(object sender, EventArgs e)
         {
-            using (var formSelecionar = new formLotesReceber())
+            using (var formSelecionar = new FinanceiroFormLotesReceber())
             {
                 if (formSelecionar.ShowDialog() == DialogResult.OK && formSelecionar.LoteSelecionadoId.HasValue)
                 {

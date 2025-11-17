@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FinanceiroFormExportarPDF));
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -80,7 +81,7 @@
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.pnlHeader.Controls.Add(this.label1);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
@@ -111,7 +112,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 910);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 949);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // tableLayoutPanel2
@@ -126,7 +127,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1146, 904);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1146, 943);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // pnlChart
@@ -135,41 +136,42 @@
             this.pnlChart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlChart.Location = new System.Drawing.Point(3, 3);
             this.pnlChart.Name = "pnlChart";
-            this.pnlChart.Size = new System.Drawing.Size(1140, 807);
+            this.pnlChart.Size = new System.Drawing.Size(1140, 842);
             this.pnlChart.TabIndex = 0;
             // 
             // crtGrafico
             // 
-            chartArea4.Name = "ChartArea1";
-            this.crtGrafico.ChartAreas.Add(chartArea4);
+            chartArea1.Name = "ChartArea1";
+            this.crtGrafico.ChartAreas.Add(chartArea1);
             this.crtGrafico.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend4.Name = "Legend1";
-            this.crtGrafico.Legends.Add(legend4);
+            legend1.Name = "Legend1";
+            this.crtGrafico.Legends.Add(legend1);
             this.crtGrafico.Location = new System.Drawing.Point(0, 0);
             this.crtGrafico.Name = "crtGrafico";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.crtGrafico.Series.Add(series4);
-            this.crtGrafico.Size = new System.Drawing.Size(1140, 807);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.crtGrafico.Series.Add(series1);
+            this.crtGrafico.Size = new System.Drawing.Size(1140, 842);
             this.crtGrafico.TabIndex = 0;
             this.crtGrafico.Text = "chart1";
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel3.Controls.Add(this.btnGraficoPDF);
             this.panel3.Controls.Add(this.cmbAno);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 816);
+            this.panel3.Location = new System.Drawing.Point(3, 851);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1140, 85);
+            this.panel3.Size = new System.Drawing.Size(1140, 89);
             this.panel3.TabIndex = 1;
             // 
             // btnGraficoPDF
             // 
             this.btnGraficoPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGraficoPDF.ForeColor = System.Drawing.Color.Black;
             this.btnGraficoPDF.Location = new System.Drawing.Point(292, 26);
             this.btnGraficoPDF.Name = "btnGraficoPDF";
             this.btnGraficoPDF.Size = new System.Drawing.Size(845, 33);
@@ -190,6 +192,7 @@
             // 
             // label2
             // 
+            this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 83);
@@ -207,13 +210,14 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(1155, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(762, 904);
+            this.panel2.Size = new System.Drawing.Size(762, 943);
             this.panel2.TabIndex = 1;
             // 
             // btnCategoriaExp
             // 
             this.btnCategoriaExp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCategoriaExp.Location = new System.Drawing.Point(10, 859);
+            this.btnCategoriaExp.ForeColor = System.Drawing.Color.Black;
+            this.btnCategoriaExp.Location = new System.Drawing.Point(10, 874);
             this.btnCategoriaExp.Name = "btnCategoriaExp";
             this.btnCategoriaExp.Size = new System.Drawing.Size(743, 36);
             this.btnCategoriaExp.TabIndex = 4;
@@ -236,7 +240,7 @@
             this.tableLayoutPanel3.Controls.Add(this.panel4, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.panel5, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.label4, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(10, 521);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(10, 536);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 5;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -249,7 +253,7 @@
             // 
             // panel8
             // 
-            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel8.Controls.Add(this.txtREF);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(129, 267);
@@ -267,7 +271,7 @@
             // 
             // panel7
             // 
-            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel7.Controls.Add(this.chbFechamento);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(129, 201);
@@ -278,6 +282,7 @@
             // chbFechamento
             // 
             this.chbFechamento.AutoSize = true;
+            this.chbFechamento.ForeColor = System.Drawing.Color.Black;
             this.chbFechamento.Location = new System.Drawing.Point(9, 17);
             this.chbFechamento.Name = "chbFechamento";
             this.chbFechamento.Size = new System.Drawing.Size(64, 29);
@@ -288,7 +293,7 @@
             // 
             // panel6
             // 
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel6.Controls.Add(this.txtPix);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(129, 135);
@@ -307,7 +312,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Location = new System.Drawing.Point(3, 66);
             this.label5.Name = "label5";
@@ -319,7 +324,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Location = new System.Drawing.Point(3, 132);
             this.label6.Name = "label6";
@@ -331,7 +336,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(3, 198);
@@ -344,7 +349,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.Location = new System.Drawing.Point(3, 264);
             this.label8.Name = "label8";
@@ -355,7 +360,7 @@
             // 
             // panel4
             // 
-            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel4.Controls.Add(this.txtValor);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(129, 3);
@@ -374,7 +379,7 @@
             // 
             // panel5
             // 
-            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel5.Controls.Add(this.dtpData);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(129, 69);
@@ -393,7 +398,7 @@
             // 
             // label4
             // 
-            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Location = new System.Drawing.Point(3, 0);
             this.label4.Name = "label4";
@@ -406,7 +411,7 @@
             // 
             this.imgCategoria.Location = new System.Drawing.Point(10, 52);
             this.imgCategoria.Name = "imgCategoria";
-            this.imgCategoria.Size = new System.Drawing.Size(740, 466);
+            this.imgCategoria.Size = new System.Drawing.Size(740, 478);
             this.imgCategoria.TabIndex = 2;
             this.imgCategoria.TabStop = false;
             // 
@@ -416,7 +421,7 @@
             this.cmbCategoria.FormattingEnabled = true;
             this.cmbCategoria.Location = new System.Drawing.Point(301, 10);
             this.cmbCategoria.Name = "cmbCategoria";
-            this.cmbCategoria.Size = new System.Drawing.Size(452, 33);
+            this.cmbCategoria.Size = new System.Drawing.Size(449, 33);
             this.cmbCategoria.TabIndex = 1;
             this.cmbCategoria.SelectedIndexChanged += new System.EventHandler(this.cmbCategoria_SelectedIndexChanged);
             // 
@@ -424,25 +429,27 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(3, 6);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(301, 37);
             this.label3.TabIndex = 0;
             this.label3.Text = "Selecione a Categoria:";
             // 
-            // FormExportarPDF
+            // FinanceiroFormExportarPDF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(1920, 966);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
+            this.ClientSize = new System.Drawing.Size(1920, 1005);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.pnlHeader);
             this.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "FormExportarPDF";
+            this.Name = "FinanceiroFormExportarPDF";
             this.Text = "FormExportarPDF";
             this.Load += new System.EventHandler(this.FormExportaPDF_Load);
             this.pnlHeader.ResumeLayout(false);

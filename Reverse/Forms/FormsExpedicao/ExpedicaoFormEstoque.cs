@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Globalization;
+using System.Linq;
+using System.Windows.Forms;
+using ADGV;
 
 namespace Reverse.Forms.FormsExpedicao
 {
@@ -18,6 +17,7 @@ namespace Reverse.Forms.FormsExpedicao
         private EstoqueViewModel _linhaAtual = null;
         private bool _atualizandoCampos = false;
         private readonly int _usuarioId;
+        private BindingSource _bindingSource;
 
         public ExpedicaoFormEstoque(int usuarioId)
         {
@@ -29,7 +29,7 @@ namespace Reverse.Forms.FormsExpedicao
         private void FormEstoque_Load(object sender, EventArgs e)
         {
             string[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-                       "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" };
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" };
             cmbMes.Items.AddRange(meses);
             cmbMes.SelectedIndex = DateTime.Now.Month - 1;
 
@@ -45,6 +45,9 @@ namespace Reverse.Forms.FormsExpedicao
                 cmbMaterial.ValueMember = "Id";
             }
 
+            cmbMaterial.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbMaterial.AutoCompleteSource = AutoCompleteSource.ListItems;
+
             cmbStatus.Items.AddRange(new string[] { "Aguardando Peso", "Segregado", "Vendido" });
 
             using (var ctx = new ReverseContext())
@@ -55,20 +58,36 @@ namespace Reverse.Forms.FormsExpedicao
                 cmbCliente.ValueMember = "ClienteId";
             }
 
-            cmbMaterial.SelectedIndexChanged += (s, ev) => AtualizarLinhaAtual();
-            txtQuantidade.TextChanged += (s, ev) => AtualizarLinhaAtual();
-            cmbStatus.SelectedIndexChanged += (s, ev) => AtualizarLinhaAtual();
-            cmbCliente.SelectedIndexChanged += (s, ev) => AtualizarLinhaAtual();
-            txtObs.TextChanged += (s, ev) => AtualizarLinhaAtual();
+            cmbCliente.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbCliente.AutoCompleteSource = AutoCompleteSource.ListItems;
 
             ConfigurarGrid();
+
+            _bindingSource = new BindingSource();
+            dgvMaterial.DataSource = _bindingSource;
+
+            dgvMaterial.FilterStringChanged += (s, ev) =>
+            {
+                _bindingSource.Filter = dgvMaterial.FilterString;
+                AtualizarPesoFiltro();
+            };
+            dgvMaterial.SortStringChanged += (s, ev) =>
+            {
+                _bindingSource.Sort = dgvMaterial.SortString;
+                AtualizarPesoFiltro();
+            };
 
             rbmQuantidade.Checked = true;
             lblPesoQuantidade.Text = "Quantidade";
             txtQuantidade.KeyPress += TxtQuantidade_KeyPressInteiro;
             rbmQuantidade.CheckedChanged += rbmQuantidade_CheckedChanged;
             rbmPeso.CheckedChanged += rbmPeso_CheckedChanged;
+
             txtQuantidade.Leave += txtQuantidade_Leave;
+            cmbMaterial.Leave += (s, ev) => AtualizarCampo_Material();
+            cmbStatus.Leave += (s, ev) => AtualizarCampo_Status();
+            cmbCliente.Leave += (s, ev) => AtualizarCampo_Cliente();
+            txtObs.Leave += (s, ev) => AtualizarCampo_Observacao();
 
             this.cmbMes.SelectedIndexChanged += new System.EventHandler(this.cmbMes_SelectedIndexChanged);
             this.cmbAno.SelectedIndexChanged += new System.EventHandler(this.cmbAno_SelectedIndexChanged);
@@ -76,6 +95,104 @@ namespace Reverse.Forms.FormsExpedicao
             CarregarEstoque();
             LimparCampos();
         }
+
+        private void AtualizarCampo_Material()
+        {
+            if (_linhaAtual == null || _atualizandoCampos) return;
+
+            try
+            {
+                string materialAnterior = _linhaAtual.Material;
+                string materialNovo = cmbMaterial.SelectedItem is Material mat ? mat.Nome : cmbMaterial.Text;
+
+                if (materialAnterior != materialNovo)
+                {
+                    _linhaAtual.Material = materialNovo;
+
+                    using (var ctx = new ReverseContext())
+                    {
+                        var material = ctx.Materiais.FirstOrDefault(m => m.Nome == materialNovo);
+                        if (material != null)
+                        {
+                            _linhaAtual.Valorizacao = material.Valorizacao;
+                        }
+                    }
+
+                    AtualizarLinhaGrid();
+                }
+            }
+            catch { }
+        }
+
+        private void AtualizarCampo_Status()
+        {
+            if (_linhaAtual == null || _atualizandoCampos) return;
+
+            try
+            {
+                string statusNovo = cmbStatus.SelectedItem?.ToString() ?? "";
+
+                if (_linhaAtual.Status != statusNovo)
+                {
+                    _linhaAtual.Status = statusNovo;
+
+                    if (_linhaAtual.Status == "Vendido" && _linhaAtual.DataSaida == null)
+                    {
+                        _linhaAtual.DataSaida = DateTime.Now;
+                    }
+                    else if (_linhaAtual.Status != "Vendido")
+                    {
+                        _linhaAtual.DataSaida = null;
+                    }
+
+                    AtualizarLinhaGrid();
+                }
+            }
+            catch { }
+        }
+
+        private void AtualizarCampo_Cliente()
+        {
+            if (_linhaAtual == null || _atualizandoCampos) return;
+
+            try
+            {
+                string clienteNovo = cmbCliente.Text;
+
+                if (_linhaAtual.ClienteNome != clienteNovo)
+                {
+                    _linhaAtual.ClienteNome = clienteNovo;
+                    AtualizarLinhaGrid();
+                }
+            }
+            catch { }
+        }
+
+        private void AtualizarCampo_Observacao()
+        {
+            if (_linhaAtual == null || _atualizandoCampos) return;
+
+            try
+            {
+                if (_linhaAtual.Observacao != txtObs.Text)
+                {
+                    _linhaAtual.Observacao = txtObs.Text;
+                    AtualizarLinhaGrid();
+                }
+            }
+            catch { }
+        }
+
+        private void AtualizarLinhaGrid()
+        {
+            if (dgvMaterial.CurrentRow != null)
+            {
+                int rowIndex = dgvMaterial.CurrentRow.Index;
+                dgvMaterial.InvalidateRow(rowIndex);
+            }
+        }
+
+
 
         private void ConfigurarGrid()
         {
@@ -163,7 +280,7 @@ namespace Reverse.Forms.FormsExpedicao
                     Font = new Font("Segoe UI", 9F)
                 }
             };
-            colQuantidade.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;   
+            colQuantidade.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             var colStatus = new DataGridViewTextBoxColumn
             {
@@ -234,7 +351,24 @@ namespace Reverse.Forms.FormsExpedicao
             dgvMaterial.MultiSelect = false;
             dgvMaterial.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvMaterial.RowHeadersWidth = 25;
+
         }
+
+        private void AtualizarPesoFiltro()
+        {
+            decimal totalPeso = 0;
+
+            foreach (DataRowView rowView in _bindingSource.List)
+            {
+                if (rowView["Quantidade"] != DBNull.Value)
+                {
+                    totalPeso += Convert.ToDecimal(rowView["Quantidade"]);
+                }
+            }
+
+            lblPesoFiltro.Text = $"Total filtrado: {totalPeso:N3}";
+        }
+
 
         private void dgvMaterial_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -275,7 +409,7 @@ namespace Reverse.Forms.FormsExpedicao
                 else if (status == "Vendido")
                 {
                     e.CellStyle.BackColor = Color.FromArgb(17, 115, 75);
-                    e.CellStyle.ForeColor = Color.White;    
+                    e.CellStyle.ForeColor = Color.White;
                 }
             }
         }
@@ -297,39 +431,66 @@ namespace Reverse.Forms.FormsExpedicao
                         .OrderBy(e => e.DataEntrada)
                         .ToList();
 
+                    var nomesMateriais = dados
+                        .Where(d => !string.IsNullOrWhiteSpace(d.Material))
+                        .Select(d => d.Material)
+                        .Distinct()
+                        .ToList();
+
+                    var materiais = ctx.Materiais
+                        .Where(m => nomesMateriais.Contains(m.Nome))
+                        .ToDictionary(m => m.Nome, m => m.Valorizacao);
+
+                    var clienteIds = dados
+                        .Where(d => d.ClienteId > 0)
+                        .Select(d => d.ClienteId)
+                        .Distinct()
+                        .ToList();
+
+                    var clientes = ctx.Clientes
+                        .Where(c => clienteIds.Contains(c.ClienteId))
+                        .ToDictionary(c => c.ClienteId, c => c.Nome);
+
                     _estoqueList.Clear();
 
                     foreach (var item in dados)
                     {
-                        string clienteNome = "";
-                        if (item.ClienteId > 0)
-                        {
-                            var cliente = ctx.Clientes.FirstOrDefault(c => c.ClienteId == item.ClienteId);
-                            clienteNome = cliente?.Nome ?? "";
-                        }
-
-                        int? valorizacao = null;
-                        var mat = ctx.Materiais.FirstOrDefault(m => m.Nome == item.Material);
-                        if (mat != null)
-                            valorizacao = mat.Valorizacao;
-
                         _estoqueList.Add(new EstoqueViewModel
                         {
                             Id = item.Id,
-                            Material = item.Material,
-                            Valorizacao = valorizacao ?? 1,
+                            Material = item.Material ?? "",
+                            Valorizacao = materiais.ContainsKey(item.Material) ? materiais[item.Material] : 1,
                             DataEntrada = item.DataEntrada,
                             DataSaida = item.DataSaida,
                             Quantidade = item.Quantidade,
-                            Status = item.Status,
-                            ClienteNome = clienteNome,
-                            Observacao = item.Observacao,
+                            Status = item.Status ?? "Aguardando Peso",
+                            ClienteNome = item.ClienteId > 0 && clientes.ContainsKey(item.ClienteId)
+                                          ? clientes[item.ClienteId]
+                                          : "",
+                            Observacao = item.Observacao ?? "",
                             EhPeso = item.EhPeso
                         });
                     }
 
-                    dgvMaterial.DataSource = null;
-                    dgvMaterial.DataSource = _estoqueList;
+                    var dt = new DataTable();
+                    dt.Columns.Add("Id", typeof(int));
+                    dt.Columns.Add("Material", typeof(string));
+                    dt.Columns.Add("Valorizacao", typeof(int));
+                    dt.Columns.Add("DataEntrada", typeof(DateTime));
+                    dt.Columns.Add("DataSaida", typeof(DateTime));
+                    dt.Columns.Add("Quantidade", typeof(decimal));
+                    dt.Columns.Add("Status", typeof(string));
+                    dt.Columns.Add("ClienteNome", typeof(string));
+                    dt.Columns.Add("Observacao", typeof(string));
+
+                    foreach (var item in _estoqueList)
+                    {
+                        dt.Rows.Add(item.Id, item.Material, item.Valorizacao, item.DataEntrada, item.DataSaida,
+                                    item.Quantidade, item.Status, item.ClienteNome, item.Observacao);
+                    }
+
+                    _bindingSource.DataSource = dt;
+                    AtualizarPesoFiltro();
                 }
 
                 LimparCampos();
@@ -394,25 +555,50 @@ namespace Reverse.Forms.FormsExpedicao
 
         private void txtQuantidade_Leave(object sender, EventArgs e)
         {
-            if (_linhaAtual == null) return;
+            if (_linhaAtual == null || _atualizandoCampos) return;
+
+            if (string.IsNullOrWhiteSpace(txtQuantidade.Text))
+            {
+                if (_linhaAtual.Quantidade != 0)
+                {
+                    _linhaAtual.Quantidade = 0;
+                    AtualizarLinhaGrid();
+                }
+                return;
+            }
 
             if (decimal.TryParse(txtQuantidade.Text,
                                  NumberStyles.Number,
                                  CultureInfo.CurrentCulture,
                                  out decimal valor))
             {
+                decimal valorFinal;
+
                 if (_linhaAtual.EhPeso)
                 {
-                    valor = Math.Round(valor, 3, MidpointRounding.AwayFromZero);
-                    txtQuantidade.Text = valor.ToString("N3");
+                    valorFinal = Math.Round(valor, 3, MidpointRounding.AwayFromZero);
+                    txtQuantidade.Text = valorFinal.ToString("N3");
                 }
                 else
                 {
-                    valor = Math.Truncate(valor);
-                    txtQuantidade.Text = valor.ToString("N0");
+                    valorFinal = Math.Truncate(valor);
+                    txtQuantidade.Text = valorFinal.ToString("N0");
                 }
 
-                _linhaAtual.Quantidade = valor;
+                if (_linhaAtual.Quantidade != valorFinal)
+                {
+                    _linhaAtual.Quantidade = valorFinal;
+                    AtualizarLinhaGrid();
+                }
+            }
+            else
+            {
+                if (_linhaAtual.Quantidade != 0)
+                {
+                    _linhaAtual.Quantidade = 0;
+                    txtQuantidade.Text = "";
+                    AtualizarLinhaGrid();
+                }
             }
         }
 
@@ -443,7 +629,6 @@ namespace Reverse.Forms.FormsExpedicao
 
             _estoqueList.Add(novaLinha);
 
-            // Selecionar a nova linha
             dgvMaterial.ClearSelection();
             int novoIndex = dgvMaterial.Rows.Count - 1;
             dgvMaterial.Rows[novoIndex].Selected = true;
@@ -451,7 +636,26 @@ namespace Reverse.Forms.FormsExpedicao
 
             // Carregar nos campos
             _linhaAtual = novaLinha;
-            CarregarCamposDaLinha(novaLinha);
+            CarregarCamposDaLinhaNovaLinha(novaLinha);
+        }
+
+        private void CarregarCamposDaLinhaNovaLinha(EstoqueViewModel estoque)
+        {
+            _atualizandoCampos = true;
+
+            cmbMaterial.SelectedIndex = -1;
+
+            txtQuantidade.Text = "";
+
+            cmbStatus.SelectedItem = estoque.Status;
+
+            cmbCliente.SelectedIndex = -1;
+
+            txtObs.Text = "";
+
+            _atualizandoCampos = false;
+
+            cmbMaterial.Focus();
         }
 
         private void btnExcluirLinha_Click(object sender, EventArgs e)
@@ -510,8 +714,12 @@ namespace Reverse.Forms.FormsExpedicao
                 return;
             }
 
-            var estoque = dgvMaterial.CurrentRow.DataBoundItem as EstoqueViewModel;
-            if (estoque == null) return;
+            var rowView = dgvMaterial.CurrentRow.DataBoundItem as DataRowView;
+            if (rowView == null) { _linhaAtual = null; return; }
+
+            int id = rowView.Row.Field<int>("Id");
+            var estoque = _estoqueList.FirstOrDefault(x => x.Id == id);
+            if (estoque == null) { _linhaAtual = null; return; }
 
             _linhaAtual = estoque;
 
@@ -537,10 +745,17 @@ namespace Reverse.Forms.FormsExpedicao
                 cmbMaterial.SelectedItem = estoque.Material;
             }
 
-            if (estoque.EhPeso)
-                txtQuantidade.Text = estoque.Quantidade.ToString("N3");
+            if (estoque.Quantidade > 0)
+            {
+                if (estoque.EhPeso)
+                    txtQuantidade.Text = estoque.Quantidade.ToString("N3");
+                else
+                    txtQuantidade.Text = estoque.Quantidade.ToString("N0");
+            }
             else
-                txtQuantidade.Text = estoque.Quantidade.ToString("N0");
+            {
+                txtQuantidade.Text = "";
+            }
 
             cmbStatus.SelectedItem = estoque.Status;
 
@@ -553,55 +768,7 @@ namespace Reverse.Forms.FormsExpedicao
 
             _atualizandoCampos = false;
         }
-        private void AtualizarLinhaAtual()
-        {
-            if (_linhaAtual == null || _atualizandoCampos) return;
 
-            _linhaAtual.EhPeso = rbmPeso.Checked;
-
-            try
-            {
-                if (cmbMaterial.SelectedItem is Material mat)
-                    _linhaAtual.Material = mat.Nome;
-                else
-                    _linhaAtual.Material = cmbMaterial.Text;
-
-                decimal qtd;
-                if (decimal.TryParse(txtQuantidade.Text,
-                                     NumberStyles.Number,
-                                     CultureInfo.CurrentCulture,
-                                     out qtd))
-                {
-                    if (_linhaAtual.EhPeso)
-                    {
-                        qtd = Math.Round(qtd, 3, MidpointRounding.AwayFromZero);
-                    }
-                    else
-                    {
-                        qtd = Math.Truncate(qtd);
-                    }
-
-                    _linhaAtual.Quantidade = qtd;
-                }
-
-                _linhaAtual.Status = cmbStatus.SelectedItem?.ToString() ?? "";
-                _linhaAtual.ClienteNome = cmbCliente.Text;
-                _linhaAtual.Observacao = txtObs.Text;
-
-                if (_linhaAtual.Status == "Vendido")
-                {
-                    if (_linhaAtual.DataSaida == null)
-                        _linhaAtual.DataSaida = DateTime.Now;
-                }
-                else
-                {
-                    _linhaAtual.DataSaida = null;
-                }
-
-                dgvMaterial.Refresh();
-            }
-            catch { }
-        }
         private void LimparCampos()
         {
             _atualizandoCampos = true;
@@ -625,60 +792,82 @@ namespace Reverse.Forms.FormsExpedicao
             try
             {
                 using (var ctx = new ReverseContext())
+                using (var transaction = ctx.Database.BeginTransaction())
                 {
-                    int mes = cmbMes.SelectedIndex + 1;
-                    int ano = (int)cmbAno.SelectedItem;
-
-                    foreach (var item in _estoqueList)
+                    try
                     {
-                        if (string.IsNullOrWhiteSpace(item.Material))
-                            continue;
+                        int mes = cmbMes.SelectedIndex + 1;
+                        int ano = (int)cmbAno.SelectedItem;
 
-                        Estoque estoque;
-                        if (item.Id > 0)
+                        var idsExistentes = _estoqueList.Where(x => x.Id > 0).Select(x => x.Id).ToList();
+                        var estoquesDb = ctx.Estoques
+                            .Where(e => idsExistentes.Contains(e.Id))
+                            .ToDictionary(e => e.Id);
+
+                        var nomesClientes = _estoqueList
+                            .Where(x => !string.IsNullOrWhiteSpace(x.ClienteNome))
+                            .Select(x => x.ClienteNome.Trim())
+                            .Distinct()
+                            .ToList();
+
+                        var clientesDict = ctx.Clientes
+                            .Where(c => nomesClientes.Contains(c.Nome))
+                            .ToDictionary(c => c.Nome.Trim(), c => c.ClienteId, StringComparer.OrdinalIgnoreCase);
+
+                        foreach (var item in _estoqueList)
                         {
-                            estoque = ctx.Estoques.FirstOrDefault(x => x.Id == item.Id);
-                            if (estoque == null) continue;
-                        }
-                        else
-                        {
-                            estoque = new Estoque();
-                            ctx.Estoques.Add(estoque);
+                            if (string.IsNullOrWhiteSpace(item.Material))
+                                continue;
+
+                            Estoque estoque;
+                            if (item.Id > 0)
+                            {
+                                if (!estoquesDb.TryGetValue(item.Id, out estoque))
+                                    continue;
+                            }
+                            else
+                            {
+                                estoque = new Estoque();
+                                ctx.Estoques.Add(estoque);
+                            }
+
+                            estoque.Material = item.Material;
+                            estoque.DataEntrada = item.DataEntrada;
+                            estoque.DataSaida = item.DataSaida;
+                            estoque.Quantidade = item.EhPeso
+                                ? Math.Round(item.Quantidade, 3, MidpointRounding.AwayFromZero)
+                                : Math.Truncate(item.Quantidade);
+                            estoque.EhPeso = item.EhPeso;
+                            estoque.Status = item.Status ?? "Aguardando Peso";
+                            estoque.Observacao = item.Observacao;
+                            estoque.Mes = mes;
+                            estoque.Ano = ano;
+
+                            if (!string.IsNullOrWhiteSpace(item.ClienteNome) &&
+                                clientesDict.TryGetValue(item.ClienteNome.Trim(), out int clienteId))
+                            {
+                                estoque.ClienteId = clienteId;
+                            }
+                            else
+                            {
+                                estoque.ClienteId = 0;
+                            }
                         }
 
-                        estoque.Material = item.Material;
-                        estoque.DataEntrada = item.DataEntrada;
-                        estoque.DataSaida = item.DataSaida;
+                        ctx.SaveChanges();
+                        transaction.Commit();
 
-                        if (item.EhPeso)
-                            estoque.Quantidade = Math.Round(item.Quantidade, 3, MidpointRounding.AwayFromZero);
-                        else
-                            estoque.Quantidade = Math.Truncate(item.Quantidade);
+                        MessageBox.Show("Estoque salvo com sucesso!", "Sucesso",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        estoque.EhPeso = item.EhPeso;
-                        estoque.Status = item.Status ?? "Aguardando Peso";
-                        estoque.Observacao = item.Observacao;
-                        estoque.Mes = mes;
-                        estoque.Ano = ano;
-
-                        if (!string.IsNullOrWhiteSpace(item.ClienteNome))
-                        {
-                            var cliente = ctx.Clientes.FirstOrDefault(c => c.Nome == item.ClienteNome);
-                            estoque.ClienteId = cliente?.ClienteId ?? 0;
-                        }
-                        else
-                        {
-                            estoque.ClienteId = 0;
-                        }
+                        CarregarEstoque();
                     }
-
-                    ctx.SaveChanges();
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
-
-                MessageBox.Show("Estoque salvo com sucesso!", "Sucesso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                CarregarEstoque();
             }
             catch (Exception ex)
             {
@@ -763,25 +952,25 @@ namespace Reverse.Forms.FormsExpedicao
 
         private void btnMaterial_Click(object sender, EventArgs e)
         {
+            var materialAtual = _linhaAtual?.Material;
+
             var formMaterial = new ExpedicaoFormMaterialEstoque(_usuarioId);
             formMaterial.ShowDialog();
-
-            var materialAtual = _linhaAtual?.Material;
 
             using (var ctx = new ReverseContext())
             {
                 var materiais = ctx.Materiais.OrderBy(m => m.Nome).ToList();
+
                 cmbMaterial.DataSource = materiais;
                 cmbMaterial.DisplayMember = "Nome";
                 cmbMaterial.ValueMember = "Id";
-            }
 
-            if (!string.IsNullOrEmpty(materialAtual))
-            {
-                var lista = cmbMaterial.DataSource as List<Material>;
-                var sel = lista?.FirstOrDefault(m => m.Nome == materialAtual);
-                if (sel != null)
-                    cmbMaterial.SelectedItem = sel;
+                if (!string.IsNullOrEmpty(materialAtual))
+                {
+                    var sel = materiais.FirstOrDefault(m => m.Nome == materialAtual);
+                    if (sel != null)
+                        cmbMaterial.SelectedItem = sel;
+                }
             }
         }
     }

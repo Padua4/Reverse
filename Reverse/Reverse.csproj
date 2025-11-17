@@ -68,7 +68,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>globinho_recortado.ico</ApplicationIcon>
+    <ApplicationIcon>PNG-globo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AdvancedDataGridView, Version=0.1.0.10, Culture=neutral, processorArchitecture=MSIL">
@@ -378,7 +378,7 @@
     <Compile Include="Forms\FormsFinanceiro\FinanceiroFormGraficos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormsFinanceiro\FormGraficos.Designer.cs">
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormGraficos.Designer.cs">
       <DependentUpon>FinanceiroFormGraficos.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormsFinanceiro\FinanceiroFormLotesReceber.cs">
@@ -410,6 +410,12 @@
     </Compile>
     <Compile Include="Forms\FormsFinanceiro\FinanceiroFormSelecionarData.Designer.cs">
       <DependentUpon>FinanceiroFormSelecionarData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsFiscal\FiscalFormHub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsFiscal\FiscalFormHub.Designer.cs">
+      <DependentUpon>FiscalFormHub.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormsLogin\FormConfigU.cs">
       <SubType>Form</SubType>
@@ -590,10 +596,10 @@
     <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormFinanceiroHub.resx">
       <DependentUpon>FinanceiroFormFinanceiroHub.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormsFinanceiro\FormGraficos.resx">
+    <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormGraficos.resx">
       <DependentUpon>FinanceiroFormGraficos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormsFinanceiro\formLotesReceber.resx">
+    <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormLotesReceber.resx">
       <DependentUpon>FinanceiroFormLotesReceber.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormPagar.resx">
@@ -607,6 +613,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormSelecionarData.resx">
       <DependentUpon>FinanceiroFormSelecionarData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsFiscal\FiscalFormHub.resx">
+      <DependentUpon>FiscalFormHub.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsLogin\FormConfigU.resx">
       <DependentUpon>FormConfigU.cs</DependentUpon>
@@ -731,75 +740,7 @@
     <Content Include="bolsa-de-compras.ico" />
     <Content Include="globinho.ico" />
     <Content Include="globinho_recortado.ico" />
-    <Content Include="ImagensCategorias\11.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\15.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\17.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\23.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\27.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\28.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\29.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\35.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\36.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\41.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\42.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\43.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\44.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\45.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\47.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\48.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\50.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\53.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\56.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\57.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImagensCategorias\8.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="PNG-globo.ico" />
     <EmbeddedResource Include="Resources\AssinaturaLaudo.jpg" />
     <EmbeddedResource Include="Resources\CertificadoTemplate.png" />
     <EmbeddedResource Include="Resources\logo_dld.jpg" />

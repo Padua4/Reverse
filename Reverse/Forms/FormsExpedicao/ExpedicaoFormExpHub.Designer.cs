@@ -20,6 +20,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExpedicaoFormExpHub));
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.picEstoque = new System.Windows.Forms.PictureBox();
             this.btnMinimizar = new System.Windows.Forms.Button();
             this.picDesc = new System.Windows.Forms.PictureBox();
             this.picFrete = new System.Windows.Forms.PictureBox();
@@ -27,13 +28,12 @@
             this.picControle = new System.Windows.Forms.PictureBox();
             this.btnSair = new System.Windows.Forms.Button();
             this.pnlConteudo = new System.Windows.Forms.Panel();
-            this.picEstoque = new System.Windows.Forms.PictureBox();
             this.pnlHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picEstoque)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDesc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFrete)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCadastro)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picControle)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picEstoque)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -51,6 +51,18 @@
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(1920, 34);
             this.pnlHeader.TabIndex = 2;
+            // 
+            // picEstoque
+            // 
+            this.picEstoque.BackColor = System.Drawing.Color.White;
+            this.picEstoque.Dock = System.Windows.Forms.DockStyle.Left;
+            this.picEstoque.Image = ((System.Drawing.Image)(resources.GetObject("picEstoque.Image")));
+            this.picEstoque.Location = new System.Drawing.Point(224, 0);
+            this.picEstoque.Name = "picEstoque";
+            this.picEstoque.Size = new System.Drawing.Size(56, 34);
+            this.picEstoque.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picEstoque.TabIndex = 9;
+            this.picEstoque.TabStop = false;
             // 
             // btnMinimizar
             // 
@@ -129,25 +141,14 @@
             // 
             // pnlConteudo
             // 
+            this.pnlConteudo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.pnlConteudo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlConteudo.Location = new System.Drawing.Point(0, 34);
             this.pnlConteudo.Name = "pnlConteudo";
             this.pnlConteudo.Size = new System.Drawing.Size(1920, 966);
             this.pnlConteudo.TabIndex = 3;
             // 
-            // picEstoque
-            // 
-            this.picEstoque.BackColor = System.Drawing.Color.White;
-            this.picEstoque.Dock = System.Windows.Forms.DockStyle.Left;
-            this.picEstoque.Image = ((System.Drawing.Image)(resources.GetObject("picEstoque.Image")));
-            this.picEstoque.Location = new System.Drawing.Point(224, 0);
-            this.picEstoque.Name = "picEstoque";
-            this.picEstoque.Size = new System.Drawing.Size(56, 34);
-            this.picEstoque.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picEstoque.TabIndex = 9;
-            this.picEstoque.TabStop = false;
-            // 
-            // FormExpHub
+            // ExpedicaoFormExpHub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -160,16 +161,16 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "FormExpHub";
+            this.Name = "ExpedicaoFormExpHub";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormExpHub";
             this.Load += new System.EventHandler(this.FormExpHub_Load);
             this.pnlHeader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picEstoque)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDesc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFrete)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCadastro)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picControle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picEstoque)).EndInit();
             this.ResumeLayout(false);
 
         }

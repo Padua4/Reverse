@@ -69,7 +69,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.panel1.Controls.Add(this.lblPesoRestante);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -101,18 +101,21 @@
             // 
             // btnLancamentos
             // 
+            this.btnLancamentos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.btnLancamentos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLancamentos.Location = new System.Drawing.Point(5, 772);
+            this.btnLancamentos.ForeColor = System.Drawing.Color.Black;
+            this.btnLancamentos.Location = new System.Drawing.Point(5, 808);
             this.btnLancamentos.Name = "btnLancamentos";
             this.btnLancamentos.Size = new System.Drawing.Size(399, 41);
             this.btnLancamentos.TabIndex = 7;
             this.btnLancamentos.Text = "Lançamentos";
-            this.btnLancamentos.UseVisualStyleBackColor = true;
+            this.btnLancamentos.UseVisualStyleBackColor = false;
             // 
             // btnLaudo
             // 
             this.btnLaudo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLaudo.Location = new System.Drawing.Point(5, 819);
+            this.btnLaudo.ForeColor = System.Drawing.Color.Black;
+            this.btnLaudo.Location = new System.Drawing.Point(5, 855);
             this.btnLaudo.Name = "btnLaudo";
             this.btnLaudo.Size = new System.Drawing.Size(399, 41);
             this.btnLaudo.TabIndex = 8;
@@ -123,7 +126,8 @@
             // btnCertificado
             // 
             this.btnCertificado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCertificado.Location = new System.Drawing.Point(5, 866);
+            this.btnCertificado.ForeColor = System.Drawing.Color.Black;
+            this.btnCertificado.Location = new System.Drawing.Point(5, 902);
             this.btnCertificado.Name = "btnCertificado";
             this.btnCertificado.Size = new System.Drawing.Size(399, 41);
             this.btnCertificado.TabIndex = 9;
@@ -146,11 +150,12 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 56);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(410, 910);
+            this.panel2.Size = new System.Drawing.Size(410, 949);
             this.panel2.TabIndex = 3;
             // 
             // txtVolume
             // 
+            this.txtVolume.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.txtVolume.Location = new System.Drawing.Point(0, 263);
             this.txtVolume.Name = "txtVolume";
             this.txtVolume.Size = new System.Drawing.Size(410, 33);
@@ -158,6 +163,7 @@
             // 
             // label5
             // 
+            this.label5.ForeColor = System.Drawing.Color.Black;
             this.label5.Location = new System.Drawing.Point(0, 225);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(410, 35);
@@ -167,6 +173,7 @@
             // 
             // txtPeso
             // 
+            this.txtPeso.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.txtPeso.Location = new System.Drawing.Point(0, 189);
             this.txtPeso.Name = "txtPeso";
             this.txtPeso.Size = new System.Drawing.Size(410, 33);
@@ -174,6 +181,7 @@
             // 
             // label4
             // 
+            this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(0, 151);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(410, 35);
@@ -183,6 +191,8 @@
             // 
             // dtpData
             // 
+            this.dtpData.CalendarFont = new System.Drawing.Font("Segoe UI", 14.25F);
+            this.dtpData.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.dtpData.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpData.Location = new System.Drawing.Point(0, 115);
             this.dtpData.Name = "dtpData";
@@ -191,6 +201,7 @@
             // 
             // label3
             // 
+            this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(0, 77);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(410, 35);
@@ -202,6 +213,7 @@
             // 
             this.cbEmpresa.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbEmpresa.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbEmpresa.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbEmpresa.FormattingEnabled = true;
             this.cbEmpresa.Location = new System.Drawing.Point(0, 41);
             this.cbEmpresa.Name = "cbEmpresa";
@@ -210,6 +222,7 @@
             // 
             // label2
             // 
+            this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(0, 3);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(410, 35);
@@ -229,17 +242,17 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1510, 910);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1510, 949);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // dgvTickets
             // 
-            this.dgvTickets.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.dgvTickets.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvTickets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTickets.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTickets.Location = new System.Drawing.Point(3, 3);
             this.dgvTickets.Name = "dgvTickets";
-            this.dgvTickets.Size = new System.Drawing.Size(749, 904);
+            this.dgvTickets.Size = new System.Drawing.Size(749, 943);
             this.dgvTickets.TabIndex = 0;
             // 
             // panel3
@@ -250,24 +263,24 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(758, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(749, 904);
+            this.panel3.Size = new System.Drawing.Size(749, 943);
             this.panel3.TabIndex = 1;
             // 
             // dgvTotal
             // 
-            this.dgvTotal.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.dgvTotal.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvTotal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTotal.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvTotal.Location = new System.Drawing.Point(0, 530);
             this.dgvTotal.Name = "dgvTotal";
-            this.dgvTotal.Size = new System.Drawing.Size(749, 306);
+            this.dgvTotal.Size = new System.Drawing.Size(749, 342);
             this.dgvTotal.TabIndex = 3;
             // 
             // panel4
             // 
             this.panel4.Controls.Add(this.tableLayoutPanel2);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 839);
+            this.panel4.Location = new System.Drawing.Point(0, 878);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(749, 65);
             this.panel4.TabIndex = 2;
@@ -298,6 +311,7 @@
             // 
             this.btnCancelar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.ForeColor = System.Drawing.Color.Black;
             this.btnCancelar.Location = new System.Drawing.Point(152, 3);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(143, 59);
@@ -309,6 +323,7 @@
             // 
             this.btnCarregar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCarregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCarregar.ForeColor = System.Drawing.Color.Black;
             this.btnCarregar.Location = new System.Drawing.Point(3, 3);
             this.btnCarregar.Name = "btnCarregar";
             this.btnCarregar.Size = new System.Drawing.Size(143, 59);
@@ -320,6 +335,7 @@
             // 
             this.btnSalvar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalvar.ForeColor = System.Drawing.Color.Black;
             this.btnSalvar.Location = new System.Drawing.Point(599, 3);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(147, 59);
@@ -331,6 +347,7 @@
             // 
             this.btnCriarLinha.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCriarLinha.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCriarLinha.ForeColor = System.Drawing.Color.Black;
             this.btnCriarLinha.Location = new System.Drawing.Point(450, 3);
             this.btnCriarLinha.Name = "btnCriarLinha";
             this.btnCriarLinha.Size = new System.Drawing.Size(143, 59);
@@ -343,6 +360,7 @@
             // 
             this.btnExcluirLinha.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnExcluirLinha.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExcluirLinha.ForeColor = System.Drawing.Color.Black;
             this.btnExcluirLinha.Location = new System.Drawing.Point(301, 3);
             this.btnExcluirLinha.Name = "btnExcluirLinha";
             this.btnExcluirLinha.Size = new System.Drawing.Size(143, 59);
@@ -353,7 +371,7 @@
             // 
             // dgvBalanca
             // 
-            this.dgvBalanca.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.dgvBalanca.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvBalanca.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBalanca.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvBalanca.Location = new System.Drawing.Point(0, 0);
@@ -365,8 +383,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(1920, 966);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
+            this.ClientSize = new System.Drawing.Size(1920, 1005);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

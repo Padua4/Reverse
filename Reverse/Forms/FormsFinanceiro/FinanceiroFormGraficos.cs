@@ -9,7 +9,7 @@ using System.Configuration;
 
 namespace SeuProjeto
 {
-    public partial class FormGraficos : Form
+    public partial class FinanceiroFormGraficos : Form
     {
         private readonly string connectionString =
             ConfigurationManager.ConnectionStrings["ReverseDB"].ConnectionString;
@@ -21,7 +21,7 @@ namespace SeuProjeto
         private Chart chartGastos;
         private Chart chartComparativo;
 
-        public FormGraficos(int _usuarioId)
+        public FinanceiroFormGraficos(int _usuarioId)
         {
             InitializeComponent();
             InitializeCharts();

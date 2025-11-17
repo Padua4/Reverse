@@ -47,7 +47,7 @@
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.pnlHeader.Controls.Add(this.lblLoteAtual);
             this.pnlHeader.Controls.Add(this.btnContasSelecionar);
             this.pnlHeader.Controls.Add(this.label1);
@@ -93,22 +93,22 @@
             // dgvContasPagar
             // 
             this.dgvContasPagar.AllowUserToAddRows = false;
-            this.dgvContasPagar.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dgvContasPagar.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvContasPagar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvContasPagar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvContasPagar.Location = new System.Drawing.Point(0, 56);
             this.dgvContasPagar.Name = "dgvContasPagar";
-            this.dgvContasPagar.Size = new System.Drawing.Size(1920, 910);
+            this.dgvContasPagar.Size = new System.Drawing.Size(1920, 949);
             this.dgvContasPagar.TabIndex = 3;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 891);
+            this.panel1.Location = new System.Drawing.Point(0, 949);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1920, 75);
+            this.panel1.Size = new System.Drawing.Size(1920, 56);
             this.panel1.TabIndex = 4;
             // 
             // tableLayoutPanel1
@@ -126,7 +126,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1005, 75);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1005, 56);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnPago
@@ -137,7 +137,7 @@
             this.btnPago.ForeColor = System.Drawing.Color.White;
             this.btnPago.Location = new System.Drawing.Point(673, 3);
             this.btnPago.Name = "btnPago";
-            this.btnPago.Size = new System.Drawing.Size(329, 69);
+            this.btnPago.Size = new System.Drawing.Size(329, 50);
             this.btnPago.TabIndex = 4;
             this.btnPago.Text = "PAGO";
             this.btnPago.UseVisualStyleBackColor = false;
@@ -150,7 +150,7 @@
             this.btnExcluir.ForeColor = System.Drawing.Color.White;
             this.btnExcluir.Location = new System.Drawing.Point(338, 3);
             this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(329, 69);
+            this.btnExcluir.Size = new System.Drawing.Size(329, 50);
             this.btnExcluir.TabIndex = 3;
             this.btnExcluir.Text = "Excluir Linha";
             this.btnExcluir.UseVisualStyleBackColor = false;
@@ -163,7 +163,7 @@
             this.btnCriar.ForeColor = System.Drawing.Color.Black;
             this.btnCriar.Location = new System.Drawing.Point(3, 3);
             this.btnCriar.Name = "btnCriar";
-            this.btnCriar.Size = new System.Drawing.Size(329, 69);
+            this.btnCriar.Size = new System.Drawing.Size(329, 50);
             this.btnCriar.TabIndex = 2;
             this.btnCriar.Text = "Nova Linha";
             this.btnCriar.UseVisualStyleBackColor = false;
@@ -173,7 +173,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(1920, 966);
+            this.ClientSize = new System.Drawing.Size(1920, 1005);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvContasPagar);
             this.Controls.Add(this.pnlHeader);

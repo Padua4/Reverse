@@ -16,6 +16,8 @@ namespace Reverse.Forms.FormsExpedicao
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["ReverseDB"].ConnectionString;
         private int? controleAtualId;
         private DateTime? dataFiltro;
+        private DataTable cacheVeiculos;
+        private DateTime ultimaAtualizacaoVeiculos = DateTime.MinValue;
 
         private bool isBindingGrid = false;
 
@@ -54,6 +56,9 @@ namespace Reverse.Forms.FormsExpedicao
 
             txtCustoTotal.ReadOnly = true;
             txtCustoTotal.BackColor = SystemColors.Control;
+
+            dgvControle.RowsDefaultCellStyle.BackColor = Color.White;
+            dgvControle.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
 
             _bindingSource = new BindingSource();
             dgvControle.DataSource = _bindingSource;
@@ -205,20 +210,30 @@ namespace Reverse.Forms.FormsExpedicao
 
         private async Task CarregarModelosVeiculoAsync()
         {
+            if (cacheVeiculos != null && (DateTime.Now - ultimaAtualizacaoVeiculos).TotalMinutes < 5)
+            {
+                cbModeloVeiculo.DataSource = cacheVeiculos;
+                cbModeloVeiculo.DisplayMember = "Modelo";
+                cbModeloVeiculo.ValueMember = "VeiculoId";
+                return;
+            }
+
             using (var conn = new SqlConnection(connectionString))
             {
                 await conn.OpenAsync();
-                var cmd = new SqlCommand("SELECT VeiculoId, Modelo, Categoria FROM Veiculos ORDER BY Modelo", conn);
+                var cmd = new SqlCommand("SELECT VeiculoId, Modelo, Categoria FROM Veiculos WHERE Ativo = 1 ORDER BY Modelo", conn);
 
-                var dt = new DataTable();
+                cacheVeiculos = new DataTable();
                 using (var adapter = new SqlDataAdapter(cmd))
                 {
-                    adapter.Fill(dt);
+                    adapter.Fill(cacheVeiculos);
                 }
 
-                cbModeloVeiculo.DataSource = dt;
+                cbModeloVeiculo.DataSource = cacheVeiculos;
                 cbModeloVeiculo.DisplayMember = "Modelo";
                 cbModeloVeiculo.ValueMember = "VeiculoId";
+
+                ultimaAtualizacaoVeiculos = DateTime.Now;
             }
         }
 
@@ -241,13 +256,13 @@ namespace Reverse.Forms.FormsExpedicao
             cbLogistica.Items.Clear();
             cbLogistica.Items.AddRange(new string[]
             {
-                "Em execução","Concluído","Não Efetuado","Programado"
+                "EM EXECUÇÃO","CONCLUÍDO","NÃO EFETUADO","PROGRAMADO"
             });
 
             cbLaudo.Items.Clear();
             cbLaudo.Items.AddRange(new string[]
             {
-                "Emitido","Fotos","Não se aplica","Aguardando","Liberado","Balanço de massa"
+                "EMITIDO","FOTOS","NÃO SE APLICA","AGUARDANDO","LIBERADO","BALANÇO DE MASSA"
             });
         }
 
@@ -260,24 +275,22 @@ namespace Reverse.Forms.FormsExpedicao
                     await conn.OpenAsync();
 
                     string sql = @"
-                    SELECT Id, Gerador, Localidade, Data, Ticket, ModeloVeiculo, 
-                           Motorista, Ajudante1, Servico, StatusLogistica, StatusLaudo
-                    FROM ControleLogistico WITH (NOLOCK)
-                    WHERE (@DataFiltro IS NULL OR Data >= @DataInicio AND Data < @DataFim)
-                    ORDER BY Data DESC, Id DESC";
+                        SELECT Id, Gerador, Localidade, Data, Ticket, ModeloVeiculo, 
+                               Motorista, Ajudante1, Servico, StatusLogistica, StatusLaudo
+                        FROM ControleLogistico
+                        WHERE (@DataFiltro IS NULL OR CAST(Data AS DATE) = @DataFiltro)
+                        ORDER BY Data DESC, Id DESC";
 
                     using (var cmd = new SqlCommand(sql, conn))
                     {
+                        cmd.CommandTimeout = 60;
+
                         if (dataFiltro.HasValue)
                         {
-                            cmd.Parameters.AddWithValue("@DataInicio", dataFiltro.Value.Date);
-                            cmd.Parameters.AddWithValue("@DataFim", dataFiltro.Value.Date.AddDays(1));
                             cmd.Parameters.AddWithValue("@DataFiltro", dataFiltro.Value.Date);
                         }
                         else
                         {
-                            cmd.Parameters.AddWithValue("@DataInicio", DBNull.Value);
-                            cmd.Parameters.AddWithValue("@DataFim", DBNull.Value);
                             cmd.Parameters.AddWithValue("@DataFiltro", DBNull.Value);
                         }
 
@@ -289,9 +302,7 @@ namespace Reverse.Forms.FormsExpedicao
                         }
 
                         _bindingSource.DataSource = dt;
-
                         ConfigurarColunasGrid();
-
                         dgvControle.ClearSelection();
                         isBindingGrid = false;
                     }
@@ -322,7 +333,6 @@ namespace Reverse.Forms.FormsExpedicao
             dgvControle.Columns["StatusLogistica"].HeaderText = "Status Logística";
             dgvControle.Columns["StatusLaudo"].HeaderText = "Status Laudo";
 
-            // 🔹 Formatação de moeda
             if (dgvControle.Columns.Contains("CombustivelPedagio"))
                 dgvControle.Columns["CombustivelPedagio"].DefaultCellStyle.Format = "C2";
             if (dgvControle.Columns.Contains("CafeManha"))
@@ -334,7 +344,6 @@ namespace Reverse.Forms.FormsExpedicao
             if (dgvControle.Columns.Contains("CustoTotal"))
                 dgvControle.Columns["CustoTotal"].DefaultCellStyle.Format = "C2";
 
-            // 🔹 Formatação de KM
             if (dgvControle.Columns.Contains("KmPercorrido"))
                 dgvControle.Columns["KmPercorrido"].DefaultCellStyle.Format = "N0";
 
@@ -714,19 +723,27 @@ namespace Reverse.Forms.FormsExpedicao
         {
             try
             {
-                // Carregar Motoristas
                 var dtMotoristas = ExpedicaoFormMotorista.ObterMotoristas("Motorista");
 
                 if (cmbMotorista != null)
                 {
+                    DataRow rowVazio = dtMotoristas.NewRow();
+                    rowVazio["NomeInterno"] = "";
+                    rowVazio["MotoristaId"] = DBNull.Value;
+                    dtMotoristas.Rows.InsertAt(rowVazio, 0);
+
                     cmbMotorista.DataSource = dtMotoristas;
                     cmbMotorista.DisplayMember = "NomeInterno";
                     cmbMotorista.ValueMember = "MotoristaId";
                     cmbMotorista.SelectedIndex = -1;
                 }
 
-                // Carregar Ajudantes
                 var dtAjudantes = ExpedicaoFormMotorista.ObterMotoristas("Ajudante");
+
+                DataRow rowVazioAjudante = dtAjudantes.NewRow();
+                rowVazioAjudante["NomeInterno"] = "";
+                rowVazioAjudante["MotoristaId"] = DBNull.Value;
+                dtAjudantes.Rows.InsertAt(rowVazioAjudante, 0);
 
                 if (cmbAjudante1 != null)
                 {
@@ -750,6 +767,5 @@ namespace Reverse.Forms.FormsExpedicao
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
     }
 }

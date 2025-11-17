@@ -7,6 +7,7 @@ using Reverse.Models;
 using SeuProjeto;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -26,6 +27,11 @@ namespace Reverse.Forms
         public MainForm()
         {
             InitializeComponent();
+
+            Rectangle areaTrabalho = Screen.PrimaryScreen.WorkingArea;
+
+            this.Location = areaTrabalho.Location;
+            this.Size = areaTrabalho.Size;
         }
 
         public MainForm(string usuario, string setor)

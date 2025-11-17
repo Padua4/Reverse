@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TriagemForm));
             this.panelHeader = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSelecionarPalete = new System.Windows.Forms.Button();
@@ -63,7 +64,7 @@
             // 
             // panelHeader
             // 
-            this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.panelHeader.Controls.Add(this.label1);
             this.panelHeader.Controls.Add(this.btnSelecionarPalete);
             this.panelHeader.Controls.Add(this.chkUltimosPrimeiro);
@@ -158,7 +159,7 @@
             // 
             this.btnEditarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditarItem.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnEditarItem.ForeColor = System.Drawing.Color.White;
+            this.btnEditarItem.ForeColor = System.Drawing.Color.Black;
             this.btnEditarItem.Location = new System.Drawing.Point(243, 3);
             this.btnEditarItem.Name = "btnEditarItem";
             this.btnEditarItem.Size = new System.Drawing.Size(234, 48);
@@ -171,7 +172,7 @@
             // 
             this.btnNovoItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNovoItem.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnNovoItem.ForeColor = System.Drawing.Color.White;
+            this.btnNovoItem.ForeColor = System.Drawing.Color.Black;
             this.btnNovoItem.Location = new System.Drawing.Point(3, 3);
             this.btnNovoItem.Name = "btnNovoItem";
             this.btnNovoItem.Size = new System.Drawing.Size(234, 48);
@@ -184,7 +185,7 @@
             // 
             this.btnExportarPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportarPDF.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnExportarPDF.ForeColor = System.Drawing.Color.White;
+            this.btnExportarPDF.ForeColor = System.Drawing.Color.Black;
             this.btnExportarPDF.Location = new System.Drawing.Point(963, 3);
             this.btnExportarPDF.Name = "btnExportarPDF";
             this.btnExportarPDF.Size = new System.Drawing.Size(234, 48);
@@ -197,7 +198,7 @@
             // 
             this.btnExportarExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportarExcel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnExportarExcel.ForeColor = System.Drawing.Color.White;
+            this.btnExportarExcel.ForeColor = System.Drawing.Color.Black;
             this.btnExportarExcel.Location = new System.Drawing.Point(723, 3);
             this.btnExportarExcel.Name = "btnExportarExcel";
             this.btnExportarExcel.Size = new System.Drawing.Size(234, 48);
@@ -226,17 +227,17 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1920, 856);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1920, 895);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // dgvProdutos
             // 
-            this.dgvProdutos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.dgvProdutos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvProdutos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProdutos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvProdutos.Location = new System.Drawing.Point(3, 3);
             this.dgvProdutos.Name = "dgvProdutos";
-            this.dgvProdutos.Size = new System.Drawing.Size(762, 850);
+            this.dgvProdutos.Size = new System.Drawing.Size(762, 889);
             this.dgvProdutos.TabIndex = 1;
             this.dgvProdutos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DgvProdutos_CellFormatting);
             // 
@@ -254,7 +255,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.909953F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.98104F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.109005F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1146, 850);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1146, 889);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -271,11 +272,11 @@
             this.tableLayoutPanel4.Controls.Add(this.lblTotalPalete, 4, 0);
             this.tableLayoutPanel4.Controls.Add(this.btnFinalizado, 3, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 792);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 828);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1140, 55);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1140, 58);
             this.tableLayoutPanel4.TabIndex = 6;
             // 
             // btnAdicionarItem
@@ -283,10 +284,10 @@
             this.btnAdicionarItem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAdicionarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdicionarItem.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnAdicionarItem.ForeColor = System.Drawing.Color.White;
+            this.btnAdicionarItem.ForeColor = System.Drawing.Color.Black;
             this.btnAdicionarItem.Location = new System.Drawing.Point(3, 3);
             this.btnAdicionarItem.Name = "btnAdicionarItem";
-            this.btnAdicionarItem.Size = new System.Drawing.Size(222, 49);
+            this.btnAdicionarItem.Size = new System.Drawing.Size(222, 52);
             this.btnAdicionarItem.TabIndex = 0;
             this.btnAdicionarItem.Text = "Adicionar →";
             this.btnAdicionarItem.UseVisualStyleBackColor = true;
@@ -298,10 +299,10 @@
             this.btnAtualizarItem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAtualizarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAtualizarItem.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnAtualizarItem.ForeColor = System.Drawing.Color.White;
+            this.btnAtualizarItem.ForeColor = System.Drawing.Color.Black;
             this.btnAtualizarItem.Location = new System.Drawing.Point(459, 3);
             this.btnAtualizarItem.Name = "btnAtualizarItem";
-            this.btnAtualizarItem.Size = new System.Drawing.Size(222, 49);
+            this.btnAtualizarItem.Size = new System.Drawing.Size(222, 52);
             this.btnAtualizarItem.TabIndex = 2;
             this.btnAtualizarItem.Text = "Atualizar Qtde/Valor";
             this.btnAtualizarItem.UseVisualStyleBackColor = true;
@@ -312,10 +313,10 @@
             this.btnRemoverItem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnRemoverItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemoverItem.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnRemoverItem.ForeColor = System.Drawing.Color.White;
+            this.btnRemoverItem.ForeColor = System.Drawing.Color.Black;
             this.btnRemoverItem.Location = new System.Drawing.Point(231, 3);
             this.btnRemoverItem.Name = "btnRemoverItem";
-            this.btnRemoverItem.Size = new System.Drawing.Size(222, 49);
+            this.btnRemoverItem.Size = new System.Drawing.Size(222, 52);
             this.btnRemoverItem.TabIndex = 1;
             this.btnRemoverItem.Text = "← Remover";
             this.btnRemoverItem.UseVisualStyleBackColor = true;
@@ -326,10 +327,10 @@
             this.lblTotalPalete.AutoSize = true;
             this.lblTotalPalete.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTotalPalete.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalPalete.ForeColor = System.Drawing.Color.White;
+            this.lblTotalPalete.ForeColor = System.Drawing.Color.Black;
             this.lblTotalPalete.Location = new System.Drawing.Point(915, 0);
             this.lblTotalPalete.Name = "lblTotalPalete";
-            this.lblTotalPalete.Size = new System.Drawing.Size(222, 55);
+            this.lblTotalPalete.Size = new System.Drawing.Size(222, 58);
             this.lblTotalPalete.TabIndex = 3;
             this.lblTotalPalete.Text = "Total";
             this.lblTotalPalete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -338,10 +339,10 @@
             // 
             this.btnFinalizado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnFinalizado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFinalizado.ForeColor = System.Drawing.Color.GreenYellow;
+            this.btnFinalizado.ForeColor = System.Drawing.Color.Black;
             this.btnFinalizado.Location = new System.Drawing.Point(687, 3);
             this.btnFinalizado.Name = "btnFinalizado";
-            this.btnFinalizado.Size = new System.Drawing.Size(222, 49);
+            this.btnFinalizado.Size = new System.Drawing.Size(222, 52);
             this.btnFinalizado.TabIndex = 4;
             this.btnFinalizado.Text = "Finalizar";
             this.btnFinalizado.UseVisualStyleBackColor = true;
@@ -349,41 +350,42 @@
             // 
             // dgvItensPalete
             // 
-            this.dgvItensPalete.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dgvItensPalete.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvItensPalete.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvItensPalete.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvItensPalete.Location = new System.Drawing.Point(3, 36);
+            this.dgvItensPalete.Location = new System.Drawing.Point(3, 37);
             this.dgvItensPalete.Name = "dgvItensPalete";
-            this.dgvItensPalete.Size = new System.Drawing.Size(1140, 750);
+            this.dgvItensPalete.Size = new System.Drawing.Size(1140, 785);
             this.dgvItensPalete.TabIndex = 5;
             this.dgvItensPalete.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvItensPalete_CellFormatting);
             // 
             // lblPaleteAtual
             // 
-            this.lblPaleteAtual.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.lblPaleteAtual.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.lblPaleteAtual.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblPaleteAtual.Font = new System.Drawing.Font("Segoe UI", 18.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPaleteAtual.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(240)))));
             this.lblPaleteAtual.Location = new System.Drawing.Point(3, 0);
             this.lblPaleteAtual.Name = "lblPaleteAtual";
-            this.lblPaleteAtual.Size = new System.Drawing.Size(1140, 33);
+            this.lblPaleteAtual.Size = new System.Drawing.Size(1140, 34);
             this.lblPaleteAtual.TabIndex = 4;
             this.lblPaleteAtual.Text = "PALETE ---";
             this.lblPaleteAtual.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // FormTriagem
+            // TriagemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(1920, 966);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
+            this.ClientSize = new System.Drawing.Size(1920, 1005);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelHeader);
             this.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "FormTriagem";
+            this.Name = "TriagemForm";
             this.Text = "FormTriagem";
             this.Load += new System.EventHandler(this.TriagemForm_Load);
             this.panelHeader.ResumeLayout(false);

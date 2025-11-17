@@ -30,44 +30,63 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.PanelHeader = new System.Windows.Forms.Panel();
+            this.btnConfiguracao = new System.Windows.Forms.Button();
             this.btnSair = new System.Windows.Forms.Button();
             this.lblGreeting = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.btnConfiguracao = new System.Windows.Forms.Button();
             this.picTriagem = new System.Windows.Forms.PictureBox();
             this.picFinanceiro = new System.Windows.Forms.PictureBox();
             this.picRH = new System.Windows.Forms.PictureBox();
             this.picExp = new System.Windows.Forms.PictureBox();
             this.picComercial = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.picFiscal = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.PanelHeader.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picTriagem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFinanceiro)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picExp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picComercial)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picFiscal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // PanelHeader
             // 
-            this.PanelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.PanelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.PanelHeader.Controls.Add(this.btnConfiguracao);
             this.PanelHeader.Controls.Add(this.btnSair);
             this.PanelHeader.Controls.Add(this.lblGreeting);
             this.PanelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelHeader.Location = new System.Drawing.Point(0, 0);
             this.PanelHeader.Name = "PanelHeader";
-            this.PanelHeader.Size = new System.Drawing.Size(1890, 67);
+            this.PanelHeader.Size = new System.Drawing.Size(1920, 40);
             this.PanelHeader.TabIndex = 1;
             this.PanelHeader.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitulo_MouseDown);
+            // 
+            // btnConfiguracao
+            // 
+            this.btnConfiguracao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfiguracao.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfiguracao.ForeColor = System.Drawing.Color.White;
+            this.btnConfiguracao.Location = new System.Drawing.Point(1700, 1);
+            this.btnConfiguracao.Name = "btnConfiguracao";
+            this.btnConfiguracao.Size = new System.Drawing.Size(145, 39);
+            this.btnConfiguracao.TabIndex = 2;
+            this.btnConfiguracao.Text = "C.D.U";
+            this.btnConfiguracao.UseVisualStyleBackColor = true;
+            this.btnConfiguracao.Click += new System.EventHandler(this.btnConfiguracao_Click);
             // 
             // btnSair
             // 
@@ -75,9 +94,9 @@
             this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSair.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSair.ForeColor = System.Drawing.Color.White;
-            this.btnSair.Location = new System.Drawing.Point(1815, 0);
+            this.btnSair.Location = new System.Drawing.Point(1851, 0);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(75, 67);
+            this.btnSair.Size = new System.Drawing.Size(69, 40);
             this.btnSair.TabIndex = 1;
             this.btnSair.Text = "X";
             this.btnSair.UseVisualStyleBackColor = true;
@@ -86,92 +105,22 @@
             // lblGreeting
             // 
             this.lblGreeting.AutoSize = true;
-            this.lblGreeting.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGreeting.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGreeting.ForeColor = System.Drawing.Color.White;
-            this.lblGreeting.Location = new System.Drawing.Point(3, 9);
+            this.lblGreeting.Location = new System.Drawing.Point(3, 3);
             this.lblGreeting.Name = "lblGreeting";
-            this.lblGreeting.Size = new System.Drawing.Size(348, 47);
+            this.lblGreeting.Size = new System.Drawing.Size(240, 32);
             this.lblGreeting.TabIndex = 0;
             this.lblGreeting.Text = "Texto de bem vindo";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel3, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel4, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.picComercial, 4, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 67);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1890, 793);
-            this.tableLayoutPanel1.TabIndex = 2;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.picTriagem);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(372, 787);
-            this.panel1.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.picFinanceiro);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(381, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(372, 787);
-            this.panel2.TabIndex = 1;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.picRH);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(759, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(372, 787);
-            this.panel3.TabIndex = 2;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.picExp);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(1137, 3);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(372, 787);
-            this.panel4.TabIndex = 3;
-            // 
-            // btnConfiguracao
-            // 
-            this.btnConfiguracao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfiguracao.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfiguracao.ForeColor = System.Drawing.Color.White;
-            this.btnConfiguracao.Location = new System.Drawing.Point(1650, 12);
-            this.btnConfiguracao.Name = "btnConfiguracao";
-            this.btnConfiguracao.Size = new System.Drawing.Size(145, 44);
-            this.btnConfiguracao.TabIndex = 2;
-            this.btnConfiguracao.Text = "C.D.U";
-            this.btnConfiguracao.UseVisualStyleBackColor = true;
-            this.btnConfiguracao.Click += new System.EventHandler(this.btnConfiguracao_Click);
             // 
             // picTriagem
             // 
             this.picTriagem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.picTriagem.Image = ((System.Drawing.Image)(resources.GetObject("picTriagem.Image")));
-            this.picTriagem.Location = new System.Drawing.Point(0, 0);
+            this.picTriagem.Location = new System.Drawing.Point(3, 3);
             this.picTriagem.Name = "picTriagem";
-            this.picTriagem.Size = new System.Drawing.Size(372, 787);
-            this.picTriagem.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picTriagem.Size = new System.Drawing.Size(314, 474);
+            this.picTriagem.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picTriagem.TabIndex = 0;
             this.picTriagem.TabStop = false;
             this.picTriagem.Click += new System.EventHandler(this.picTriagem_Click);
@@ -180,10 +129,10 @@
             // 
             this.picFinanceiro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.picFinanceiro.Image = ((System.Drawing.Image)(resources.GetObject("picFinanceiro.Image")));
-            this.picFinanceiro.Location = new System.Drawing.Point(0, 0);
+            this.picFinanceiro.Location = new System.Drawing.Point(963, 3);
             this.picFinanceiro.Name = "picFinanceiro";
-            this.picFinanceiro.Size = new System.Drawing.Size(372, 787);
-            this.picFinanceiro.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picFinanceiro.Size = new System.Drawing.Size(314, 474);
+            this.picFinanceiro.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picFinanceiro.TabIndex = 0;
             this.picFinanceiro.TabStop = false;
             this.picFinanceiro.Click += new System.EventHandler(this.picFinanceiro_Click);
@@ -192,10 +141,10 @@
             // 
             this.picRH.Dock = System.Windows.Forms.DockStyle.Fill;
             this.picRH.Image = ((System.Drawing.Image)(resources.GetObject("picRH.Image")));
-            this.picRH.Location = new System.Drawing.Point(0, 0);
+            this.picRH.Location = new System.Drawing.Point(643, 3);
             this.picRH.Name = "picRH";
-            this.picRH.Size = new System.Drawing.Size(372, 787);
-            this.picRH.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picRH.Size = new System.Drawing.Size(314, 474);
+            this.picRH.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picRH.TabIndex = 0;
             this.picRH.TabStop = false;
             this.picRH.Click += new System.EventHandler(this.picRH_Click);
@@ -204,10 +153,10 @@
             // 
             this.picExp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.picExp.Image = ((System.Drawing.Image)(resources.GetObject("picExp.Image")));
-            this.picExp.Location = new System.Drawing.Point(0, 0);
+            this.picExp.Location = new System.Drawing.Point(323, 3);
             this.picExp.Name = "picExp";
-            this.picExp.Size = new System.Drawing.Size(372, 787);
-            this.picExp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picExp.Size = new System.Drawing.Size(314, 474);
+            this.picExp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picExp.TabIndex = 0;
             this.picExp.TabStop = false;
             this.picExp.Click += new System.EventHandler(this.picExp_Click);
@@ -216,20 +165,127 @@
             // 
             this.picComercial.Dock = System.Windows.Forms.DockStyle.Fill;
             this.picComercial.Image = ((System.Drawing.Image)(resources.GetObject("picComercial.Image")));
-            this.picComercial.Location = new System.Drawing.Point(1515, 3);
+            this.picComercial.Location = new System.Drawing.Point(1283, 3);
             this.picComercial.Name = "picComercial";
-            this.picComercial.Size = new System.Drawing.Size(372, 787);
-            this.picComercial.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picComercial.Size = new System.Drawing.Size(314, 474);
+            this.picComercial.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picComercial.TabIndex = 4;
             this.picComercial.TabStop = false;
             this.picComercial.Click += new System.EventHandler(this.picComercial_Click);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 6;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox7, 5, 1);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox6, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox5, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox4, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox3, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.picFinanceiro, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.picTriagem, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.picFiscal, 5, 0);
+            this.tableLayoutPanel1.Controls.Add(this.picComercial, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.picExp, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.picRH, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox2, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 40);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 960);
+            this.tableLayoutPanel1.TabIndex = 5;
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox7.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox7.Image")));
+            this.pictureBox7.Location = new System.Drawing.Point(1603, 483);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(314, 474);
+            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox7.TabIndex = 11;
+            this.pictureBox7.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
+            this.pictureBox6.Location = new System.Drawing.Point(1283, 483);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(314, 474);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox6.TabIndex = 10;
+            this.pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
+            this.pictureBox5.Location = new System.Drawing.Point(963, 483);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(314, 474);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox5.TabIndex = 9;
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.Location = new System.Drawing.Point(643, 483);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(314, 474);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 8;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(323, 483);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(314, 474);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 7;
+            this.pictureBox3.TabStop = false;
+            // 
+            // picFiscal
+            // 
+            this.picFiscal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picFiscal.Image = ((System.Drawing.Image)(resources.GetObject("picFiscal.Image")));
+            this.picFiscal.Location = new System.Drawing.Point(1603, 3);
+            this.picFiscal.Name = "picFiscal";
+            this.picFiscal.Size = new System.Drawing.Size(314, 474);
+            this.picFiscal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picFiscal.TabIndex = 5;
+            this.picFiscal.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(3, 483);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(314, 474);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 6;
+            this.pictureBox2.TabStop = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(1890, 860);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
+            this.ClientSize = new System.Drawing.Size(1920, 1000);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.PanelHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -239,16 +295,19 @@
             this.Text = "Hub";
             this.PanelHeader.ResumeLayout(false);
             this.PanelHeader.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picTriagem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFinanceiro)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRH)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picExp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picComercial)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picFiscal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -256,17 +315,20 @@
         #endregion
         private System.Windows.Forms.Panel PanelHeader;
         private System.Windows.Forms.Label lblGreeting;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox picTriagem;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.PictureBox picFinanceiro;
         private System.Windows.Forms.PictureBox picRH;
         private System.Windows.Forms.Button btnSair;
         private System.Windows.Forms.PictureBox picExp;
         private System.Windows.Forms.PictureBox picComercial;
         private System.Windows.Forms.Button btnConfiguracao;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.PictureBox picFiscal;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }

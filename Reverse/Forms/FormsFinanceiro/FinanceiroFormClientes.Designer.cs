@@ -160,7 +160,7 @@
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.pnlHeader.Controls.Add(this.label1);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
@@ -189,17 +189,17 @@
             this.tabControl1.Location = new System.Drawing.Point(483, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1434, 848);
+            this.tabControl1.Size = new System.Drawing.Size(1434, 887);
             this.tabControl1.TabIndex = 1;
             // 
             // tabDados
             // 
-            this.tabDados.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.tabDados.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.tabDados.Controls.Add(this.tableLayoutPanel3);
             this.tabDados.Location = new System.Drawing.Point(4, 34);
             this.tabDados.Name = "tabDados";
             this.tabDados.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDados.Size = new System.Drawing.Size(1426, 810);
+            this.tabDados.Size = new System.Drawing.Size(1426, 849);
             this.tabDados.TabIndex = 0;
             this.tabDados.Text = "Dados Cadastrais";
             // 
@@ -218,20 +218,21 @@
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1420, 804);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1420, 843);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // groupBox4
             // 
+            this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.groupBox4.Controls.Add(this.cmbStatus);
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Controls.Add(this.dtpCadastro);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.ForeColor = System.Drawing.Color.White;
-            this.groupBox4.Location = new System.Drawing.Point(713, 364);
+            this.groupBox4.ForeColor = System.Drawing.Color.Black;
+            this.groupBox4.Location = new System.Drawing.Point(713, 382);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(704, 437);
+            this.groupBox4.Size = new System.Drawing.Size(704, 458);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "CONTROLE";
@@ -273,6 +274,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.groupBox3.Controls.Add(this.mtbCEP);
             this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.cmbEstado);
@@ -286,10 +288,10 @@
             this.groupBox3.Controls.Add(this.txtRua);
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.ForeColor = System.Drawing.Color.White;
-            this.groupBox3.Location = new System.Drawing.Point(3, 364);
+            this.groupBox3.ForeColor = System.Drawing.Color.Black;
+            this.groupBox3.Location = new System.Drawing.Point(3, 382);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(704, 437);
+            this.groupBox3.Size = new System.Drawing.Size(704, 458);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "ENDEREÇO";
@@ -394,6 +396,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.groupBox2.Controls.Add(this.txtSite);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.txtEmail);
@@ -403,10 +406,10 @@
             this.groupBox2.Controls.Add(this.mtbTelefone);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.ForeColor = System.Drawing.Color.White;
+            this.groupBox2.ForeColor = System.Drawing.Color.Black;
             this.groupBox2.Location = new System.Drawing.Point(713, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(704, 355);
+            this.groupBox2.Size = new System.Drawing.Size(704, 373);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CONTATO";
@@ -477,6 +480,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.groupBox1.Controls.Add(this.txtResposavel);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtRG);
@@ -486,10 +490,10 @@
             this.groupBox1.Controls.Add(this.txtNome);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.ForeColor = System.Drawing.Color.White;
+            this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(704, 355);
+            this.groupBox1.Size = new System.Drawing.Size(704, 373);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "IDENTIFICAÇÃO";
@@ -560,12 +564,12 @@
             // 
             // tabFinanceiro
             // 
-            this.tabFinanceiro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.tabFinanceiro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.tabFinanceiro.Controls.Add(this.tableLayoutPanel4);
             this.tabFinanceiro.Location = new System.Drawing.Point(4, 34);
             this.tabFinanceiro.Name = "tabFinanceiro";
             this.tabFinanceiro.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFinanceiro.Size = new System.Drawing.Size(1426, 810);
+            this.tabFinanceiro.Size = new System.Drawing.Size(1426, 849);
             this.tabFinanceiro.TabIndex = 1;
             this.tabFinanceiro.Text = "Informações Financeiras";
             // 
@@ -581,11 +585,12 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1420, 804);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1420, 843);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // groupBox5
             // 
+            this.groupBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.groupBox5.Controls.Add(this.cmbFormaPagamento);
             this.groupBox5.Controls.Add(this.label20);
             this.groupBox5.Controls.Add(this.cmbPagamento);
@@ -593,10 +598,10 @@
             this.groupBox5.Controls.Add(this.nudLimite);
             this.groupBox5.Controls.Add(this.label18);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox5.ForeColor = System.Drawing.Color.White;
+            this.groupBox5.ForeColor = System.Drawing.Color.Black;
             this.groupBox5.Location = new System.Drawing.Point(3, 3);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(704, 798);
+            this.groupBox5.Size = new System.Drawing.Size(704, 837);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "CONDIÇÕES COMERCIAIS";
@@ -656,6 +661,7 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.groupBox6.Controls.Add(this.lblTicket);
             this.groupBox6.Controls.Add(this.label28);
             this.groupBox6.Controls.Add(this.label27);
@@ -669,10 +675,10 @@
             this.groupBox6.Controls.Add(this.txtSaldo);
             this.groupBox6.Controls.Add(this.label21);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.ForeColor = System.Drawing.Color.White;
+            this.groupBox6.ForeColor = System.Drawing.Color.Black;
             this.groupBox6.Location = new System.Drawing.Point(713, 3);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(704, 798);
+            this.groupBox6.Size = new System.Drawing.Size(704, 837);
             this.groupBox6.TabIndex = 1;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "SITUAÇÃO FINANCEIRA";
@@ -829,17 +835,18 @@
             // 
             // tabRelacionamento
             // 
-            this.tabRelacionamento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.tabRelacionamento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.tabRelacionamento.Controls.Add(this.tableLayoutPanel7);
             this.tabRelacionamento.Location = new System.Drawing.Point(4, 34);
             this.tabRelacionamento.Name = "tabRelacionamento";
             this.tabRelacionamento.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRelacionamento.Size = new System.Drawing.Size(1426, 810);
+            this.tabRelacionamento.Size = new System.Drawing.Size(1426, 849);
             this.tabRelacionamento.TabIndex = 2;
             this.tabRelacionamento.Text = "Histórico de Relacionamento";
             // 
             // tableLayoutPanel7
             // 
+            this.tableLayoutPanel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.tableLayoutPanel7.ColumnCount = 2;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -850,32 +857,35 @@
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.8806F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(1420, 804);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(1420, 843);
             this.tableLayoutPanel7.TabIndex = 0;
             // 
             // groupBox10
             // 
+            this.groupBox10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.groupBox10.Controls.Add(this.txtObsInt);
             this.groupBox10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox10.ForeColor = System.Drawing.Color.White;
+            this.groupBox10.ForeColor = System.Drawing.Color.Black;
             this.groupBox10.Location = new System.Drawing.Point(713, 3);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(704, 798);
+            this.groupBox10.Size = new System.Drawing.Size(704, 837);
             this.groupBox10.TabIndex = 3;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "OBSERVAÇÕES INTERNAS";
             // 
             // txtObsInt
             // 
+            this.txtObsInt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.txtObsInt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtObsInt.Location = new System.Drawing.Point(3, 29);
             this.txtObsInt.Multiline = true;
             this.txtObsInt.Name = "txtObsInt";
-            this.txtObsInt.Size = new System.Drawing.Size(698, 766);
+            this.txtObsInt.Size = new System.Drawing.Size(698, 805);
             this.txtObsInt.TabIndex = 0;
             // 
             // tableLayoutPanel8
             // 
+            this.tableLayoutPanel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.tableLayoutPanel8.ColumnCount = 1;
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel8.Controls.Add(this.groupBox9, 0, 1);
@@ -886,17 +896,18 @@
             this.tableLayoutPanel8.RowCount = 2;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(704, 798);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(704, 837);
             this.tableLayoutPanel8.TabIndex = 4;
             // 
             // groupBox9
             // 
+            this.groupBox9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.groupBox9.Controls.Add(this.dgvAtendimentos);
             this.groupBox9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox9.ForeColor = System.Drawing.Color.White;
-            this.groupBox9.Location = new System.Drawing.Point(3, 402);
+            this.groupBox9.ForeColor = System.Drawing.Color.Black;
+            this.groupBox9.Location = new System.Drawing.Point(3, 421);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(698, 393);
+            this.groupBox9.Size = new System.Drawing.Size(698, 413);
             this.groupBox9.TabIndex = 2;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "CHAMADOS/ATENDIMENTOS";
@@ -904,22 +915,23 @@
             // dgvAtendimentos
             // 
             this.dgvAtendimentos.AllowUserToAddRows = false;
-            this.dgvAtendimentos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dgvAtendimentos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvAtendimentos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAtendimentos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvAtendimentos.Location = new System.Drawing.Point(3, 29);
             this.dgvAtendimentos.Name = "dgvAtendimentos";
-            this.dgvAtendimentos.Size = new System.Drawing.Size(692, 361);
+            this.dgvAtendimentos.Size = new System.Drawing.Size(692, 381);
             this.dgvAtendimentos.TabIndex = 1;
             // 
             // groupBox7
             // 
+            this.groupBox7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.groupBox7.Controls.Add(this.dgvCompras);
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox7.ForeColor = System.Drawing.Color.White;
+            this.groupBox7.ForeColor = System.Drawing.Color.Black;
             this.groupBox7.Location = new System.Drawing.Point(3, 3);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(698, 393);
+            this.groupBox7.Size = new System.Drawing.Size(698, 412);
             this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "COMPRAS REALIZADAS";
@@ -927,27 +939,28 @@
             // dgvCompras
             // 
             this.dgvCompras.AllowUserToAddRows = false;
-            this.dgvCompras.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dgvCompras.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCompras.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCompras.Location = new System.Drawing.Point(3, 29);
             this.dgvCompras.Name = "dgvCompras";
-            this.dgvCompras.Size = new System.Drawing.Size(692, 361);
+            this.dgvCompras.Size = new System.Drawing.Size(692, 380);
             this.dgvCompras.TabIndex = 0;
             // 
             // tabAnalise
             // 
-            this.tabAnalise.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.tabAnalise.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.tabAnalise.Controls.Add(this.groupBox11);
             this.tabAnalise.Location = new System.Drawing.Point(4, 34);
             this.tabAnalise.Name = "tabAnalise";
             this.tabAnalise.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAnalise.Size = new System.Drawing.Size(1426, 810);
+            this.tabAnalise.Size = new System.Drawing.Size(1426, 849);
             this.tabAnalise.TabIndex = 3;
             this.tabAnalise.Text = "Análise de Cliente";
             // 
             // groupBox11
             // 
+            this.groupBox11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.groupBox11.Controls.Add(this.prbPercentual);
             this.groupBox11.Controls.Add(this.label32);
             this.groupBox11.Controls.Add(this.dgvProdutosComprados);
@@ -957,10 +970,10 @@
             this.groupBox11.Controls.Add(this.cmbRisco);
             this.groupBox11.Controls.Add(this.label29);
             this.groupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox11.ForeColor = System.Drawing.Color.White;
+            this.groupBox11.ForeColor = System.Drawing.Color.Black;
             this.groupBox11.Location = new System.Drawing.Point(3, 3);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(1420, 804);
+            this.groupBox11.Size = new System.Drawing.Size(1420, 843);
             this.groupBox11.TabIndex = 0;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "ANÁLISE DE CLIENTE";
@@ -984,7 +997,7 @@
             // dgvProdutosComprados
             // 
             this.dgvProdutosComprados.AllowUserToAddRows = false;
-            this.dgvProdutosComprados.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dgvProdutosComprados.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvProdutosComprados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProdutosComprados.Location = new System.Drawing.Point(774, 57);
             this.dgvProdutosComprados.Name = "dgvProdutosComprados";
@@ -1039,11 +1052,11 @@
             // 
             // pnlRodape
             // 
-            this.pnlRodape.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.pnlRodape.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.pnlRodape.Controls.Add(this.panel1);
             this.pnlRodape.Controls.Add(this.tableLayoutPanel2);
             this.pnlRodape.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlRodape.Location = new System.Drawing.Point(0, 910);
+            this.pnlRodape.Location = new System.Drawing.Point(0, 949);
             this.pnlRodape.Name = "pnlRodape";
             this.pnlRodape.Size = new System.Drawing.Size(1920, 56);
             this.pnlRodape.TabIndex = 2;
@@ -1091,7 +1104,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnNovo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.btnNovo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnNovo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNovo.ForeColor = System.Drawing.Color.White;
@@ -1152,28 +1165,28 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 854);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 893);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // dgvClientes
             // 
             this.dgvClientes.AllowUserToAddRows = false;
-            this.dgvClientes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dgvClientes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvClientes.Location = new System.Drawing.Point(3, 3);
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvClientes.Size = new System.Drawing.Size(474, 848);
+            this.dgvClientes.Size = new System.Drawing.Size(474, 887);
             this.dgvClientes.TabIndex = 2;
             this.dgvClientes.SelectionChanged += new System.EventHandler(this.dgvClientes_SelectionChanged);
             // 
-            // FormClientes
+            // FinanceiroFormClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(1920, 966);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
+            this.ClientSize = new System.Drawing.Size(1920, 1005);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.pnlRodape);
             this.Controls.Add(this.pnlHeader);
@@ -1181,7 +1194,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "FormClientes";
+            this.Name = "FinanceiroFormClientes";
             this.Text = "FormClientes";
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();

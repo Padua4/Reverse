@@ -40,13 +40,16 @@ namespace Reverse.Forms.FormsExpedicao
             dgvClientes.AllowUserToResizeRows = false;
             dgvClientes.EditMode = DataGridViewEditMode.EditProgrammatically;
 
+            dgvClientes.RowsDefaultCellStyle.BackColor = Color.White;
+            dgvClientes.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+
             if (dgvClientes.Columns.Contains("ClienteId"))
                 dgvClientes.Columns["ClienteId"].ReadOnly = true;
 
             _bindingSourceClientes = new BindingSource();
             dgvClientes.DataSource = _bindingSourceClientes;
 
-            // 🔹 Eventos do ADGV
             dgvClientes.FilterStringChanged += (s, ev) =>
             {
                 _bindingSourceClientes.Filter = dgvClientes.FilterString;
@@ -184,8 +187,8 @@ namespace Reverse.Forms.FormsExpedicao
                 if (dgvClientes.Columns.Contains("Estado"))
                     dgvClientes.Columns["Estado"].HeaderText = "UF";
 
-                dgvClientes.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-                dgvClientes.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                dgvClientes.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+                dgvClientes.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
 
                 dgvClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvClientes.DefaultCellStyle.ForeColor = Color.Black;

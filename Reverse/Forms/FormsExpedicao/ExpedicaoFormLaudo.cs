@@ -25,8 +25,8 @@ namespace Reverse.Forms.FormsExpedicao
 
         private int _clienteId;
         private DateTime _mesAno;
-        private decimal _pesoTotal;  // pode ser reconsultado
-        private string _numeroLaudo; // vem do CertificadosEmitidos.NumeroCertificado
+        private decimal _pesoTotal;
+        private string _numeroLaudo;
         private PdfViewer _pdfViewer;
 
         private string _razaoSocialGerador;

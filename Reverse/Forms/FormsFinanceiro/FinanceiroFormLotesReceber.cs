@@ -7,12 +7,12 @@ using System.Windows.Forms;
 
 namespace Reverse.Forms.FormsFinanceiro
 {
-    public partial class formLotesReceber : Form
+    public partial class FinanceiroFormLotesReceber : Form
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["ReverseDB"].ConnectionString;
         public int? LoteSelecionadoId { get; private set; }
 
-        public formLotesReceber()
+        public FinanceiroFormLotesReceber()
         {
             InitializeComponent();
             CarregarLotes();

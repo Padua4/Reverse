@@ -62,7 +62,7 @@ namespace Reverse.Forms.FormsFinanceiro
             dgv.RowHeadersVisible = false;
 
             // Cores e fontes
-            dgv.BackgroundColor = Color.FromArgb(30, 30, 45);
+            dgv.BackgroundColor = Color.FromArgb(242, 243, 244);
             dgv.DefaultCellStyle.BackColor = Color.White;
             dgv.DefaultCellStyle.ForeColor = Color.Black;
             dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 120, 215);

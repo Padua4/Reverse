@@ -58,7 +58,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(160)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(52)))), ((int)(((byte)(105)))));
             this.panel1.Controls.Add(this.btnSair);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -101,7 +101,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel2.Controls.Add(this.btnSelecionar);
             this.panel2.Controls.Add(this.dtpDataControle);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -114,6 +114,7 @@
             // 
             this.btnSelecionar.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnSelecionar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSelecionar.ForeColor = System.Drawing.Color.Black;
             this.btnSelecionar.Location = new System.Drawing.Point(142, 0);
             this.btnSelecionar.Name = "btnSelecionar";
             this.btnSelecionar.Size = new System.Drawing.Size(153, 34);
@@ -124,7 +125,7 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel3.Controls.Add(this.chkPeriodo);
             this.panel3.Controls.Add(this.tableLayoutPanel1);
             this.panel3.Controls.Add(this.label2);
@@ -139,6 +140,7 @@
             // chkPeriodo
             // 
             this.chkPeriodo.AutoSize = true;
+            this.chkPeriodo.ForeColor = System.Drawing.Color.Black;
             this.chkPeriodo.Location = new System.Drawing.Point(524, 4);
             this.chkPeriodo.Name = "chkPeriodo";
             this.chkPeriodo.Size = new System.Drawing.Size(243, 29);
@@ -168,6 +170,7 @@
             // label4
             // 
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(261, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(123, 34);
@@ -196,6 +199,7 @@
             // label3
             // 
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(3, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(123, 34);
@@ -206,6 +210,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(827, 5);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 25);
@@ -224,6 +229,7 @@
             // 
             this.btnExportarPDF.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnExportarPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportarPDF.ForeColor = System.Drawing.Color.Black;
             this.btnExportarPDF.Location = new System.Drawing.Point(1287, 0);
             this.btnExportarPDF.Name = "btnExportarPDF";
             this.btnExportarPDF.Size = new System.Drawing.Size(180, 34);
@@ -250,10 +256,10 @@
             this.ChartGraficos.TabIndex = 6;
             this.ChartGraficos.Text = "chart1";
             // 
-            // FormControleMes
+            // ExpedicaoFormControleMes
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.ClientSize = new System.Drawing.Size(1467, 865);
             this.Controls.Add(this.ChartGraficos);
             this.Controls.Add(this.panel3);
@@ -264,7 +270,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "FormControleMes";
+            this.Name = "ExpedicaoFormControleMes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormControleMes";
             this.panel1.ResumeLayout(false);

@@ -56,7 +56,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(52)))), ((int)(((byte)(105)))));
             this.panel1.Controls.Add(this.btnAbrir);
             this.panel1.Controls.Add(this.btnSair);
             this.panel1.Controls.Add(this.btnFiltrar);
@@ -76,9 +76,9 @@
             // 
             this.btnAbrir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAbrir.ForeColor = System.Drawing.Color.White;
-            this.btnAbrir.Location = new System.Drawing.Point(1247, 12);
+            this.btnAbrir.Location = new System.Drawing.Point(1247, 6);
             this.btnAbrir.Name = "btnAbrir";
-            this.btnAbrir.Size = new System.Drawing.Size(123, 34);
+            this.btnAbrir.Size = new System.Drawing.Size(148, 44);
             this.btnAbrir.TabIndex = 10;
             this.btnAbrir.Text = "Abrir Tabela";
             this.btnAbrir.UseVisualStyleBackColor = true;
@@ -100,9 +100,9 @@
             // 
             this.btnFiltrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFiltrar.ForeColor = System.Drawing.Color.White;
-            this.btnFiltrar.Location = new System.Drawing.Point(1071, 12);
+            this.btnFiltrar.Location = new System.Drawing.Point(1093, 6);
             this.btnFiltrar.Name = "btnFiltrar";
-            this.btnFiltrar.Size = new System.Drawing.Size(123, 33);
+            this.btnFiltrar.Size = new System.Drawing.Size(148, 44);
             this.btnFiltrar.TabIndex = 8;
             this.btnFiltrar.Text = "Filtrar";
             this.btnFiltrar.UseVisualStyleBackColor = true;
@@ -112,7 +112,7 @@
             this.cmbAno.FormattingEnabled = true;
             this.cmbAno.Location = new System.Drawing.Point(840, 12);
             this.cmbAno.Name = "cmbAno";
-            this.cmbAno.Size = new System.Drawing.Size(208, 33);
+            this.cmbAno.Size = new System.Drawing.Size(231, 33);
             this.cmbAno.TabIndex = 7;
             // 
             // label3
@@ -127,15 +127,15 @@
             // cmbMes
             // 
             this.cmbMes.FormattingEnabled = true;
-            this.cmbMes.Location = new System.Drawing.Point(564, 12);
+            this.cmbMes.Location = new System.Drawing.Point(544, 12);
             this.cmbMes.Name = "cmbMes";
-            this.cmbMes.Size = new System.Drawing.Size(208, 33);
+            this.cmbMes.Size = new System.Drawing.Size(231, 33);
             this.cmbMes.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(505, 15);
+            this.label2.Location = new System.Drawing.Point(481, 15);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 25);
             this.label2.TabIndex = 4;
@@ -145,7 +145,7 @@
             // 
             this.btnContasSelecionar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnContasSelecionar.ForeColor = System.Drawing.Color.White;
-            this.btnContasSelecionar.Location = new System.Drawing.Point(281, 9);
+            this.btnContasSelecionar.Location = new System.Drawing.Point(236, 10);
             this.btnContasSelecionar.Name = "btnContasSelecionar";
             this.btnContasSelecionar.Size = new System.Drawing.Size(208, 37);
             this.btnContasSelecionar.TabIndex = 3;
@@ -166,11 +166,11 @@
             // dgvLotes
             // 
             this.dgvLotes.AllowUserToAddRows = false;
-            this.dgvLotes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dgvLotes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvLotes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvLotes.Location = new System.Drawing.Point(0, 56);
             this.dgvLotes.Name = "dgvLotes";
-            this.dgvLotes.Size = new System.Drawing.Size(1467, 729);
+            this.dgvLotes.Size = new System.Drawing.Size(1467, 735);
             this.dgvLotes.TabIndex = 1;
             // 
             // panel2
@@ -240,11 +240,11 @@
             this.lblTotalPendente.Text = "Total Pendente:";
             this.lblTotalPendente.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // FormContasSelecionar
+            // FinanceiroFormContasSelecionar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.ClientSize = new System.Drawing.Size(1467, 865);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.dgvLotes);
@@ -254,7 +254,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "FormContasSelecionar";
+            this.Name = "FinanceiroFormContasSelecionar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormContasSelecionar";
             this.panel1.ResumeLayout(false);

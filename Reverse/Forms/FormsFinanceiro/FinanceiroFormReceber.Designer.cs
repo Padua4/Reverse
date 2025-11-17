@@ -108,7 +108,7 @@
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.pnlHeader.Controls.Add(this.label1);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
@@ -139,7 +139,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 910);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 949);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // tableLayoutPanel2
@@ -157,17 +157,17 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(954, 904);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(954, 943);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.tableLayoutPanel6);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.ForeColor = System.Drawing.Color.White;
-            this.groupBox4.Location = new System.Drawing.Point(480, 455);
+            this.groupBox4.ForeColor = System.Drawing.Color.Black;
+            this.groupBox4.Location = new System.Drawing.Point(480, 474);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(471, 446);
+            this.groupBox4.Size = new System.Drawing.Size(471, 466);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "RESUMO FINANCEIRO";
@@ -188,17 +188,17 @@
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(465, 414);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(465, 434);
             this.tableLayoutPanel6.TabIndex = 1;
             // 
             // panel13
             // 
-            this.panel13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel13.Controls.Add(this.lblTotalGeral);
             this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel13.Location = new System.Drawing.Point(3, 312);
+            this.panel13.Location = new System.Drawing.Point(3, 327);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(459, 99);
+            this.panel13.Size = new System.Drawing.Size(459, 104);
             this.panel13.TabIndex = 3;
             // 
             // lblTotalGeral
@@ -212,12 +212,12 @@
             // 
             // panel14
             // 
-            this.panel14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel14.Controls.Add(this.lblTotalAtrasado);
             this.panel14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel14.Location = new System.Drawing.Point(3, 209);
+            this.panel14.Location = new System.Drawing.Point(3, 219);
             this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(459, 97);
+            this.panel14.Size = new System.Drawing.Size(459, 102);
             this.panel14.TabIndex = 2;
             // 
             // lblTotalAtrasado
@@ -231,12 +231,12 @@
             // 
             // panel15
             // 
-            this.panel15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel15.Controls.Add(this.lblTotalRecebido);
             this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel15.Location = new System.Drawing.Point(3, 106);
+            this.panel15.Location = new System.Drawing.Point(3, 111);
             this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(459, 97);
+            this.panel15.Size = new System.Drawing.Size(459, 102);
             this.panel15.TabIndex = 1;
             // 
             // lblTotalRecebido
@@ -250,12 +250,12 @@
             // 
             // panel16
             // 
-            this.panel16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel16.Controls.Add(this.lblTotalPendente);
             this.panel16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel16.Location = new System.Drawing.Point(3, 3);
             this.panel16.Name = "panel16";
-            this.panel16.Size = new System.Drawing.Size(459, 97);
+            this.panel16.Size = new System.Drawing.Size(459, 102);
             this.panel16.TabIndex = 0;
             // 
             // lblTotalPendente
@@ -271,10 +271,10 @@
             // 
             this.groupBox3.Controls.Add(this.tableLayoutPanel5);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.ForeColor = System.Drawing.Color.White;
-            this.groupBox3.Location = new System.Drawing.Point(3, 455);
+            this.groupBox3.ForeColor = System.Drawing.Color.Black;
+            this.groupBox3.Location = new System.Drawing.Point(3, 474);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(471, 446);
+            this.groupBox3.Size = new System.Drawing.Size(471, 466);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "AÇÕES DE CONTA";
@@ -295,7 +295,7 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(465, 414);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(465, 434);
             this.tableLayoutPanel5.TabIndex = 1;
             // 
             // panel9
@@ -303,63 +303,66 @@
             this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.panel9.Controls.Add(this.btnEditarConta);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(3, 312);
+            this.panel9.Location = new System.Drawing.Point(3, 327);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(459, 99);
+            this.panel9.Size = new System.Drawing.Size(459, 104);
             this.panel9.TabIndex = 3;
             // 
             // btnEditarConta
             // 
+            this.btnEditarConta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.btnEditarConta.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnEditarConta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditarConta.Location = new System.Drawing.Point(0, 0);
             this.btnEditarConta.Name = "btnEditarConta";
-            this.btnEditarConta.Size = new System.Drawing.Size(459, 99);
+            this.btnEditarConta.Size = new System.Drawing.Size(459, 104);
             this.btnEditarConta.TabIndex = 5;
             this.btnEditarConta.Text = "Editar conta";
-            this.btnEditarConta.UseVisualStyleBackColor = true;
+            this.btnEditarConta.UseVisualStyleBackColor = false;
             // 
             // panel10
             // 
             this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.panel10.Controls.Add(this.btnExcluirConta);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel10.Location = new System.Drawing.Point(3, 209);
+            this.panel10.Location = new System.Drawing.Point(3, 219);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(459, 97);
+            this.panel10.Size = new System.Drawing.Size(459, 102);
             this.panel10.TabIndex = 2;
             // 
             // btnExcluirConta
             // 
+            this.btnExcluirConta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.btnExcluirConta.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnExcluirConta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExcluirConta.Location = new System.Drawing.Point(0, 0);
             this.btnExcluirConta.Name = "btnExcluirConta";
-            this.btnExcluirConta.Size = new System.Drawing.Size(459, 97);
+            this.btnExcluirConta.Size = new System.Drawing.Size(459, 102);
             this.btnExcluirConta.TabIndex = 4;
             this.btnExcluirConta.Text = "Excluir conta selecionada";
-            this.btnExcluirConta.UseVisualStyleBackColor = true;
+            this.btnExcluirConta.UseVisualStyleBackColor = false;
             // 
             // panel11
             // 
             this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.panel11.Controls.Add(this.btnMarcarRecebido);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel11.Location = new System.Drawing.Point(3, 106);
+            this.panel11.Location = new System.Drawing.Point(3, 111);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(459, 97);
+            this.panel11.Size = new System.Drawing.Size(459, 102);
             this.panel11.TabIndex = 1;
             // 
             // btnMarcarRecebido
             // 
+            this.btnMarcarRecebido.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.btnMarcarRecebido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMarcarRecebido.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMarcarRecebido.Location = new System.Drawing.Point(0, 0);
             this.btnMarcarRecebido.Name = "btnMarcarRecebido";
-            this.btnMarcarRecebido.Size = new System.Drawing.Size(459, 97);
+            this.btnMarcarRecebido.Size = new System.Drawing.Size(459, 102);
             this.btnMarcarRecebido.TabIndex = 3;
             this.btnMarcarRecebido.Text = "Marcar como recebido";
-            this.btnMarcarRecebido.UseVisualStyleBackColor = true;
+            this.btnMarcarRecebido.UseVisualStyleBackColor = false;
             // 
             // panel12
             // 
@@ -368,28 +371,29 @@
             this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel12.Location = new System.Drawing.Point(3, 3);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(459, 97);
+            this.panel12.Size = new System.Drawing.Size(459, 102);
             this.panel12.TabIndex = 0;
             // 
             // btnNovaConta
             // 
+            this.btnNovaConta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.btnNovaConta.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnNovaConta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNovaConta.Location = new System.Drawing.Point(0, 0);
             this.btnNovaConta.Name = "btnNovaConta";
-            this.btnNovaConta.Size = new System.Drawing.Size(459, 97);
+            this.btnNovaConta.Size = new System.Drawing.Size(459, 102);
             this.btnNovaConta.TabIndex = 1;
             this.btnNovaConta.Text = "Nova conta";
-            this.btnNovaConta.UseVisualStyleBackColor = true;
+            this.btnNovaConta.UseVisualStyleBackColor = false;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.tableLayoutPanel4);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.ForeColor = System.Drawing.Color.White;
+            this.groupBox2.ForeColor = System.Drawing.Color.Black;
             this.groupBox2.Location = new System.Drawing.Point(480, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(471, 446);
+            this.groupBox2.Size = new System.Drawing.Size(471, 465);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "GESTÃO DE LOTES";
@@ -410,7 +414,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(465, 414);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(465, 433);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // panel5
@@ -418,72 +422,75 @@
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.panel5.Controls.Add(this.btnRelatorio);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(3, 312);
+            this.panel5.Location = new System.Drawing.Point(3, 327);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(459, 99);
+            this.panel5.Size = new System.Drawing.Size(459, 103);
             this.panel5.TabIndex = 3;
             // 
             // btnRelatorio
             // 
+            this.btnRelatorio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.btnRelatorio.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRelatorio.Location = new System.Drawing.Point(0, 0);
             this.btnRelatorio.Name = "btnRelatorio";
-            this.btnRelatorio.Size = new System.Drawing.Size(459, 99);
+            this.btnRelatorio.Size = new System.Drawing.Size(459, 103);
             this.btnRelatorio.TabIndex = 6;
             this.btnRelatorio.Text = "Gerar relatório do lote";
-            this.btnRelatorio.UseVisualStyleBackColor = true;
+            this.btnRelatorio.UseVisualStyleBackColor = false;
             // 
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.panel6.Controls.Add(this.btnSelecionarLote);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(3, 209);
+            this.panel6.Location = new System.Drawing.Point(3, 219);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(459, 97);
+            this.panel6.Size = new System.Drawing.Size(459, 102);
             this.panel6.TabIndex = 2;
             // 
             // btnSelecionarLote
             // 
+            this.btnSelecionarLote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.btnSelecionarLote.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSelecionarLote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSelecionarLote.Location = new System.Drawing.Point(0, 0);
             this.btnSelecionarLote.Name = "btnSelecionarLote";
-            this.btnSelecionarLote.Size = new System.Drawing.Size(459, 97);
+            this.btnSelecionarLote.Size = new System.Drawing.Size(459, 102);
             this.btnSelecionarLote.TabIndex = 5;
             this.btnSelecionarLote.Text = "Selecionar lote";
-            this.btnSelecionarLote.UseVisualStyleBackColor = true;
+            this.btnSelecionarLote.UseVisualStyleBackColor = false;
             // 
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.panel7.Controls.Add(this.btnNovoLote);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(3, 106);
+            this.panel7.Location = new System.Drawing.Point(3, 111);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(459, 97);
+            this.panel7.Size = new System.Drawing.Size(459, 102);
             this.panel7.TabIndex = 1;
             // 
             // btnNovoLote
             // 
+            this.btnNovoLote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.btnNovoLote.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnNovoLote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNovoLote.Location = new System.Drawing.Point(0, 0);
             this.btnNovoLote.Name = "btnNovoLote";
-            this.btnNovoLote.Size = new System.Drawing.Size(459, 97);
+            this.btnNovoLote.Size = new System.Drawing.Size(459, 102);
             this.btnNovoLote.TabIndex = 4;
             this.btnNovoLote.Text = "Criar novo lote";
-            this.btnNovoLote.UseVisualStyleBackColor = true;
+            this.btnNovoLote.UseVisualStyleBackColor = false;
             // 
             // panel8
             // 
-            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel8.Controls.Add(this.lblLoteAtual);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(3, 3);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(459, 97);
+            this.panel8.Size = new System.Drawing.Size(459, 102);
             this.panel8.TabIndex = 0;
             // 
             // lblLoteAtual
@@ -499,10 +506,10 @@
             // 
             this.groupBox1.Controls.Add(this.tableLayoutPanel3);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.ForeColor = System.Drawing.Color.White;
+            this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(471, 446);
+            this.groupBox1.Size = new System.Drawing.Size(471, 465);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "SELEÇÃO E FILTROS";
@@ -523,7 +530,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(465, 414);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(465, 433);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // panel4
@@ -531,52 +538,54 @@
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.panel4.Controls.Add(this.btnLimparFiltro);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(3, 312);
+            this.panel4.Location = new System.Drawing.Point(3, 327);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(459, 99);
+            this.panel4.Size = new System.Drawing.Size(459, 103);
             this.panel4.TabIndex = 3;
             // 
             // btnLimparFiltro
             // 
+            this.btnLimparFiltro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.btnLimparFiltro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnLimparFiltro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimparFiltro.Location = new System.Drawing.Point(0, 0);
             this.btnLimparFiltro.Name = "btnLimparFiltro";
-            this.btnLimparFiltro.Size = new System.Drawing.Size(459, 99);
+            this.btnLimparFiltro.Size = new System.Drawing.Size(459, 103);
             this.btnLimparFiltro.TabIndex = 5;
             this.btnLimparFiltro.Text = "Limpar Filtro";
-            this.btnLimparFiltro.UseVisualStyleBackColor = true;
+            this.btnLimparFiltro.UseVisualStyleBackColor = false;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.panel3.Controls.Add(this.btnFiltrar);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 209);
+            this.panel3.Location = new System.Drawing.Point(3, 219);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(459, 97);
+            this.panel3.Size = new System.Drawing.Size(459, 102);
             this.panel3.TabIndex = 2;
             // 
             // btnFiltrar
             // 
+            this.btnFiltrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.btnFiltrar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnFiltrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFiltrar.Location = new System.Drawing.Point(0, 0);
             this.btnFiltrar.Name = "btnFiltrar";
-            this.btnFiltrar.Size = new System.Drawing.Size(459, 97);
+            this.btnFiltrar.Size = new System.Drawing.Size(459, 102);
             this.btnFiltrar.TabIndex = 0;
             this.btnFiltrar.Text = "Filtrar";
-            this.btnFiltrar.UseVisualStyleBackColor = true;
+            this.btnFiltrar.UseVisualStyleBackColor = false;
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel2.Controls.Add(this.cmbStatus);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 106);
+            this.panel2.Location = new System.Drawing.Point(3, 111);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(459, 97);
+            this.panel2.Size = new System.Drawing.Size(459, 102);
             this.panel2.TabIndex = 1;
             // 
             // cmbStatus
@@ -599,13 +608,13 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.cmbCliente);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(459, 97);
+            this.panel1.Size = new System.Drawing.Size(459, 102);
             this.panel1.TabIndex = 0;
             // 
             // label2
@@ -628,12 +637,12 @@
             // 
             // dgvContasReceber
             // 
-            this.dgvContasReceber.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dgvContasReceber.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvContasReceber.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvContasReceber.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvContasReceber.Location = new System.Drawing.Point(3, 3);
             this.dgvContasReceber.Name = "dgvContasReceber";
-            this.dgvContasReceber.Size = new System.Drawing.Size(954, 904);
+            this.dgvContasReceber.Size = new System.Drawing.Size(954, 943);
             this.dgvContasReceber.TabIndex = 1;
             this.dgvContasReceber.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvContasReceber_CellClick);
             this.dgvContasReceber.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvContasReceber_CellEndEdit);
@@ -642,8 +651,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(1920, 966);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
+            this.ClientSize = new System.Drawing.Size(1920, 1005);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.pnlHeader);
             this.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

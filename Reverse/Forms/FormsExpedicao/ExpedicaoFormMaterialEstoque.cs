@@ -15,6 +15,8 @@ namespace Reverse.Forms.FormsExpedicao
     public partial class ExpedicaoFormMaterialEstoque : Form
     {
         private readonly int _usuarioId;
+        private BindingList<Material> _materiaisList;
+
         public ExpedicaoFormMaterialEstoque(int usuarioId)
         {
             InitializeComponent();
@@ -23,7 +25,6 @@ namespace Reverse.Forms.FormsExpedicao
 
         private void FormMaterialEstoque_Load(object sender, EventArgs e)
         {
-
             string formName = this.GetType().Name;
 
             if (!PermissaoHelper.TemPermissao(_usuarioId, formName))
@@ -34,16 +35,12 @@ namespace Reverse.Forms.FormsExpedicao
                 return;
             }
 
-            using (var ctx = new ReverseContext())
-            {
-                var materiais = ctx.Materiais
-                    .OrderByDescending(m => m.Valorizacao)
-                    .ThenBy(m => m.Nome)
-                    .ToList();
+            ConfigurarGrid();
+            CarregarMateriais();
+        }
 
-                dgvMateriais.DataSource = new BindingList<Material>(materiais);
-            }
-
+        private void ConfigurarGrid()
+        {
             dgvMateriais.AutoGenerateColumns = false;
             dgvMateriais.Columns.Clear();
 
@@ -94,10 +91,23 @@ namespace Reverse.Forms.FormsExpedicao
             };
         }
 
+        private void CarregarMateriais()
+        {
+            using (var ctx = new ReverseContext())
+            {
+                var materiais = ctx.Materiais
+                    .OrderByDescending(m => m.Valorizacao)
+                    .ThenBy(m => m.Nome)
+                    .ToList();
+
+                _materiaisList = new BindingList<Material>(materiais);
+                dgvMateriais.DataSource = _materiaisList;
+            }
+        }
+
         private void btnNovaLinha_Click(object sender, EventArgs e)
         {
-            var lista = dgvMateriais.DataSource as BindingList<Material>;
-            lista.Add(new Material { Nome = "", Valorizacao = 1 });
+            _materiaisList.Add(new Material { Nome = "", Valorizacao = 1 });
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
@@ -112,54 +122,111 @@ namespace Reverse.Forms.FormsExpedicao
 
             if (confirmar != DialogResult.Yes) return;
 
-            using (var ctx = new ReverseContext())
+            try
             {
-                var matDb = ctx.Materiais.FirstOrDefault(m => m.Id == material.Id);
-                if (matDb != null)
+                using (var ctx = new ReverseContext())
                 {
-                    ctx.Materiais.Remove(matDb);
-                    ctx.SaveChanges();
+                    if (material.Id > 0)
+                    {
+                        var matDb = ctx.Materiais.FirstOrDefault(m => m.Id == material.Id);
+                        if (matDb != null)
+                        {
+                            ctx.Materiais.Remove(matDb);
+                            ctx.SaveChanges();
+                        }
+                    }
                 }
-            }
 
-            (dgvMateriais.DataSource as BindingList<Material>).Remove(material);
+                _materiaisList.Remove(material);
+                MessageBox.Show("Material excluído com sucesso!", "Sucesso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao excluir: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             dgvMateriais.EndEdit();
 
-            var lista = dgvMateriais.DataSource as BindingList<Material>;
+            var nomesDuplicados = _materiaisList
+                .Where(m => !string.IsNullOrWhiteSpace(m.Nome))
+                .GroupBy(m => m.Nome.Trim().ToUpper())
+                .Where(g => g.Count() > 1)
+                .Select(g => g.Key)
+                .ToList();
 
-            using (var ctx = new ReverseContext())
+            if (nomesDuplicados.Any())
             {
-                foreach (var item in lista)
-                {
-                    if (string.IsNullOrWhiteSpace(item.Nome)) continue;
-
-                    Material matDb;
-                    if (item.Id > 0)
-                    {
-                        matDb = ctx.Materiais.FirstOrDefault(m => m.Id == item.Id);
-                        if (matDb == null) continue;
-                    }
-                    else
-                    {
-                        matDb = new Material();
-                        ctx.Materiais.Add(matDb);
-                    }
-
-                    matDb.Nome = item.Nome;
-                    matDb.Valorizacao = item.Valorizacao;
-                }
-
-                ctx.SaveChanges();
+                MessageBox.Show($"Materiais duplicados encontrados:\n\n{string.Join("\n", nomesDuplicados)}\n\nRemova as duplicatas antes de salvar.",
+                    "Erro de Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-            MessageBox.Show("Materiais salvos com sucesso!", "Sucesso",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+            try
+            {
+                using (var ctx = new ReverseContext())
+                {
+                    var nomesParaBuscar = _materiaisList
+                        .Where(m => !string.IsNullOrWhiteSpace(m.Nome))
+                        .Select(m => m.Nome.Trim())
+                        .ToList();
 
+                    var materiaisExistentes = ctx.Materiais
+                        .Where(m => nomesParaBuscar.Contains(m.Nome))
+                        .ToDictionary(m => m.Nome.Trim().ToUpper(), m => m);
+
+                    foreach (var item in _materiaisList)
+                    {
+                        if (string.IsNullOrWhiteSpace(item.Nome)) continue;
+
+                        string nomeNormalizado = item.Nome.Trim().ToUpper();
+
+                        if (materiaisExistentes.ContainsKey(nomeNormalizado))
+                        {
+                            var existente = materiaisExistentes[nomeNormalizado];
+
+                            if (existente.Id == item.Id || item.Id == 0)
+                            {
+                                existente.Nome = item.Nome.Trim();
+                                existente.Valorizacao = item.Valorizacao;
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Já existe um material com o nome '{item.Nome}'!",
+                                    "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            var novoMaterial = new Material
+                            {
+                                Nome = item.Nome.Trim(),
+                                Valorizacao = item.Valorizacao
+                            };
+                            ctx.Materiais.Add(novoMaterial);
+                            materiaisExistentes[nomeNormalizado] = novoMaterial;
+                        }
+                    }
+
+                    ctx.SaveChanges();
+                }
+
+                MessageBox.Show("Materiais salvos com sucesso!", "Sucesso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                CarregarMateriais();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao salvar: {ex.Message}\n\n{ex.InnerException?.Message}",
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void btnSair_Click(object sender, EventArgs e)
         {

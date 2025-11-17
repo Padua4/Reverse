@@ -1,6 +1,6 @@
 ﻿namespace Reverse.Forms.FormsFinanceiro
 {
-    partial class formLotesReceber
+    partial class FinanceiroFormLotesReceber
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formLotesReceber));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FinanceiroFormLotesReceber));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnSelecionar = new System.Windows.Forms.Button();
@@ -40,7 +40,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(52)))), ((int)(((byte)(105)))));
             this.panel1.Controls.Add(this.btnCancelar);
             this.panel1.Controls.Add(this.btnSelecionar);
             this.panel1.Controls.Add(this.label1);
@@ -90,7 +90,7 @@
             // dgvLotes
             // 
             this.dgvLotes.AllowUserToAddRows = false;
-            this.dgvLotes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dgvLotes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvLotes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvLotes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvLotes.Location = new System.Drawing.Point(0, 46);
@@ -98,7 +98,7 @@
             this.dgvLotes.Size = new System.Drawing.Size(600, 354);
             this.dgvLotes.TabIndex = 1;
             // 
-            // formLotesReceber
+            // FinanceiroFormLotesReceber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -108,7 +108,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "formLotesReceber";
+            this.Name = "FinanceiroFormLotesReceber";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "formLotesReceber";
             this.panel1.ResumeLayout(false);

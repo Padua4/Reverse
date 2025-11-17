@@ -154,7 +154,7 @@
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.pnlHeader.Controls.Add(this.label1);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
@@ -185,22 +185,22 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 910);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 949);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // dgvLista
             // 
-            this.dgvLista.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.dgvLista.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvLista.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvLista.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvLista.Location = new System.Drawing.Point(3, 3);
             this.dgvLista.Name = "dgvLista";
-            this.dgvLista.Size = new System.Drawing.Size(474, 904);
+            this.dgvLista.Size = new System.Drawing.Size(474, 943);
             this.dgvLista.TabIndex = 2;
             // 
             // pnlInfo
             // 
-            this.pnlInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.pnlInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.pnlInfo.Controls.Add(this.tableLayoutPanel5);
             this.pnlInfo.Controls.Add(this.tableLayoutPanel4);
             this.pnlInfo.Controls.Add(this.tableLayoutPanel3);
@@ -212,7 +212,7 @@
             this.pnlInfo.Location = new System.Drawing.Point(483, 3);
             this.pnlInfo.Name = "pnlInfo";
             this.pnlInfo.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.pnlInfo.Size = new System.Drawing.Size(1434, 904);
+            this.pnlInfo.Size = new System.Drawing.Size(1434, 943);
             this.pnlInfo.TabIndex = 1;
             // 
             // tableLayoutPanel5
@@ -244,17 +244,17 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(355, 895);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(355, 934);
             this.tableLayoutPanel5.TabIndex = 16;
             // 
             // groupBox33
             // 
             this.groupBox33.Controls.Add(this.txtASO);
             this.groupBox33.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox33.ForeColor = System.Drawing.Color.White;
-            this.groupBox33.Location = new System.Drawing.Point(3, 804);
+            this.groupBox33.ForeColor = System.Drawing.Color.Black;
+            this.groupBox33.Location = new System.Drawing.Point(3, 840);
             this.groupBox33.Name = "groupBox33";
-            this.groupBox33.Size = new System.Drawing.Size(349, 88);
+            this.groupBox33.Size = new System.Drawing.Size(349, 91);
             this.groupBox33.TabIndex = 9;
             this.groupBox33.TabStop = false;
             this.groupBox33.Text = "ASO";
@@ -272,10 +272,10 @@
             // 
             this.groupBox32.Controls.Add(this.dtpVencCursos);
             this.groupBox32.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox32.ForeColor = System.Drawing.Color.White;
-            this.groupBox32.Location = new System.Drawing.Point(3, 715);
+            this.groupBox32.ForeColor = System.Drawing.Color.Black;
+            this.groupBox32.Location = new System.Drawing.Point(3, 747);
             this.groupBox32.Name = "groupBox32";
-            this.groupBox32.Size = new System.Drawing.Size(349, 83);
+            this.groupBox32.Size = new System.Drawing.Size(349, 87);
             this.groupBox32.TabIndex = 8;
             this.groupBox32.TabStop = false;
             this.groupBox32.Text = "Curso (venc.)";
@@ -294,10 +294,10 @@
             // 
             this.groupBox31.Controls.Add(this.dtpVencToxicologico);
             this.groupBox31.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox31.ForeColor = System.Drawing.Color.White;
-            this.groupBox31.Location = new System.Drawing.Point(3, 626);
+            this.groupBox31.ForeColor = System.Drawing.Color.Black;
+            this.groupBox31.Location = new System.Drawing.Point(3, 654);
             this.groupBox31.Name = "groupBox31";
-            this.groupBox31.Size = new System.Drawing.Size(349, 83);
+            this.groupBox31.Size = new System.Drawing.Size(349, 87);
             this.groupBox31.TabIndex = 7;
             this.groupBox31.TabStop = false;
             this.groupBox31.Text = "Exame Toxicológico (venc.)";
@@ -317,10 +317,10 @@
             // 
             this.groupBox30.Controls.Add(this.dtpVencCNH);
             this.groupBox30.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox30.ForeColor = System.Drawing.Color.White;
-            this.groupBox30.Location = new System.Drawing.Point(3, 537);
+            this.groupBox30.ForeColor = System.Drawing.Color.Black;
+            this.groupBox30.Location = new System.Drawing.Point(3, 561);
             this.groupBox30.Name = "groupBox30";
-            this.groupBox30.Size = new System.Drawing.Size(349, 83);
+            this.groupBox30.Size = new System.Drawing.Size(349, 87);
             this.groupBox30.TabIndex = 6;
             this.groupBox30.TabStop = false;
             this.groupBox30.Text = "Vencimento CNH";
@@ -340,10 +340,10 @@
             // 
             this.groupBox29.Controls.Add(this.txtCNH);
             this.groupBox29.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox29.ForeColor = System.Drawing.Color.White;
-            this.groupBox29.Location = new System.Drawing.Point(3, 448);
+            this.groupBox29.ForeColor = System.Drawing.Color.Black;
+            this.groupBox29.Location = new System.Drawing.Point(3, 468);
             this.groupBox29.Name = "groupBox29";
-            this.groupBox29.Size = new System.Drawing.Size(349, 83);
+            this.groupBox29.Size = new System.Drawing.Size(349, 87);
             this.groupBox29.TabIndex = 5;
             this.groupBox29.TabStop = false;
             this.groupBox29.Text = "CNH";
@@ -361,10 +361,10 @@
             // 
             this.groupBox28.Controls.Add(this.txtEmail);
             this.groupBox28.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox28.ForeColor = System.Drawing.Color.White;
-            this.groupBox28.Location = new System.Drawing.Point(3, 359);
+            this.groupBox28.ForeColor = System.Drawing.Color.Black;
+            this.groupBox28.Location = new System.Drawing.Point(3, 375);
             this.groupBox28.Name = "groupBox28";
-            this.groupBox28.Size = new System.Drawing.Size(349, 83);
+            this.groupBox28.Size = new System.Drawing.Size(349, 87);
             this.groupBox28.TabIndex = 4;
             this.groupBox28.TabStop = false;
             this.groupBox28.Text = "Email";
@@ -382,10 +382,10 @@
             // 
             this.groupBox27.Controls.Add(this.txtCPF);
             this.groupBox27.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox27.ForeColor = System.Drawing.Color.White;
-            this.groupBox27.Location = new System.Drawing.Point(3, 270);
+            this.groupBox27.ForeColor = System.Drawing.Color.Black;
+            this.groupBox27.Location = new System.Drawing.Point(3, 282);
             this.groupBox27.Name = "groupBox27";
-            this.groupBox27.Size = new System.Drawing.Size(349, 83);
+            this.groupBox27.Size = new System.Drawing.Size(349, 87);
             this.groupBox27.TabIndex = 3;
             this.groupBox27.TabStop = false;
             this.groupBox27.Text = "CPF";
@@ -403,10 +403,10 @@
             // 
             this.groupBox26.Controls.Add(this.txtRG);
             this.groupBox26.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox26.ForeColor = System.Drawing.Color.White;
-            this.groupBox26.Location = new System.Drawing.Point(3, 181);
+            this.groupBox26.ForeColor = System.Drawing.Color.Black;
+            this.groupBox26.Location = new System.Drawing.Point(3, 189);
             this.groupBox26.Name = "groupBox26";
-            this.groupBox26.Size = new System.Drawing.Size(349, 83);
+            this.groupBox26.Size = new System.Drawing.Size(349, 87);
             this.groupBox26.TabIndex = 2;
             this.groupBox26.TabStop = false;
             this.groupBox26.Text = "RG";
@@ -424,10 +424,10 @@
             // 
             this.groupBox25.Controls.Add(this.dtpNascimento);
             this.groupBox25.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox25.ForeColor = System.Drawing.Color.White;
-            this.groupBox25.Location = new System.Drawing.Point(3, 92);
+            this.groupBox25.ForeColor = System.Drawing.Color.Black;
+            this.groupBox25.Location = new System.Drawing.Point(3, 96);
             this.groupBox25.Name = "groupBox25";
-            this.groupBox25.Size = new System.Drawing.Size(349, 83);
+            this.groupBox25.Size = new System.Drawing.Size(349, 87);
             this.groupBox25.TabIndex = 1;
             this.groupBox25.TabStop = false;
             this.groupBox25.Text = "Data de Nascimento";
@@ -446,10 +446,10 @@
             // 
             this.groupBox24.Controls.Add(this.txtNome);
             this.groupBox24.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox24.ForeColor = System.Drawing.Color.White;
+            this.groupBox24.ForeColor = System.Drawing.Color.Black;
             this.groupBox24.Location = new System.Drawing.Point(3, 3);
             this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(349, 83);
+            this.groupBox24.Size = new System.Drawing.Size(349, 87);
             this.groupBox24.TabIndex = 0;
             this.groupBox24.TabStop = false;
             this.groupBox24.Text = "Nome";
@@ -492,17 +492,17 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(355, 895);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(355, 934);
             this.tableLayoutPanel4.TabIndex = 15;
             // 
             // groupBox23
             // 
             this.groupBox23.Controls.Add(this.txtObsFerias);
             this.groupBox23.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox23.ForeColor = System.Drawing.Color.White;
-            this.groupBox23.Location = new System.Drawing.Point(3, 804);
+            this.groupBox23.ForeColor = System.Drawing.Color.Black;
+            this.groupBox23.Location = new System.Drawing.Point(3, 840);
             this.groupBox23.Name = "groupBox23";
-            this.groupBox23.Size = new System.Drawing.Size(349, 88);
+            this.groupBox23.Size = new System.Drawing.Size(349, 91);
             this.groupBox23.TabIndex = 9;
             this.groupBox23.TabStop = false;
             this.groupBox23.Text = "Observações";
@@ -520,10 +520,10 @@
             // 
             this.groupBox22.Controls.Add(this.txtPeriodoAquisitivoFerias);
             this.groupBox22.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox22.ForeColor = System.Drawing.Color.White;
-            this.groupBox22.Location = new System.Drawing.Point(3, 715);
+            this.groupBox22.ForeColor = System.Drawing.Color.Black;
+            this.groupBox22.Location = new System.Drawing.Point(3, 747);
             this.groupBox22.Name = "groupBox22";
-            this.groupBox22.Size = new System.Drawing.Size(349, 83);
+            this.groupBox22.Size = new System.Drawing.Size(349, 87);
             this.groupBox22.TabIndex = 8;
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "Período aquisitivo";
@@ -541,10 +541,10 @@
             // 
             this.groupBox21.Controls.Add(this.dtpUltimasFerias);
             this.groupBox21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox21.ForeColor = System.Drawing.Color.White;
-            this.groupBox21.Location = new System.Drawing.Point(3, 626);
+            this.groupBox21.ForeColor = System.Drawing.Color.Black;
+            this.groupBox21.Location = new System.Drawing.Point(3, 654);
             this.groupBox21.Name = "groupBox21";
-            this.groupBox21.Size = new System.Drawing.Size(349, 83);
+            this.groupBox21.Size = new System.Drawing.Size(349, 87);
             this.groupBox21.TabIndex = 7;
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "Últimas férias";
@@ -563,10 +563,10 @@
             // 
             this.groupBox20.Controls.Add(this.dtpFeriasInicio);
             this.groupBox20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox20.ForeColor = System.Drawing.Color.White;
-            this.groupBox20.Location = new System.Drawing.Point(3, 537);
+            this.groupBox20.ForeColor = System.Drawing.Color.Black;
+            this.groupBox20.Location = new System.Drawing.Point(3, 561);
             this.groupBox20.Name = "groupBox20";
-            this.groupBox20.Size = new System.Drawing.Size(349, 83);
+            this.groupBox20.Size = new System.Drawing.Size(349, 87);
             this.groupBox20.TabIndex = 6;
             this.groupBox20.TabStop = false;
             this.groupBox20.Text = "Período de férias (início)";
@@ -585,10 +585,10 @@
             // 
             this.groupBox19.Controls.Add(this.dtpExp2);
             this.groupBox19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox19.ForeColor = System.Drawing.Color.White;
-            this.groupBox19.Location = new System.Drawing.Point(3, 448);
+            this.groupBox19.ForeColor = System.Drawing.Color.Black;
+            this.groupBox19.Location = new System.Drawing.Point(3, 468);
             this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(349, 83);
+            this.groupBox19.Size = new System.Drawing.Size(349, 87);
             this.groupBox19.TabIndex = 5;
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "2ª experiência";
@@ -607,10 +607,10 @@
             // 
             this.groupBox18.Controls.Add(this.dtpExp1);
             this.groupBox18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox18.ForeColor = System.Drawing.Color.White;
-            this.groupBox18.Location = new System.Drawing.Point(3, 359);
+            this.groupBox18.ForeColor = System.Drawing.Color.Black;
+            this.groupBox18.Location = new System.Drawing.Point(3, 375);
             this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(349, 83);
+            this.groupBox18.Size = new System.Drawing.Size(349, 87);
             this.groupBox18.TabIndex = 4;
             this.groupBox18.TabStop = false;
             this.groupBox18.Text = "1ª experiência";
@@ -629,10 +629,10 @@
             // 
             this.groupBox17.Controls.Add(this.txtEnderecoCEP);
             this.groupBox17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox17.ForeColor = System.Drawing.Color.White;
-            this.groupBox17.Location = new System.Drawing.Point(3, 270);
+            this.groupBox17.ForeColor = System.Drawing.Color.Black;
+            this.groupBox17.Location = new System.Drawing.Point(3, 282);
             this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(349, 83);
+            this.groupBox17.Size = new System.Drawing.Size(349, 87);
             this.groupBox17.TabIndex = 3;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "CEP";
@@ -650,10 +650,10 @@
             // 
             this.groupBox16.Controls.Add(this.txtEnderecoNumero);
             this.groupBox16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox16.ForeColor = System.Drawing.Color.White;
-            this.groupBox16.Location = new System.Drawing.Point(3, 181);
+            this.groupBox16.ForeColor = System.Drawing.Color.Black;
+            this.groupBox16.Location = new System.Drawing.Point(3, 189);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(349, 83);
+            this.groupBox16.Size = new System.Drawing.Size(349, 87);
             this.groupBox16.TabIndex = 2;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Nº";
@@ -671,10 +671,10 @@
             // 
             this.groupBox15.Controls.Add(this.txtEnderecoBairro);
             this.groupBox15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox15.ForeColor = System.Drawing.Color.White;
-            this.groupBox15.Location = new System.Drawing.Point(3, 92);
+            this.groupBox15.ForeColor = System.Drawing.Color.Black;
+            this.groupBox15.Location = new System.Drawing.Point(3, 96);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(349, 83);
+            this.groupBox15.Size = new System.Drawing.Size(349, 87);
             this.groupBox15.TabIndex = 1;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "Bairro";
@@ -692,10 +692,10 @@
             // 
             this.groupBox14.Controls.Add(this.txtEnderecoRua);
             this.groupBox14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox14.ForeColor = System.Drawing.Color.White;
+            this.groupBox14.ForeColor = System.Drawing.Color.Black;
             this.groupBox14.Location = new System.Drawing.Point(3, 3);
             this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(349, 83);
+            this.groupBox14.Size = new System.Drawing.Size(349, 87);
             this.groupBox14.TabIndex = 0;
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "Rua";
@@ -724,7 +724,7 @@
             this.tableLayoutPanel3.Controls.Add(this.groupBox6, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.groupBox5, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.groupBox4, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(713, 3);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(713, 6);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 10;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
@@ -737,17 +737,18 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(299, 895);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(299, 934);
             this.tableLayoutPanel3.TabIndex = 14;
             // 
             // groupBox13
             // 
             this.groupBox13.Controls.Add(this.cmbStatus);
             this.groupBox13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox13.ForeColor = System.Drawing.Color.White;
-            this.groupBox13.Location = new System.Drawing.Point(3, 804);
+            this.groupBox13.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
+            this.groupBox13.ForeColor = System.Drawing.Color.Black;
+            this.groupBox13.Location = new System.Drawing.Point(3, 840);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(293, 88);
+            this.groupBox13.Size = new System.Drawing.Size(293, 91);
             this.groupBox13.TabIndex = 9;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "Status";
@@ -763,7 +764,7 @@
             this.cmbStatus.Items.AddRange(new object[] {
             "Ativo",
             "Inativo"});
-            this.cmbStatus.Location = new System.Drawing.Point(3, 25);
+            this.cmbStatus.Location = new System.Drawing.Point(3, 29);
             this.cmbStatus.Name = "cmbStatus";
             this.cmbStatus.Size = new System.Drawing.Size(287, 29);
             this.cmbStatus.TabIndex = 14;
@@ -772,10 +773,11 @@
             // 
             this.groupBox12.Controls.Add(this.dtpDemissao);
             this.groupBox12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox12.ForeColor = System.Drawing.Color.White;
-            this.groupBox12.Location = new System.Drawing.Point(3, 715);
+            this.groupBox12.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
+            this.groupBox12.ForeColor = System.Drawing.Color.Black;
+            this.groupBox12.Location = new System.Drawing.Point(3, 747);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(293, 83);
+            this.groupBox12.Size = new System.Drawing.Size(293, 87);
             this.groupBox12.TabIndex = 8;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Data de Demissão";
@@ -785,7 +787,7 @@
             this.dtpDemissao.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtpDemissao.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDemissao.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDemissao.Location = new System.Drawing.Point(3, 25);
+            this.dtpDemissao.Location = new System.Drawing.Point(3, 29);
             this.dtpDemissao.Name = "dtpDemissao";
             this.dtpDemissao.ShowCheckBox = true;
             this.dtpDemissao.Size = new System.Drawing.Size(287, 29);
@@ -795,10 +797,11 @@
             // 
             this.groupBox11.Controls.Add(this.dtpAdmissao);
             this.groupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox11.ForeColor = System.Drawing.Color.White;
-            this.groupBox11.Location = new System.Drawing.Point(3, 626);
+            this.groupBox11.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
+            this.groupBox11.ForeColor = System.Drawing.Color.Black;
+            this.groupBox11.Location = new System.Drawing.Point(3, 654);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(293, 83);
+            this.groupBox11.Size = new System.Drawing.Size(293, 87);
             this.groupBox11.TabIndex = 7;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Data de Admissão";
@@ -808,7 +811,7 @@
             this.dtpAdmissao.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtpAdmissao.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpAdmissao.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpAdmissao.Location = new System.Drawing.Point(3, 25);
+            this.dtpAdmissao.Location = new System.Drawing.Point(3, 29);
             this.dtpAdmissao.Name = "dtpAdmissao";
             this.dtpAdmissao.Size = new System.Drawing.Size(287, 29);
             this.dtpAdmissao.TabIndex = 9;
@@ -817,10 +820,11 @@
             // 
             this.groupBox10.Controls.Add(this.numSalario);
             this.groupBox10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox10.ForeColor = System.Drawing.Color.White;
-            this.groupBox10.Location = new System.Drawing.Point(3, 537);
+            this.groupBox10.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
+            this.groupBox10.ForeColor = System.Drawing.Color.Black;
+            this.groupBox10.Location = new System.Drawing.Point(3, 561);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(293, 83);
+            this.groupBox10.Size = new System.Drawing.Size(293, 87);
             this.groupBox10.TabIndex = 6;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Salário";
@@ -829,7 +833,7 @@
             // 
             this.numSalario.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numSalario.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numSalario.Location = new System.Drawing.Point(3, 25);
+            this.numSalario.Location = new System.Drawing.Point(3, 29);
             this.numSalario.Name = "numSalario";
             this.numSalario.Size = new System.Drawing.Size(287, 29);
             this.numSalario.TabIndex = 6;
@@ -838,10 +842,11 @@
             // 
             this.groupBox9.Controls.Add(this.txtPIS);
             this.groupBox9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox9.ForeColor = System.Drawing.Color.White;
-            this.groupBox9.Location = new System.Drawing.Point(3, 448);
+            this.groupBox9.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
+            this.groupBox9.ForeColor = System.Drawing.Color.Black;
+            this.groupBox9.Location = new System.Drawing.Point(3, 468);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(293, 83);
+            this.groupBox9.Size = new System.Drawing.Size(293, 87);
             this.groupBox9.TabIndex = 5;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "PIS";
@@ -850,7 +855,7 @@
             // 
             this.txtPIS.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtPIS.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPIS.Location = new System.Drawing.Point(3, 25);
+            this.txtPIS.Location = new System.Drawing.Point(3, 29);
             this.txtPIS.Name = "txtPIS";
             this.txtPIS.Size = new System.Drawing.Size(287, 29);
             this.txtPIS.TabIndex = 5;
@@ -859,10 +864,11 @@
             // 
             this.groupBox8.Controls.Add(this.txtCBO);
             this.groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox8.ForeColor = System.Drawing.Color.White;
-            this.groupBox8.Location = new System.Drawing.Point(3, 359);
+            this.groupBox8.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
+            this.groupBox8.ForeColor = System.Drawing.Color.Black;
+            this.groupBox8.Location = new System.Drawing.Point(3, 375);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(293, 83);
+            this.groupBox8.Size = new System.Drawing.Size(293, 87);
             this.groupBox8.TabIndex = 4;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "CBO";
@@ -871,7 +877,7 @@
             // 
             this.txtCBO.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtCBO.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCBO.Location = new System.Drawing.Point(3, 25);
+            this.txtCBO.Location = new System.Drawing.Point(3, 29);
             this.txtCBO.Name = "txtCBO";
             this.txtCBO.Size = new System.Drawing.Size(287, 29);
             this.txtCBO.TabIndex = 3;
@@ -880,10 +886,11 @@
             // 
             this.groupBox7.Controls.Add(this.txtFuncao);
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox7.ForeColor = System.Drawing.Color.White;
-            this.groupBox7.Location = new System.Drawing.Point(3, 270);
+            this.groupBox7.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
+            this.groupBox7.ForeColor = System.Drawing.Color.Black;
+            this.groupBox7.Location = new System.Drawing.Point(3, 282);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(293, 83);
+            this.groupBox7.Size = new System.Drawing.Size(293, 87);
             this.groupBox7.TabIndex = 3;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Função";
@@ -892,7 +899,7 @@
             // 
             this.txtFuncao.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtFuncao.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFuncao.Location = new System.Drawing.Point(3, 25);
+            this.txtFuncao.Location = new System.Drawing.Point(3, 29);
             this.txtFuncao.Name = "txtFuncao";
             this.txtFuncao.Size = new System.Drawing.Size(287, 29);
             this.txtFuncao.TabIndex = 1;
@@ -901,10 +908,11 @@
             // 
             this.groupBox6.Controls.Add(this.txtPix);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.ForeColor = System.Drawing.Color.White;
-            this.groupBox6.Location = new System.Drawing.Point(3, 181);
+            this.groupBox6.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
+            this.groupBox6.ForeColor = System.Drawing.Color.Black;
+            this.groupBox6.Location = new System.Drawing.Point(3, 189);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(293, 83);
+            this.groupBox6.Size = new System.Drawing.Size(293, 87);
             this.groupBox6.TabIndex = 2;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Chave PIX";
@@ -913,7 +921,7 @@
             // 
             this.txtPix.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtPix.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPix.Location = new System.Drawing.Point(3, 25);
+            this.txtPix.Location = new System.Drawing.Point(3, 29);
             this.txtPix.Name = "txtPix";
             this.txtPix.Size = new System.Drawing.Size(287, 29);
             this.txtPix.TabIndex = 5;
@@ -922,10 +930,11 @@
             // 
             this.groupBox5.Controls.Add(this.txtConta);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox5.ForeColor = System.Drawing.Color.White;
-            this.groupBox5.Location = new System.Drawing.Point(3, 92);
+            this.groupBox5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
+            this.groupBox5.ForeColor = System.Drawing.Color.Black;
+            this.groupBox5.Location = new System.Drawing.Point(3, 96);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(293, 83);
+            this.groupBox5.Size = new System.Drawing.Size(293, 87);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Conta Corrente";
@@ -934,7 +943,7 @@
             // 
             this.txtConta.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtConta.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConta.Location = new System.Drawing.Point(3, 25);
+            this.txtConta.Location = new System.Drawing.Point(3, 29);
             this.txtConta.Name = "txtConta";
             this.txtConta.Size = new System.Drawing.Size(287, 29);
             this.txtConta.TabIndex = 3;
@@ -943,10 +952,11 @@
             // 
             this.groupBox4.Controls.Add(this.txtAgencia);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.ForeColor = System.Drawing.Color.White;
+            this.groupBox4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
+            this.groupBox4.ForeColor = System.Drawing.Color.Black;
             this.groupBox4.Location = new System.Drawing.Point(3, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(293, 83);
+            this.groupBox4.Size = new System.Drawing.Size(293, 87);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Agência Bancária";
@@ -955,7 +965,7 @@
             // 
             this.txtAgencia.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtAgencia.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAgencia.Location = new System.Drawing.Point(3, 25);
+            this.txtAgencia.Location = new System.Drawing.Point(3, 29);
             this.txtAgencia.Name = "txtAgencia";
             this.txtAgencia.Size = new System.Drawing.Size(287, 29);
             this.txtAgencia.TabIndex = 1;
@@ -975,7 +985,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(407, 768);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(407, 801);
             this.tableLayoutPanel2.TabIndex = 13;
             // 
             // groupBox2
@@ -983,10 +993,10 @@
             this.groupBox2.Controls.Add(this.btnAbrirDocs);
             this.groupBox2.Controls.Add(this.txtLinksDocumentos);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.ForeColor = System.Drawing.Color.White;
+            this.groupBox2.ForeColor = System.Drawing.Color.Black;
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(401, 250);
+            this.groupBox2.Size = new System.Drawing.Size(401, 261);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Documentos Externos";
@@ -1015,10 +1025,10 @@
             this.groupBox3.Controls.Add(this.cmbEmpresa);
             this.groupBox3.Controls.Add(this.lblTempoEmpresa);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.ForeColor = System.Drawing.Color.White;
-            this.groupBox3.Location = new System.Drawing.Point(3, 259);
+            this.groupBox3.ForeColor = System.Drawing.Color.Black;
+            this.groupBox3.Location = new System.Drawing.Point(3, 270);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(401, 250);
+            this.groupBox3.Size = new System.Drawing.Size(401, 261);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Empresa Cadastrada";
@@ -1038,10 +1048,10 @@
             // 
             this.lblTempoEmpresa.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTempoEmpresa.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTempoEmpresa.ForeColor = System.Drawing.Color.LightCoral;
+            this.lblTempoEmpresa.ForeColor = System.Drawing.Color.Red;
             this.lblTempoEmpresa.Location = new System.Drawing.Point(3, 29);
             this.lblTempoEmpresa.Name = "lblTempoEmpresa";
-            this.lblTempoEmpresa.Size = new System.Drawing.Size(395, 218);
+            this.lblTempoEmpresa.Size = new System.Drawing.Size(395, 229);
             this.lblTempoEmpresa.TabIndex = 12;
             this.lblTempoEmpresa.Text = "Tempo de empresa";
             this.lblTempoEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1050,10 +1060,10 @@
             // 
             this.groupBox1.Controls.Add(this.rtbObservacoes);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(3, 515);
+            this.groupBox1.ForeColor = System.Drawing.Color.Black;
+            this.groupBox1.Location = new System.Drawing.Point(3, 537);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(401, 250);
+            this.groupBox1.Size = new System.Drawing.Size(401, 261);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Observações Gerais";
@@ -1065,14 +1075,15 @@
             this.rtbObservacoes.Location = new System.Drawing.Point(3, 29);
             this.rtbObservacoes.Multiline = true;
             this.rtbObservacoes.Name = "rtbObservacoes";
-            this.rtbObservacoes.Size = new System.Drawing.Size(395, 218);
+            this.rtbObservacoes.Size = new System.Drawing.Size(395, 229);
             this.rtbObservacoes.TabIndex = 0;
             // 
             // btnCancelar
             // 
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(1021, 839);
+            this.btnCancelar.ForeColor = System.Drawing.Color.Black;
+            this.btnCancelar.Location = new System.Drawing.Point(1021, 875);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(401, 59);
             this.btnCancelar.TabIndex = 10;
@@ -1083,7 +1094,8 @@
             // 
             this.btnCadastrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCadastrar.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCadastrar.Location = new System.Drawing.Point(1021, 771);
+            this.btnCadastrar.ForeColor = System.Drawing.Color.Black;
+            this.btnCadastrar.Location = new System.Drawing.Point(1021, 810);
             this.btnCadastrar.Name = "btnCadastrar";
             this.btnCadastrar.Size = new System.Drawing.Size(401, 59);
             this.btnCadastrar.TabIndex = 9;
@@ -1095,8 +1107,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(1920, 966);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
+            this.ClientSize = new System.Drawing.Size(1920, 1005);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.pnlHeader);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

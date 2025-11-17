@@ -53,7 +53,7 @@
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.pnlHeader.Controls.Add(this.lblInfo);
             this.pnlHeader.Controls.Add(this.label1);
             this.pnlHeader.Controls.Add(this.lblSalvar);
@@ -168,22 +168,22 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.panel1.Controls.Add(this.btnInapto);
             this.panel1.Controls.Add(this.btnApto);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 891);
+            this.panel1.Location = new System.Drawing.Point(0, 942);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1920, 75);
+            this.panel1.Size = new System.Drawing.Size(1920, 63);
             this.panel1.TabIndex = 1;
             // 
             // btnInapto
             // 
             this.btnInapto.BackColor = System.Drawing.Color.Red;
             this.btnInapto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnInapto.Location = new System.Drawing.Point(1152, 6);
+            this.btnInapto.Location = new System.Drawing.Point(1161, 6);
             this.btnInapto.Name = "btnInapto";
-            this.btnInapto.Size = new System.Drawing.Size(375, 64);
+            this.btnInapto.Size = new System.Drawing.Size(375, 51);
             this.btnInapto.TabIndex = 1;
             this.btnInapto.Text = "Inapto";
             this.btnInapto.UseVisualStyleBackColor = false;
@@ -194,7 +194,7 @@
             this.btnApto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnApto.Location = new System.Drawing.Point(1542, 6);
             this.btnApto.Name = "btnApto";
-            this.btnApto.Size = new System.Drawing.Size(375, 64);
+            this.btnApto.Size = new System.Drawing.Size(375, 51);
             this.btnApto.TabIndex = 0;
             this.btnApto.Text = "Apto";
             this.btnApto.UseVisualStyleBackColor = false;
@@ -205,26 +205,26 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 56);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1920, 835);
+            this.panel2.Size = new System.Drawing.Size(1920, 886);
             this.panel2.TabIndex = 2;
             // 
             // dgvParticipantes
             // 
-            this.dgvParticipantes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dgvParticipantes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvParticipantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvParticipantes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvParticipantes.Location = new System.Drawing.Point(0, 0);
             this.dgvParticipantes.Name = "dgvParticipantes";
             this.dgvParticipantes.ReadOnly = true;
-            this.dgvParticipantes.Size = new System.Drawing.Size(1920, 835);
+            this.dgvParticipantes.Size = new System.Drawing.Size(1920, 886);
             this.dgvParticipantes.TabIndex = 0;
             // 
             // FormCurriculosNovos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(1920, 966);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
+            this.ClientSize = new System.Drawing.Size(1920, 1005);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlHeader);

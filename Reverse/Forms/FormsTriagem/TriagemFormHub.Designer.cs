@@ -30,16 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TriagemFormHub));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.picTriagemPalete = new System.Windows.Forms.PictureBox();
             this.btnMinimizar = new System.Windows.Forms.Button();
             this.btnSair = new System.Windows.Forms.Button();
             this.picControleTriagemForm = new System.Windows.Forms.PictureBox();
             this.picTriagemForm = new System.Windows.Forms.PictureBox();
             this.pnlConteudo = new System.Windows.Forms.Panel();
-            this.picTriagemPalete = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picTriagemPalete)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picControleTriagemForm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTriagemForm)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picTriagemPalete)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -55,6 +55,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1920, 34);
             this.panel1.TabIndex = 0;
+            // 
+            // picTriagemPalete
+            // 
+            this.picTriagemPalete.BackColor = System.Drawing.Color.White;
+            this.picTriagemPalete.Dock = System.Windows.Forms.DockStyle.Left;
+            this.picTriagemPalete.Image = ((System.Drawing.Image)(resources.GetObject("picTriagemPalete.Image")));
+            this.picTriagemPalete.Location = new System.Drawing.Point(112, 0);
+            this.picTriagemPalete.Name = "picTriagemPalete";
+            this.picTriagemPalete.Size = new System.Drawing.Size(56, 34);
+            this.picTriagemPalete.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picTriagemPalete.TabIndex = 4;
+            this.picTriagemPalete.TabStop = false;
             // 
             // btnMinimizar
             // 
@@ -115,23 +127,11 @@
             this.pnlConteudo.Size = new System.Drawing.Size(1920, 966);
             this.pnlConteudo.TabIndex = 1;
             // 
-            // picTriagemPalete
-            // 
-            this.picTriagemPalete.BackColor = System.Drawing.Color.White;
-            this.picTriagemPalete.Dock = System.Windows.Forms.DockStyle.Left;
-            this.picTriagemPalete.Image = ((System.Drawing.Image)(resources.GetObject("picTriagemPalete.Image")));
-            this.picTriagemPalete.Location = new System.Drawing.Point(112, 0);
-            this.picTriagemPalete.Name = "picTriagemPalete";
-            this.picTriagemPalete.Size = new System.Drawing.Size(56, 34);
-            this.picTriagemPalete.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picTriagemPalete.TabIndex = 4;
-            this.picTriagemPalete.TabStop = false;
-            // 
-            // FormTriagemHub
+            // TriagemFormHub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.ClientSize = new System.Drawing.Size(1920, 1000);
             this.Controls.Add(this.pnlConteudo);
             this.Controls.Add(this.panel1);
@@ -139,13 +139,13 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "FormTriagemHub";
+            this.Name = "TriagemFormHub";
             this.Text = "FormTriagemHub";
             this.Load += new System.EventHandler(this.FormTriagemHub_Load);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picTriagemPalete)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picControleTriagemForm)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTriagemForm)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picTriagemPalete)).EndInit();
             this.ResumeLayout(false);
 
         }

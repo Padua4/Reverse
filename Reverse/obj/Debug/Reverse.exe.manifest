@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
   <asmv1:assemblyIdentity name="Reverse.exe" version="1.0.0.4" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
-  <description asmv2:iconFile="globinho_recortado.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <description asmv2:iconFile="PNG-globo.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
     <assemblyIdentity name="Reverse" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
@@ -499,14 +499,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Reverse.exe" size="31883736">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Reverse.exe" size="44377560">
       <assemblyIdentity name="Reverse" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ILNs9hvL+3577agwdQdMfT24k8pNKahkj5z8iTK2vZc=</dsig:DigestValue>
+        <dsig:DigestValue>rTH5nEVkTSMe/vvJF26IQxm771nIPwbfpH+V+bhz7+w=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -789,220 +789,22 @@
       <dsig:DigestValue>l4XczoDsa1IJwoZ2cT+HzoZPtasruDvuls/x4kUnF3I=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="ImagensCategorias\11.png" size="2109006">
+  <file name="PNG-globo.ico" size="117721">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>kUwBtLGrbTQkEAuUYAu/Je/2rzZGvv6xDG5F/1kKD2I=</dsig:DigestValue>
+      <dsig:DigestValue>w/q8Fc2TNMVO8XD2cBZY0jk3wWaB1zvf8uM86GZIP2w=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="ImagensCategorias\15.png" size="2297537">
+  <file name="Reverse.exe.config" size="3261">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>MyttC8lVkTcrAev7cLodPp81FtfMtLN3fdmBua5v8p8=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\17.png" size="2952808">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>puPHPhgz9JVqUvG0i4LjWxzmB2ltBD6Ads6ks5BGGzk=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\2.png" size="2325279">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>tJjlCSQp7cqtHompSKaNBqgOcV9rJImxYsqYX//ojcE=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\23.png" size="2647141">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>ol0dKKmzJO8bF135z45/XM1EjnuBnfxpCwjN8ZWBmY8=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\27.png" size="2196166">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>TItxAgk/SmOKEaHvWEa0HW/3q11aD1B4136YCPlLWnY=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\28.png" size="2196166">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>TItxAgk/SmOKEaHvWEa0HW/3q11aD1B4136YCPlLWnY=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\29.png" size="2196166">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>TItxAgk/SmOKEaHvWEa0HW/3q11aD1B4136YCPlLWnY=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\3.png" size="2297831">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>77eOpXp1DR0PSFbueY/w76oDb5t8OoOCoJXU4kyVo+Y=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\35.png" size="3452649">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>AmmOL1NjPB7Mp9fxZ6FN1N8G8EfyJY9A8O044vqR0rU=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\36.png" size="3452649">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>AmmOL1NjPB7Mp9fxZ6FN1N8G8EfyJY9A8O044vqR0rU=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\41.png" size="3080382">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>VsB7jTSwMRJ6mjnrlQbpJpIDJjDrpED8s4Ms6Xzxjlg=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\42.png" size="3080382">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>VsB7jTSwMRJ6mjnrlQbpJpIDJjDrpED8s4Ms6Xzxjlg=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\43.png" size="3080382">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>VsB7jTSwMRJ6mjnrlQbpJpIDJjDrpED8s4Ms6Xzxjlg=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\44.png" size="1802683">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Ju85w5ViDkTT4c9UXW+qc5aSBBAE7IT6UHj4klIF2uo=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\45.png" size="2385165">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>pbvZaoyTVhT7Ez5Hp2LUNMe9lzDBZh0Jm4gi+3I34wg=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\47.png" size="73163">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>V+m6O7FoHV4HMZcXPl6ZGeXRkiPJ57sJ0S0ChutOLj0=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\48.png" size="2041266">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>sYnhxhw3qFCNES1sm721AqjVd2QEFr7BzJXiEhRDWAE=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\50.png" size="2194178">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Y6hq541AoR2anNDBjuHDeffjRullVUG6va2eNICYmlE=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\53.png" size="1933364">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>L9nNCme0RePyQ4ycgOvawhaGiTSqdD82Dt6OA39WPYI=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\56.png" size="1539951">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>mh+9urJsbwWNdKSoq6aovvJDdyLxrQLnZJuRpgXYAOk=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\57.png" size="1539951">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>mh+9urJsbwWNdKSoq6aovvJDdyLxrQLnZJuRpgXYAOk=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ImagensCategorias\8.png" size="2252639">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>UuWe3aeHcYUQ0Pu8q2jabUF29+HTxHATPFMSnaSVp5U=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Reverse.exe.config" size="3196">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>AYYPDeUCOYckECeo0huicOFCzJThzcqLmMJSndb9ZDA=</dsig:DigestValue>
+      <dsig:DigestValue>rW0fOaTdY619ngYDes72p6g7za1DBPS8xmiLMhpWZLg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="runtimes\win-arm64\native\WebView2Loader.dll" size="146024">

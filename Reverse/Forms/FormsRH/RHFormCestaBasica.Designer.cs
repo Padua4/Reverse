@@ -54,7 +54,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -74,11 +74,11 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.panel2.Controls.Add(this.tableLayoutPanel3);
             this.panel2.Controls.Add(this.groupBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 899);
+            this.panel2.Location = new System.Drawing.Point(0, 938);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1920, 67);
             this.panel2.TabIndex = 1;
@@ -214,7 +214,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 843);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 882);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // chartResumo
@@ -230,26 +230,26 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chartResumo.Series.Add(series1);
-            this.chartResumo.Size = new System.Drawing.Size(954, 837);
+            this.chartResumo.Size = new System.Drawing.Size(954, 876);
             this.chartResumo.TabIndex = 0;
             this.chartResumo.Text = "chart1";
             // 
             // dgvCestaBasica
             // 
-            this.dgvCestaBasica.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dgvCestaBasica.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvCestaBasica.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCestaBasica.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCestaBasica.Location = new System.Drawing.Point(963, 3);
             this.dgvCestaBasica.Name = "dgvCestaBasica";
-            this.dgvCestaBasica.Size = new System.Drawing.Size(954, 837);
+            this.dgvCestaBasica.Size = new System.Drawing.Size(954, 876);
             this.dgvCestaBasica.TabIndex = 1;
             // 
             // FormCestaBasica
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(1920, 966);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
+            this.ClientSize = new System.Drawing.Size(1920, 1005);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

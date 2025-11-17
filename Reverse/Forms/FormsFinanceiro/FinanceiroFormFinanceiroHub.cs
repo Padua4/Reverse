@@ -38,13 +38,13 @@ namespace SeuProjeto
             picGraficos.MouseLeave += Pic_MouseLeave;
             picGraficos.Click += (s, e) =>
             {
-                if (Reverse.Forms.FormsLogin.FormConfigU.PermissaoHelper.TemPermissao(_usuarioId, nameof(FormGraficos)))
+                if (Reverse.Forms.FormsLogin.FormConfigU.PermissaoHelper.TemPermissao(_usuarioId, nameof(FinanceiroFormGraficos)))
                 {
-                    AbrirFormNoPainel(new FormGraficos(_usuarioId));
+                    AbrirFormNoPainel(new FinanceiroFormGraficos(_usuarioId));
                 }
                 else
                 {
-                    MessageBox.Show("Você não tem permissão para acessar os Gráficos.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Você não tem permissão para acessar os Gráficos Financeiros.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             };
 

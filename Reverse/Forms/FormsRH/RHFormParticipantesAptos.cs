@@ -14,20 +14,12 @@ namespace Reverse.Forms.FormsRH
         .ConnectionStrings["ReverseDB"]
         .ConnectionString;
 
-        private float _fatorLarguraInicial;
-        private float _fatorAlturaInicial;
-
         public FormParticipantesAptos(int _usuarioId)
         {
             InitializeComponent();
             PopularCombos();
             dgvAptos.DataBindingComplete += DgvAptos_DataBindingComplete;
             dgvAptos.RowsAdded += DgvAptos_RowsAdded;
-
-            _fatorLarguraInicial = this.Width;
-            _fatorAlturaInicial = this.Height;
-
-            this.Resize += FormParticipantesAptos_Resize;
 
             CarregarGrid();
         }
@@ -45,30 +37,6 @@ namespace Reverse.Forms.FormsRH
                 "Sim - categoria A","Sim - categoria B","Sim - categoria A/B",
                 "Não possuo","Em andamento","Outra categoria"
             });
-        }
-
-        private void FormParticipantesAptos_Resize(object sender, EventArgs e)
-        {
-            if (_fatorLarguraInicial == 0 || _fatorAlturaInicial == 0) return;
-
-            float escalaLargura = this.Width / _fatorLarguraInicial;
-            float escalaAltura = this.Height / _fatorAlturaInicial;
-
-            foreach (Control ctrl in this.Controls)
-            {
-                ctrl.Width = (int)(ctrl.Width * escalaLargura);
-                ctrl.Height = (int)(ctrl.Height * escalaAltura);
-                ctrl.Left = (int)(ctrl.Left * escalaLargura);
-                ctrl.Top = (int)(ctrl.Top * escalaAltura);
-
-                float novoTamanho = ctrl.Font.Size * Math.Min(escalaLargura, escalaAltura);
-                if (novoTamanho < 1) novoTamanho = 1;
-
-                ctrl.Font = new Font(ctrl.Font.FontFamily, novoTamanho, ctrl.Font.Style);
-            }
-
-            _fatorLarguraInicial = this.Width;
-            _fatorAlturaInicial = this.Height;
         }
 
         private void DgvAptos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -94,8 +62,8 @@ namespace Reverse.Forms.FormsRH
             {
                 conn.Open();
                 string sql = @"SELECT Id, NomeCandidato, Categoria, DataCadastro, Interesse, Situacao
-                       FROM Curriculos
-                       WHERE Apto = 1";
+               FROM Curriculos
+               WHERE Apto = 1";
 
                 if (!string.IsNullOrWhiteSpace(filtroNome))
                     sql += " AND NomeCandidato LIKE @nome";
@@ -132,37 +100,6 @@ namespace Reverse.Forms.FormsRH
                         if (dgvAptos.Columns.Contains("Situacao"))
                             dgvAptos.Columns["Situacao"].Visible = false;
 
-                        dgvAptos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                        dgvAptos.AllowUserToAddRows = false;
-
-                        foreach (DataGridViewRow row in dgvAptos.Rows)
-                        {
-                            if (row.Cells["Situacao"].Value != null)
-                            {
-                                string situacao = row.Cells["Situacao"].Value.ToString();
-
-                                switch (situacao)
-                                {
-                                    case "Maior interesse":
-                                        row.DefaultCellStyle.BackColor = Color.LightGreen;
-                                        break;
-                                    case "Menor interesse":
-                                        row.DefaultCellStyle.BackColor = Color.LightCoral;
-                                        break;
-                                    case "Aguardando candidato":
-                                        row.DefaultCellStyle.BackColor = Color.LightYellow;
-                                        break;
-                                    default:
-                                        row.DefaultCellStyle.BackColor = Color.White;
-                                        break;
-                                }
-                            }
-                        }
-                        foreach (DataGridViewRow row in dgvAptos.Rows)
-                        {
-                            if (!row.IsNewRow)
-                                ColorirLinha(row);
-                        }
                     }
                 }
             }
@@ -193,7 +130,8 @@ namespace Reverse.Forms.FormsRH
             using (SqlConnection conn = new SqlConnection(strConn))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM Curriculos WHERE Id = @id", conn))
+
+                using (SqlCommand cmd = new SqlCommand("SELECT *, Situacao FROM Curriculos WHERE Id = @id", conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
                     using (SqlDataReader dr = cmd.ExecuteReader())
@@ -220,12 +158,15 @@ namespace Reverse.Forms.FormsRH
                             txtMotTrab.Text = dr["Motivacao"].ToString();
                             txtSabDLD.Text = dr["OQueSabeEmpresa"].ToString();
                             txtConDLD.Text = dr["ConheciaEmpresa"].ToString();
+
+                            // Já pega a situação aqui
+                            string situacao = dr["Situacao"]?.ToString();
+                            bool contratado = string.Equals(situacao, "Contratado", StringComparison.OrdinalIgnoreCase);
+                            SetCamposEditaveis(!contratado);
                         }
                     }
                 }
             }
-
-            AplicarBloqueioPorSituacao(id);
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -342,7 +283,6 @@ namespace Reverse.Forms.FormsRH
 
             CarregarGrid(txtFiltroNome.Text, cbbCategoria.Text);
         }
-
 
         private void btnInteresseVermelho_Click(object sender, EventArgs e)
             => MarcarInteresse("Vermelho", "Menos interesse");

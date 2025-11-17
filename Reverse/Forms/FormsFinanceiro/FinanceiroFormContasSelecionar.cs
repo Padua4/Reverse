@@ -31,17 +31,14 @@ namespace Reverse.Forms.FormsFinanceiro
             CarregarMeses();
             CarregarAnos();
 
-            // Selecionar mês e ano atuais
             cmbMes.SelectedValue = DateTime.Now.Month;
             cmbAno.SelectedValue = DateTime.Now.Year;
 
-            // EXPLICITO: corrigido o evento do botão de criar (era btnContasSelecionar por engano)
             btnContasSelecionar.Click += BtnCriarLoteData_Click;
             btnFiltrar.Click += BtnFiltrar_Click;
             btnAbrir.Click += BtnAbrir_Click;
             btnSair.Click += BtnSair_Click;
 
-            // EXPLICITO: melhorar UX da grid
             dgvLotes.MultiSelect = false;
             dgvLotes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvLotes.ReadOnly = true;
@@ -103,7 +100,6 @@ namespace Reverse.Forms.FormsFinanceiro
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    // EXPLICITO: consulta ajustada para mostrar apenas as colunas solicitadas
                     string query = @"
                 SELECT
                     l.LoteId,
@@ -142,7 +138,6 @@ namespace Reverse.Forms.FormsFinanceiro
         {
             if (dgvLotes.Columns.Count > 0)
             {
-                // EXPLICITO: manter LoteId oculto para identificar a linha ao abrir
                 if (dgvLotes.Columns.Contains("LoteId"))
                 {
                     dgvLotes.Columns["LoteId"].Visible = false;
@@ -179,8 +174,6 @@ namespace Reverse.Forms.FormsFinanceiro
                 dgvLotes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
         }
-
-
         private void BtnCriarLoteData_Click(object sender, EventArgs e)
         {
             using (var formCalendar = new FormSelecionarData())
@@ -323,7 +316,6 @@ namespace Reverse.Forms.FormsFinanceiro
         {
             try
             {
-                // EXPLICITO: usar os valores selecionados nos combos em vez de sempre usar o mês/ano atual
                 int mesSelecionado = cmbMes.SelectedValue != null ? (int)cmbMes.SelectedValue : DateTime.Today.Month;
                 int anoSelecionado = cmbAno.SelectedValue != null ? (int)cmbAno.SelectedValue : DateTime.Today.Year;
 

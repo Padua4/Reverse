@@ -201,7 +201,7 @@ namespace Reverse.Forms.FormsExpedicao
             dgvBalanca.Columns.Add(colPesoBal);
 
             dgvBalanca.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvBalanca.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dgvBalanca.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
             dgvBalanca.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
 
             dgvTotal.Columns.Clear();
@@ -233,7 +233,7 @@ namespace Reverse.Forms.FormsExpedicao
             dgvTotal.Columns.Add(colPesoTotal);
 
             dgvTotal.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvTotal.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dgvTotal.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
             dgvTotal.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
         }
 

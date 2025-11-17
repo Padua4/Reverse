@@ -34,10 +34,10 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dgvPaletes = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.btnEmAndamento = new System.Windows.Forms.Button();
             this.btnFinalizado = new System.Windows.Forms.Button();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -48,7 +48,7 @@
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.pnlHeader.Controls.Add(this.label1);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
@@ -84,7 +84,7 @@
             // 
             // dgvPaletes
             // 
-            this.dgvPaletes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dgvPaletes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvPaletes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPaletes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPaletes.Location = new System.Drawing.Point(392, 3);
@@ -94,53 +94,13 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.panel1.Controls.Add(this.tableLayoutPanel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(383, 904);
             this.panel1.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(3, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(377, 124);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "STATUS PALETE";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnEmAndamento
-            // 
-            this.btnEmAndamento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
-            this.btnEmAndamento.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnEmAndamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEmAndamento.ForeColor = System.Drawing.Color.Yellow;
-            this.btnEmAndamento.Location = new System.Drawing.Point(3, 127);
-            this.btnEmAndamento.Name = "btnEmAndamento";
-            this.btnEmAndamento.Size = new System.Drawing.Size(377, 118);
-            this.btnEmAndamento.TabIndex = 2;
-            this.btnEmAndamento.Text = "Em Andamento";
-            this.btnEmAndamento.UseVisualStyleBackColor = false;
-            this.btnEmAndamento.Click += new System.EventHandler(this.btnEmAndamento_Click);
-            // 
-            // btnFinalizado
-            // 
-            this.btnFinalizado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
-            this.btnFinalizado.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnFinalizado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFinalizado.ForeColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnFinalizado.Location = new System.Drawing.Point(3, 251);
-            this.btnFinalizado.Name = "btnFinalizado";
-            this.btnFinalizado.Size = new System.Drawing.Size(377, 118);
-            this.btnFinalizado.TabIndex = 3;
-            this.btnFinalizado.Text = "Finalizado";
-            this.btnFinalizado.UseVisualStyleBackColor = false;
-            this.btnFinalizado.Click += new System.EventHandler(this.btnFinalizado_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -162,11 +122,52 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(383, 496);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(377, 124);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "STATUS PALETE";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnEmAndamento
+            // 
+            this.btnEmAndamento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
+            this.btnEmAndamento.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnEmAndamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEmAndamento.ForeColor = System.Drawing.Color.Black;
+            this.btnEmAndamento.Location = new System.Drawing.Point(3, 127);
+            this.btnEmAndamento.Name = "btnEmAndamento";
+            this.btnEmAndamento.Size = new System.Drawing.Size(377, 118);
+            this.btnEmAndamento.TabIndex = 2;
+            this.btnEmAndamento.Text = "Em Andamento";
+            this.btnEmAndamento.UseVisualStyleBackColor = false;
+            this.btnEmAndamento.Click += new System.EventHandler(this.btnEmAndamento_Click);
+            // 
+            // btnFinalizado
+            // 
+            this.btnFinalizado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
+            this.btnFinalizado.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnFinalizado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFinalizado.ForeColor = System.Drawing.Color.Black;
+            this.btnFinalizado.Location = new System.Drawing.Point(3, 251);
+            this.btnFinalizado.Name = "btnFinalizado";
+            this.btnFinalizado.Size = new System.Drawing.Size(377, 118);
+            this.btnFinalizado.TabIndex = 3;
+            this.btnFinalizado.Text = "Finalizado";
+            this.btnFinalizado.UseVisualStyleBackColor = false;
+            this.btnFinalizado.Click += new System.EventHandler(this.btnFinalizado_Click);
+            // 
             // btnExcluir
             // 
             this.btnExcluir.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExcluir.ForeColor = System.Drawing.Color.Tomato;
+            this.btnExcluir.ForeColor = System.Drawing.Color.Black;
             this.btnExcluir.Location = new System.Drawing.Point(3, 375);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(377, 118);
@@ -175,11 +176,11 @@
             this.btnExcluir.UseVisualStyleBackColor = true;
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
-            // FormTriagemPalete
+            // TriagemFormPalete
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.ClientSize = new System.Drawing.Size(1920, 966);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.pnlHeader);
@@ -188,7 +189,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "FormTriagemPalete";
+            this.Name = "TriagemFormPalete";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormTriagemPalete";
             this.pnlHeader.ResumeLayout(false);

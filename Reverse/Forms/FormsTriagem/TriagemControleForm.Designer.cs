@@ -76,7 +76,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.panel1.Controls.Add(this.lblGreeting);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -123,7 +123,7 @@
             // 
             // dgvNotas
             // 
-            this.dgvNotas.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.dgvNotas.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvNotas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvNotas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvNotas.Location = new System.Drawing.Point(3, 3);
@@ -172,7 +172,7 @@
             this.btnFiltrar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnFiltrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFiltrar.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
-            this.btnFiltrar.ForeColor = System.Drawing.Color.White;
+            this.btnFiltrar.ForeColor = System.Drawing.Color.Black;
             this.btnFiltrar.Location = new System.Drawing.Point(3, 3);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(369, 64);
@@ -186,7 +186,7 @@
             this.btnImportExcel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnImportExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImportExcel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
-            this.btnImportExcel.ForeColor = System.Drawing.Color.White;
+            this.btnImportExcel.ForeColor = System.Drawing.Color.Black;
             this.btnImportExcel.Location = new System.Drawing.Point(3, 353);
             this.btnImportExcel.Name = "btnImportExcel";
             this.btnImportExcel.Size = new System.Drawing.Size(369, 64);
@@ -200,7 +200,7 @@
             this.btnExportarExcel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnExportarExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportarExcel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExportarExcel.ForeColor = System.Drawing.Color.White;
+            this.btnExportarExcel.ForeColor = System.Drawing.Color.Black;
             this.btnExportarExcel.Location = new System.Drawing.Point(3, 283);
             this.btnExportarExcel.Name = "btnExportarExcel";
             this.btnExportarExcel.Size = new System.Drawing.Size(369, 64);
@@ -214,7 +214,7 @@
             this.btnLimparFiltro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnLimparFiltro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimparFiltro.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
-            this.btnLimparFiltro.ForeColor = System.Drawing.Color.White;
+            this.btnLimparFiltro.ForeColor = System.Drawing.Color.Black;
             this.btnLimparFiltro.Location = new System.Drawing.Point(3, 73);
             this.btnLimparFiltro.Name = "btnLimparFiltro";
             this.btnLimparFiltro.Size = new System.Drawing.Size(369, 64);
@@ -228,7 +228,7 @@
             this.btnEditarProduto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnEditarProduto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditarProduto.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
-            this.btnEditarProduto.ForeColor = System.Drawing.Color.White;
+            this.btnEditarProduto.ForeColor = System.Drawing.Color.Black;
             this.btnEditarProduto.Location = new System.Drawing.Point(3, 143);
             this.btnEditarProduto.Name = "btnEditarProduto";
             this.btnEditarProduto.Size = new System.Drawing.Size(369, 64);
@@ -242,7 +242,7 @@
             this.btnExcluirProduto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnExcluirProduto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExcluirProduto.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
-            this.btnExcluirProduto.ForeColor = System.Drawing.Color.White;
+            this.btnExcluirProduto.ForeColor = System.Drawing.Color.Black;
             this.btnExcluirProduto.Location = new System.Drawing.Point(3, 213);
             this.btnExcluirProduto.Name = "btnExcluirProduto";
             this.btnExcluirProduto.Size = new System.Drawing.Size(369, 64);
@@ -277,7 +277,7 @@
             this.groupBox5.Controls.Add(this.cmbFiltroFlag);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.ForeColor = System.Drawing.Color.White;
+            this.groupBox5.ForeColor = System.Drawing.Color.Black;
             this.groupBox5.Location = new System.Drawing.Point(3, 323);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(369, 75);
@@ -302,7 +302,7 @@
             this.groupBox4.Controls.Add(this.txtFiltroDescricao);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.ForeColor = System.Drawing.Color.White;
+            this.groupBox4.ForeColor = System.Drawing.Color.Black;
             this.groupBox4.Location = new System.Drawing.Point(3, 243);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(369, 74);
@@ -324,7 +324,7 @@
             this.groupBox3.Controls.Add(this.chkFiltroEmissao);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.ForeColor = System.Drawing.Color.White;
+            this.groupBox3.ForeColor = System.Drawing.Color.Black;
             this.groupBox3.Location = new System.Drawing.Point(3, 163);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(369, 74);
@@ -334,10 +334,10 @@
             // 
             // chkFiltroEmissao
             // 
-            this.chkFiltroEmissao.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.chkFiltroEmissao.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.chkFiltroEmissao.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chkFiltroEmissao.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
-            this.chkFiltroEmissao.ForeColor = System.Drawing.Color.White;
+            this.chkFiltroEmissao.ForeColor = System.Drawing.Color.Black;
             this.chkFiltroEmissao.Location = new System.Drawing.Point(3, 29);
             this.chkFiltroEmissao.Name = "chkFiltroEmissao";
             this.chkFiltroEmissao.Size = new System.Drawing.Size(363, 42);
@@ -350,7 +350,7 @@
             this.groupBox2.Controls.Add(this.dtpFiltroEmissao);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.ForeColor = System.Drawing.Color.White;
+            this.groupBox2.ForeColor = System.Drawing.Color.Black;
             this.groupBox2.Location = new System.Drawing.Point(3, 83);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(369, 74);
@@ -374,7 +374,7 @@
             this.groupBox1.Controls.Add(this.txtFiltroCodBarras);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.ForeColor = System.Drawing.Color.White;
+            this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(369, 74);
@@ -416,7 +416,7 @@
             this.lblTotal.AutoSize = true;
             this.lblTotal.Dock = System.Windows.Forms.DockStyle.Right;
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
-            this.lblTotal.ForeColor = System.Drawing.Color.White;
+            this.lblTotal.ForeColor = System.Drawing.Color.Black;
             this.lblTotal.Location = new System.Drawing.Point(595, 0);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(147, 30);
@@ -426,7 +426,7 @@
             // 
             // dgvFiltrados
             // 
-            this.dgvFiltrados.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.dgvFiltrados.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvFiltrados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFiltrados.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvFiltrados.Location = new System.Drawing.Point(10, 10);
@@ -437,7 +437,7 @@
             // TriagemControleForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.ClientSize = new System.Drawing.Size(1920, 966);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
