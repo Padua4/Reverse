@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using static Reverse.Forms.FormsExpedicao.ExpedicaoFormEstoque;
 
@@ -11,8 +10,12 @@ namespace Reverse.Models
         public ReverseContext() : base("ReverseDB")
         {
             Database.SetInitializer<ReverseContext>(null);
+
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
 
+        // DbSets existentes
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Palete> Paletes { get; set; }
         public DbSet<ItemPalete> ItensPalete { get; set; }
@@ -21,6 +24,10 @@ namespace Reverse.Models
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Material> Materiais { get; set; }
         public DbSet<Permissao> Permissoes { get; set; }
+        public DbSet<AtividadeUsuario> AtividadesUsuarios { get; set; }
+        public DbSet<SessaoUsuario> SessoesUsuarios { get; set; }
+
+        public DbSet<CategoriaPalete> CategoriasPalete { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -28,12 +35,13 @@ namespace Reverse.Models
 
             modelBuilder.Entity<Usuario>().ToTable("Usuarios");
             modelBuilder.Entity<Permissao>().ToTable("Permissoes");
-
             modelBuilder.Entity<Produto>().ToTable("Produto");
             modelBuilder.Entity<ItemPalete>().ToTable("ItemPalete");
             modelBuilder.Entity<Palete>().ToTable("Palete");
             modelBuilder.Entity<Estoque>().ToTable("Estoques");
             modelBuilder.Entity<Cliente>().ToTable("Clientes");
+
+            modelBuilder.Entity<CategoriaPalete>().ToTable("CategoriaPalete");
 
             modelBuilder.Entity<Permissao>()
                 .Property(p => p.FormName)
@@ -62,6 +70,12 @@ namespace Reverse.Models
                 .HasMany(p => p.Itens)
                 .WithRequired(i => i.Palete)
                 .HasForeignKey(i => i.PaleteId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Palete>()
+                .HasRequired(p => p.Categoria)
+                .WithMany()
+                .HasForeignKey(p => p.CategoriaId)
                 .WillCascadeOnDelete(false);
         }
     }

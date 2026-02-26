@@ -21,58 +21,8 @@ namespace Reverse.Forms.FormsExpedicao
         private bool isLoadingData = false;
         private int clienteIdSelecionado = 0;
 
-        private readonly Dictionary<string, (string Tipo, string Tratamento)> materiaisTipoTratamento = new Dictionary<string, (string, string)>
-        {
-            { "ALIMENTO / BEBIDA / OUTROS", ("ALIMENTO / BEBIDA / OUTROS", "COMPOSTAGEM") },
-            { "ALUMINIO BLOCO LIMPO", ("METAL NOBRE", "INDUSTRIALIZAÇÃO") },
-            { "ALUMINIO BLOCO SUJO", ("METAL NOBRE", "INDUSTRIALIZAÇÃO") },
-            { "APARA", ("POLÍMEROS", "RECICLAGEM") },
-            { "APARA AMARELA", ("POLÍMEROS", "RECICLAGEM") },
-            { "BATERIA", ("BATERIAS / PILHAS", "RECICLAGEM") },
-            { "BIGBAG", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "BORRACHA", ("BORRACHA", "RECICLAGEM") },
-            { "CABO", ("METAL NOBRE", "INDUSTRIALIZAÇÃO") },
-            { "CABO MISTO", ("METAL NOBRE", "INDUSTRIALIZAÇÃO") },
-            { "CAVACO DE ALUMINIO", ("METAL NOBRE", "INDUSTRIALIZAÇÃO") },
-            { "CAVACO DE FERRO", ("METÁLICO", "INDUSTRIALIZAÇÃO") },
-            { "CAVACO DE PLÁSTICO", ("POLÍMEROS", "RECICLAGEM") },
-            { "CELULAR", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "COBRE", ("METAL NOBRE", "INDUSTRIALIZAÇÃO") },
-            { "COBRE MISTO", ("METAL NOBRE", "INDUSTRIALIZAÇÃO") },
-            { "EQUIPAMENTO MÉDICO", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "EVA (ETILENO ACETATO DE VINILA)", ("POLÍMEROS", "RECICLAGEM") },
-            { "FERRO", ("METÁLICO", "INDUSTRIALIZAÇÃO") },
-            { "INOX FERROSO", ("METAL NOBRE", "INDUSTRIALIZAÇÃO") },
-            { "INOX NÃO FERROSO", ("METAL NOBRE", "INDUSTRIALIZAÇÃO") },
-            { "ISOPOR", ("ISOPOR", "RECICLAGEM") },
-            { "LAMPADA", ("SÓLIDO AMORFO (VIDRO)", "RECICLAGEM") },
-            { "LATÃO", ("METÁLICO", "INDUSTRIALIZAÇÃO") },
-            { "MADEIRA", ("MADEIRA", "RECICLAGEM") },
-            { "MAQUINAS", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "METAIS", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "MISTO", ("OUTRAS FRAÇÕES NÃO ESPECIFICADAS", "TRIAGEM, TRANSBORDO E COPROCESSAMENTO") },
-            { "MÓDULO", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "MOTOR", ("METAL NOBRE", "INDUSTRIALIZAÇÃO") },
-            { "PAPEL", ("PAPEL / PAPELÃO", "RECICLAGEM") },
-            { "PAPELÃO", ("PAPEL / PAPELÃO", "RECICLAGEM") },
-            { "PAINEL ELETRICO", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "PICADEIRA", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "PILHA", ("BATERIAS / PILHAS", "COPROCESSAMENTO") },
-            { "PLACA MARROM", ("METAL NOBRE", "INDUSTRIALIZAÇÃO") },
-            { "PLACA VERDE", ("METAL NOBRE", "INDUSTRIALIZAÇÃO") },
-            { "PLASTICO", ("POLÍMEROS", "RECICLAGEM") },
-            { "RADIADORES", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "RAÇÃO / FRALDA / OUTROS", ("RAÇÃO / FRALDA / OUTROS", "DOAÇÕES") },
-            { "RESISTENCIA", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "RESIDUO INDUSTRIAL", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "SERVIDOR", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "SUCATA ELETRONICA", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "SUCATA VARIADA", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "TABLET", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "TECIDOS", ("SUCATA TÊXTIL", "COPROCESSAMENTO") },
-            { "TRANSFORMADOR", ("NÃO ESPECIFICADO", "NÃO ESPECIFICADO") },
-            { "VIDRO", ("SÓLIDO AMORFO (VIDRO)", "RECICLAGEM") }
-        };
+        private Dictionary<string, (string Tipo, string Tratamento)> materiaisTipoTratamento =
+            new Dictionary<string, (string Tipo, string Tratamento)>(StringComparer.OrdinalIgnoreCase);
 
         public ExpedicaoFormBalanco(int _usuarioId)
         {
@@ -86,12 +36,15 @@ namespace Reverse.Forms.FormsExpedicao
             btnCertificado.Click += btnCertificado_Click;
 
             dgvBalanca.CellValueChanged += dgvBalanca_CellValueChanged;
+
+            txtCertificado.Leave += txtCertificado_Leave;
         }
 
 
         private async void FormBalanco_Load(object sender, EventArgs e)
         {
             await CarregarEmpresasAsync();
+            await CarregarMateriaisTipoTratamentoAsync();
             ConfigurarGrids();
             HabilitarCampos(false);
 
@@ -99,6 +52,8 @@ namespace Reverse.Forms.FormsExpedicao
             dtpData.Format = DateTimePickerFormat.Custom;
             dtpData.CustomFormat = "MM/yyyy";
             dtpData.ShowUpDown = true;
+
+            txtCertificado.ReadOnly = false;
         }
 
         private async Task CarregarEmpresasAsync()
@@ -106,7 +61,10 @@ namespace Reverse.Forms.FormsExpedicao
             using (var conn = new SqlConnection(connectionString))
             {
                 await conn.OpenAsync();
-                var cmd = new SqlCommand("SELECT ClienteId, Nome FROM Clientes ORDER BY Nome", conn);
+
+                var cmd = new SqlCommand(
+                    "SELECT ClienteId, Nome, RazaoSocial FROM Clientes ORDER BY Nome",
+                    conn);
 
                 var dt = new DataTable();
                 using (var adapter = new SqlDataAdapter(cmd))
@@ -121,26 +79,59 @@ namespace Reverse.Forms.FormsExpedicao
             }
         }
 
+        private async Task CarregarMateriaisTipoTratamentoAsync()
+        {
+            materiaisTipoTratamento.Clear();
+
+            try
+            {
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    await conn.OpenAsync();
+                    using (var cmd = new SqlCommand(
+                        "SELECT Nome, Tipo, Tratamento FROM ExpMaterialLaudo", conn))
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            string nome = reader["Nome"].ToString();
+                            string tipo = reader["Tipo"].ToString();
+                            string tratamento = reader["Tratamento"].ToString();
+
+                            if (!materiaisTipoTratamento.ContainsKey(nome))
+                                materiaisTipoTratamento[nome] = (tipo, tratamento);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar materiais do banco: {ex.Message}",
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
         private void ConfigurarGrids()
         {
+            #region Configuração da Grid dgvTickets
             dgvTickets.Columns.Clear();
             dgvTickets.AllowUserToAddRows = false;
             dgvTickets.AllowUserToDeleteRows = false;
             dgvTickets.ReadOnly = true;
-            dgvTickets.DefaultCellStyle.ForeColor = Color.Black;
-            dgvTickets.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
-            dgvTickets.DefaultCellStyle.SelectionForeColor = Color.Black;
 
-            dgvTickets.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
-            dgvTickets.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
-
-            dgvTickets.RowsDefaultCellStyle.BackColor = Color.FromArgb(230, 240, 255);
-            dgvTickets.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(200, 220, 240);
+            var colData = new DataGridViewTextBoxColumn();
+            colData.HeaderText = "Data";
+            colData.Name = "Data";
+            colData.Width = 80;
+            colData.DefaultCellStyle.Format = "dd/MM/yyyy";
+            colData.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvTickets.Columns.Add(colData);
 
             var colTicket = new DataGridViewTextBoxColumn();
             colTicket.HeaderText = "Ticket";
             colTicket.Name = "Ticket";
-            colTicket.Width = 120;
+            colTicket.Width = 100;
             colTicket.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             dgvTickets.Columns.Add(colTicket);
 
@@ -156,27 +147,27 @@ namespace Reverse.Forms.FormsExpedicao
             colPesoTicket.Name = "Peso";
             colPesoTicket.DefaultCellStyle.Format = "N3";
             colPesoTicket.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colPesoTicket.FillWeight = 80;
+            colPesoTicket.FillWeight = 60;
+            colPesoTicket.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dgvTickets.Columns.Add(colPesoTicket);
 
             var colVolume = new DataGridViewTextBoxColumn();
             colVolume.HeaderText = "Volume";
             colVolume.Name = "Volume";
             colVolume.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colVolume.FillWeight = 60;
+            colVolume.FillWeight = 40;
+            colVolume.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dgvTickets.Columns.Add(colVolume);
 
             dgvTickets.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            AplicarEstiloVisualProducao(dgvTickets);
+            #endregion
+
+            #region Configuração da Grid dgvBalanca
             dgvBalanca.Columns.Clear();
             dgvBalanca.AllowUserToAddRows = false;
             dgvBalanca.AllowUserToDeleteRows = false;
-            dgvBalanca.DefaultCellStyle.ForeColor = Color.Black;
-            dgvBalanca.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
-            dgvBalanca.DefaultCellStyle.SelectionForeColor = Color.Black;
-
-            dgvBalanca.RowsDefaultCellStyle.BackColor = Color.FromArgb(230, 240, 255);
-            dgvBalanca.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(200, 220, 240);
 
             var colId = new DataGridViewTextBoxColumn();
             colId.HeaderText = "Id";
@@ -201,19 +192,42 @@ namespace Reverse.Forms.FormsExpedicao
             dgvBalanca.Columns.Add(colPesoBal);
 
             dgvBalanca.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvBalanca.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
-            dgvBalanca.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
 
+            AplicarEstiloVisualProducao(dgvBalanca);
+            #endregion
+
+            #region Configuração da Grid dgvResumo
+            dgvResumo.Columns.Clear();
+            dgvResumo.AllowUserToAddRows = false;
+            dgvResumo.AllowUserToDeleteRows = false;
+            dgvResumo.ReadOnly = true;
+
+            var colMaterialResumo = new DataGridViewTextBoxColumn();
+            colMaterialResumo.HeaderText = "Material";
+            colMaterialResumo.Name = "Material";
+            colMaterialResumo.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colMaterialResumo.FillWeight = 60;
+            dgvResumo.Columns.Add(colMaterialResumo);
+
+            var colPesoResumo = new DataGridViewTextBoxColumn();
+            colPesoResumo.HeaderText = "Peso Total (kg)";
+            colPesoResumo.Name = "PesoTotal";
+            colPesoResumo.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colPesoResumo.FillWeight = 40;
+            colPesoResumo.DefaultCellStyle.Format = "N3";
+            colPesoResumo.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvResumo.Columns.Add(colPesoResumo);
+
+            dgvResumo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            AplicarEstiloVisualProducao(dgvResumo);
+            #endregion
+
+            #region Configuração da Grid dgvTotal
             dgvTotal.Columns.Clear();
             dgvTotal.AllowUserToAddRows = false;
             dgvTotal.AllowUserToDeleteRows = false;
             dgvTotal.ReadOnly = true;
-            dgvTotal.DefaultCellStyle.ForeColor = Color.Black;
-            dgvTotal.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
-            dgvTotal.DefaultCellStyle.SelectionForeColor = Color.Black;
-
-            dgvTotal.RowsDefaultCellStyle.BackColor = Color.FromArgb(230, 240, 255);
-            dgvTotal.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(200, 220, 240);
 
             var colTipoTotal = new DataGridViewTextBoxColumn();
             colTipoTotal.HeaderText = "Tipo";
@@ -233,8 +247,41 @@ namespace Reverse.Forms.FormsExpedicao
             dgvTotal.Columns.Add(colPesoTotal);
 
             dgvTotal.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvTotal.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
-            dgvTotal.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+
+            AplicarEstiloVisualProducao(dgvTotal);
+            #endregion
+        }
+
+        private void AplicarEstiloVisualProducao(DataGridView grid)
+        {
+            grid.BackgroundColor = Color.FromArgb(250, 250, 252);
+            grid.BorderStyle = BorderStyle.FixedSingle;
+            grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            grid.GridColor = Color.FromArgb(230, 230, 235);
+
+            grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 73, 94);
+            grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            grid.ColumnHeadersHeight = 40;
+
+            grid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 249, 255);
+            grid.RowsDefaultCellStyle.BackColor = Color.White;
+                
+            grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 237, 255);
+            grid.DefaultCellStyle.SelectionForeColor = Color.Black;
+            grid.ColumnHeadersDefaultCellStyle.SelectionBackColor = grid.ColumnHeadersDefaultCellStyle.BackColor;
+            grid.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+
+            grid.DefaultCellStyle.ForeColor = Color.Black;
+            grid.AlternatingRowsDefaultCellStyle.ForeColor = Color.Black;
+
+            grid.EnableHeadersVisualStyles = false;
+            grid.RowHeadersVisible = false;
+            grid.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
+            grid.RowTemplate.Height = 36;
         }
 
         private void HabilitarCampos(bool habilitar)
@@ -242,12 +289,29 @@ namespace Reverse.Forms.FormsExpedicao
             btnCarregar.Enabled = !habilitar;
             cbEmpresa.Enabled = !habilitar;
             dtpData.Enabled = !habilitar;
+            txtCertificado.Enabled = habilitar;
 
             btnSalvar.Enabled = habilitar;
             btnCancelar.Enabled = habilitar;
             btnCriarLinha.Enabled = habilitar;
             btnExcluirLinha.Enabled = habilitar;
             dgvBalanca.Enabled = habilitar;
+        }
+
+        private void txtCertificado_Leave(object sender, EventArgs e)
+        {
+            string certificado = txtCertificado.Text.Trim();
+
+            if (!string.IsNullOrEmpty(certificado))
+            {
+                if (!ValidarFormatoCertificado(certificado))
+                {
+                    MessageBox.Show("Formato de certificado inválido!\n\nUse: XXXX-YYYY/SSSS-ZZZZ\nExemplo: 0100-0022/2025-0005",
+                        "Formato Inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCertificado.Focus();
+                    txtCertificado.SelectAll();
+                }
+            }
         }
 
         private async void btnCarregar_Click(object sender, EventArgs e)
@@ -262,6 +326,10 @@ namespace Reverse.Forms.FormsExpedicao
             clienteIdSelecionado = Convert.ToInt32(cbEmpresa.SelectedValue);
             DateTime mesAno = new DateTime(dtpData.Value.Year, dtpData.Value.Month, 1);
 
+            dgvTickets.Rows.Clear();
+            dgvResumo.Rows.Clear();
+            txtCertificado.Clear();
+
             await CarregarTicketsDoMesAsync(clienteIdSelecionado, mesAno);
             await CarregarBalancoSalvoAsync(clienteIdSelecionado, mesAno);
 
@@ -271,6 +339,7 @@ namespace Reverse.Forms.FormsExpedicao
         private async Task CarregarTicketsDoMesAsync(int clienteId, DateTime mesAno)
         {
             dgvTickets.Rows.Clear();
+            dgvResumo.Rows.Clear();
 
             DateTime inicioMes = mesAno;
             DateTime fimMes = mesAno.AddMonths(1).AddDays(-1);
@@ -280,18 +349,19 @@ namespace Reverse.Forms.FormsExpedicao
                 await conn.OpenAsync();
 
                 string sql = @"
-            SELECT 
-                cl.Ticket,
-                ISNULL(cl.Volume, 0) AS Volume,
-                lm.Material,
-                lm.Peso
-                FROM ControleLogistico cl
-                INNER JOIN LancamentosMateriais lm ON cl.Ticket = lm.Ticket
-                WHERE cl.ClienteId = @ClienteId
-                  AND cl.Ticket IS NOT NULL
-                  AND cl.Data >= @InicioMes
-                  AND cl.Data <= @FimMes
-                ORDER BY cl.Ticket, lm.Material";
+                    SELECT 
+                        cl.Ticket,
+                        cl.Data,
+                        ISNULL(cl.Volume, 0) AS Volume,
+                        lm.Material,
+                        lm.Peso
+                    FROM ControleLogistico cl
+                    INNER JOIN LancamentosMateriais lm ON cl.Ticket = lm.Ticket
+                    WHERE cl.ClienteId = @ClienteId
+                        AND cl.Ticket IS NOT NULL
+                        AND cl.Data >= @InicioMes
+                        AND cl.Data <= @FimMes
+                ORDER BY cl.Data, cl.Ticket, lm.Material";
 
                 var cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@ClienteId", clienteId);
@@ -307,9 +377,27 @@ namespace Reverse.Forms.FormsExpedicao
                     while (await reader.ReadAsync())
                     {
                         string ticket = reader["Ticket"].ToString();
+                        DateTime data = Convert.ToDateTime(reader["Data"]);
                         string material = reader["Material"].ToString();
                         decimal peso = Convert.ToDecimal(reader["Peso"]);
-                        int volume = Convert.ToInt32(reader["Volume"]);
+
+                        int volume = 0;
+                        object volumeObj = reader["Volume"];
+                        if (volumeObj != DBNull.Value && volumeObj != null)
+                        {
+                            if (int.TryParse(volumeObj.ToString(), out int parsedInt))
+                            {
+                                volume = parsedInt;
+                            }
+                            else if (decimal.TryParse(volumeObj.ToString(), out decimal parsedDecimal))
+                            {
+                                volume = (int)parsedDecimal;
+                            }
+                            else if (double.TryParse(volumeObj.ToString(), out double parsedDouble))
+                            {
+                                volume = (int)parsedDouble;
+                            }
+                        }
 
                         if (ticket != ticketAnterior)
                         {
@@ -318,13 +406,15 @@ namespace Reverse.Forms.FormsExpedicao
                         }
 
                         pesoTotalGeral += peso;
-                        dgvTickets.Rows.Add(ticket, material, peso, volume);
+                        dgvTickets.Rows.Add(data, ticket, material, peso, volume);
                     }
                 }
 
                 txtPeso.Text = pesoTotalGeral.ToString("N3");
                 txtVolume.Text = volumeTotalGeral.ToString();
                 AtualizarPesoRestante();
+
+                GerarResumoMateriais();
 
                 if (dgvTickets.Rows.Count == 0)
                 {
@@ -338,6 +428,62 @@ namespace Reverse.Forms.FormsExpedicao
             }
         }
 
+        private void GerarResumoMateriais()
+        {
+            dgvResumo.Rows.Clear();
+
+            if (dgvTickets.Rows.Count == 0)
+                return;
+
+            var resumo = new Dictionary<string, decimal>();
+
+            foreach (DataGridViewRow row in dgvTickets.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                var materialCell = row.Cells["Material"];
+                var pesoCell = row.Cells["Peso"];
+
+                if (materialCell.Value == null || pesoCell.Value == null)
+                    continue;
+
+                string material = materialCell.Value.ToString().Trim();
+                if (string.IsNullOrWhiteSpace(material))
+                    continue;
+
+                if (!decimal.TryParse(pesoCell.Value.ToString(), out decimal peso))
+                    continue;
+
+                if (resumo.ContainsKey(material))
+                {
+                    resumo[material] += peso;
+                }
+                else
+                {
+                    resumo[material] = peso;
+                }
+            }
+
+            foreach (var item in resumo.OrderBy(x => x.Key))
+            {
+                dgvResumo.Rows.Add(item.Key, item.Value);
+            }
+
+            if (resumo.Count > 0)
+            {
+                decimal totalPeso = resumo.Sum(x => x.Value);
+                dgvResumo.Rows.Add("TOTAL", totalPeso);
+
+                if (dgvResumo.Rows.Count > 0)
+                {
+                    var totalRow = dgvResumo.Rows[dgvResumo.Rows.Count - 1];
+                    totalRow.DefaultCellStyle.BackColor = Color.FromArgb(180, 210, 255);
+                    totalRow.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                    totalRow.DefaultCellStyle.ForeColor = Color.FromArgb(0, 60, 120);
+                }
+            }
+        }
+
         private async Task CarregarBalancoSalvoAsync(int clienteId, DateTime mesAno)
         {
             dgvBalanca.Rows.Clear();
@@ -345,6 +491,27 @@ namespace Reverse.Forms.FormsExpedicao
             using (var conn = new SqlConnection(connectionString))
             {
                 await conn.OpenAsync();
+
+                string sqlCertificado = @"
+                    SELECT TOP 1 NumeroCertificado 
+                    FROM CertificadosEmitidos 
+                    WHERE ClienteId = @ClienteId 
+                    AND MesAno = @MesAno
+                    ORDER BY DataEmissao DESC";
+
+                var cmdCertificado = new SqlCommand(sqlCertificado, conn);
+                cmdCertificado.Parameters.AddWithValue("@ClienteId", clienteId);
+                cmdCertificado.Parameters.AddWithValue("@MesAno", mesAno);
+
+                var resultado = await cmdCertificado.ExecuteScalarAsync();
+                if (resultado != null && resultado != DBNull.Value)
+                {
+                    txtCertificado.Text = resultado.ToString();
+                }
+                else
+                {
+                    txtCertificado.Text = "";
+                }
 
                 string sql = @"
                     SELECT Id, Material, Peso, Tipo
@@ -371,7 +538,6 @@ namespace Reverse.Forms.FormsExpedicao
                     }
                 }
             }
-
             if (dgvBalanca.Rows.Count > 0)
             {
                 AgruparPorTipo();
@@ -382,6 +548,7 @@ namespace Reverse.Forms.FormsExpedicao
         {
             dgvBalanca.Rows.Add(null, "", 0);
         }
+
         private async void btnExcluirLinha_Click(object sender, EventArgs e)
         {
             if (dgvBalanca.CurrentRow == null)
@@ -459,8 +626,6 @@ namespace Reverse.Forms.FormsExpedicao
                 AgruparPorTipo();
             }
         }
-
-
         private void AgruparPorTipo()
         {
             isLoadingData = true;
@@ -534,6 +699,21 @@ namespace Reverse.Forms.FormsExpedicao
 
             DateTime mesAno = new DateTime(dtpData.Value.Year, dtpData.Value.Month, 1);
 
+            string numeroCertificado = txtCertificado.Text.Trim();
+            bool certificadoEditado = false;
+
+            if (!string.IsNullOrEmpty(numeroCertificado))
+            {
+                if (!ValidarFormatoCertificado(numeroCertificado))
+                {
+                    MessageBox.Show("Formato de certificado inválido. Use: XXXX-YYYY/SSSS-ZZZZ\nExemplo: 0100-0022/2025-0005",
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                certificadoEditado = true;
+            }
+
             var dadosParaInserir = new List<(string Material, decimal Peso, string Tipo, string Tratamento)>();
 
             foreach (DataGridViewRow row in dgvBalanca.Rows)
@@ -563,9 +743,9 @@ namespace Reverse.Forms.FormsExpedicao
                         try
                         {
                             var cmdDel = new SqlCommand(@"
-                        DELETE FROM BalancoMassa 
-                        WHERE ClienteId = @ClienteId AND MesAno = @MesAno",
-                                conn, transaction);
+                                DELETE FROM BalancoMassa 
+                                WHERE ClienteId = @ClienteId AND MesAno = @MesAno",
+                                    conn, transaction);
                             cmdDel.Parameters.AddWithValue("@ClienteId", clienteIdSelecionado);
                             cmdDel.Parameters.AddWithValue("@MesAno", mesAno);
                             await cmdDel.ExecuteNonQueryAsync();
@@ -595,15 +775,21 @@ namespace Reverse.Forms.FormsExpedicao
                                     cmdIns.Parameters.AddWithValue("@MesAno", mesAno);
 
                                     cmdIns.CommandText = $@"
-                                INSERT INTO BalancoMassa (ClienteId, MesAno, Material, Peso, Tipo, Tratamento)
-                                VALUES {string.Join(",", valores)}";
+                                        INSERT INTO BalancoMassa (ClienteId, MesAno, Material, Peso, Tipo, Tratamento)
+                                        VALUES {string.Join(",", valores)}";
 
                                     await cmdIns.ExecuteNonQueryAsync();
                                 }
                             }
 
+                            if (certificadoEditado)
+                            {
+                                await SalvarCertificadoEditadoAsync(conn, transaction, clienteIdSelecionado, mesAno, numeroCertificado);
+                            }
+
                             transaction.Commit();
-                            MessageBox.Show("Balanço de massa salvo com sucesso!", "Sucesso",
+
+                            MessageBox.Show("Balanço de massa " + (certificadoEditado ? "e certificado " : "") + "salvo com sucesso!", "Sucesso",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -620,6 +806,112 @@ namespace Reverse.Forms.FormsExpedicao
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void GerarPDFComNumeroExistente(DadosCertificado dadosParaPDF)
+        {
+            try
+            {
+                string caminhoArquivo = GerarPDFCertificado(dadosParaPDF);
+
+                var resultado = MessageBox.Show(
+                    $"Certificado gerado com sucesso!\n\nNúmero: {dadosParaPDF.NumeroCertificado}\nCaminho: {caminhoArquivo}\n\nDeseja abrir o arquivo?",
+                    "Sucesso",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Information);
+
+                if (resultado == DialogResult.Yes)
+                {
+                    System.Diagnostics.Process.Start(caminhoArquivo);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar certificado: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async Task SalvarCertificadoEditadoAsync(SqlConnection conn, SqlTransaction transaction, int clienteId, DateTime mesAno, string numeroCertificado)
+        {
+            string sqlVerifica = @"
+                SELECT COUNT(*) 
+                FROM CertificadosEmitidos 
+                WHERE ClienteId = @ClienteId 
+                AND MesAno = @MesAno";
+
+            var cmdVerifica = new SqlCommand(sqlVerifica, conn, transaction);
+            cmdVerifica.Parameters.AddWithValue("@ClienteId", clienteId);
+            cmdVerifica.Parameters.AddWithValue("@MesAno", mesAno);
+
+            int existe = Convert.ToInt32(await cmdVerifica.ExecuteScalarAsync());
+
+            if (existe > 0)
+            {
+                string sqlUpdate = @"
+                    UPDATE CertificadosEmitidos 
+                    SET NumeroCertificado = @NumeroCertificado, 
+                        DataEmissao = GETDATE()
+                    WHERE ClienteId = @ClienteId 
+                    AND MesAno = @MesAno";
+
+                var cmdUpdate = new SqlCommand(sqlUpdate, conn, transaction);
+                cmdUpdate.Parameters.AddWithValue("@NumeroCertificado", numeroCertificado);
+                cmdUpdate.Parameters.AddWithValue("@ClienteId", clienteId);
+                cmdUpdate.Parameters.AddWithValue("@MesAno", mesAno);
+
+                await cmdUpdate.ExecuteNonQueryAsync();
+            }
+            else
+            {
+                string sqlInsert = @"
+                    INSERT INTO CertificadosEmitidos (ClienteId, MesAno, NumeroCertificado, DataEmissao)
+                    VALUES (@ClienteId, @MesAno, @NumeroCertificado, GETDATE())";
+
+                var cmdInsert = new SqlCommand(sqlInsert, conn, transaction);
+                cmdInsert.Parameters.AddWithValue("@ClienteId", clienteId);
+                cmdInsert.Parameters.AddWithValue("@MesAno", mesAno);
+                cmdInsert.Parameters.AddWithValue("@NumeroCertificado", numeroCertificado);
+
+                await cmdInsert.ExecuteNonQueryAsync();
+            }
+
+            var partes = numeroCertificado.Split('-');
+            if (partes.Length == 3)
+            {
+                var codigo = partes[0];
+                var meio = partes[1];
+                var seqAno = partes[2];
+
+                var partesMeio = meio.Split('/');
+                if (partesMeio.Length == 2)
+                {
+                    int seqGeral = int.Parse(partesMeio[0]);
+                    int ano = int.Parse(partesMeio[1]);
+                    int seqAnoAtual = int.Parse(seqAno);
+
+                    string sqlAtualizaCliente = @"
+                        UPDATE Clientes 
+                        SET CertificadoSequencialGeral = @SeqGeral,
+                            CertificadoSequencialAnoAtual = @SeqAnoAtual,
+                            CertificadoUltimoAno = @Ano
+                        WHERE ClienteId = @ClienteId
+                        AND (
+                            CertificadoSequencialGeral < @SeqGeral 
+                            OR CertificadoUltimoAno < @Ano
+                            OR (CertificadoUltimoAno = @Ano AND CertificadoSequencialAnoAtual < @SeqAnoAtual)
+                        )";
+
+                    var cmdAtualiza = new SqlCommand(sqlAtualizaCliente, conn, transaction);
+                    cmdAtualiza.Parameters.AddWithValue("@SeqGeral", seqGeral);
+                    cmdAtualiza.Parameters.AddWithValue("@SeqAnoAtual", seqAnoAtual);
+                    cmdAtualiza.Parameters.AddWithValue("@Ano", ano);
+                    cmdAtualiza.Parameters.AddWithValue("@ClienteId", clienteId);
+
+                    await cmdAtualiza.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
 
         private void AtualizarPesoRestante()
         {
@@ -639,11 +931,13 @@ namespace Reverse.Forms.FormsExpedicao
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             dgvTickets.Rows.Clear();
+            dgvResumo.Rows.Clear();
             lblPesoRestante.Text = "Peso Restante: 0,000 kg";
             dgvBalanca.Rows.Clear();
             dgvTotal.Rows.Clear();
             txtPeso.Clear();
             txtVolume.Clear();
+            txtCertificado.Clear();
             cbEmpresa.SelectedIndex = -1;
             clienteIdSelecionado = 0;
             HabilitarCampos(false);
@@ -688,6 +982,34 @@ namespace Reverse.Forms.FormsExpedicao
                 return;
             }
 
+            string certificadoExistente = txtCertificado.Text.Trim();
+
+            if (!string.IsNullOrEmpty(certificadoExistente))
+            {
+                var resultado = MessageBox.Show(
+                    $"Já existe um certificado registrado: {certificadoExistente}\n\n" +
+                    "Deseja:\n" +
+                    "Não: Usar este número (Não altera sequenciais)\n" +
+                    "Sim: Gerar novo certificado (Atualiza sequenciais)",
+                    "Certificado Existente",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question);
+
+                if (resultado == DialogResult.Yes)
+                {
+                    var dados = await ObterDadosCertificadoAsync();
+                    if (dados == null) return;
+
+                    dados.NumeroCertificado = certificadoExistente;
+                    GerarPDFComNumeroExistente(dados);
+                    return;
+                }
+                else if (resultado == DialogResult.Cancel)
+                {
+                    return;
+                }
+            }
+
             var dadosCertificado = await ObterDadosCertificadoAsync();
             if (dadosCertificado == null) return;
 
@@ -699,7 +1021,7 @@ namespace Reverse.Forms.FormsExpedicao
 
                 if (isPrimeiraVezCertificado)
                 {
-                    string certificadoInicial = SolicitarCertificadoInicial(dadosCertificado.CodigoEmpresa);
+                    string certificadoInicial = SolicitarCertificadoInicial(dadosCertificado.CodigoEmpresa, dadosCertificado.MesAno);
                     if (string.IsNullOrEmpty(certificadoInicial))
                     {
                         return;
@@ -707,17 +1029,21 @@ namespace Reverse.Forms.FormsExpedicao
 
                     if (!ValidarFormatoCertificado(certificadoInicial))
                     {
-                        MessageBox.Show("Formato inválido. Use: XXXX-YYY/SSSS-ZZZ\nExemplo: 0100-022/2025-005",
+                        MessageBox.Show("Formato inválido. Use: XXXX-YYYY/ZZZZ-AAAA\nExemplo: 0100-0022/2026-0001",
                             "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
                     dadosCertificado.NumeroCertificado = certificadoInicial;
                     await AtualizarSequenciaisCertificado(dadosCertificado, certificadoInicial);
+
+                    txtCertificado.Text = certificadoInicial;
                 }
                 else
                 {
                     await IncrementarSequenciaisCertificado(dadosCertificado);
+
+                    txtCertificado.Text = dadosCertificado.NumeroCertificado;
                 }
             }
             else
@@ -728,6 +1054,8 @@ namespace Reverse.Forms.FormsExpedicao
                     "Certificado Existente",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
+
+                txtCertificado.Text = dadosCertificado.NumeroCertificado;
             }
 
             try
@@ -782,7 +1110,7 @@ namespace Reverse.Forms.FormsExpedicao
             }
         }
 
-        private string SolicitarCertificadoInicial(string codigoEmpresa)
+        private string SolicitarCertificadoInicial(string codigoEmpresa, DateTime mesAno)
         {
             using (Form promptForm = new Form())
             {
@@ -802,8 +1130,8 @@ namespace Reverse.Forms.FormsExpedicao
                     Height = 80,
                     Text = "Este é o primeiro certificado deste cliente no sistema.\n\n" +
                            "Informe o número atual conforme o formato abaixo.\n\n" +
-                           "Formato: XXXX-YYY/SSSS-ZZZ\n" +
-                           "Exemplo: 0100-022/2025-005"
+                           "Formato: XXXX-YYYY/ZZZZ-AAAA\n" +
+                           "Exemplo: 0100-0022/2026-0001"
                 };
 
                 Label labelFormato = new Label()
@@ -813,9 +1141,9 @@ namespace Reverse.Forms.FormsExpedicao
                     Width = 400,
                     Height = 60,
                     Text = "XXXX = Código da empresa (4 dígitos)\n" +
-                           "YYY = Sequência geral de todos os certificados (001-999)\n" +
-                           "SSSS = Ano atual\n" +
-                           "ZZZ = Sequência do ano (reinicia a cada ano)"
+                           "YYYY = Sequência geral de todos os certificados (0001-9999)\n" +
+                           "ZZZZ = Ano do certificado\n" +
+                           "AAAA = Sequência do ano (reinicia a cada ano)"
                 };
 
                 string codigo4 = (codigoEmpresa ?? "").Trim();
@@ -824,12 +1152,14 @@ namespace Reverse.Forms.FormsExpedicao
                 else
                     codigo4 = codigo4.PadLeft(4, '0');
 
+                int anoCertificado = mesAno.Year;
+
                 TextBox textBox = new TextBox()
                 {
                     Left = 20,
                     Top = 180,
                     Width = 400,
-                    Text = $"{codigo4}-001/{DateTime.Now.Year}-001"
+                    Text = $"{codigo4}-0001/{anoCertificado}-0001"
                 };
 
                 Button confirmation = new Button()
@@ -886,16 +1216,17 @@ namespace Reverse.Forms.FormsExpedicao
             var seqGeral = partesMeio[0];
             var ano = partesMeio[1];
 
-            if (seqGeral.Length != 3 || !int.TryParse(seqGeral, out var seqGeralVal)) return false;
-            if (ano.Length != 4 || !int.TryParse(ano, out var anoVal)) return false;
-            if (seqAno.Length != 3 || !int.TryParse(seqAno, out var seqAnoVal)) return false;
+            if (seqGeral.Length != 4 || !int.TryParse(seqGeral, out var seqGeralVal)) return false;
 
-            if (seqGeralVal < 1 || seqGeralVal > 999) return false;
-            if (seqAnoVal < 1 || seqAnoVal > 999) return false;
+            if (seqAno.Length != 4 || !int.TryParse(seqAno, out var seqAnoVal)) return false;
+
+            if (ano.Length != 4 || !int.TryParse(ano, out var anoVal)) return false;
+
+            if (seqGeralVal < 1 || seqGeralVal > 9999) return false;
+            if (seqAnoVal < 1 || seqAnoVal > 9999) return false;
 
             return true;
         }
-
         private async Task AtualizarSequenciaisCertificado(DadosCertificado dados, string certificadoManual)
         {
             var partes = certificadoManual.Split('-');
@@ -905,7 +1236,7 @@ namespace Reverse.Forms.FormsExpedicao
 
             var partesMeio = meio.Split('/');
             int seqGeral = int.Parse(partesMeio[0]);
-            int ano = int.Parse(partesMeio[1]);
+            int anoCertificado = int.Parse(partesMeio[1]);
             int seqAnoAtual = int.Parse(seqAno);
 
             using (var conn = new SqlConnection(connectionString))
@@ -916,15 +1247,15 @@ namespace Reverse.Forms.FormsExpedicao
                     try
                     {
                         var cmdCliente = new SqlCommand(@"
-                    UPDATE Clientes 
-                    SET CertificadoSequencialGeral = @SeqGeral,
-                        CertificadoSequencialAnoAtual = @SeqAnoAtual,
-                        CertificadoUltimoAno = @Ano
-                    WHERE ClienteId = @ClienteId", conn, transaction);
+                            UPDATE Clientes 
+                            SET CertificadoSequencialGeral = @SeqGeral,
+                                CertificadoSequencialAnoAtual = @SeqAnoAtual,
+                                CertificadoUltimoAno = @Ano
+                            WHERE ClienteId = @ClienteId", conn, transaction);
 
                         cmdCliente.Parameters.AddWithValue("@SeqGeral", seqGeral);
                         cmdCliente.Parameters.AddWithValue("@SeqAnoAtual", seqAnoAtual);
-                        cmdCliente.Parameters.AddWithValue("@Ano", ano);
+                        cmdCliente.Parameters.AddWithValue("@Ano", anoCertificado);
                         cmdCliente.Parameters.AddWithValue("@ClienteId", clienteIdSelecionado);
 
                         int linhasAfetadas = await cmdCliente.ExecuteNonQueryAsync();
@@ -935,8 +1266,8 @@ namespace Reverse.Forms.FormsExpedicao
                         }
 
                         var cmdCertificado = new SqlCommand(@"
-                    INSERT INTO CertificadosEmitidos (ClienteId, MesAno, NumeroCertificado, DataEmissao)
-                    VALUES (@ClienteId, @MesAno, @NumeroCertificado, GETDATE())", conn, transaction);
+                            INSERT INTO CertificadosEmitidos (ClienteId, MesAno, NumeroCertificado, DataEmissao)
+                            VALUES (@ClienteId, @MesAno, @NumeroCertificado, GETDATE())", conn, transaction);
 
                         cmdCertificado.Parameters.AddWithValue("@ClienteId", clienteIdSelecionado);
                         cmdCertificado.Parameters.AddWithValue("@MesAno", dados.MesAno);
@@ -948,7 +1279,7 @@ namespace Reverse.Forms.FormsExpedicao
 
                         dados.CertificadoSequencialGeral = seqGeral;
                         dados.CertificadoSequencialAnoAtual = seqAnoAtual;
-                        dados.CertificadoUltimoAno = ano;
+                        dados.CertificadoUltimoAno = anoCertificado;
                     }
                     catch
                     {
@@ -961,16 +1292,17 @@ namespace Reverse.Forms.FormsExpedicao
 
         private async Task IncrementarSequenciaisCertificado(DadosCertificado dados)
         {
+            int anoCertificado = dados.MesAno.Year;
+
             int novoSeqGeral = dados.CertificadoSequencialGeral + 1;
             int novoSeqAno = dados.CertificadoSequencialAnoAtual + 1;
-            int anoAtual = DateTime.Now.Year;
 
-            if (dados.CertificadoUltimoAno != anoAtual)
+            if (dados.CertificadoUltimoAno != anoCertificado)
             {
                 novoSeqAno = 1;
             }
 
-            if (novoSeqGeral > 999)
+            if (novoSeqGeral > 9999)
             {
                 novoSeqGeral = 1;
             }
@@ -981,7 +1313,7 @@ namespace Reverse.Forms.FormsExpedicao
             else
                 codigo4 = codigo4.PadLeft(4, '0');
 
-            string novoCertificado = $"{codigo4}-{novoSeqGeral:D3}/{anoAtual}-{novoSeqAno:D3}";
+            string novoCertificado = $"{codigo4}-{novoSeqGeral:D4}/{anoCertificado}-{novoSeqAno:D4}";
 
             using (var conn = new SqlConnection(connectionString))
             {
@@ -1004,34 +1336,36 @@ namespace Reverse.Forms.FormsExpedicao
                                 int seqAnoAtual = Convert.ToInt32(reader["CertificadoSequencialAnoAtual"]);
                                 int ultimoAno = Convert.ToInt32(reader["CertificadoUltimoAno"]);
 
-                                // Recalcular com valores atualizados
                                 novoSeqGeral = seqGeralAtual + 1;
-                                novoSeqAno = seqAnoAtual + 1;
 
-                                if (ultimoAno != anoAtual)
+                                if (ultimoAno != anoCertificado)
                                 {
                                     novoSeqAno = 1;
                                 }
+                                else
+                                {
+                                    novoSeqAno = seqAnoAtual + 1;
+                                }
 
-                                if (novoSeqGeral > 999)
+                                if (novoSeqGeral > 9999)
                                 {
                                     novoSeqGeral = 1;
                                 }
 
-                                novoCertificado = $"{codigo4}-{novoSeqGeral:D3}/{anoAtual}-{novoSeqAno:D3}";
+                                novoCertificado = $"{codigo4}-{novoSeqGeral:D4}/{anoCertificado}-{novoSeqAno:D4}";
                             }
                         }
 
                         var cmdCliente = new SqlCommand(@"
-                    UPDATE Clientes 
-                    SET CertificadoSequencialGeral = @SeqGeral,
-                        CertificadoSequencialAnoAtual = @SeqAnoAtual,
-                        CertificadoUltimoAno = @Ano
-                    WHERE ClienteId = @ClienteId", conn, transaction);
+                            UPDATE Clientes 
+                            SET CertificadoSequencialGeral = @SeqGeral,
+                                CertificadoSequencialAnoAtual = @SeqAnoAtual,
+                                CertificadoUltimoAno = @Ano
+                            WHERE ClienteId = @ClienteId", conn, transaction);
 
                         cmdCliente.Parameters.AddWithValue("@SeqGeral", novoSeqGeral);
                         cmdCliente.Parameters.AddWithValue("@SeqAnoAtual", novoSeqAno);
-                        cmdCliente.Parameters.AddWithValue("@Ano", anoAtual);
+                        cmdCliente.Parameters.AddWithValue("@Ano", anoCertificado);
                         cmdCliente.Parameters.AddWithValue("@ClienteId", clienteIdSelecionado);
 
                         int linhasAfetadas = await cmdCliente.ExecuteNonQueryAsync();
@@ -1042,8 +1376,8 @@ namespace Reverse.Forms.FormsExpedicao
                         }
 
                         var cmdCertificado = new SqlCommand(@"
-                    INSERT INTO CertificadosEmitidos (ClienteId, MesAno, NumeroCertificado, DataEmissao)
-                    VALUES (@ClienteId, @MesAno, @NumeroCertificado, GETDATE())", conn, transaction);
+                            INSERT INTO CertificadosEmitidos (ClienteId, MesAno, NumeroCertificado, DataEmissao)
+                            VALUES (@ClienteId, @MesAno, @NumeroCertificado, GETDATE())", conn, transaction);
 
                         cmdCertificado.Parameters.AddWithValue("@ClienteId", clienteIdSelecionado);
                         cmdCertificado.Parameters.AddWithValue("@MesAno", dados.MesAno);
@@ -1056,7 +1390,7 @@ namespace Reverse.Forms.FormsExpedicao
                         dados.NumeroCertificado = novoCertificado;
                         dados.CertificadoSequencialGeral = novoSeqGeral;
                         dados.CertificadoSequencialAnoAtual = novoSeqAno;
-                        dados.CertificadoUltimoAno = anoAtual;
+                        dados.CertificadoUltimoAno = anoCertificado;
                     }
                     catch
                     {
@@ -1078,12 +1412,12 @@ namespace Reverse.Forms.FormsExpedicao
                 await conn.OpenAsync();
 
                 string sqlCliente = @"
-            SELECT Nome, CPF_CNPJ, CodigoEmpresa,
-                   ISNULL(CertificadoSequencialGeral, 0) AS CertificadoSequencialGeral,
-                   ISNULL(CertificadoSequencialAnoAtual, 0) AS CertificadoSequencialAnoAtual,
-                   ISNULL(CertificadoUltimoAno, YEAR(GETDATE())) AS CertificadoUltimoAno
-            FROM Clientes
-            WHERE ClienteId = @ClienteId";
+                SELECT RazaoSocial, CPF_CNPJ, CodigoEmpresa,
+                       ISNULL(CertificadoSequencialGeral, 0) AS CertificadoSequencialGeral,
+                       ISNULL(CertificadoSequencialAnoAtual, 0) AS CertificadoSequencialAnoAtual,
+                       ISNULL(CertificadoUltimoAno, YEAR(GETDATE())) AS CertificadoUltimoAno
+                FROM Clientes
+                WHERE ClienteId = @ClienteId";
 
                 var cmdCliente = new SqlCommand(sqlCliente, conn);
                 cmdCliente.Parameters.AddWithValue("@ClienteId", clienteIdSelecionado);
@@ -1094,7 +1428,7 @@ namespace Reverse.Forms.FormsExpedicao
                 {
                     if (await reader.ReadAsync())
                     {
-                        dados.NomeCliente = reader["Nome"].ToString();
+                        dados.NomeCliente = reader["RazaoSocial"].ToString();
                         dados.CNPJCliente = reader["CPF_CNPJ"]?.ToString() ?? "";
                         dados.CodigoEmpresa = reader["CodigoEmpresa"]?.ToString() ?? "000";
                         dados.CertificadoSequencialGeral = reader["CertificadoSequencialGeral"] != DBNull.Value
@@ -1227,9 +1561,8 @@ namespace Reverse.Forms.FormsExpedicao
                 return dados;
             }
         }
-
         private string GerarPDFCertificado(DadosCertificado dados)
-        { 
+        {
             PdfDocument document = new PdfDocument();
             PdfPage page = document.AddPage();
             page.Size = PdfSharp.PageSize.A4;
@@ -1273,18 +1606,18 @@ namespace Reverse.Forms.FormsExpedicao
             string mesExtenso = cultura.DateTimeFormat.GetMonthName(dados.MesAno.Month).ToUpper();
             string mesAnoFormatado = $"{mesExtenso}/{dados.MesAno.Year}";
 
-                  var fragmentos = new List<(string texto, XFont fonte)>
-                {
-                    ("Certificamos que a empresa ", fontTexto),
-                    (dados.NomeCliente.ToUpper(), fontNegrito),
-                    (", inscrita no CNPJ nº ", fontTexto),
-                    (cnpjFormatado, fontNegrito),
-                    (", encaminhou à empresa DLD Soluções em Logística Reversa, Gestão e Reciclagem LTDA, no mês de ", fontTexto),
-                    (mesAnoFormatado, fontNegrito),
-                    (" a quantidade de ", fontTexto),
-                    ($"{dados.PesoTotal:N3} kg", fontNegrito),
-                    (" de descartes obsoletos.", fontTexto)
-                };
+            var fragmentos = new List<(string texto, XFont fonte)>
+            {
+                ("Certificamos que a empresa ", fontTexto),
+                (dados.NomeCliente.ToUpper(), fontNegrito),
+                (", inscrita no CNPJ nº ", fontTexto),
+                (cnpjFormatado, fontNegrito),
+                (", encaminhou à empresa DLD Soluções em Logística Reversa, Gestão e Reciclagem LTDA, no mês de ", fontTexto),
+                (mesAnoFormatado, fontNegrito),
+                (" a quantidade de ", fontTexto),
+                ($"{dados.PesoTotal:N3} kg", fontNegrito),
+                (" de descartes obsoletos.", fontTexto)
+            };
 
             double currentY = textoY;
             DesenharTextoJustificado(gfx, fragmentos, textoX, currentY, largura, 20, fontTexto);
@@ -1353,9 +1686,9 @@ namespace Reverse.Forms.FormsExpedicao
                 linhaY += 25;
             }
 
-            string mesEmissao = cultura.DateTimeFormat.GetMonthName(dados.MesAno.Month);
+            string mesEmissao = cultura.DateTimeFormat.GetMonthName(DateTime.Now.Month);
             mesEmissao = char.ToUpper(mesEmissao[0]) + mesEmissao.Substring(1);
-            string dataAssinatura = $"Araras/SP, {mesEmissao} de {dados.MesAno.Year}";
+            string dataAssinatura = $"Araras/SP, {mesEmissao} de {DateTime.Now.Year}";
 
             double dataX = 390;
             double dataY = blocoY + 92;
@@ -1363,13 +1696,37 @@ namespace Reverse.Forms.FormsExpedicao
             gfx.DrawString(dataAssinatura, fontTexto, XBrushes.Black,
                 new XRect(dataX, dataY, largura, 20), XStringFormats.TopLeft);
 
+            string nomeEmpresaLimpo = RemoverCaracteresInvalidosNomeArquivo(dados.NomeCliente);
+
             string pasta = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string nomeArquivo = $"Certificado_{dados.NomeCliente}_{dados.MesAno:MM_yyyy}.pdf";
+            string nomeArquivo = $"Certificado_{nomeEmpresaLimpo}_{dados.MesAno:MM_yyyy}.pdf";
             string caminho = Path.Combine(pasta, nomeArquivo);
 
             document.Save(caminho);
             return caminho;
         }
+
+        private string RemoverCaracteresInvalidosNomeArquivo(string nomeArquivo)
+        {
+            if (string.IsNullOrWhiteSpace(nomeArquivo))
+                return "SemNome";
+
+            char[] caracteresInvalidos = Path.GetInvalidFileNameChars();
+
+            string nomeValido = nomeArquivo;
+            foreach (char c in caracteresInvalidos)
+            {
+                nomeValido = nomeValido.Replace(c, '_');
+            }
+
+            nomeValido = System.Text.RegularExpressions.Regex.Replace(nomeValido, @"\s+", " ").Trim();
+
+            if (nomeValido.Length > 100)
+                nomeValido = nomeValido.Substring(0, 100);
+
+            return nomeValido;
+        }
+
         private void DesenharTextoJustificado(XGraphics gfx, List<(string texto, XFont fonte)> fragmentos,
             double x, double y, double largura, double espacamentoLinha, XFont fontePadrao)
         {
@@ -1497,5 +1854,43 @@ namespace Reverse.Forms.FormsExpedicao
             formLaudo.ShowDialog();
         }
 
+        private void AtualizarComboBoxBalanca()
+        {
+            if (!dgvBalanca.Columns.Contains("Material")) return;
+
+            var colMaterial = (DataGridViewComboBoxColumn)dgvBalanca.Columns["Material"];
+
+            var valoresSalvos = new Dictionary<int, string>();
+            foreach (DataGridViewRow row in dgvBalanca.Rows)
+            {
+                if (row.IsNewRow) continue;
+                valoresSalvos[row.Index] = row.Cells["Material"].Value?.ToString() ?? "";
+            }
+
+            colMaterial.DataSource = materiaisTipoTratamento.Keys.OrderBy(k => k).ToList();
+
+            foreach (DataGridViewRow row in dgvBalanca.Rows)
+            {
+                if (row.IsNewRow) continue;
+                if (valoresSalvos.TryGetValue(row.Index, out string valorAnterior) &&
+                    !string.IsNullOrWhiteSpace(valorAnterior) &&
+                    materiaisTipoTratamento.ContainsKey(valorAnterior))
+                {
+                    row.Cells["Material"].Value = valorAnterior;
+                }
+            }
+
+            AgruparPorTipo();
+        }
+
+        private async void btnMaterial_Click(object sender, EventArgs e)
+        {
+            var formMaterial = new ExpedicaoFormNovoMaterial();
+            formMaterial.ShowDialog();
+
+            await CarregarMateriaisTipoTratamentoAsync();
+
+            AtualizarComboBoxBalanca();
+        }
     }
 }

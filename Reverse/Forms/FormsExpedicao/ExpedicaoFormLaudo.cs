@@ -52,7 +52,6 @@ namespace Reverse.Forms.FormsExpedicao
             pnlVisualizer.Controls.Clear();
             pnlVisualizer.Controls.Add(_pdfViewer);
 
-            // Defaults (mantém como está)
             txtNomeComum.Text = string.IsNullOrWhiteSpace(txtNomeComum.Text) ? "DESCARTES OBSOLETOS" : txtNomeComum.Text;
             txtConama.Text = string.IsNullOrWhiteSpace(txtConama.Text) ? "A099 – OUTROS RESÍDUOS NÃO PERIGOSOS" : txtConama.Text;
             txtAcondicionamento.Text = string.IsNullOrWhiteSpace(txtAcondicionamento.Text) ? "A GRANEL" : txtAcondicionamento.Text;
@@ -144,6 +143,46 @@ namespace Reverse.Forms.FormsExpedicao
             _pdfViewer.Document = PdfiumViewer.PdfDocument.Load(caminho);
         }
 
+        private async Task AtualizarStatusLaudoTicketsAsync()
+        {
+            try
+            {
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    await conn.OpenAsync();
+
+                    DateTime inicioMes = _mesAno;
+                    DateTime fimMes = _mesAno.AddMonths(1).AddDays(-1);
+
+                    string sql = @"
+                UPDATE ControleLogistico
+                SET StatusLaudo = 'EMITIDO'
+                WHERE ClienteId = @ClienteId
+                  AND Data >= @InicioMes
+                  AND Data <= @FimMes
+                  AND (StatusLaudo = 'AGUARDANDO' OR StatusLaudo IS NULL OR StatusLaudo = '')";
+
+                    var cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@ClienteId", _clienteId);
+                    cmd.Parameters.AddWithValue("@InicioMes", inicioMes);
+                    cmd.Parameters.AddWithValue("@FimMes", fimMes);
+
+                    int registrosAtualizados = await cmd.ExecuteNonQueryAsync();
+
+                    if (registrosAtualizados > 0)
+                    {
+                        MessageBox.Show($"{registrosAtualizados} ticket(s) atualizado(s) para status EMITIDO.",
+                            "Atualização", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao atualizar status dos tickets: {ex.Message}",
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private async void btnExportarLaudo_Click(object sender, EventArgs e)
         {
             try
@@ -151,7 +190,13 @@ namespace Reverse.Forms.FormsExpedicao
                 string pastaDocs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 string pastaLaudos = Path.Combine(pastaDocs, "DLD_Laudos");
 
-                string nomeArq = $"Laudo_{_numeroLaudo}_{_mesAno:yyyy_MM}.pdf";
+                string nomeEmpresaSanitizado = SanitizarNomeArquivo(_razaoSocialGerador);
+
+                int mesLaudo = _mesAno.Month;
+                int anoLaudo = _mesAno.Year;
+
+                string nomeArq = $"Laudo_{nomeEmpresaSanitizado}_{mesLaudo:00}_{anoLaudo}.pdf";
+
                 string caminho = Path.Combine(pastaLaudos, nomeArq);
 
                 string pastaDestino = Path.GetDirectoryName(caminho);
@@ -159,6 +204,8 @@ namespace Reverse.Forms.FormsExpedicao
                     Directory.CreateDirectory(pastaDestino);
 
                 await GerarPDFLaudoEm(caminho);
+
+                await AtualizarStatusLaudoTicketsAsync();
 
                 MostrarPreviewPDF(caminho);
 
@@ -171,6 +218,27 @@ namespace Reverse.Forms.FormsExpedicao
             {
                 MessageBox.Show($"Erro ao gerar PDF: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private string SanitizarNomeArquivo(string nomeEmpresa)
+        {
+            if (string.IsNullOrWhiteSpace(nomeEmpresa))
+                return "EMPRESA";
+
+            string invalidos = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+            foreach (char c in invalidos)
+            {
+                nomeEmpresa = nomeEmpresa.Replace(c, '_');
+            }
+
+            nomeEmpresa = nomeEmpresa.Replace(' ', '_').ToUpper();
+
+            if (nomeEmpresa.Length > 50)
+            {
+                nomeEmpresa = nomeEmpresa.Substring(0, 50);
+            }
+
+            return nomeEmpresa;
         }
 
         private async Task GerarPDFLaudoEm(string caminhoCompleto)
@@ -280,40 +348,250 @@ namespace Reverse.Forms.FormsExpedicao
 
                 y += 25;
 
-                // Linha 1: Razão Social
+                // Linha 1: Razão Social (com quebra de linha, padding e middle left)
                 larguraLabel = 120;
                 larguraValor = larguraUtil - larguraLabel;
-                DesenharCaixaComLabel(gfx, fontLabel, fontValor, "Razão Social", _razaoSocialGerador,
-                    margemEsq, y, larguraLabel, larguraValor, alturaLinha, true);
-                y += alturaLinha;
 
-                // Linha 2: Endereço
+                // --- Calcula altura necessária para Razão Social ---
+                string razaoGerador = _razaoSocialGerador;
+                double lineHeight = fontValor.GetHeight();
+                double alturaNecessariaRazaoGerador;
+
+                if (string.IsNullOrWhiteSpace(razaoGerador))
+                {
+                    alturaNecessariaRazaoGerador = alturaLinha;
+                }
+                else
+                {
+                    int linhasRazaoGerador = CalcularLinhas(gfx, razaoGerador, fontValor, larguraValor - 10);
+                    alturaNecessariaRazaoGerador = Math.Max(alturaLinha, linhasRazaoGerador * lineHeight + 10);
+                }
+
+                // Caixa do rótulo com altura ajustada e padding
+                var rectLabelRazaoGerador = new XRect(margemEsq, y, larguraLabel, alturaNecessariaRazaoGerador);
+                gfx.DrawRectangle(new XSolidBrush(XColor.FromArgb(0x54, 0x8D, 0xD4)), rectLabelRazaoGerador);
+                gfx.DrawRectangle(XPens.Black, rectLabelRazaoGerador);
+
+                var rectLabelRazaoGeradorTexto = new XRect(rectLabelRazaoGerador.X + 5, rectLabelRazaoGerador.Y,
+                    rectLabelRazaoGerador.Width - 5, rectLabelRazaoGerador.Height);
+                gfx.DrawString("Razão Social", fontLabel, XBrushes.White, rectLabelRazaoGeradorTexto, XStringFormats.CenterLeft);
+
+                // Caixa do valor com altura ajustada
+                var rectValorRazaoGerador = new XRect(margemEsq + larguraLabel, y, larguraValor, alturaNecessariaRazaoGerador);
+                gfx.DrawRectangle(XBrushes.White, rectValorRazaoGerador);
+                gfx.DrawRectangle(XPens.Black, rectValorRazaoGerador);
+
+                // Centralização vertical manual
+                var tfRazaoGerador = new XTextFormatter(gfx);
+                tfRazaoGerador.Alignment = XParagraphAlignment.Left;
+
+                int linhasRazao = CalcularLinhas(gfx, razaoGerador, fontValor, larguraValor - 10);
+                double alturaTextoRazao = linhasRazao * lineHeight;
+                double offsetYRazao = (alturaNecessariaRazaoGerador - alturaTextoRazao) / 2;
+
+                var rectValorRazaoGeradorTexto = new XRect(
+                    rectValorRazaoGerador.X + 5,
+                    rectValorRazaoGerador.Y + offsetYRazao,
+                    rectValorRazaoGerador.Width - 10,
+                    alturaTextoRazao
+                );
+                tfRazaoGerador.DrawString(razaoGerador, fontValor, XBrushes.Black, rectValorRazaoGeradorTexto, XStringFormats.TopLeft);
+
+                y += alturaNecessariaRazaoGerador;
+
+                // Linha 2: Endereço (com quebra de linha, padding e middle left)
                 larguraLabel = 120;
                 larguraValor = larguraUtil - larguraLabel;
-                DesenharCaixaComLabel(gfx, fontLabel, fontValor, "Endereço", _enderecoGerador,
-                    margemEsq, y, larguraLabel, larguraValor, alturaLinha, true);
-                y += alturaLinha;
+
+                // --- Calcula altura necessária para Endereço ---
+                string enderecoGerador = _enderecoGerador;
+                double alturaNecessariaEndereco;
+
+                if (string.IsNullOrWhiteSpace(enderecoGerador))
+                {
+                    alturaNecessariaEndereco = alturaLinha;
+                }
+                else
+                {
+                    int linhasEndereco = CalcularLinhas(gfx, enderecoGerador, fontValor, larguraValor - 10);
+                    alturaNecessariaEndereco = Math.Max(alturaLinha, linhasEndereco * lineHeight + 10);
+                }
+
+                // Caixa do rótulo com altura ajustada e padding
+                var rectLabelEndereco = new XRect(margemEsq, y, larguraLabel, alturaNecessariaEndereco);
+                gfx.DrawRectangle(new XSolidBrush(XColor.FromArgb(0x54, 0x8D, 0xD4)), rectLabelEndereco);
+                gfx.DrawRectangle(XPens.Black, rectLabelEndereco);
+
+                var rectLabelEnderecoTexto = new XRect(rectLabelEndereco.X + 5, rectLabelEndereco.Y,
+                    rectLabelEndereco.Width - 5, rectLabelEndereco.Height);
+                gfx.DrawString("Endereço", fontLabel, XBrushes.White, rectLabelEnderecoTexto, XStringFormats.CenterLeft);
+
+                // Caixa do valor com altura ajustada
+                var rectValorEndereco = new XRect(margemEsq + larguraLabel, y, larguraValor, alturaNecessariaEndereco);
+                gfx.DrawRectangle(XBrushes.White, rectValorEndereco);
+                gfx.DrawRectangle(XPens.Black, rectValorEndereco);
+
+                // Centralização vertical manual
+                var tfEndereco = new XTextFormatter(gfx);
+                tfEndereco.Alignment = XParagraphAlignment.Left;
+
+                int linhasEnd = CalcularLinhas(gfx, enderecoGerador, fontValor, larguraValor - 10);
+                double alturaTextoEnd = linhasEnd * lineHeight;
+                double offsetYEnd = (alturaNecessariaEndereco - alturaTextoEnd) / 2;
+
+                var rectValorEnderecoTexto = new XRect(
+                    rectValorEndereco.X + 5,
+                    rectValorEndereco.Y + offsetYEnd,
+                    rectValorEndereco.Width - 10,
+                    alturaTextoEnd
+                );
+                tfEndereco.DrawString(enderecoGerador, fontValor, XBrushes.Black, rectValorEnderecoTexto, XStringFormats.TopLeft);
+
+                y += alturaNecessariaEndereco;
 
                 // Linha 3: Município | UF | CNPJ
                 xAtual = margemEsq;
 
-                // Município
-                double larguraMunicipioLabel = 120, larguraMunicipioValor = 70;
-                DesenharCaixaComLabel(gfx, fontLabel, fontValor, "Município", _municipioGerador,
-                    xAtual, y, larguraMunicipioLabel, larguraMunicipioValor, alturaLinha, true);
+                // --- MUNICÍPIO com quebra de linha ---
+                double larguraMunicipioLabel = 120, larguraMunicipioValor = 76;
+                string municipioGerador = _municipioGerador;
+                double paddingInterno = 4;
+                double alturaNecessariaMunicipio;
+
+                XFont fonteMunicipio = fontValor;
+
+                if (!string.IsNullOrWhiteSpace(municipioGerador))
+                {
+                    var tamanhoTexto = gfx.MeasureString(municipioGerador, fontValor);
+                    if (tamanhoTexto.Width > larguraMunicipioValor - (paddingInterno * 2))
+                    {
+                        fonteMunicipio = new XFont("Times New Roman", 10, XFontStyleEx.Regular);
+                    }
+                }
+
+                double lineHeightMunicipio = fonteMunicipio.GetHeight();
+
+                if (string.IsNullOrWhiteSpace(municipioGerador))
+                {
+                    alturaNecessariaMunicipio = alturaLinha;
+                }
+                else
+                {
+                    int linhasMunicipio = CalcularLinhas(gfx, municipioGerador, fonteMunicipio, larguraMunicipioValor - (paddingInterno * 2));
+                    alturaNecessariaMunicipio = Math.Max(alturaLinha, linhasMunicipio * lineHeightMunicipio + 10);
+                }
+
+                // Caixa do rótulo Município
+                var rectLabelMunicipio = new XRect(xAtual, y, larguraMunicipioLabel, alturaNecessariaMunicipio);
+                gfx.DrawRectangle(new XSolidBrush(XColor.FromArgb(0x54, 0x8D, 0xD4)), rectLabelMunicipio);
+                gfx.DrawRectangle(XPens.Black, rectLabelMunicipio);
+
+                var rectLabelMunicipioTexto = new XRect(rectLabelMunicipio.X + 5, rectLabelMunicipio.Y,
+                    rectLabelMunicipio.Width - 5, rectLabelMunicipio.Height);
+                gfx.DrawString("Município", fontLabel, XBrushes.White, rectLabelMunicipioTexto, XStringFormats.CenterLeft);
+
+                // Caixa do valor Município
+                var rectValorMunicipio = new XRect(xAtual + larguraMunicipioLabel, y, larguraMunicipioValor, alturaNecessariaMunicipio);
+                gfx.DrawRectangle(XBrushes.White, rectValorMunicipio);
+                gfx.DrawRectangle(XPens.Black, rectValorMunicipio);
+
+                // Desenha o texto com quebra de linha e alinhamento left center
+                if (!string.IsNullOrWhiteSpace(municipioGerador))
+                {
+                    int linhasMunicipio = CalcularLinhas(gfx, municipioGerador, fonteMunicipio, larguraMunicipioValor - (paddingInterno * 2));
+                    List<string> linhasMunicipioList = new List<string>();
+
+                    if (linhasMunicipio == 1)
+                    {
+                        linhasMunicipioList.Add(municipioGerador);
+                    }
+                    else
+                    {
+                        var palavrasMunicipio = municipioGerador.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        string linhaAtual = "";
+
+                        foreach (var palavra in palavrasMunicipio)
+                        {
+                            string tentativa = string.IsNullOrEmpty(linhaAtual) ? palavra : (linhaAtual + " " + palavra);
+                            var tamanho = gfx.MeasureString(tentativa, fonteMunicipio);
+
+                            if (tamanho.Width <= larguraMunicipioValor - (paddingInterno * 2))
+                            {
+                                linhaAtual = tentativa;
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(linhaAtual))
+                                    linhasMunicipioList.Add(linhaAtual);
+                                linhaAtual = palavra;
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(linhaAtual))
+                            linhasMunicipioList.Add(linhaAtual);
+                    }
+
+                    // Calcula a altura total do texto e o offset para centralização vertical
+                    double alturaTextoMun = linhasMunicipioList.Count * lineHeightMunicipio;
+                    double offsetYMun = (alturaNecessariaMunicipio - alturaTextoMun) / 2;
+                    double yAtualMun = rectValorMunicipio.Y + offsetYMun;
+
+                    // Desenha cada linha alinhada à esquerda com padding
+                    foreach (var linhaMun in linhasMunicipioList)
+                    {
+                        gfx.DrawString(linhaMun, fonteMunicipio, XBrushes.Black,
+                            new XRect(rectValorMunicipio.X + paddingInterno, yAtualMun,
+                                     rectValorMunicipio.Width - (paddingInterno * 2), lineHeightMunicipio),
+                            XStringFormats.TopLeft);
+
+                        yAtualMun += lineHeightMunicipio;
+                    }
+                }
+
                 xAtual += larguraMunicipioLabel + larguraMunicipioValor;
 
-                // UF
+                // --- UF (mantém altura igual ao Município) ---
                 double larguraUFLabel = 40, larguraUFValor = 50;
-                DesenharCaixaComLabel(gfx, fontLabel, fontValor, "UF", _ufGerador,
-                    xAtual, y, larguraUFLabel, larguraUFValor, alturaLinha, true);
+
+                var rectLabelUF = new XRect(xAtual, y, larguraUFLabel, alturaNecessariaMunicipio);
+                gfx.DrawRectangle(new XSolidBrush(XColor.FromArgb(0x54, 0x8D, 0xD4)), rectLabelUF);
+                gfx.DrawRectangle(XPens.Black, rectLabelUF);
+
+                var rectLabelUFTexto = new XRect(rectLabelUF.X + 5, rectLabelUF.Y,
+                    rectLabelUF.Width - 5, rectLabelUF.Height);
+                gfx.DrawString("UF", fontLabel, XBrushes.White, rectLabelUFTexto, XStringFormats.CenterLeft);
+
+                var rectValorUF = new XRect(xAtual + larguraUFLabel, y, larguraUFValor, alturaNecessariaMunicipio);
+                gfx.DrawRectangle(XBrushes.White, rectValorUF);
+                gfx.DrawRectangle(XPens.Black, rectValorUF);
+
+                var rectValorUFTexto = new XRect(rectValorUF.X + 5, rectValorUF.Y,
+                    rectValorUF.Width - 5, rectValorUF.Height);
+                gfx.DrawString(_ufGerador ?? "", fontValor, XBrushes.Black, rectValorUFTexto, XStringFormats.CenterLeft);
+
                 xAtual += larguraUFLabel + larguraUFValor;
 
-                // CNPJ (usa o restante da linha)
+                // --- CNPJ (mantém altura igual ao Município) ---
                 double larguraCNPJLabel = 60;
                 double larguraCNPJValor = Math.Max(120, larguraUtil - (xAtual - margemEsq + larguraCNPJLabel));
-                DesenharCaixaComLabel(gfx, fontLabel, fontValor, "CNPJ", _cnpjGerador,
-                    xAtual, y, larguraCNPJLabel, larguraCNPJValor, alturaLinha, true);
+
+                var rectLabelCNPJ = new XRect(xAtual, y, larguraCNPJLabel, alturaNecessariaMunicipio);
+                gfx.DrawRectangle(new XSolidBrush(XColor.FromArgb(0x54, 0x8D, 0xD4)), rectLabelCNPJ);
+                gfx.DrawRectangle(XPens.Black, rectLabelCNPJ);
+
+                var rectLabelCNPJTexto = new XRect(rectLabelCNPJ.X + 5, rectLabelCNPJ.Y,
+                    rectLabelCNPJ.Width - 5, rectLabelCNPJ.Height);
+                gfx.DrawString("CNPJ", fontLabel, XBrushes.White, rectLabelCNPJTexto, XStringFormats.CenterLeft);
+
+                var rectValorCNPJ = new XRect(xAtual + larguraCNPJLabel, y, larguraCNPJValor, alturaNecessariaMunicipio);
+                gfx.DrawRectangle(XBrushes.White, rectValorCNPJ);
+                gfx.DrawRectangle(XPens.Black, rectValorCNPJ);
+
+                var rectValorCNPJTexto = new XRect(rectValorCNPJ.X + 5, rectValorCNPJ.Y,
+                    rectValorCNPJ.Width - 5, rectValorCNPJ.Height);
+                gfx.DrawString(_cnpjGerador ?? "", fontValor, XBrushes.Black, rectValorCNPJTexto, XStringFormats.CenterLeft);
+
+                y += alturaNecessariaMunicipio;
 
                 y += alturaLinha;
                 y += 40;
@@ -324,42 +602,39 @@ namespace Reverse.Forms.FormsExpedicao
 
                 y += 25;
 
-                // Linha 1: Razão Social (com quebra de linha, padding e centralizado)
+                // Linha 1: Razão Social (com quebra de linha e padding no label)
                 larguraLabel = 120;
                 larguraValor = larguraUtil - larguraLabel;
 
-                // Caixa do rótulo
-                var rectLabel = new XRect(margemEsq, y, larguraLabel, alturaLinha);
-                gfx.DrawRectangle(new XSolidBrush(XColor.FromArgb(0x54, 0x8D, 0xD4)), rectLabel);
-                gfx.DrawRectangle(XPens.Black, rectLabel);
-                gfx.DrawString("Razão Social", fontLabel, XBrushes.White,
-                    new XRect(rectLabel.X + 5, rectLabel.Y, rectLabel.Width - 5, rectLabel.Height),
-                    XStringFormats.CenterLeft);
-
-                // --- Agora o valor com quebra dinâmica ---
                 string razao = txtRazaoDLD.Text;
 
-                // Usa XTextFormatter para quebrar
+                // Calcula altura necessária
                 var tf = new XTextFormatter(gfx);
                 tf.Alignment = XParagraphAlignment.Left;
 
-                // Mede altura necessária (quantas linhas cabem na largura)
-                double lineHeight = fontValor.GetHeight();
-                int linhas = (int)Math.Ceiling(gfx.MeasureString(razao, fontValor).Width / (larguraValor - 5));
-                double alturaNecessaria = Math.Max(alturaLinha, linhas * lineHeight);
+                int linhas = CalcularLinhas(gfx, razao, fontValor, larguraValor - 10);
+                double alturaNecessaria = Math.Max(alturaLinha, linhas * lineHeight + 10);
+
+                // Caixa do rótulo com altura ajustada e padding
+                var rectLabel = new XRect(margemEsq, y, larguraLabel, alturaNecessaria);
+                gfx.DrawRectangle(new XSolidBrush(XColor.FromArgb(0x54, 0x8D, 0xD4)), rectLabel);
+                gfx.DrawRectangle(XPens.Black, rectLabel);
+
+                var rectLabelTexto = new XRect(rectLabel.X + 5, rectLabel.Y, rectLabel.Width - 5, rectLabel.Height);
+                gfx.DrawString("Razão Social", fontLabel, XBrushes.White, rectLabelTexto, XStringFormats.CenterLeft);
 
                 // Caixa do valor com altura ajustada
                 var rectValor = new XRect(margemEsq + larguraLabel, y, larguraValor, alturaNecessaria);
                 gfx.DrawRectangle(XBrushes.White, rectValor);
                 gfx.DrawRectangle(XPens.Black, rectValor);
 
-                // Padding lateral de 5px
-                var rectValorTexto = new XRect(rectValor.X + 5, rectValor.Y, rectValor.Width - 5, rectValor.Height);
+                // Centralização vertical manual
+                double alturaTexto = linhas * lineHeight;
+                double offsetY = (alturaNecessaria - alturaTexto) / 2;
 
-                // Desenha o texto quebrado
+                var rectValorTexto = new XRect(rectValor.X + 5, rectValor.Y + offsetY, rectValor.Width - 10, alturaTexto);
                 tf.DrawString(razao, fontValor, XBrushes.Black, rectValorTexto, XStringFormats.TopLeft);
 
-                // Avança Y pela altura usada
                 y += alturaNecessaria;
 
                 // Linha 2: Endereço
@@ -372,20 +647,17 @@ namespace Reverse.Forms.FormsExpedicao
                 // Linha 3: CNPJ | IE | LO
                 xAtual = margemEsq;
 
-                // CNPJ
                 larguraCNPJLabel = 120;
                 larguraCNPJValor = 110;
                 DesenharCaixaComLabel(gfx, fontLabel, fontValor, "CNPJ", txtCNPJDLD.Text,
                     xAtual, y, larguraCNPJLabel, larguraCNPJValor, alturaLinha, true);
                 xAtual += larguraCNPJLabel + larguraCNPJValor;
 
-                // IE
                 double larguraIELabel = 40, larguraIEValor = 93;
                 DesenharCaixaComLabel(gfx, fontLabel, fontValor, "IE", txtIEDLD.Text,
                     xAtual, y, larguraIELabel, larguraIEValor, alturaLinha, true);
                 xAtual += larguraIELabel + larguraIEValor;
 
-                // LO (usa o restante da linha)
                 double larguraLOLabel = 40;
                 double larguraLOValor = Math.Max(70, larguraUtil - (xAtual - margemEsq + larguraLOLabel));
                 DesenharCaixaComLabel(gfx, fontLabel, fontValor, "LO", txtLODLD.Text,
@@ -490,13 +762,13 @@ namespace Reverse.Forms.FormsExpedicao
                     // Ajusta altura se MTR ou NF forem grandes
                     if (!string.IsNullOrWhiteSpace(t.MTR))
                     {
-                        int linhasMTR = CalcularLinhas(gfx, t.MTR, fontValor, larguras[2]);
-                        alturaLinhaAtual = Math.Max(alturaLinhaAtual, linhasMTR * fontValor.GetHeight());
+                        int linhasMTR = CalcularLinhasComEspacos(t.MTR, fontValor, larguras[2]);
+                        alturaLinhaAtual = Math.Max(alturaLinhaAtual, (linhasMTR * fontValor.GetHeight()) + 10);
                     }
                     if (!string.IsNullOrWhiteSpace(t.NF))
                     {
-                        int linhasNF = CalcularLinhas(gfx, t.NF, fontValor, larguras[3]);
-                        alturaLinhaAtual = Math.Max(alturaLinhaAtual, linhasNF * fontValor.GetHeight());
+                        int linhasNF = CalcularLinhasComEspacos(t.NF, fontValor, larguras[3]);
+                        alturaLinhaAtual = Math.Max(alturaLinhaAtual, (linhasNF * fontValor.GetHeight()) + 10);
                     }
 
                     for (int i = 0; i < valoresTickets.Length; i++)
@@ -507,7 +779,7 @@ namespace Reverse.Forms.FormsExpedicao
 
                         if (i == 2 || i == 3) // MTR ou NFe
                         {
-                            DesenharTextoQuebradoCentralizado(gfx, valoresTickets[i], fontValor, XBrushes.Black, rect);
+                            DesenharTextoQuebradoPorEspacos(gfx, valoresTickets[i], fontValor, XBrushes.Black, rect);
                         }
                         else
                         {
@@ -523,7 +795,7 @@ namespace Reverse.Forms.FormsExpedicao
                     y += alturaLinhaAtual;
                 }
 
-                // --- Linha TOTAL (apenas uma vez, fora do loop) ---
+                // --- Linha TOTAL ---
                 x = xInicial;
                 for (int i = 0; i < 4; i++)
                     x += larguras[i];
@@ -549,9 +821,55 @@ namespace Reverse.Forms.FormsExpedicao
 
 
                 // --- Seção 5: Segregação Final ---
-                // Verifica se precisa de nova página ANTES de começar a seção 5
-                double espacoNecessarioSecao5 = 100; // Espaço mínimo para título + cabeçalho da tabela
-                if (y + espacoNecessarioSecao5 > yLimite)
+                // Definição das larguras das colunas (mantendo seu layout)
+                var segregacoes = await CarregarSegregacaoAsync();
+
+                var segregacoesAgrupadas = segregacoes
+                    .GroupBy(s => new { s.Tipo, s.Tratamento })
+                    .Select(g => new
+                    {
+                        Tipo = g.Key.Tipo,
+                        Peso = g.Sum(s => s.Peso),
+                        Tratamento = g.Key.Tratamento
+                    })
+                    .OrderBy(s => s.Tipo)
+                    .ToList();
+
+                // Definições de layout
+                double[] larguras5 = { 50, 190, 100, 180 };
+                string[] headers5 = { "Item", "Material", "Quantidades", "Tipo de Tratamento" };
+                double larguraTabela5 = larguras5.Sum();
+                double xInicial5 = (page.Width.Point - larguraTabela5) / 2;
+
+                // Limite seguro
+                double yLimitePagina = page.Height.Point - 120;
+
+                // 2. PRÉ-CÁLCULO: Calcular a altura TOTAL que essa seção vai gastar
+                double alturaTitulo = 50;
+                double alturaCabecalho = 25;
+                double alturaLinhaTotal = 25;
+
+                double alturaTotalNecessaria = alturaTitulo + alturaCabecalho + alturaLinhaTotal;
+
+                foreach (var s in segregacoesAgrupadas)
+                {
+                    double hLinha = 25; // Altura mínima
+
+                    if (!string.IsNullOrWhiteSpace(s.Tipo))
+                    {
+                        int linhasMat = CalcularLinhas(gfx, s.Tipo, fontValor, larguras5[1] - 10);
+                        hLinha = Math.Max(hLinha, linhasMat * fontValor.GetHeight() + 10);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(s.Tratamento))
+                    {
+                        int linhasTrat = CalcularLinhas(gfx, s.Tratamento, fontValor, larguras5[3] - 10);
+                        hLinha = Math.Max(hLinha, linhasTrat * fontValor.GetHeight() + 10);
+                    }
+                    alturaTotalNecessaria += hLinha;
+                }
+
+                if (y + alturaTotalNecessaria > yLimitePagina)
                 {
                     page = doc.AddPage();
                     gfx = XGraphics.FromPdfPage(page);
@@ -561,14 +879,14 @@ namespace Reverse.Forms.FormsExpedicao
                         form.PageNumber = 1;
                         gfx.DrawImage(form, 0, 0, page.Width.Point, page.Height.Point);
                     }
-
-                    y = 180; // Começa em uma posição mais baixa, igual às outras seções
+                    y = 180;
                 }
                 else
                 {
-                    y += 50; // Se estiver na mesma página, dá um espaçamento maior
+                    y += 40;
                 }
 
+                // 4. DESENHO: Título e Tabela
                 gfx.DrawString("5) Segregação Final dos Materiais e/ou Resíduos Após a Manufatura Reversa",
                         fontLabel, XBrushes.Black,
                         new XRect(margemEsq, y, larguraUtil, 20), XStringFormats.TopLeft);
@@ -576,20 +894,7 @@ namespace Reverse.Forms.FormsExpedicao
                 y += 30;
                 alturaLinha = 25;
 
-                // Definição das larguras das colunas
-                double[] larguras5 = { 50, 190, 100, 180 };
-                string[] headers5 = { "Item", "Material", "Quantidades", "Tipo de Tratamento" };
-
-                // Soma total da largura da tabela
-                double larguraTabela5 = larguras5.Sum();
-
-                // Calcula posição inicial para centralizar
-                double xInicial5 = (page.Width.Point - larguraTabela5) / 2;
-
-                // Controle de limite da página
-                double yLimite5 = page.Height.Point - 80;
-
-                // Cabeçalho
+                // Cabeçalho da Tabela
                 double x5 = xInicial5;
                 for (int i = 0; i < headers5.Length; i++)
                 {
@@ -603,45 +908,37 @@ namespace Reverse.Forms.FormsExpedicao
                 }
                 y += alturaLinha;
 
-                var segregacoes = await CarregarSegregacaoAsync();
+                // Dados da Tabela
                 decimal totalPeso = 0;
                 int item = 1;
 
-                foreach (var s in segregacoes)
+                foreach (var s in segregacoesAgrupadas)
                 {
-                    // Calcular altura necessária baseado nos textos longos
-                    double alturaLinhaAtual = alturaLinha;
+                    double alturaLinhaAtual = 25;
 
-                    // Verifica quantas linhas o Material precisa
                     if (!string.IsNullOrWhiteSpace(s.Tipo))
                     {
-                        int linhasMaterial = CalcularLinhas(gfx, s.Tipo, fontValor, larguras5[1] - 10); // -10 para padding
-                        alturaLinhaAtual = Math.Max(alturaLinhaAtual, linhasMaterial * fontValor.GetHeight() + 10);
+                        int linhasMat = CalcularLinhas(gfx, s.Tipo, fontValor, larguras5[1] - 10);
+                        alturaLinhaAtual = Math.Max(alturaLinhaAtual, linhasMat * fontValor.GetHeight() + 10);
                     }
-
-                    // Verifica quantas linhas o Tratamento precisa
                     if (!string.IsNullOrWhiteSpace(s.Tratamento))
                     {
-                        int linhasTratamento = CalcularLinhas(gfx, s.Tratamento, fontValor, larguras5[3] - 10); // -10 para padding
-                        alturaLinhaAtual = Math.Max(alturaLinhaAtual, linhasTratamento * fontValor.GetHeight() + 10);
+                        int linhasTrat = CalcularLinhas(gfx, s.Tratamento, fontValor, larguras5[3] - 10);
+                        alturaLinhaAtual = Math.Max(alturaLinhaAtual, linhasTrat * fontValor.GetHeight() + 10);
                     }
 
-                    // Verifica se a linha cabe na página com a altura calculada
-                    if (y + alturaLinhaAtual > yLimite5)
+                    if (y + alturaLinhaAtual > yLimitePagina)
                     {
                         page = doc.AddPage();
                         gfx = XGraphics.FromPdfPage(page);
-
                         using (var form = XPdfForm.FromFile(pathBase2))
                         {
                             form.PageNumber = 1;
                             gfx.DrawImage(form, 0, 0, page.Width.Point, page.Height.Point);
                         }
+                        y = 180;
 
-                        y = 180; // Começa mais abaixo
                         x5 = xInicial5;
-
-                        // Repetir cabeçalho da tabela
                         for (int i = 0; i < headers5.Length; i++)
                         {
                             var rect = new XRect(x5, y, larguras5[i], alturaLinha);
@@ -669,70 +966,57 @@ namespace Reverse.Forms.FormsExpedicao
                         gfx.DrawRectangle(XBrushes.White, rect);
                         gfx.DrawRectangle(XPens.Black, rect);
 
-                        // Para Item (coluna 0) e Quantidades (coluna 2): texto simples centralizado
                         if (i == 0 || i == 2)
-                        {
-                            gfx.DrawString(valores[i], fontValor, XBrushes.Black,
-                                new XRect(rect.X, rect.Y, rect.Width, rect.Height),
-                                XStringFormats.Center);
-                        }
-                        // Para Material (coluna 1) e Tipo de Tratamento (coluna 3): texto com quebra
-                        else if (i == 1 || i == 3)
-                        {
+                            gfx.DrawString(valores[i], fontValor, XBrushes.Black, rect, XStringFormats.Center);
+                        else
                             DesenharTextoQuebradoCentralizado(gfx, valores[i], fontValor, XBrushes.Black, rect);
-                        }
 
                         x5 += larguras5[i];
                     }
 
                     totalPeso += s.Peso;
                     item++;
-                    y += alturaLinhaAtual; // Usa a altura calculada dinamicamente
+                    y += alturaLinhaAtual;
                 }
 
-                // --- Linha TOTAL ---
-                // Verifica se a linha TOTAL cabe na página atual
-                if (y + alturaLinha > yLimite5)
+                // Linha TOTAL
+                x5 = xInicial5 + larguras5[0];
+
+                if (y + alturaLinha > yLimitePagina)
                 {
                     page = doc.AddPage();
                     gfx = XGraphics.FromPdfPage(page);
-
                     using (var form = XPdfForm.FromFile(pathBase2))
                     {
                         form.PageNumber = 1;
                         gfx.DrawImage(form, 0, 0, page.Width.Point, page.Height.Point);
                     }
-
                     y = 180;
                 }
 
-                // TOTAL embaixo da coluna "Material"
-                x5 = xInicial5 + larguras5[0]; // pula só a coluna "Item"
                 var rectTotalLabel = new XRect(x5, y, larguras5[1], alturaLinha);
                 gfx.DrawRectangle(new XSolidBrush(XColor.FromArgb(0x54, 0x8D, 0xD4)), rectTotalLabel);
                 gfx.DrawRectangle(XPens.Black, rectTotalLabel);
-                gfx.DrawString("TOTAL", fontLabel, XBrushes.White,
-                    new XRect(rectTotalLabel.X, rectTotalLabel.Y, rectTotalLabel.Width, rectTotalLabel.Height),
-                    XStringFormats.Center);
+                gfx.DrawString("TOTAL", fontLabel, XBrushes.White, rectTotalLabel, XStringFormats.Center);
 
-                // Valor embaixo da coluna "Quantidades"
                 x5 += larguras5[1];
                 var rectTotalValor = new XRect(x5, y, larguras5[2], alturaLinha);
                 gfx.DrawRectangle(new XSolidBrush(XColor.FromArgb(0x54, 0x8D, 0xD4)), rectTotalValor);
                 gfx.DrawRectangle(XPens.Black, rectTotalValor);
-                gfx.DrawString($"{totalPeso:N3} kg", fontLabel, XBrushes.White,
-                    new XRect(rectTotalValor.X, rectTotalValor.Y, rectTotalValor.Width, rectTotalValor.Height),
-                    XStringFormats.Center);
+                gfx.DrawString($"{totalPeso:N3} kg", fontLabel, XBrushes.White, rectTotalValor, XStringFormats.Center);
 
                 y += alturaLinha;
 
                 // --- Seção 6: Declaração Final + Assinatura ---
-                // Calcular espaço necessário para seção 6 + assinatura
-                double espacoNecessarioSecao6 = 280; // AUMENTADO: texto com quebra + assinatura + margens
-                double espacoDisponivel = page.Height.Point - y - 80; // 80 = margem inferior
+                double margemRodape = 100; // Espaço reservado do rodapé
+                double alturaAssinatura = 150; // Altura total da assinatura (img + nome + margem)
+                double alturaTextos = 130; // Altura aproximada dos 2 parágrafos
+                double espacoNecessarioSecao6 = 50 + alturaTextos; // Título + textos (SEM assinatura)
 
-                // Se não couber na página atual, cria nova
-                if (espacoDisponivel < espacoNecessarioSecao6)
+                double yLimiteTexto = page.Height.Point - margemRodape - alturaAssinatura;
+
+                // Se não couber os textos, cria nova página
+                if (y + espacoNecessarioSecao6 > yLimiteTexto)
                 {
                     page = doc.AddPage();
                     gfx = XGraphics.FromPdfPage(page);
@@ -743,18 +1027,17 @@ namespace Reverse.Forms.FormsExpedicao
                         form.PageNumber = 1;
                         gfx.DrawImage(form, 0, 0, page.Width.Point, page.Height.Point);
                     }
-
-                    y = 180; // Começa do topo da nova página
+                    y = 180;
+                    yLimiteTexto = page.Height.Point - margemRodape - alturaAssinatura;
                 }
                 else
                 {
-                    y += 40; // Espaçamento na mesma página
+                    y += 40;
                 }
 
-                // Título da seção
+                // Título
                 gfx.DrawString("6) Declaração Final", fontLabel, XBrushes.Black,
                     new XRect(margemEsq, y, larguraUtil, 20), XStringFormats.TopLeft);
-
                 y += 30;
 
                 // PRIMEIRO PARÁGRAFO
@@ -762,77 +1045,63 @@ namespace Reverse.Forms.FormsExpedicao
 
                 var tf1 = new XTextFormatter(gfx);
                 tf1.Alignment = XParagraphAlignment.Justify;
-
-                var rectTexto1 = new XRect(margemEsq, y, larguraUtil, 60); // Altura ajustada para 1 parágrafo
+                var rectTexto1 = new XRect(margemEsq, y, larguraUtil, 65);
                 tf1.DrawString(textoDeclaracao1, fontValor, XBrushes.Black, rectTexto1, XStringFormats.TopLeft);
-
-                y += 70; // Espaço entre parágrafos (inclui a quebra de linha)
+                y += 70;
 
                 // SEGUNDO PARÁGRAFO
                 string textoDeclaracao2 = "A DLD SOLUÇÕES EM LOGISTICA REVERSA, GESTÃO E RECICLAGEM LTDA atesta a veracidade de todas as informações contidas neste relatório de rastreamento e destinação final de resíduos eletroeletrônicos obsoletos e descartes em geral.";
 
                 var tf2 = new XTextFormatter(gfx);
                 tf2.Alignment = XParagraphAlignment.Justify;
-
-                var rectTexto2 = new XRect(margemEsq, y, larguraUtil, 50);
+                var rectTexto2 = new XRect(margemEsq, y, larguraUtil, 55);
                 tf2.DrawString(textoDeclaracao2, fontValor, XBrushes.Black, rectTexto2, XStringFormats.TopLeft);
 
-                // Pular para o final da página para assinatura
-                double yAssinatura = page.Height.Point - 220;
-                // Data e local centralizados (TUDO EM NEGRITO e FONTE MAIOR)
-                var mes = _mesAno.ToString("MMMM", new System.Globalization.CultureInfo("pt-BR"));
-                mes = char.ToUpper(mes[0]) + mes.Substring(1); // primeira letra maiúscula
+                // ASSINATURA: Sempre fixada acima do rodapé
+                double yAssinatura = page.Height.Point - margemRodape - alturaAssinatura + 20;
 
-                string dataTexto = $"Araras/SP, {mes} de {_mesAno:yyyy}";
-
-                var fontDataLocal = new XFont("Times New Roman", 18, XFontStyleEx.Bold);
+                // Data e local
+                var mesAtual = DateTime.Now.ToString("MMMM", new System.Globalization.CultureInfo("pt-BR"));
+                mesAtual = char.ToUpper(mesAtual[0]) + mesAtual.Substring(1);
+                string dataTexto = $"Araras/SP, {mesAtual} de {DateTime.Now:yyyy}";
+                var fontDataLocal = new XFont("Times New Roman", 16, XFontStyleEx.Bold);
 
                 gfx.DrawString(dataTexto, fontDataLocal, XBrushes.Black,
-                    new XRect(0, yAssinatura, page.Width.Point, 20),
-                    XStringFormats.Center);
+                    new XRect(0, yAssinatura, page.Width.Point, 20), XStringFormats.Center);
+                yAssinatura += 25;
 
-                yAssinatura += 35; // Aumentado de 30 para 35 para acomodar a fonte maior
-
-                // Carregar e inserir imagem da assinatura (centralizada e REDIMENSIONADA)
+                // Imagem da assinatura
                 try
                 {
                     string pathAssinatura = ExtrairRecursoParaTemp("Reverse.Resources.AssinaturaLaudo.jpg");
                     using (XImage imgAssinatura = XImage.FromFile(pathAssinatura))
                     {
-                        // REDUZIDO: de 150 para 120 (largura menor)
-                        double larguraImg = 120;
+                        double larguraImg = 180;
                         double alturaImg = (imgAssinatura.PointHeight / imgAssinatura.PointWidth) * larguraImg;
 
-                        // LIMITADOR: se a altura calculada for muito grande, reduz proporcionalmente
-                        if (alturaImg > 60)
+                        if (alturaImg > 70)
                         {
-                            alturaImg = 60;
+                            alturaImg = 70;
                             larguraImg = (imgAssinatura.PointWidth / imgAssinatura.PointHeight) * alturaImg;
                         }
 
                         double xImg = (page.Width.Point - larguraImg) / 2;
-
                         gfx.DrawImage(imgAssinatura, xImg, yAssinatura, larguraImg, alturaImg);
-                        yAssinatura += alturaImg + 5; // Reduzido espaço de 10 para 5
+                        yAssinatura += alturaImg + 3;
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    // Se não encontrar a imagem, apenas loga (não quebra o PDF)
-                    System.Diagnostics.Debug.WriteLine($"Assinatura não encontrada: {ex.Message}");
-                    yAssinatura += 20; // Espaço reservado caso não haja imagem
+                    yAssinatura += 15;
                 }
 
-                // Nome abaixo da assinatura (centralizado)
+                // Linha e nome
                 gfx.DrawString("________________________________", fontValor, XBrushes.Black,
-                    new XRect(0, yAssinatura, page.Width.Point, 15),
-                    XStringFormats.Center);
-
-                yAssinatura += 15;
+                    new XRect(0, yAssinatura, page.Width.Point, 12), XStringFormats.Center);
+                yAssinatura += 12;
 
                 gfx.DrawString("DLD Soluções em Logística Reversa", fontLabel, XBrushes.Black,
-                    new XRect(0, yAssinatura, page.Width.Point, 15),
-                    XStringFormats.Center);
+                    new XRect(0, yAssinatura, page.Width.Point, 12), XStringFormats.Center);
             }
             doc.Save(caminhoCompleto);
         }
@@ -845,11 +1114,11 @@ namespace Reverse.Forms.FormsExpedicao
             {
                 await conn.OpenAsync();
                 string sql = @"
-            SELECT Tipo, Peso, Tratamento
-            FROM BalancoMassa
-            WHERE ClienteId = @ClienteId
-              AND MesAno = @MesAno
-            ORDER BY Tipo";
+                    SELECT Tipo, Peso, Tratamento
+                    FROM BalancoMassa
+                    WHERE ClienteId = @ClienteId
+                      AND MesAno = @MesAno
+                    ORDER BY Tipo";
 
                 var cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@ClienteId", _clienteId);
@@ -871,24 +1140,94 @@ namespace Reverse.Forms.FormsExpedicao
             return lista;
         }
 
-        private void DesenharTextoQuebradoCentralizado(
-            XGraphics gfx, string texto, XFont fonte, XBrush brush, XRect rect)
+        private void DesenharTextoQuebradoPorEspacos(XGraphics gfx, string texto, XFont fonte, XBrush brush, XRect rect)
         {
             if (string.IsNullOrWhiteSpace(texto))
                 return;
 
-            var tf = new XTextFormatter(gfx)
+            // Quebra por espaços
+            var linhas = texto.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            double alturaLinha = fonte.GetHeight();
+            double alturaTotal = linhas.Length * alturaLinha;
+            double offsetY = rect.Y + Math.Max(0, (rect.Height - alturaTotal) / 2);
+
+            double yAtual = offsetY;
+
+            foreach (var linha in linhas)
             {
-                Alignment = XParagraphAlignment.Center
-            };
+                var tamanho = gfx.MeasureString(linha, fonte);
+                double xCentralizado = rect.X + (rect.Width - tamanho.Width) / 2;
 
-            double alturaTexto = CalcularLinhas(gfx, texto, fonte, rect.Width) * fonte.GetHeight();
+                gfx.DrawString(linha, fonte, brush,
+                    new XRect(xCentralizado, yAtual, rect.Width, alturaLinha),
+                    XStringFormats.TopLeft);
 
-            double offsetY = rect.Y + (rect.Height - alturaTexto) / 2;
+                yAtual += alturaLinha;
 
-            var destino = new XRect(rect.X, offsetY, rect.Width, alturaTexto);
+                if (yAtual > rect.Y + rect.Height)
+                    break;
+            }
+        }
 
-            tf.DrawString(texto, fonte, brush, destino, XStringFormats.TopLeft);
+        private void DesenharTextoQuebradoCentralizado(XGraphics gfx, string texto, XFont fonte, XBrush brush, XRect rect)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+                return;
+
+            var palavras = texto.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            List<string> linhas = new List<string>();
+            string linhaAtual = "";
+
+            foreach (var palavra in palavras)
+            {
+                string tentativa = string.IsNullOrEmpty(linhaAtual) ? palavra : (linhaAtual + " " + palavra);
+                var tamanho = gfx.MeasureString(tentativa, fonte);
+
+                if (tamanho.Width <= rect.Width - 4)
+                {
+                    linhaAtual = tentativa;
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(linhaAtual))
+                        linhas.Add(linhaAtual);
+                    linhaAtual = palavra;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(linhaAtual))
+                linhas.Add(linhaAtual);
+
+            double alturaLinha = fonte.GetHeight();
+            double alturaTotal = linhas.Count * alturaLinha;
+            double offsetY = rect.Y + Math.Max(0, (rect.Height - alturaTotal) / 2);
+
+            double yAtual = offsetY;
+
+            foreach (var linha in linhas)
+            {
+                var tamanho = gfx.MeasureString(linha, fonte);
+                double xCentralizado = rect.X + (rect.Width - tamanho.Width) / 2;
+
+                gfx.DrawString(linha, fonte, brush,
+                    new XRect(xCentralizado, yAtual, rect.Width, alturaLinha),
+                    XStringFormats.TopLeft);
+
+                yAtual += alturaLinha;
+
+                if (yAtual > rect.Y + rect.Height)
+                    break;
+            }
+        }
+
+        private int CalcularLinhasComEspacos(string texto, XFont fonte, double largura)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+                return 1;
+
+            var partes = texto.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            return Math.Max(1, partes.Length);
         }
 
         private int CalcularLinhas(XGraphics gfx, string texto, XFont fonte, double largura)
@@ -954,7 +1293,6 @@ namespace Reverse.Forms.FormsExpedicao
 
             return lista;
         }
-
         private void DesenharCaixaComLabel(
             XGraphics gfx, XFont labelFont, XFont valueFont,
             string label, string value,

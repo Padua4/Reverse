@@ -35,17 +35,19 @@ namespace Reverse.Forms
             using (var ctx = new ReverseContext())
             {
                 var lista = ctx.Paletes
+                    .AsNoTracking()
+                    .Include(p => p.Categoria)
                     .Select(p => new
                     {
                         p.Id,
                         p.Numero,
-                        p.Categoria
+                        CategoriaNome = p.Categoria.Nome
                     })
                     .AsEnumerable()
                     .Select(p => new PaleteListItem
                     {
                         Id = p.Id,
-                        Nome = $"Palete {p.Numero} - {p.Categoria.GetDescription()}"
+                        Nome = $"Palete {p.Numero} - {p.CategoriaNome}"
                     })
                     .OrderByDescending(p => p.Id)
                     .ToList();

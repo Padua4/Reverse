@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows.Forms; 
 
 namespace Reverse.Forms.FormsTriagem
 {
@@ -15,14 +15,38 @@ namespace Reverse.Forms.FormsTriagem
     {
 
         private readonly int _usuarioId;
+        private string _nomeUsuario;
         private Form _formFilhoAtual;
 
         public TriagemFormHub(int usuarioId)
         {
             InitializeComponent();
             _usuarioId = usuarioId;
+            CarregarDadosUsuario();
             ConfigurarComponentes();
             this.AutoScaleMode = AutoScaleMode.None;
+        }
+
+        private void CarregarDadosUsuario()
+        {
+            try
+            {
+                using (var ctx = new ReverseContext())
+                {
+                    var usuario = ctx.Usuarios
+                        .Where(u => u.Id == _usuarioId)
+                        .Select(u => u.UsuarioNome)
+                        .FirstOrDefault();
+
+                    _nomeUsuario = usuario ?? "Usuário Desconhecido";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar dados do usuário: {ex.Message}",
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _nomeUsuario = "Usuário Desconhecido";
+            }
         }
 
         private void FormTriagemHub_Load(object sender, EventArgs e)
@@ -89,7 +113,7 @@ namespace Reverse.Forms.FormsTriagem
             {
                 if (Reverse.Forms.FormsLogin.FormConfigU.PermissaoHelper.TemPermissao(_usuarioId, nameof(TriagemFormPalete)))
                 {
-                    AbrirFormNoPainel(new TriagemFormPalete(_usuarioId));
+                    AbrirFormNoPainel(new TriagemFormPalete(_usuarioId, _nomeUsuario));
                 }
                 else
                 {

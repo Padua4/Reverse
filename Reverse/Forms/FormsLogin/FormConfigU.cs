@@ -307,7 +307,12 @@ namespace Reverse.Forms.FormsLogin
 
         private void btnRemover_Click(object sender, EventArgs e)
         {
-            if (dgvPermissao.CurrentRow == null || _usuarioSelecionado == null) return;
+            if (dgvPermissao.CurrentRow == null || _usuarioSelecionado == null)
+            {
+                MessageBox.Show("Selecione uma permissão para remover.",
+                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             string formName = dgvPermissao.CurrentRow.Cells["FormName"].Value.ToString();
             var item = _permissoes.FirstOrDefault(p => p.FormName == formName);
@@ -325,7 +330,19 @@ namespace Reverse.Forms.FormsLogin
                     if (permissao != null)
                     {
                         ctx.Permissoes.Remove(permissao);
-                        ctx.SaveChanges();
+
+                        try
+                        {
+                            ctx.SaveChanges();
+                            MessageBox.Show("Permissão removida com sucesso!",
+                                "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Erro ao remover permissão: {ex.Message}",
+                                "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            _permissoes.Add(item);
+                        }
                     }
                 }
             }
@@ -355,23 +372,35 @@ namespace Reverse.Forms.FormsLogin
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            if (_usuarioSelecionado == null) return;
+            if (_usuarioSelecionado == null)
+            {
+                MessageBox.Show("Selecione um usuário primeiro.",
+                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             using (var ctx = new ReverseContext())
             {
                 var usuario = ctx.Usuarios.Find(_usuarioSelecionado.Id);
+                if (usuario == null)
+                {
+                    MessageBox.Show("Usuário não encontrado.",
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                // OTIMIZAÇÃO: Buscar todas as permissões existentes de uma vez
                 var permissoesExistentes = ctx.Permissoes
                     .Where(p => p.UsuarioId == usuario.Id)
                     .Select(p => p.FormName)
                     .ToHashSet();
 
+                var novasPermissoes = new List<Permissao>();
+
                 foreach (var item in _permissoes)
                 {
                     if (!permissoesExistentes.Contains(item.FormName))
                     {
-                        ctx.Permissoes.Add(new Permissao
+                        novasPermissoes.Add(new Permissao
                         {
                             UsuarioId = usuario.Id,
                             FormName = item.FormName,
@@ -380,10 +409,33 @@ namespace Reverse.Forms.FormsLogin
                     }
                 }
 
-                ctx.SaveChanges();
-            }
+                if (novasPermissoes.Any())
+                {
+                    ctx.Permissoes.AddRange(novasPermissoes);
+                }
 
-            MessageBox.Show("Permissões salvas com sucesso!");
+                var formsNaLista = _permissoes.Select(p => p.FormName).ToHashSet();
+                var permissoesParaRemover = ctx.Permissoes
+                    .Where(p => p.UsuarioId == usuario.Id && !formsNaLista.Contains(p.FormName))
+                    .ToList();
+
+                if (permissoesParaRemover.Any())
+                {
+                    ctx.Permissoes.RemoveRange(permissoesParaRemover);
+                }
+
+                try
+                {
+                    ctx.SaveChanges();
+                    MessageBox.Show("Permissões salvas com sucesso!",
+                        "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao salvar permissões: {ex.Message}",
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void btnSair_Click(object sender, EventArgs e)

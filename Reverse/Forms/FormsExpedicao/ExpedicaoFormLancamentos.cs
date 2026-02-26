@@ -14,6 +14,7 @@ namespace Reverse.Forms.FormsExpedicao
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["ReverseDB"].ConnectionString;
         private bool isLoadingTicket = false;
+        private bool isBindingTickets = false;
 
         public ExpedicaoFormLancamentos()
         {
@@ -33,6 +34,38 @@ namespace Reverse.Forms.FormsExpedicao
             dgvLancamentos.CellEnter += dgvLancamentos_CellEnter;
 
             cbTicket.SelectedIndexChanged += cbTicket_SelectedIndexChanged;
+        }
+
+        private void AplicarEstiloVisualProducao(DataGridView grid)
+        {
+            grid.BackgroundColor = Color.FromArgb(250, 250, 252);
+            grid.BorderStyle = BorderStyle.FixedSingle;
+            grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            grid.GridColor = Color.FromArgb(230, 230, 235);
+
+            grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 73, 94);
+            grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            grid.ColumnHeadersHeight = 40;
+
+            grid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 249, 255);
+            grid.RowsDefaultCellStyle.BackColor = Color.White;
+
+            grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 237, 255);
+            grid.DefaultCellStyle.SelectionForeColor = Color.Black;
+            grid.ColumnHeadersDefaultCellStyle.SelectionBackColor = grid.ColumnHeadersDefaultCellStyle.BackColor;
+            grid.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+
+            grid.DefaultCellStyle.ForeColor = Color.Black;
+            grid.AlternatingRowsDefaultCellStyle.ForeColor = Color.Black;
+
+            grid.EnableHeadersVisualStyles = false;
+            grid.RowHeadersVisible = false;
+            grid.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
+            grid.RowTemplate.Height = 36;
         }
 
         private void dgvLancamentos_CurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -60,9 +93,10 @@ namespace Reverse.Forms.FormsExpedicao
         {
             await CarregarEmpresasAsync();
             ConfigurarGrid();
-
+            await CarregarMateriaisComboBoxAsync();
             HabilitarCampos(false);
         }
+
 
         private void btnSair_Click(object sender, EventArgs e)
         {
@@ -152,19 +186,28 @@ namespace Reverse.Forms.FormsExpedicao
                     adapter.Fill(dt);
                 }
 
+                isBindingTickets = true;
                 cbTicket.DataSource = dt;
                 cbTicket.DisplayMember = "Ticket";
                 cbTicket.ValueMember = "Ticket";
 
                 if (dt.Rows.Count > 0)
                 {
-                    cbTicket.SelectedIndex = -1;
+                    cbTicket.SelectedIndex = dt.Rows.Count - 1;
+
+                    var ticketSelecionado = cbTicket.SelectedValue?.ToString();
+                    if (!string.IsNullOrWhiteSpace(ticketSelecionado))
+                    {
+                        await CarregarLancamentosAsync(ticketSelecionado);
+                    }
                 }
                 else
                 {
+                    cbTicket.SelectedIndex = -1;
                     MessageBox.Show("Esta empresa não possui tickets cadastrados.",
                         "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                isBindingTickets = false;
             }
         }
 
@@ -181,45 +224,79 @@ namespace Reverse.Forms.FormsExpedicao
             dgvLancamentos.AutoGenerateColumns = false;
             dgvLancamentos.Rows.Clear();
 
-            var colMaterial = new DataGridViewComboBoxColumn();
-            colMaterial.HeaderText = "Material";
-            colMaterial.Name = "Material";
-            colMaterial.ValueType = typeof(string);
-            colMaterial.DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing;
-            colMaterial.FlatStyle = FlatStyle.Flat;
-            colMaterial.DataSource = new string[]
+            var colMaterial = new DataGridViewComboBoxColumn
             {
-                "FERRO", "PAPELÃO", "PLASTICO", "APARA", "INOX FERROSO", "INOX NÃO FERROSO",
-                "ALUMINIO BLOCO LIMPO", "ALUMINIO BLOCO SUJO", "PLACA VERDE", "PLACA MARROM",
-                "COBRE", "APARA AMARELA", "ISOPOR", "COBRE MISTO", "CAVACO DE FERRO", "CAVACO DE ALUMINIO",
-                "CABO", "CABO MISTO", "PICADEIRA", "BIGBAG", "MOTOR", "TRANSFORMADOR", "RESISTENCIA",
-                "SERVIDOR", "MAQUINAS", "TABLET", "CELULAR", "MÓDULO", "PAINEL ELETRICO", "EQUIPAMENTO MÉDICO",
-                "SUCATA ELETRONICA", "MISTO", "VIDRO", "MADEIRA", "METAIS", "SUCATA VARIADA", "LATÃO",
-                "RADIADORES", "BATERIA", "PILHA", "RAÇÃO / FRALDA / OUTROS", "ALIMENTO / BEBIDA / OUTROS",
-                "CAVACO DE PLÁSTICO", "TECIDOS", "PAPEL", "LAMPADA", "RESIDUO INDUSTRIAL", "BORRACHA",
-                "EVA (ETILENO ACETATO DE VINILA)"
+                HeaderText = "Material",
+                Name = "Material",
+                ValueType = typeof(string),
+                DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing,
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 40
             };
-            colMaterial.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colMaterial.FillWeight = 60;
             dgvLancamentos.Columns.Add(colMaterial);
 
-            var colPeso = new DataGridViewTextBoxColumn();
-            colPeso.HeaderText = "Peso (kg)";
-            colPeso.Name = "Peso";
-            colPeso.ValueType = typeof(decimal);
-            colPeso.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colPeso.FillWeight = 40;
+            var colPeso = new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Peso (kg)",
+                Name = "Peso",
+                ValueType = typeof(decimal),
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 25
+            };
             colPeso.DefaultCellStyle.Format = "N3";
             dgvLancamentos.Columns.Add(colPeso);
+
+            var colObservacoes = new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Observações",
+                Name = "Observacoes",
+                ValueType = typeof(string),
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 35
+            };
+            colObservacoes.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
+            dgvLancamentos.Columns.Add(colObservacoes);
 
             dgvLancamentos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvLancamentos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             dgvLancamentos.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+
+            AplicarEstiloVisualProducao(dgvLancamentos);
+        }
+
+        private async Task CarregarMateriaisComboBoxAsync()
+        {
+            try
+            {
+                var materiais = new System.Collections.Generic.List<string>();
+
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    await conn.OpenAsync();
+                    using (var cmd = new SqlCommand(
+                        "SELECT Nome FROM ExpMaterialLaudo ORDER BY Nome", conn))
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                            materiais.Add(reader["Nome"].ToString());
+                    }
+                }
+
+                var colMaterial = (DataGridViewComboBoxColumn)dgvLancamentos.Columns["Material"];
+                colMaterial.DataSource = materiais;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar lista de materiais: {ex.Message}",
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnCriar_Click(object sender, EventArgs e)
         {
             string ultimoMaterial = null;
+            string ultimaObservacao = null;
 
             if (dgvLancamentos.Rows.Count > 0)
             {
@@ -228,6 +305,10 @@ namespace Reverse.Forms.FormsExpedicao
                 {
                     ultimoMaterial = ultimaLinha.Cells["Material"].Value.ToString();
                 }
+                if (ultimaLinha.Cells["Observacoes"].Value != null)
+                {
+                    ultimaObservacao = ultimaLinha.Cells["Observacoes"].Value.ToString();
+                }
             }
 
             int novaLinhaIndex = dgvLancamentos.Rows.Add();
@@ -235,6 +316,11 @@ namespace Reverse.Forms.FormsExpedicao
             if (!string.IsNullOrWhiteSpace(ultimoMaterial))
             {
                 dgvLancamentos.Rows[novaLinhaIndex].Cells["Material"].Value = ultimoMaterial;
+            }
+
+            if (!string.IsNullOrWhiteSpace(ultimaObservacao))
+            {
+                dgvLancamentos.Rows[novaLinhaIndex].Cells["Observacoes"].Value = ultimaObservacao;
             }
 
             dgvLancamentos.CurrentCell = dgvLancamentos.Rows[novaLinhaIndex].Cells["Peso"];
@@ -350,15 +436,7 @@ namespace Reverse.Forms.FormsExpedicao
         {
             if (cbTicket.SelectedValue == null)
             {
-                MessageBox.Show("Selecione um ticket.", "Validação",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (dgvLancamentos.Rows.Count == 0)
-            {
-                MessageBox.Show("Adicione pelo menos um material na grid.", "Validação",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Selecione um ticket.", "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -366,23 +444,25 @@ namespace Reverse.Forms.FormsExpedicao
             {
                 if (row.IsNewRow) continue;
 
-                if (row.Cells["Material"].Value == null || string.IsNullOrWhiteSpace(row.Cells["Material"].Value.ToString()))
+                if (row.Cells["Material"].Value == null ||
+                    string.IsNullOrWhiteSpace(row.Cells["Material"].Value.ToString()))
                 {
                     MessageBox.Show("Todas as linhas devem ter um material selecionado.", "Validação",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                if (row.Cells["Peso"].Value == null || !decimal.TryParse(row.Cells["Peso"].Value.ToString(), out var peso) || peso <= 0)
+                if (row.Cells["Peso"].Value == null ||
+                    !decimal.TryParse(row.Cells["Peso"].Value.ToString(), out var peso) ||
+                    peso <= 0)
                 {
-                    MessageBox.Show("Todas as linhas devem ter um peso válido maior que zero.", "Validação",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Todas as linhas devem ter um peso válido maior que zero.",
+                        "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
 
             string ticket = cbTicket.SelectedValue.ToString();
-
             int volume = dgvLancamentos.Rows.Count;
             decimal pesoTotal = dgvLancamentos.Rows.Cast<DataGridViewRow>()
                 .Where(r => !r.IsNewRow && r.Cells["Peso"].Value != null)
@@ -397,18 +477,18 @@ namespace Reverse.Forms.FormsExpedicao
                 using (var conn = new SqlConnection(connectionString))
                 {
                     await conn.OpenAsync();
-                    using (var transaction = conn.BeginTransaction())
+                    using (var transaction = conn.BeginTransaction(IsolationLevel.ReadCommitted))
                     {
                         try
                         {
                             var cmdUpdate = new SqlCommand(@"
-                        UPDATE ControleLogistico WITH (ROWLOCK)
-                        SET NF = @NF, 
-                            MTR = @MTR, 
-                            Volume = @Volume, 
-                            Peso = @Peso, 
-                            Observacoes = @Obs
-                        WHERE Ticket = @Ticket", conn, transaction);
+                                UPDATE ControleLogistico WITH (UPDLOCK, ROWLOCK)
+                                SET NF = @NF, 
+                                    MTR = @MTR, 
+                                    Volume = @Volume, 
+                                    Peso = @Peso, 
+                                    Observacoes = @Obs
+                                WHERE Ticket = @Ticket", conn, transaction);
 
                             cmdUpdate.Parameters.AddWithValue("@NF", string.IsNullOrWhiteSpace(txtNF.Text) ? (object)DBNull.Value : txtNF.Text);
                             cmdUpdate.Parameters.AddWithValue("@MTR", string.IsNullOrWhiteSpace(txtMTR.Text) ? (object)DBNull.Value : txtMTR.Text);
@@ -417,9 +497,14 @@ namespace Reverse.Forms.FormsExpedicao
                             cmdUpdate.Parameters.AddWithValue("@Obs", string.IsNullOrWhiteSpace(txtObs.Text) ? (object)DBNull.Value : txtObs.Text);
                             cmdUpdate.Parameters.AddWithValue("@Ticket", ticket);
 
-                            await cmdUpdate.ExecuteNonQueryAsync();
+                            int affected = await cmdUpdate.ExecuteNonQueryAsync();
 
-                            var cmdDel = new SqlCommand("DELETE FROM LancamentosMateriais WITH (ROWLOCK) WHERE Ticket = @Ticket", conn, transaction);
+                            if (affected == 0)
+                            {
+                                throw new Exception("Ticket não encontrado ou foi modificado por outro usuário.");
+                            }
+
+                            var cmdDel = new SqlCommand("DELETE FROM LancamentosMateriais WHERE Ticket = @Ticket", conn, transaction);
                             cmdDel.Parameters.AddWithValue("@Ticket", ticket);
                             await cmdDel.ExecuteNonQueryAsync();
 
@@ -429,6 +514,7 @@ namespace Reverse.Forms.FormsExpedicao
                                 dtMateriais.Columns.Add("Ticket", typeof(string));
                                 dtMateriais.Columns.Add("Material", typeof(string));
                                 dtMateriais.Columns.Add("Peso", typeof(decimal));
+                                dtMateriais.Columns.Add("Observacoes", typeof(string));
 
                                 foreach (DataGridViewRow row in dgvLancamentos.Rows)
                                 {
@@ -440,7 +526,9 @@ namespace Reverse.Forms.FormsExpedicao
                                     decimal peso = 0;
                                     decimal.TryParse(row.Cells["Peso"].Value?.ToString(), out peso);
 
-                                    dtMateriais.Rows.Add(ticket, material, peso);
+                                    string observacoes = row.Cells["Observacoes"].Value?.ToString() ?? string.Empty;
+
+                                    dtMateriais.Rows.Add(ticket, material, peso, observacoes);
                                 }
 
                                 using (var bulkCopy = new SqlBulkCopy(conn, SqlBulkCopyOptions.Default, transaction))
@@ -449,15 +537,16 @@ namespace Reverse.Forms.FormsExpedicao
                                     bulkCopy.ColumnMappings.Add("Ticket", "Ticket");
                                     bulkCopy.ColumnMappings.Add("Material", "Material");
                                     bulkCopy.ColumnMappings.Add("Peso", "Peso");
-                                    bulkCopy.BatchSize = 1000;
+                                    bulkCopy.ColumnMappings.Add("Observacoes", "Observacoes");
+                                    bulkCopy.BulkCopyTimeout = 30;
+                                    bulkCopy.BatchSize = 500;
 
                                     await bulkCopy.WriteToServerAsync(dtMateriais);
                                 }
                             }
 
                             transaction.Commit();
-                            MessageBox.Show("Lançamento salvo com sucesso!", "Sucesso",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Lançamento salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
                         {
@@ -469,8 +558,7 @@ namespace Reverse.Forms.FormsExpedicao
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao salvar lançamento: {ex.Message}", "Erro",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Erro ao salvar lançamento: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -479,6 +567,7 @@ namespace Reverse.Forms.FormsExpedicao
                 Cursor = Cursors.Default;
             }
         }
+
 
         private async Task CarregarLancamentosAsync(string ticket)
         {
@@ -495,17 +584,18 @@ namespace Reverse.Forms.FormsExpedicao
                     await conn.OpenAsync();
 
                     var cmd = new SqlCommand(@"
-                SELECT 
-                    cl.NF, 
-                    cl.MTR, 
-                    cl.Observacoes, 
-                    cl.Data,
-                    lm.Material,
-                    lm.Peso
-                FROM ControleLogistico cl
-                LEFT JOIN LancamentosMateriais lm ON cl.Ticket = lm.Ticket
-                WHERE cl.Ticket = @Ticket
-                ORDER BY lm.Material", conn);
+                        SELECT 
+                            cl.NF, 
+                            cl.MTR, 
+                            cl.Observacoes, 
+                            cl.Data,
+                            lm.Material,
+                            lm.Peso,
+                            lm.Observacoes as MaterialObservacoes  -- ADICIONE ESTA COLUNA
+                        FROM ControleLogistico cl
+                        LEFT JOIN LancamentosMateriais lm ON cl.Ticket = lm.Ticket
+                        WHERE cl.Ticket = @Ticket
+                        ORDER BY lm.Material", conn);
 
                     cmd.Parameters.AddWithValue("@Ticket", ticket);
 
@@ -537,7 +627,8 @@ namespace Reverse.Forms.FormsExpedicao
                             {
                                 dgvLancamentos.Rows.Add(
                                     reader["Material"].ToString(),
-                                    Convert.ToDecimal(reader["Peso"])
+                                    Convert.ToDecimal(reader["Peso"]),
+                                    reader["MaterialObservacoes"]?.ToString() ?? ""
                                 );
                             }
                         }
@@ -558,9 +649,10 @@ namespace Reverse.Forms.FormsExpedicao
             }
         }
 
+
         private async void cbTicket_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (isLoadingTicket) return;
+            if (isLoadingTicket || isBindingTickets) return;
 
             if (cbTicket.SelectedValue != null && cbTicket.SelectedIndex >= 0)
             {
@@ -612,5 +704,6 @@ namespace Reverse.Forms.FormsExpedicao
             txtPeso.Text = pesoTotal.ToString("N3");
             lblPeso.Text = pesoTotal.ToString("N3") + " kg";
         }
+
     }
 }

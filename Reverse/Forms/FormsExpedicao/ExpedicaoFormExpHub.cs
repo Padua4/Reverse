@@ -110,8 +110,27 @@ namespace Reverse.Forms.FormsExpedicao
                 }
             };
 
+            picGraficos.MouseEnter += Pic_MouseEnter;
+            picGraficos.MouseLeave += Pic_MouseLeave;
+            picGraficos.Click += (s, e) =>
+            {
+                if (Reverse.Forms.FormsLogin.FormConfigU.PermissaoHelper.TemPermissao(_usuarioId, nameof(ExpedicaoFormGraficos)))
+                {
+                    AbrirFormNoPainel(new ExpedicaoFormGraficos(_usuarioId));
+                }
+                else
+                {
+                    MessageBox.Show("Você não tem permissão para acessar os Gráficos da Expedição.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            };
+
             btnSair.Click += (s, e) => Close();
-            }
+        }
+
+        private void PicGraficos_MouseEnter(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         private void Pic_MouseEnter(object sender, EventArgs e)
         {

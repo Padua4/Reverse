@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FinanceiroFormClientes));
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.txtFiltro = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabDados = new System.Windows.Forms.TabPage();
@@ -161,12 +162,21 @@
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
+            this.pnlHeader.Controls.Add(this.txtFiltro);
             this.pnlHeader.Controls.Add(this.label1);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(1920, 56);
             this.pnlHeader.TabIndex = 0;
+            // 
+            // txtFiltro
+            // 
+            this.txtFiltro.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFiltro.Location = new System.Drawing.Point(148, 19);
+            this.txtFiltro.Name = "txtFiltro";
+            this.txtFiltro.Size = new System.Drawing.Size(608, 29);
+            this.txtFiltro.TabIndex = 2;
             // 
             // label1
             // 
@@ -186,10 +196,10 @@
             this.tabControl1.Controls.Add(this.tabRelacionamento);
             this.tabControl1.Controls.Add(this.tabAnalise);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(483, 3);
+            this.tabControl1.Location = new System.Drawing.Point(1260, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1434, 887);
+            this.tabControl1.Size = new System.Drawing.Size(657, 887);
             this.tabControl1.TabIndex = 1;
             // 
             // tabDados
@@ -199,7 +209,7 @@
             this.tabDados.Location = new System.Drawing.Point(4, 34);
             this.tabDados.Name = "tabDados";
             this.tabDados.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDados.Size = new System.Drawing.Size(1426, 849);
+            this.tabDados.Size = new System.Drawing.Size(649, 849);
             this.tabDados.TabIndex = 0;
             this.tabDados.Text = "Dados Cadastrais";
             // 
@@ -218,7 +228,7 @@
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1420, 843);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(643, 843);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // groupBox4
@@ -230,9 +240,9 @@
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.ForeColor = System.Drawing.Color.Black;
-            this.groupBox4.Location = new System.Drawing.Point(713, 382);
+            this.groupBox4.Location = new System.Drawing.Point(324, 382);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(704, 458);
+            this.groupBox4.Size = new System.Drawing.Size(316, 458);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "CONTROLE";
@@ -240,10 +250,11 @@
             // cmbStatus
             // 
             this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbStatus.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.cmbStatus.FormattingEnabled = true;
             this.cmbStatus.Location = new System.Drawing.Point(6, 121);
             this.cmbStatus.Name = "cmbStatus";
-            this.cmbStatus.Size = new System.Drawing.Size(692, 33);
+            this.cmbStatus.Size = new System.Drawing.Size(302, 29);
             this.cmbStatus.TabIndex = 5;
             // 
             // label17
@@ -257,10 +268,11 @@
             // 
             // dtpCadastro
             // 
+            this.dtpCadastro.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.dtpCadastro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpCadastro.Location = new System.Drawing.Point(6, 57);
             this.dtpCadastro.Name = "dtpCadastro";
-            this.dtpCadastro.Size = new System.Drawing.Size(692, 33);
+            this.dtpCadastro.Size = new System.Drawing.Size(302, 29);
             this.dtpCadastro.TabIndex = 3;
             // 
             // label16
@@ -291,16 +303,17 @@
             this.groupBox3.ForeColor = System.Drawing.Color.Black;
             this.groupBox3.Location = new System.Drawing.Point(3, 382);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(704, 458);
+            this.groupBox3.Size = new System.Drawing.Size(315, 458);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "ENDEREÇO";
             // 
             // mtbCEP
             // 
+            this.mtbCEP.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.mtbCEP.Location = new System.Drawing.Point(6, 377);
             this.mtbCEP.Name = "mtbCEP";
-            this.mtbCEP.Size = new System.Drawing.Size(692, 33);
+            this.mtbCEP.Size = new System.Drawing.Size(302, 29);
             this.mtbCEP.TabIndex = 12;
             // 
             // label15
@@ -315,10 +328,11 @@
             // cmbEstado
             // 
             this.cmbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEstado.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.cmbEstado.FormattingEnabled = true;
             this.cmbEstado.Location = new System.Drawing.Point(6, 313);
             this.cmbEstado.Name = "cmbEstado";
-            this.cmbEstado.Size = new System.Drawing.Size(692, 33);
+            this.cmbEstado.Size = new System.Drawing.Size(302, 29);
             this.cmbEstado.TabIndex = 10;
             // 
             // label14
@@ -332,9 +346,10 @@
             // 
             // txtCidade
             // 
+            this.txtCidade.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtCidade.Location = new System.Drawing.Point(6, 249);
             this.txtCidade.Name = "txtCidade";
-            this.txtCidade.Size = new System.Drawing.Size(692, 33);
+            this.txtCidade.Size = new System.Drawing.Size(302, 29);
             this.txtCidade.TabIndex = 8;
             // 
             // label13
@@ -348,9 +363,10 @@
             // 
             // txtBairro
             // 
+            this.txtBairro.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtBairro.Location = new System.Drawing.Point(6, 185);
             this.txtBairro.Name = "txtBairro";
-            this.txtBairro.Size = new System.Drawing.Size(692, 33);
+            this.txtBairro.Size = new System.Drawing.Size(302, 29);
             this.txtBairro.TabIndex = 6;
             // 
             // label12
@@ -364,9 +380,10 @@
             // 
             // txtNumero
             // 
+            this.txtNumero.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtNumero.Location = new System.Drawing.Point(6, 121);
             this.txtNumero.Name = "txtNumero";
-            this.txtNumero.Size = new System.Drawing.Size(692, 33);
+            this.txtNumero.Size = new System.Drawing.Size(302, 29);
             this.txtNumero.TabIndex = 4;
             // 
             // label11
@@ -380,9 +397,10 @@
             // 
             // txtRua
             // 
+            this.txtRua.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtRua.Location = new System.Drawing.Point(6, 57);
             this.txtRua.Name = "txtRua";
-            this.txtRua.Size = new System.Drawing.Size(692, 33);
+            this.txtRua.Size = new System.Drawing.Size(302, 29);
             this.txtRua.TabIndex = 2;
             // 
             // label10
@@ -407,18 +425,19 @@
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.ForeColor = System.Drawing.Color.Black;
-            this.groupBox2.Location = new System.Drawing.Point(713, 3);
+            this.groupBox2.Location = new System.Drawing.Point(324, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(704, 373);
+            this.groupBox2.Size = new System.Drawing.Size(316, 373);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CONTATO";
             // 
             // txtSite
             // 
+            this.txtSite.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtSite.Location = new System.Drawing.Point(6, 249);
             this.txtSite.Name = "txtSite";
-            this.txtSite.Size = new System.Drawing.Size(692, 33);
+            this.txtSite.Size = new System.Drawing.Size(302, 29);
             this.txtSite.TabIndex = 8;
             // 
             // label9
@@ -432,9 +451,10 @@
             // 
             // txtEmail
             // 
+            this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtEmail.Location = new System.Drawing.Point(6, 185);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(692, 33);
+            this.txtEmail.Size = new System.Drawing.Size(302, 29);
             this.txtEmail.TabIndex = 6;
             // 
             // label8
@@ -448,9 +468,10 @@
             // 
             // mtbCelular
             // 
+            this.mtbCelular.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.mtbCelular.Location = new System.Drawing.Point(6, 121);
             this.mtbCelular.Name = "mtbCelular";
-            this.mtbCelular.Size = new System.Drawing.Size(692, 33);
+            this.mtbCelular.Size = new System.Drawing.Size(302, 29);
             this.mtbCelular.TabIndex = 4;
             // 
             // label7
@@ -464,9 +485,10 @@
             // 
             // mtbTelefone
             // 
+            this.mtbTelefone.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.mtbTelefone.Location = new System.Drawing.Point(6, 57);
             this.mtbTelefone.Name = "mtbTelefone";
-            this.mtbTelefone.Size = new System.Drawing.Size(692, 33);
+            this.mtbTelefone.Size = new System.Drawing.Size(302, 29);
             this.mtbTelefone.TabIndex = 2;
             // 
             // label6
@@ -493,16 +515,17 @@
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(704, 373);
+            this.groupBox1.Size = new System.Drawing.Size(315, 373);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "IDENTIFICAÇÃO";
             // 
             // txtResposavel
             // 
+            this.txtResposavel.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtResposavel.Location = new System.Drawing.Point(6, 249);
             this.txtResposavel.Name = "txtResposavel";
-            this.txtResposavel.Size = new System.Drawing.Size(740, 33);
+            this.txtResposavel.Size = new System.Drawing.Size(302, 29);
             this.txtResposavel.TabIndex = 7;
             // 
             // label5
@@ -516,9 +539,10 @@
             // 
             // txtRG
             // 
+            this.txtRG.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtRG.Location = new System.Drawing.Point(6, 185);
             this.txtRG.Name = "txtRG";
-            this.txtRG.Size = new System.Drawing.Size(692, 33);
+            this.txtRG.Size = new System.Drawing.Size(302, 29);
             this.txtRG.TabIndex = 5;
             // 
             // label4
@@ -532,9 +556,10 @@
             // 
             // mtbCPF
             // 
+            this.mtbCPF.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.mtbCPF.Location = new System.Drawing.Point(6, 121);
             this.mtbCPF.Name = "mtbCPF";
-            this.mtbCPF.Size = new System.Drawing.Size(692, 33);
+            this.mtbCPF.Size = new System.Drawing.Size(302, 29);
             this.mtbCPF.TabIndex = 3;
             // 
             // label3
@@ -548,9 +573,10 @@
             // 
             // txtNome
             // 
+            this.txtNome.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNome.Location = new System.Drawing.Point(6, 57);
             this.txtNome.Name = "txtNome";
-            this.txtNome.Size = new System.Drawing.Size(692, 33);
+            this.txtNome.Size = new System.Drawing.Size(302, 29);
             this.txtNome.TabIndex = 1;
             // 
             // label2
@@ -569,7 +595,7 @@
             this.tabFinanceiro.Location = new System.Drawing.Point(4, 34);
             this.tabFinanceiro.Name = "tabFinanceiro";
             this.tabFinanceiro.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFinanceiro.Size = new System.Drawing.Size(1426, 849);
+            this.tabFinanceiro.Size = new System.Drawing.Size(649, 849);
             this.tabFinanceiro.TabIndex = 1;
             this.tabFinanceiro.Text = "Informações Financeiras";
             // 
@@ -585,7 +611,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1420, 843);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(643, 843);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // groupBox5
@@ -601,7 +627,7 @@
             this.groupBox5.ForeColor = System.Drawing.Color.Black;
             this.groupBox5.Location = new System.Drawing.Point(3, 3);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(704, 837);
+            this.groupBox5.Size = new System.Drawing.Size(315, 837);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "CONDIÇÕES COMERCIAIS";
@@ -609,10 +635,11 @@
             // cmbFormaPagamento
             // 
             this.cmbFormaPagamento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFormaPagamento.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.cmbFormaPagamento.FormattingEnabled = true;
             this.cmbFormaPagamento.Location = new System.Drawing.Point(6, 185);
             this.cmbFormaPagamento.Name = "cmbFormaPagamento";
-            this.cmbFormaPagamento.Size = new System.Drawing.Size(692, 33);
+            this.cmbFormaPagamento.Size = new System.Drawing.Size(302, 29);
             this.cmbFormaPagamento.TabIndex = 5;
             // 
             // label20
@@ -627,10 +654,11 @@
             // cmbPagamento
             // 
             this.cmbPagamento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPagamento.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.cmbPagamento.FormattingEnabled = true;
             this.cmbPagamento.Location = new System.Drawing.Point(6, 121);
             this.cmbPagamento.Name = "cmbPagamento";
-            this.cmbPagamento.Size = new System.Drawing.Size(692, 33);
+            this.cmbPagamento.Size = new System.Drawing.Size(302, 29);
             this.cmbPagamento.TabIndex = 3;
             // 
             // label19
@@ -644,10 +672,11 @@
             // 
             // nudLimite
             // 
+            this.nudLimite.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.nudLimite.InterceptArrowKeys = false;
             this.nudLimite.Location = new System.Drawing.Point(6, 57);
             this.nudLimite.Name = "nudLimite";
-            this.nudLimite.Size = new System.Drawing.Size(692, 33);
+            this.nudLimite.Size = new System.Drawing.Size(302, 29);
             this.nudLimite.TabIndex = 1;
             // 
             // label18
@@ -676,9 +705,9 @@
             this.groupBox6.Controls.Add(this.label21);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox6.ForeColor = System.Drawing.Color.Black;
-            this.groupBox6.Location = new System.Drawing.Point(713, 3);
+            this.groupBox6.Location = new System.Drawing.Point(324, 3);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(704, 837);
+            this.groupBox6.Size = new System.Drawing.Size(316, 837);
             this.groupBox6.TabIndex = 1;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "SITUAÇÃO FINANCEIRA";
@@ -705,7 +734,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(374, 218);
+            this.label27.Location = new System.Drawing.Point(155, 221);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(59, 25);
             this.label27.TabIndex = 10;
@@ -740,23 +769,25 @@
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(692, 33);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(302, 29);
             this.tableLayoutPanel5.TabIndex = 5;
             // 
             // txtQuantAtra
             // 
             this.txtQuantAtra.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtQuantAtra.Location = new System.Drawing.Point(349, 3);
+            this.txtQuantAtra.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.txtQuantAtra.Location = new System.Drawing.Point(154, 3);
             this.txtQuantAtra.Name = "txtQuantAtra";
-            this.txtQuantAtra.Size = new System.Drawing.Size(340, 33);
+            this.txtQuantAtra.Size = new System.Drawing.Size(145, 29);
             this.txtQuantAtra.TabIndex = 1;
             // 
             // txtValorAtrasado
             // 
             this.txtValorAtrasado.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtValorAtrasado.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtValorAtrasado.Location = new System.Drawing.Point(3, 3);
             this.txtValorAtrasado.Name = "txtValorAtrasado";
-            this.txtValorAtrasado.Size = new System.Drawing.Size(340, 33);
+            this.txtValorAtrasado.Size = new System.Drawing.Size(145, 29);
             this.txtValorAtrasado.TabIndex = 0;
             // 
             // tableLayoutPanel6
@@ -770,24 +801,26 @@
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(692, 33);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(302, 29);
             this.tableLayoutPanel6.TabIndex = 8;
             // 
             // txtValorUltima
             // 
             this.txtValorUltima.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtValorUltima.Location = new System.Drawing.Point(349, 3);
+            this.txtValorUltima.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.txtValorUltima.Location = new System.Drawing.Point(154, 3);
             this.txtValorUltima.Name = "txtValorUltima";
-            this.txtValorUltima.Size = new System.Drawing.Size(340, 33);
+            this.txtValorUltima.Size = new System.Drawing.Size(145, 29);
             this.txtValorUltima.TabIndex = 1;
             // 
             // dtpDataUltima
             // 
             this.dtpDataUltima.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtpDataUltima.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.dtpDataUltima.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDataUltima.Location = new System.Drawing.Point(3, 3);
             this.dtpDataUltima.Name = "dtpDataUltima";
-            this.dtpDataUltima.Size = new System.Drawing.Size(340, 33);
+            this.dtpDataUltima.Size = new System.Drawing.Size(145, 29);
             this.dtpDataUltima.TabIndex = 2;
             // 
             // label24
@@ -795,18 +828,18 @@
             this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(1, 121);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(187, 25);
+            this.label24.Size = new System.Drawing.Size(92, 25);
             this.label24.TabIndex = 6;
-            this.label24.Text = "Valor total atrasado";
+            this.label24.Text = "Atrasado";
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(374, 121);
+            this.label23.Location = new System.Drawing.Point(155, 125);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(214, 25);
+            this.label23.Size = new System.Drawing.Size(148, 25);
             this.label23.TabIndex = 4;
-            this.label23.Text = "Quantidade de Atrasos";
+            this.label23.Text = "QTD de Atrasos";
             // 
             // label22
             // 
@@ -819,9 +852,10 @@
             // 
             // txtSaldo
             // 
+            this.txtSaldo.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtSaldo.Location = new System.Drawing.Point(6, 57);
             this.txtSaldo.Name = "txtSaldo";
-            this.txtSaldo.Size = new System.Drawing.Size(689, 33);
+            this.txtSaldo.Size = new System.Drawing.Size(302, 29);
             this.txtSaldo.TabIndex = 1;
             // 
             // label21
@@ -840,7 +874,7 @@
             this.tabRelacionamento.Location = new System.Drawing.Point(4, 34);
             this.tabRelacionamento.Name = "tabRelacionamento";
             this.tabRelacionamento.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRelacionamento.Size = new System.Drawing.Size(1426, 849);
+            this.tabRelacionamento.Size = new System.Drawing.Size(649, 849);
             this.tabRelacionamento.TabIndex = 2;
             this.tabRelacionamento.Text = "Histórico de Relacionamento";
             // 
@@ -857,7 +891,7 @@
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.8806F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(1420, 843);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(643, 843);
             this.tableLayoutPanel7.TabIndex = 0;
             // 
             // groupBox10
@@ -866,9 +900,9 @@
             this.groupBox10.Controls.Add(this.txtObsInt);
             this.groupBox10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox10.ForeColor = System.Drawing.Color.Black;
-            this.groupBox10.Location = new System.Drawing.Point(713, 3);
+            this.groupBox10.Location = new System.Drawing.Point(324, 3);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(704, 837);
+            this.groupBox10.Size = new System.Drawing.Size(316, 837);
             this.groupBox10.TabIndex = 3;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "OBSERVAÇÕES INTERNAS";
@@ -880,7 +914,7 @@
             this.txtObsInt.Location = new System.Drawing.Point(3, 29);
             this.txtObsInt.Multiline = true;
             this.txtObsInt.Name = "txtObsInt";
-            this.txtObsInt.Size = new System.Drawing.Size(698, 805);
+            this.txtObsInt.Size = new System.Drawing.Size(310, 805);
             this.txtObsInt.TabIndex = 0;
             // 
             // tableLayoutPanel8
@@ -896,7 +930,7 @@
             this.tableLayoutPanel8.RowCount = 2;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(704, 837);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(315, 837);
             this.tableLayoutPanel8.TabIndex = 4;
             // 
             // groupBox9
@@ -907,7 +941,7 @@
             this.groupBox9.ForeColor = System.Drawing.Color.Black;
             this.groupBox9.Location = new System.Drawing.Point(3, 421);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(698, 413);
+            this.groupBox9.Size = new System.Drawing.Size(309, 413);
             this.groupBox9.TabIndex = 2;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "CHAMADOS/ATENDIMENTOS";
@@ -920,7 +954,7 @@
             this.dgvAtendimentos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvAtendimentos.Location = new System.Drawing.Point(3, 29);
             this.dgvAtendimentos.Name = "dgvAtendimentos";
-            this.dgvAtendimentos.Size = new System.Drawing.Size(692, 381);
+            this.dgvAtendimentos.Size = new System.Drawing.Size(303, 381);
             this.dgvAtendimentos.TabIndex = 1;
             // 
             // groupBox7
@@ -931,7 +965,7 @@
             this.groupBox7.ForeColor = System.Drawing.Color.Black;
             this.groupBox7.Location = new System.Drawing.Point(3, 3);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(698, 412);
+            this.groupBox7.Size = new System.Drawing.Size(309, 412);
             this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "COMPRAS REALIZADAS";
@@ -944,7 +978,7 @@
             this.dgvCompras.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCompras.Location = new System.Drawing.Point(3, 29);
             this.dgvCompras.Name = "dgvCompras";
-            this.dgvCompras.Size = new System.Drawing.Size(692, 380);
+            this.dgvCompras.Size = new System.Drawing.Size(303, 380);
             this.dgvCompras.TabIndex = 0;
             // 
             // tabAnalise
@@ -954,7 +988,7 @@
             this.tabAnalise.Location = new System.Drawing.Point(4, 34);
             this.tabAnalise.Name = "tabAnalise";
             this.tabAnalise.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAnalise.Size = new System.Drawing.Size(1426, 849);
+            this.tabAnalise.Size = new System.Drawing.Size(649, 849);
             this.tabAnalise.TabIndex = 3;
             this.tabAnalise.Text = "Análise de Cliente";
             // 
@@ -973,41 +1007,41 @@
             this.groupBox11.ForeColor = System.Drawing.Color.Black;
             this.groupBox11.Location = new System.Drawing.Point(3, 3);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(1420, 843);
+            this.groupBox11.Size = new System.Drawing.Size(643, 843);
             this.groupBox11.TabIndex = 0;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "ANÁLISE DE CLIENTE";
             // 
             // prbPercentual
             // 
-            this.prbPercentual.Location = new System.Drawing.Point(6, 200);
+            this.prbPercentual.Location = new System.Drawing.Point(332, 57);
             this.prbPercentual.Name = "prbPercentual";
-            this.prbPercentual.Size = new System.Drawing.Size(740, 46);
+            this.prbPercentual.Size = new System.Drawing.Size(302, 29);
             this.prbPercentual.TabIndex = 17;
             // 
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(1, 172);
+            this.label32.Location = new System.Drawing.Point(327, 29);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(444, 25);
+            this.label32.Size = new System.Drawing.Size(248, 25);
             this.label32.TabIndex = 16;
-            this.label32.Text = "Percentual de Participação no Faturamento Total";
+            this.label32.Text = "Percentual de Participação";
             // 
             // dgvProdutosComprados
             // 
             this.dgvProdutosComprados.AllowUserToAddRows = false;
             this.dgvProdutosComprados.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvProdutosComprados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProdutosComprados.Location = new System.Drawing.Point(774, 57);
+            this.dgvProdutosComprados.Location = new System.Drawing.Point(3, 171);
             this.dgvProdutosComprados.Name = "dgvProdutosComprados";
-            this.dgvProdutosComprados.Size = new System.Drawing.Size(640, 741);
+            this.dgvProdutosComprados.Size = new System.Drawing.Size(631, 666);
             this.dgvProdutosComprados.TabIndex = 15;
             // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(1083, 29);
+            this.label31.Location = new System.Drawing.Point(1, 143);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(331, 25);
             this.label31.TabIndex = 14;
@@ -1035,10 +1069,11 @@
             // cmbRisco
             // 
             this.cmbRisco.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRisco.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.cmbRisco.FormattingEnabled = true;
             this.cmbRisco.Location = new System.Drawing.Point(6, 57);
             this.cmbRisco.Name = "cmbRisco";
-            this.cmbRisco.Size = new System.Drawing.Size(740, 33);
+            this.cmbRisco.Size = new System.Drawing.Size(302, 29);
             this.cmbRisco.TabIndex = 11;
             // 
             // label29
@@ -1156,8 +1191,8 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.46875F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.53125F));
             this.tableLayoutPanel1.Controls.Add(this.tabControl1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.dgvClientes, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1176,8 +1211,9 @@
             this.dgvClientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvClientes.Location = new System.Drawing.Point(3, 3);
             this.dgvClientes.Name = "dgvClientes";
+            this.dgvClientes.ReadOnly = true;
             this.dgvClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvClientes.Size = new System.Drawing.Size(474, 887);
+            this.dgvClientes.Size = new System.Drawing.Size(1251, 887);
             this.dgvClientes.TabIndex = 2;
             this.dgvClientes.SelectionChanged += new System.EventHandler(this.dgvClientes_SelectionChanged);
             // 
@@ -1340,5 +1376,6 @@
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.TextBox txtObsInt;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
+        private System.Windows.Forms.TextBox txtFiltro;
     }
 }

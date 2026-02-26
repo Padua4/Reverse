@@ -65,7 +65,6 @@ namespace Reverse
             cmbFiltroFlag.DrawItem += cmbFiltroFlag_DrawItem;
             cmbFiltroFlag.SelectedIndex = -1;
 
-            FormatGridNotas();
             dgvNotas.CellDoubleClick += DgvNotas_CellDoubleClick;
 
             FormatGridFiltrados();
@@ -75,6 +74,35 @@ namespace Reverse
             dtpFiltroEmissao.CustomFormat = " ";
             dtpFiltroEmissao.Value = DateTime.Today;
             chkFiltroEmissao.CheckedChanged += chkFiltroEmissao_CheckedChanged;
+        }
+
+        private void AplicarEstiloVisualProducao(DataGridView grid)
+        {
+            grid.BackgroundColor = Color.FromArgb(250, 250, 252);
+            grid.BorderStyle = BorderStyle.FixedSingle;
+            grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            grid.GridColor = Color.FromArgb(230, 230, 235);
+
+            grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 73, 94);
+            grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            grid.ColumnHeadersHeight = 40;
+
+            grid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 249, 255);
+            grid.RowsDefaultCellStyle.BackColor = Color.White;
+
+            grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 237, 255);
+            grid.DefaultCellStyle.SelectionForeColor = Color.Black;
+            grid.ColumnHeadersDefaultCellStyle.SelectionBackColor = grid.ColumnHeadersDefaultCellStyle.BackColor;
+            grid.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+
+            grid.EnableHeadersVisualStyles = false;
+            grid.RowHeadersVisible = false;
+            grid.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
+            grid.RowTemplate.Height = 36;
         }
 
         private void cmbFiltroFlag_DrawItem(object sender, DrawItemEventArgs e)
@@ -109,6 +137,9 @@ namespace Reverse
 
         private async void ControleTriagemForm_Load(object sender, EventArgs e)
         {
+            AplicarEstiloVisualProducao(dgvNotas);
+            AplicarEstiloVisualProducao(dgvFiltrados);
+
             CriarColunasGrid();
             lblGreeting.Text = $"Bem-vindo ao Controle de Triagem, {_usuarioId}!";
             await CarregarProdutosNoGridAsync();
@@ -206,7 +237,7 @@ namespace Reverse
         private void FormatGridNotas()
         {
             dgvNotas.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
-            dgvNotas.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dgvNotas.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             dgvNotas.DefaultCellStyle.ForeColor = Color.Black;
 
             foreach (DataGridViewColumn col in dgvNotas.Columns)
@@ -230,7 +261,6 @@ namespace Reverse
             AjustarColuna("colDataUltimaAlteracao", 130);
         }
 
-
         private void ControleTriagemForm_Shown(object sender, EventArgs e)
         {
             dgvNotas.AutoResizeRows();
@@ -243,7 +273,7 @@ namespace Reverse
             dgvFiltrados.Columns.Clear();
 
             dgvFiltrados.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
-            dgvFiltrados.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dgvFiltrados.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             dgvFiltrados.DefaultCellStyle.ForeColor = Color.Black;
 
             dgvFiltrados.Columns.Add(new DataGridViewTextBoxColumn
@@ -251,7 +281,7 @@ namespace Reverse
                 DataPropertyName = "CodigoBarras",
                 HeaderText = "Código",
                 Name = "colF_Codigo",
-                Width = 120,
+                Width = 100,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Font = new Font("Segoe UI", 9F, FontStyle.Bold),
@@ -283,6 +313,12 @@ namespace Reverse
                     Alignment = DataGridViewContentAlignment.MiddleRight
                 }
             });
+
+            dgvFiltrados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvFiltrados.MultiSelect = false;
+            dgvFiltrados.AllowUserToAddRows = false;
+            dgvFiltrados.AllowUserToDeleteRows = false;
+            dgvFiltrados.ReadOnly = true;
         }
 
         private void DgvNotas_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -387,7 +423,6 @@ namespace Reverse
             AtualizarTotalFiltrados();
         }
 
-
         private void AtualizarTotalFiltrados()
         {
             decimal total = _listaFiltrada.Sum(p => p.ValorUnitario);
@@ -462,7 +497,6 @@ namespace Reverse
 
             using (var ctx = new ReverseContext())
             {
-                // Busca o produto no banco com a versão mais atual
                 var produtoDb = await ctx.Produtos.AsNoTracking()
                     .FirstOrDefaultAsync(x => x.CodigoBarras == selecionado.CodigoBarras);
 
@@ -533,10 +567,8 @@ namespace Reverse
 
         private void ExportarExcel(List<int> idsPaletes)
         {
-            // TODO: ajuste o nome do seu DbContext, se necessário
             using (var ctx = new ReverseContext())
             {
-                // TODO: ajuste os includes/navegações conforme suas entidades
                 var paletes = ctx.Paletes
                     .Include(p => p.Itens.Select(i => i.Produto))
                     .Where(p => idsPaletes.Contains(p.Id))
@@ -566,7 +598,6 @@ namespace Reverse
 
                     int row = 1;
 
-                    // Faixa 1 — Título
                     ws.Range(row, 1, row, 6).Merge();
                     ws.Cell(row, 1).Value = titulo;
                     ws.Cell(row, 1).Style
@@ -578,7 +609,6 @@ namespace Reverse
                     ws.Row(row).Height = 25;
                     row++;
 
-                    // Faixa 2 — Total de Itens
                     ws.Range(row, 1, row, 6).Merge();
                     ws.Cell(row, 1).Value = $"Total de itens: {totalItens}";
                     ws.Cell(row, 1).Style
@@ -590,7 +620,6 @@ namespace Reverse
                     ws.Row(row).Height = 22;
                     row += 2;
 
-                    // Cabeçalho
                     string[] headers = { "Palete", "Código", "Descrição", "Qtd", "Valor Unit.", "Total" };
                     for (int i = 0; i < headers.Length; i++)
                     {
@@ -604,12 +633,10 @@ namespace Reverse
                     }
                     row++;
 
-                    // Dados
                     foreach (var pal in paletes)
                     {
                         foreach (var item in pal.Itens)
                         {
-                            // TODO: ajuste "pal.Nome" se sua entidade usar "Numero" ou outro campo de identificação
                             ws.Cell(row, 1).Value = pal.Nome;
                             ws.Cell(row, 2).Value = item.CodigoBarras ?? "-";
                             ws.Cell(row, 3).Value = item.Produto?.Descricao ?? "-";
@@ -620,7 +647,6 @@ namespace Reverse
                             ws.Cell(row, 6).Value = item.Quantidade * item.ValorUnitario;
                             ws.Cell(row, 6).Style.NumberFormat.Format = "R$ #,##0.00";
 
-                            // Zebra azul/branco (deslocamento após cabeçalho)
                             if ((row - 4) % 2 == 0)
                                 ws.Range(row, 1, row, 6).Style.Fill.SetBackgroundColor(XLColor.LightSteelBlue);
                             else
@@ -631,10 +657,8 @@ namespace Reverse
                         }
                     }
 
-                    // Bordas internas da tabela
                     ws.Range(4, 1, row - 1, 6).Style.Border.SetInsideBorder(XLBorderStyleValues.Thin);
 
-                    // Ajustes de coluna
                     ws.Columns().AdjustToContents();
                     ws.Column(3).Width = Math.Max(ws.Column(3).Width, 40);
 
@@ -664,14 +688,15 @@ namespace Reverse
             using (var ctx = new ReverseContext())
             {
                 var paletesComProduto = await ctx.Paletes
+                    .Include(p => p.Categoria)
                     .Where(p => p.Itens.Any(i => i.CodigoBarras == prodSel.CodigoBarras))
-                    .Select(p => new { p.Numero, p.Categoria })
+                    .Select(p => new { p.Numero, CategoriaNome = p.Categoria.Nome })
                     .ToListAsync();
 
                 if (paletesComProduto.Any())
                 {
                     var nomes = paletesComProduto
-                        .Select(p => $"Palete {p.Numero} - {p.Categoria.GetDescription()}");
+                        .Select(p => $"Palete {p.Numero} - {p.CategoriaNome}");
 
                     MessageBox.Show(
                         "Não é possível excluir este produto porque ele está vinculado às seguintes paletes:\n\n" +

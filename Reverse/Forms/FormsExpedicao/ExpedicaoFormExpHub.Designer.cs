@@ -28,17 +28,20 @@
             this.picControle = new System.Windows.Forms.PictureBox();
             this.btnSair = new System.Windows.Forms.Button();
             this.pnlConteudo = new System.Windows.Forms.Panel();
+            this.picGraficos = new System.Windows.Forms.PictureBox();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picEstoque)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDesc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFrete)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCadastro)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picControle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGraficos)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(160)))));
+            this.pnlHeader.Controls.Add(this.picGraficos);
             this.pnlHeader.Controls.Add(this.picEstoque);
             this.pnlHeader.Controls.Add(this.btnMinimizar);
             this.pnlHeader.Controls.Add(this.picDesc);
@@ -148,6 +151,18 @@
             this.pnlConteudo.Size = new System.Drawing.Size(1920, 966);
             this.pnlConteudo.TabIndex = 3;
             // 
+            // picGraficos
+            // 
+            this.picGraficos.BackColor = System.Drawing.Color.White;
+            this.picGraficos.Dock = System.Windows.Forms.DockStyle.Left;
+            this.picGraficos.Image = ((System.Drawing.Image)(resources.GetObject("picGraficos.Image")));
+            this.picGraficos.Location = new System.Drawing.Point(280, 0);
+            this.picGraficos.Name = "picGraficos";
+            this.picGraficos.Size = new System.Drawing.Size(56, 34);
+            this.picGraficos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picGraficos.TabIndex = 10;
+            this.picGraficos.TabStop = false;
+            // 
             // ExpedicaoFormExpHub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
@@ -171,6 +186,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picFrete)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCadastro)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picControle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGraficos)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -186,5 +202,6 @@
         private System.Windows.Forms.PictureBox picDesc;
         private System.Windows.Forms.Button btnMinimizar;
         private System.Windows.Forms.PictureBox picEstoque;
+        private System.Windows.Forms.PictureBox picGraficos;
     }
 }

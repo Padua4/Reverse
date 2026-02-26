@@ -23,15 +23,18 @@ namespace Reverse
         private readonly int _usuarioId;
         private readonly BindingSource bsProdutos = new BindingSource();
         private readonly System.Windows.Forms.Timer _debounceTimer =
-        new System.Windows.Forms.Timer { Interval = 200 };
+            new System.Windows.Forms.Timer { Interval = 200 };
         private bool _adicionandoItem = false;
         private Palete _paleteAtual;
+
+        private PdfHostService _pdfHostService; // servidor unico para todas as paletes (porta fixa)
 
         public TriagemForm(int usuarioId)
         {
             InitializeComponent();
-            LoadProdutos();
             _usuarioId = usuarioId;
+
+            GlobalFontSettings.FontResolver = new SystemFontResolver();
 
             btnAdicionarItem.UseVisualStyleBackColor = false;
             btnRemoverItem.UseVisualStyleBackColor = false;
@@ -41,18 +44,18 @@ namespace Reverse
             this.StartPosition = FormStartPosition.Manual;
 
             Load += TriagemForm_Load;
+            FormClosing += TriagemForm_FormClosing;
         }
 
         private void TriagemForm_Load(object sender, EventArgs e)
         {
             _ctx = new ReverseContext();
 
-            bool aguardandoAtualizacao = false;
-            dgvProdutos.AutoGenerateColumns = false;
-            dgvItensPalete.AutoGenerateColumns = false;
-
             if (this.TopLevel)
                 this.Bounds = Screen.FromControl(this).WorkingArea;
+
+            AplicarEstiloVisualProducao(dgvProdutos);
+            AplicarEstiloVisualProducao(dgvItensPalete);
 
             FormatGridItensPalete();
             dgvItensPalete.EditingControlShowing += dgvItensPalete_EditingControlShowing;
@@ -66,108 +69,182 @@ namespace Reverse
             dgvProdutos.AllowUserToDeleteRows = false;
             dgvProdutos.ReadOnly = true;
             dgvProdutos.EditMode = DataGridViewEditMode.EditProgrammatically;
-            txtBusca.TextChanged += (s, e2) =>
-            {
-                _debounceTimer.Stop();
-                _debounceTimer.Start();
-            };
+
+            dgvProdutos.DataSource = bsProdutos;
+
+            chkUltimosPrimeiro.CheckedChanged += chkUltimosPrimeiro_CheckedChanged;
+
             txtBusca.KeyDown += async (s, eArgs) =>
             {
-                if (eArgs.KeyCode == Keys.Enter && !aguardandoAtualizacao)
+                if (eArgs.KeyCode == Keys.Enter)
                 {
                     eArgs.SuppressKeyPress = true;
-                    eArgs.Handled = true;
-                    aguardandoAtualizacao = true;
 
-                    var gridAtualizada = await EsperarAtualizacaoGridAsync(TimeSpan.FromMilliseconds(2500));
+                    string termo = txtBusca.Text.Trim();
+                    CarregarProdutosComBuscaInteligente(termo);
 
-                    if (gridAtualizada && dgvProdutos.Rows.Count > 0)
+                    if (dgvProdutos.Rows.Count > 0)
+                    {
                         dgvProdutos.Rows[0].Selected = true;
+                        dgvProdutos.CurrentCell = dgvProdutos.Rows[0].Cells[0];
 
-                    await AddItemToPaleteAsync();
-                    aguardandoAtualizacao = false;
+                        await AddItemToPaleteAsync();
+                    }
                 }
             };
-            _debounceTimer.Tick += (s, e) =>
-            {
-                _debounceTimer.Stop();
-                var termo = txtBusca.Text.Trim();
-                LoadProdutos(termo);
-                if (dgvProdutos.Rows.Count > 0)
-                    dgvProdutos.Rows[0].Selected = true;
-            };
+
+            _debounceTimer.Interval = 300;
+            _debounceTimer.Tick += DebounceTimer_Tick;
+
+            txtBusca.TextChanged += txtBusca_TextChanged;
 
             LoadItensDaPalete();
+
+            CarregarProdutosComBuscaInteligente("");
         }
 
-        private Task<bool> EsperarAtualizacaoGridAsync(TimeSpan timeout)
+        private void AplicarEstiloVisualProducao(DataGridView grid)
         {
-            var tcs = new TaskCompletionSource<bool>();
+            grid.BackgroundColor = Color.FromArgb(250, 250, 252);
+            grid.BorderStyle = BorderStyle.FixedSingle;
+            grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            grid.GridColor = Color.FromArgb(230, 230, 235);
 
-            void handler(object s, EventArgs e)
-            {
-                dgvProdutos.DataBindingComplete -= handler;
-                tcs.TrySetResult(true);
-            }
+            grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 73, 94);
+            grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            grid.ColumnHeadersHeight = 40;
 
-            dgvProdutos.DataBindingComplete += handler;
+            grid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 249, 255);
+            grid.RowsDefaultCellStyle.BackColor = Color.White;
 
-            var timer = new System.Windows.Forms.Timer { Interval = (int)timeout.TotalMilliseconds };
-            timer.Tick += (s, e) =>
-            {
-                timer.Stop();
-                dgvProdutos.DataBindingComplete -= handler;
-                tcs.TrySetResult(false);
-            };
-            timer.Start();
+            grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 237, 255);
+            grid.DefaultCellStyle.SelectionForeColor = Color.Black;
+            grid.ColumnHeadersDefaultCellStyle.SelectionBackColor = grid.ColumnHeadersDefaultCellStyle.BackColor;
+            grid.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
-            return tcs.Task;
+            grid.EnableHeadersVisualStyles = false;
+            grid.RowHeadersVisible = false;
+            grid.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
+            grid.RowTemplate.Height = 36;
         }
 
+        private void chkUltimosPrimeiro_CheckedChanged(object sender, EventArgs e)
+        {
+            CarregarProdutosComBuscaInteligente(txtBusca.Text);
+        }
 
         private async void btnCriarPalete_Click(object sender, EventArgs e)
         {
             using var dlg = new TriagemPaleteDialog();
+
             if (dlg.ShowDialog() != DialogResult.OK)
                 return;
 
-            int ultimoNumero = await _ctx.Paletes
-                                         .Select(p => p.Numero)
-                                         .DefaultIfEmpty(0)
-                                         .MaxAsync();
-
-            var usuario = _ctx.Usuarios.Find(_usuarioId);
-
-            var novaPalete = new Palete
+            if (dlg.CategoriaSelecionada == null)
             {
-                Numero = ultimoNumero + 1,
-                Categoria = dlg.CategoriaSelecionada,
-                DataCriacao = DateTime.Now,
-                UsuarioCriacao = usuario?.UsuarioNome,
-                Status = 0
-            };
+                MessageBox.Show("Nenhuma categoria foi selecionada.",
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             try
             {
-                _ctx.Paletes.Add(novaPalete);
-                await _ctx.SaveChangesAsync();
+                using (var ctx = new ReverseContext())
+                {
+                    int ultimoNumero = await ctx.Paletes
+                        .OrderByDescending(p => p.Numero)
+                        .Select(p => p.Numero)
+                        .FirstOrDefaultAsync();
 
-                MessageBox.Show("Palete criada com sucesso",
-                                "Sucesso",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
+                    var usuario = await ctx.Usuarios.FindAsync(_usuarioId);
 
-                LoadItensDaPalete();
-                AtualizarLabelPaleteAtual();
-                AtualizarEstadoBotoes();
+                    if (usuario == null)
+                    {
+                        MessageBox.Show($"Usuário ID {_usuarioId} não encontrado no banco.",
+                            "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    var categoriaExiste = await ctx.CategoriasPalete
+                        .AnyAsync(c => c.Id == dlg.CategoriaSelecionada.Id);
+
+                    if (!categoriaExiste)
+                    {
+                        MessageBox.Show($"Categoria ID {dlg.CategoriaSelecionada.Id} não existe no banco.",
+                            "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    var novaPalete = new Palete
+                    {
+                        Numero = ultimoNumero + 1,
+                        CategoriaId = dlg.CategoriaSelecionada.Id,
+                        DataCriacao = DateTime.Now,
+                        UsuarioCriacao = usuario.UsuarioNome ?? "Sistema",
+                        Status = 0
+                    };
+
+                    ctx.Paletes.Add(novaPalete);
+                    await ctx.SaveChangesAsync();
+
+                    _paleteAtual = await ctx.Paletes
+                        .Include(p => p.Categoria)
+                        .Include(p => p.Itens)
+                        .FirstOrDefaultAsync(p => p.Id == novaPalete.Id);
+
+                    MessageBox.Show($"Palete #{novaPalete.Numero} criada com sucesso!",
+                        "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    LoadItensDaPalete();
+                    AtualizarLabelPaleteAtual();
+                    AtualizarEstadoBotoes();
+                }
             }
-            catch
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
             {
-                MessageBox.Show("Erro ao tentar criar a palete",
-                                "Erro",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                var erros = new System.Text.StringBuilder();
+                erros.AppendLine("Erros de validação:");
+                foreach (var ve in ex.EntityValidationErrors)
+                    foreach (var err in ve.ValidationErrors)
+                        erros.AppendLine($"- {err.PropertyName}: {err.ErrorMessage}");
+
+                MessageBox.Show(erros.ToString(), "Erro de Validação",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                var inner = ex.InnerException;
+                var msg = "Erro ao salvar no banco de dados.\n\n";
+                if (inner != null)
+                {
+                    msg += "Detalhes: " + inner.Message;
+                    if (inner.InnerException != null)
+                        msg += "\n\n" + inner.InnerException.Message;
+                }
+                else msg += ex.Message;
+
+                MessageBox.Show(msg, "Erro de Banco de Dados",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                var msg = $"Erro ao criar palete: {ex.Message}";
+                if (ex.InnerException != null)
+                    msg += $"\n\nDetalhes: {ex.InnerException.Message}";
+
+                MessageBox.Show(msg, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void TriagemForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _debounceTimer?.Dispose();
+            _ctx?.Dispose();
+            _pdfHostService?.Dispose();
         }
 
         private void btnNovoItem_Click(object sender, EventArgs e)
@@ -176,14 +253,44 @@ namespace Reverse
             if (form.ShowDialog() != DialogResult.OK)
                 return;
 
-            LoadProdutos(txtBusca.Text);
+            CarregarProdutosComBuscaInteligente(txtBusca.Text);
+        }
+
+        // ── Busca otimizada: reutiliza o _ctx da instância ────────────────────
+        private void CarregarProdutosComBuscaInteligente(string filtro = "")
+        {
+            IQueryable<Produto> query = _ctx.Produtos.AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(filtro))
+            {
+                var termoUpper = filtro.ToUpper();
+                query = query.Where(p =>
+                    (p.Descricao != null && p.Descricao.ToUpper().StartsWith(termoUpper)) ||
+                    (p.CodigoBarras != null && p.CodigoBarras.Contains(filtro)) ||
+                    (p.Descricao != null && p.Descricao.ToUpper().Contains(termoUpper)));
+            }
+
+            query = chkUltimosPrimeiro.Checked
+                ? query.OrderByDescending(p => p.DataUltimaAlteracao).ThenBy(p => p.Descricao)
+                : query.OrderBy(p => p.Descricao);
+
+            var lista = query.Take(500).ToList();
+
+            var umMesAtras = DateTime.Today.AddMonths(-1);
+            foreach (var prod in lista.Where(p => p.DataUltimaAlteracao <= umMesAtras))
+                prod.Flag = FlagType.SemAlteracao;
+
+            bsProdutos.DataSource = lista;
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            LoadProdutos(txtBusca.Text);
+            CarregarProdutosComBuscaInteligente(txtBusca.Text);
             if (dgvProdutos.Rows.Count > 0)
+            {
                 dgvProdutos.Rows[0].Selected = true;
+                dgvProdutos.CurrentCell = dgvProdutos.Rows[0].Cells[0];
+            }
         }
 
         private async void btnEditarItem_Click(object sender, EventArgs e)
@@ -202,7 +309,8 @@ namespace Reverse
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     await SincronizarPrecosDoProdutoAsync(produtoSelecionado.CodigoBarras);
-                    RefreshGrids();
+                    CarregarProdutosComBuscaInteligente(txtBusca.Text);
+                    LoadItensDaPalete();
                 }
             }
         }
@@ -228,18 +336,14 @@ namespace Reverse
                 await ctx.SaveChangesAsync();
             }
         }
-        private void RefreshGrids()
-        {
-            LoadProdutos(txtBusca.Text);
-            LoadItensDaPalete();
-        }
 
-
+        // ── Exportar PDF — inicia/reinicia o serviço HTTP após salvar ─────────
         private void btnExportarPDF_Click(object sender, EventArgs e)
         {
             if (_paleteAtual == null)
             {
-                MessageBox.Show("Nenhuma palete selecionada.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Nenhuma palete selecionada.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             int paleteId = _paleteAtual.Id;
@@ -262,22 +366,17 @@ namespace Reverse
                 var page = document.AddPage();
                 var gfx = XGraphics.FromPdfPage(page);
 
-                GlobalFontSettings.FontResolver = new SystemFontResolver();
-
                 var fontTitle = new XFont("Segoe UI", 14, XFontStyleEx.Bold);
                 var fontHead = new XFont("Segoe UI", 10, XFontStyleEx.Bold);
                 var fontBody = new XFont("Segoe UI", 9, XFontStyleEx.Regular);
-
                 var tf = new XTextFormatter(gfx);
 
                 double margin = 40;
                 double yPos = margin;
                 double pageWidth = page.Width.Point;
                 double availW = pageWidth - 2 * margin;
-
                 double padH = 3;
                 double padV = 2;
-
                 double baseRowH = Math.Ceiling(gfx.MeasureString("Ay", fontBody).Height + (2 * padV));
                 double headerH = Math.Ceiling(gfx.MeasureString("AY", fontHead).Height + (2 * padV));
 
@@ -285,23 +384,15 @@ namespace Reverse
                 {
                     gfx.DrawString(
                         $"Criado em: {palete.DataCriacao:dd/MM/yyyy}",
-                        fontBody,
-                        XBrushes.Black,
-                        new XPoint(margin, yPos),
-                        XStringFormats.TopLeft);
+                        fontBody, XBrushes.Black,
+                        new XPoint(margin, yPos), XStringFormats.TopLeft);
                     yPos += Math.Max(14, gfx.MeasureString("Ay", fontBody).Height + 4);
 
-                    gfx.DrawString(
-                        palete.Nome,
-                        fontTitle,
-                        XBrushes.DarkSlateBlue,
-                        new XPoint(pageWidth / 2, yPos),
-                        XStringFormats.TopCenter);
+                    gfx.DrawString(palete.Nome, fontTitle, XBrushes.DarkSlateBlue,
+                        new XPoint(pageWidth / 2, yPos), XStringFormats.TopCenter);
                     yPos += 24;
 
-                    gfx.DrawLine(XPens.DarkSlateBlue,
-                                 margin, yPos,
-                                 pageWidth - margin, yPos);
+                    gfx.DrawLine(XPens.DarkSlateBlue, margin, yPos, pageWidth - margin, yPos);
                     yPos += 8;
 
                     double codeW = 110;
@@ -321,16 +412,14 @@ namespace Reverse
                     string[] headers = { "Codigo", "Descrição", "Qtd", "Valor Unit.", "Total" };
                     XStringFormat[] headFmt =
                     {
-            XStringFormats.CenterLeft,
-            XStringFormats.CenterLeft,
-            XStringFormats.Center,
-            XStringFormats.CenterRight,
-            XStringFormats.CenterRight
-        };
+                        XStringFormats.CenterLeft, XStringFormats.CenterLeft,
+                        XStringFormats.Center, XStringFormats.CenterRight, XStringFormats.CenterRight
+                    };
 
                     for (int i = 0; i < headers.Length; i++)
                     {
-                        var rect = new XRect(xs[i] + padH, yPos + padV, widths[i] - 2 * padH, headerH - 2 * padV);
+                        var rect = new XRect(xs[i] + padH, yPos + padV,
+                                             widths[i] - 2 * padH, headerH - 2 * padV);
                         gfx.DrawString(headers[i], fontHead, XBrushes.Black, rect, headFmt[i]);
                     }
                     yPos += headerH;
@@ -340,9 +429,9 @@ namespace Reverse
                         string codigo = "-";
                         if (!string.IsNullOrWhiteSpace(item.CodigoBarras))
                         {
-                            codigo = new string(item.CodigoBarras
-                                                 .Where(char.IsDigit)
-                                                 .ToArray());
+                            codigo = item.CodigoBarras.StartsWith("MDL-")
+                                ? "-"
+                                : new string(item.CodigoBarras.Where(char.IsDigit).ToArray());
                         }
 
                         string desc = item.Produto?.Descricao ?? "-";
@@ -353,7 +442,6 @@ namespace Reverse
                         var descLines = WrapText(desc, fontBody, gfx, widths[1] - 2 * padH);
                         double lineH = gfx.MeasureString("Ay", fontBody).Height;
                         double descH = (descLines.Count * lineH) + (2 * padV);
-
                         double rowH = Math.Max(baseRowH, descH);
 
                         if (yPos + rowH > page.Height.Point - margin)
@@ -368,19 +456,25 @@ namespace Reverse
                         gfx.DrawLine(XPens.Gainsboro, xs[0], yPos, xs[0] + availW, yPos);
 
                         gfx.DrawString(codigo, fontBody, XBrushes.Black,
-                            new XRect(xs[0] + padH, yPos, widths[0] - 2 * padH, rowH), XStringFormats.CenterLeft);
+                            new XRect(xs[0] + padH, yPos, widths[0] - 2 * padH, rowH),
+                            XStringFormats.CenterLeft);
 
-                        var descRect = new XRect(xs[1] + padH, yPos + padV, widths[1] - 2 * padH, rowH - 2 * padV);
-                        tf.DrawString(string.Join("\n", descLines), fontBody, XBrushes.Black, descRect, XStringFormats.TopLeft);
+                        var descRect = new XRect(xs[1] + padH, yPos + padV,
+                                                 widths[1] - 2 * padH, rowH - 2 * padV);
+                        tf.DrawString(string.Join("\n", descLines), fontBody,
+                            XBrushes.Black, descRect, XStringFormats.TopLeft);
 
                         gfx.DrawString(qtd, fontBody, XBrushes.Black,
-                            new XRect(xs[2] + padH, yPos, widths[2] - 2 * padH, rowH), XStringFormats.Center);
+                            new XRect(xs[2] + padH, yPos, widths[2] - 2 * padH, rowH),
+                            XStringFormats.Center);
 
                         gfx.DrawString(unit, fontBody, XBrushes.Black,
-                            new XRect(xs[3] + padH, yPos, widths[3] - 2 * padH, rowH), XStringFormats.CenterRight);
+                            new XRect(xs[3] + padH, yPos, widths[3] - 2 * padH, rowH),
+                            XStringFormats.CenterRight);
 
                         gfx.DrawString(total, fontBody, XBrushes.Black,
-                            new XRect(xs[4] + padH, yPos, widths[4] - 2 * padH, rowH), XStringFormats.CenterRight);
+                            new XRect(xs[4] + padH, yPos, widths[4] - 2 * padH, rowH),
+                            XStringFormats.CenterRight);
 
                         yPos += rowH;
                     }
@@ -394,22 +488,12 @@ namespace Reverse
                     gfx.DrawLine(XPens.DarkSlateBlue, xs[0], yPos, xs[0] + availW, yPos);
                     yPos += 4;
 
-                    var footerRect = new XRect(xs[0], yPos, availW, baseRowH);
-                    gfx.DrawString(
-                        $"Valor total: {totalPalete:C2}",
-                        fontHead,
-                        XBrushes.DarkSlateBlue,
-                        footerRect,
-                        XStringFormats.CenterRight);
+                    gfx.DrawString($"Valor total: {totalPalete:C2}", fontHead, XBrushes.DarkSlateBlue,
+                        new XRect(xs[0], yPos, availW, baseRowH), XStringFormats.CenterRight);
 
                     yPos += 20;
-                    var footerRect2 = new XRect(xs[0], yPos, availW, baseRowH);
-                    gfx.DrawString(
-                        $"Total de itens: {totalItens}",
-                        fontHead,
-                        XBrushes.DarkSlateBlue,
-                        footerRect2,
-                        XStringFormats.CenterRight);
+                    gfx.DrawString($"Total de itens: {totalItens}", fontHead, XBrushes.DarkSlateBlue,
+                        new XRect(xs[0], yPos, availW, baseRowH), XStringFormats.CenterRight);
                 }
                 finally
                 {
@@ -417,11 +501,29 @@ namespace Reverse
                 }
 
                 document.Save(filePdf);
+
+                // Inicia servidor unico (se necessario) e registra este PDF
+                try
+                {
+                    if (_pdfHostService == null)
+                    {
+                        _pdfHostService = new PdfHostService();
+                        _pdfHostService.Iniciar();
+                    }
+                    _pdfHostService.RegistrarPdf(filePdf);
+                }
+                catch (Exception exSvc)
+                {
+                    MessageBox.Show(
+                        $"PDF gerado, mas o serviço de QR Code não pôde ser iniciado:\\n{exSvc.Message}\\n\\n" +
+                        "Verifique se a chave 'PdfDownloadSenha' está no App.config.",
+                        "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 MessageBox.Show(
                     $"PDF gerado em:\n{filePdf}",
-                    "Exportação Concluida",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                    "Exportação Concluída", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 List<string> WrapText(string text, XFont font, XGraphics g, double maxWidth)
                 {
@@ -435,8 +537,7 @@ namespace Reverse
                     foreach (var w in words)
                     {
                         var test = string.IsNullOrEmpty(current) ? w : current + " " + w;
-                        var size = g.MeasureString(test, font).Width;
-                        if (size <= maxWidth)
+                        if (g.MeasureString(test, font).Width <= maxWidth)
                         {
                             current = test;
                         }
@@ -480,7 +581,7 @@ namespace Reverse
                 btnFinalizado.Enabled = false;
                 dgvItensPalete.ReadOnly = true;
             }
-            else if (_paleteAtual.Status == 2)
+            else if (_paleteAtual.Status == 2 || _paleteAtual.Status == 3)
             {
                 btnAdicionarItem.Enabled = false;
                 btnRemoverItem.Enabled = false;
@@ -497,7 +598,7 @@ namespace Reverse
                 dgvItensPalete.ReadOnly = false;
             }
 
-            Color corAtivo = Color.White;
+            Color corAtivo = Color.Black;
             Color corInativo = Color.Gray;
 
             btnAdicionarItem.ForeColor = btnAdicionarItem.Enabled ? corAtivo : corInativo;
@@ -510,45 +611,46 @@ namespace Reverse
             await AddItemToPaleteAsync();
         }
 
-
         private async Task<bool> ProdutoJaExisteNaPaleteAsync(int paleteId, int produtoId)
         {
             using (var ctx = new ReverseContext())
             {
                 return await ctx.ItensPalete
-                    .AnyAsync(i => i.PaleteId == paleteId && i.ProdutoId == produtoId);
+                    .AsNoTracking()
+                    .Where(i => i.PaleteId == paleteId && i.ProdutoId == produtoId)
+                    .Select(i => i.Id)
+                    .AnyAsync();
             }
         }
 
         private async Task AddItemToPaleteAsync()
         {
-            // 🔹 Evita chamadas concorrentes
             if (_adicionandoItem) return;
             _adicionandoItem = true;
 
             try
             {
-                // 🔹 Bloqueia se não houver palete ou se já estiver finalizada
-                if (_paleteAtual == null || _paleteAtual.Status == 2)
+                if (_paleteAtual == null || _paleteAtual.Status == 2 || _paleteAtual.Status == 3)
                 {
-                    MessageBox.Show("Não é possível adicionar itens em uma palete finalizada.",
+                    MessageBox.Show("Não é possível adicionar itens em uma palete finalizada ou vendida.",
                         "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                using (var ctx = new ReverseContext())
+                if (_paleteAtual.Status == 0)
                 {
-                    int paleteId = _paleteAtual.Id;
-
-                    var palete = ctx.Paletes.FirstOrDefault(p => p.Id == paleteId);
-                    if (palete != null && palete.Status == 0)
+                    using (var ctx = new ReverseContext())
                     {
-                        palete.Status = 1;
-                        await ctx.SaveChangesAsync();
+                        var palete = await ctx.Paletes.FindAsync(_paleteAtual.Id);
+                        if (palete != null && palete.Status == 0)
+                        {
+                            palete.Status = 1;
+                            await ctx.SaveChangesAsync();
 
-                        _paleteAtual.Status = 1;
-                        AtualizarLabelPaleteAtual();
-                        AtualizarEstadoBotoes();
+                            _paleteAtual.Status = 1;
+                            AtualizarLabelPaleteAtual();
+                            AtualizarEstadoBotoes();
+                        }
                     }
                 }
 
@@ -557,7 +659,6 @@ namespace Reverse
                 var produto = dgvProdutos.CurrentRow.DataBoundItem as Produto;
                 if (produto == null) return;
 
-                // 🔹 Validações de produto
                 if (produto.Flag == FlagType.Importado)
                 {
                     MessageBox.Show("Esse produto foi importado recentemente...", "Aviso",
@@ -588,9 +689,7 @@ namespace Reverse
                     MessageBox.Show(
                         "Esse produto não foi atualizado há mais de um mês!\n" +
                         "Atualize o preço e altere a flag antes de adicioná-lo à palete.",
-                        "Produto bloqueado",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                        "Produto bloqueado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -601,7 +700,8 @@ namespace Reverse
                 {
                     MessageBox.Show("Produto já cadastrado na palete.\nUse o botão Atualizar...",
                         "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    LoadItensDaPalete(produtoId.ToString());
+                    // Correção: usa CodigoBarras como chave de foco (era produtoId.ToString())
+                    LoadItensDaPalete(produto.CodigoBarras);
                     return;
                 }
 
@@ -611,7 +711,7 @@ namespace Reverse
                     {
                         PaleteId = paleteIdAtual,
                         ProdutoId = produtoId,
-                        CodigoBarras = string.IsNullOrWhiteSpace(produto.CodigoBarras) ? null : produto.CodigoBarras,
+                        CodigoBarras = produto.CodigoBarras,
                         Quantidade = 1,
                         ValorUnitario = produto.ValorUnitario,
                         Flag = FlagType.SemAlteracao
@@ -621,7 +721,8 @@ namespace Reverse
                     await ctx.SaveChangesAsync();
                 }
 
-                LoadItensDaPalete(produtoId.ToString());
+                // Correção: usa CodigoBarras como chave de foco (era produtoId.ToString())
+                LoadItensDaPalete(produto.CodigoBarras);
                 txtBusca.Clear();
                 txtBusca.Focus();
             }
@@ -642,9 +743,7 @@ namespace Reverse
 
             var confirm = MessageBox.Show(
                 "Deseja realmente finalizar a palete?",
-                "Confirmação",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
+                "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (confirm != DialogResult.Yes) return;
 
@@ -685,7 +784,8 @@ namespace Reverse
 
             if (_paleteAtual == null)
             {
-                MessageBox.Show("Nenhuma palete selecionada.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Nenhuma palete selecionada.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             int paleteId = _paleteAtual.Id;
@@ -694,8 +794,7 @@ namespace Reverse
                 $"Remover '{itemSelecionado.DescricaoProduto}' da palete?",
                 "Confirmar Remoção", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (confirmar != DialogResult.Yes)
-                return;
+            if (confirmar != DialogResult.Yes) return;
 
             try
             {
@@ -707,10 +806,8 @@ namespace Reverse
                             i.CodigoBarras == itemSelecionado.CodigoBarras);
 
                     if (entity == null)
-                    {
                         MessageBox.Show("Item já não existe. A lista será atualizada.",
                             "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
                     else
                     {
                         ctx.ItensPalete.Remove(entity);
@@ -721,7 +818,7 @@ namespace Reverse
             catch (System.Data.Entity.Core.OptimisticConcurrencyException)
             {
                 MessageBox.Show("O item foi alterado/removido por outro usuário. Atualizando a lista.",
-                     "Concorrência", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    "Concorrência", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {
@@ -737,18 +834,57 @@ namespace Reverse
             if (rowIndex < 0 || dgvItensPalete.Rows[rowIndex].DataBoundItem is not ItemPalete itemSelecionado)
                 return;
 
-            using (var ctx = new ReverseContext())
+            if (_paleteAtual == null || _paleteAtual.Status == 2 || _paleteAtual.Status == 3)
             {
-                var itemBanco = ctx.ItensPalete.FirstOrDefault(ip => ip.CodigoBarras == itemSelecionado.CodigoBarras
-                                                                  && ip.PaleteId == _paleteAtual.Id);
-                if (itemBanco != null)
-                {
-                    itemBanco.Quantidade = itemSelecionado.Quantidade;
-                    ctx.SaveChanges();
-                }
+                MessageBox.Show("Não é possível editar uma palete finalizada ou vendida.",
+                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                LoadItensDaPalete();
+                return;
             }
 
-            LoadItensDaPalete(itemSelecionado.CodigoBarras);
+            using (var ctx = new ReverseContext())
+            {
+                try
+                {
+                    var itemBanco = ctx.ItensPalete.FirstOrDefault(ip => ip.Id == itemSelecionado.Id);
+
+                    if (itemBanco == null)
+                    {
+                        MessageBox.Show("Item não encontrado. Pode ter sido removido por outro usuário.",
+                            "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        LoadItensDaPalete();
+                        return;
+                    }
+
+                    var palete = ctx.Paletes.Find(_paleteAtual.Id);
+                    if (palete != null && palete.Status == 2)
+                    {
+                        MessageBox.Show("A palete foi finalizada por outro usuário.",
+                            "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        _paleteAtual.Status = 2;
+                        LoadItensDaPalete();
+                        AtualizarEstadoBotoes();
+                        return;
+                    }
+
+                    itemBanco.Quantidade = itemSelecionado.Quantidade;
+                    ctx.SaveChanges();
+
+                    LoadItensDaPalete(itemSelecionado.CodigoBarras);
+                }
+                catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException)
+                {
+                    MessageBox.Show("O item foi alterado por outro usuário. Recarregando...",
+                        "Concorrência", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    LoadItensDaPalete();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao salvar: {ex.Message}",
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    LoadItensDaPalete();
+                }
+            }
         }
 
         private void dgvItensPalete_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -766,15 +902,12 @@ namespace Reverse
             if (e.KeyCode == Keys.Enter)
             {
                 e.IsInputKey = true;
-                var tb = sender as TextBox;
-
                 dgvItensPalete.EndEdit(DataGridViewDataErrorContexts.Commit);
 
                 if (dgvItensPalete.CurrentCell != null)
-                {
                     SalvarQuantidadeLinha(dgvItensPalete.CurrentCell.RowIndex);
-                }
 
+                // Suprime o beep do Enter
                 var ke = new KeyEventArgs(Keys.Enter);
                 ke.SuppressKeyPress = true;
             }
@@ -790,9 +923,7 @@ namespace Reverse
             }
 
             if (dgvItensPalete.CurrentRow != null)
-            {
                 SalvarQuantidadeLinha(dgvItensPalete.CurrentRow.Index);
-            }
 
             using (var ctx = new ReverseContext())
             {
@@ -803,7 +934,7 @@ namespace Reverse
                 if (itemBanco == null)
                 {
                     MessageBox.Show("O item não foi encontrado no banco de dados.",
-                         "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -816,7 +947,7 @@ namespace Reverse
                 catch (System.Data.Entity.Core.OptimisticConcurrencyException)
                 {
                     MessageBox.Show("O item foi alterado por outro usuário. Atualize a lista e tente novamente.",
-                            "Concorrência", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        "Concorrência", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -824,12 +955,43 @@ namespace Reverse
             LoadItensDaPalete();
         }
 
-        private void LoadItensDaPalete(string produtoIdParaFocar = null)
+        // ── Correção: parâmetro renomeado e comparação por CodigoBarras ───────
+        private void LoadItensDaPalete(string codigoBarrasParaFocar = null)
         {
-            if (_paleteAtual == null) return;
+            if (_paleteAtual == null)
+            {
+                dgvItensPalete.DataSource = null;
+                lblTotalPalete.Text = "Total: R$ 0,00 | Itens: 0";
+                return;
+            }
 
             using (var ctx = new ReverseContext())
             {
+                var paleteAtualizada = ctx.Paletes
+                    .AsNoTracking()
+                    .FirstOrDefault(p => p.Id == _paleteAtual.Id);
+
+                if (paleteAtualizada == null)
+                {
+                    MessageBox.Show("A palete foi removida por outro usuário.",
+                        "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    _paleteAtual = null;
+                    dgvItensPalete.DataSource = null;
+                    lblTotalPalete.Text = "Total: R$ 0,00 | Itens: 0";
+                    AtualizarLabelPaleteAtual();
+                    AtualizarEstadoBotoes();
+                    return;
+                }
+
+                if (_paleteAtual.Status != paleteAtualizada.Status)
+                {
+                    _paleteAtual.Status = paleteAtualizada.Status;
+                    _paleteAtual.UsuarioFinalizacao = paleteAtualizada.UsuarioFinalizacao;
+                    _paleteAtual.DataFinalizacao = paleteAtualizada.DataFinalizacao;
+                    AtualizarLabelPaleteAtual();
+                    AtualizarEstadoBotoes();
+                }
+
                 var dados = ctx.ItensPalete
                     .Include(i => i.Produto)
                     .Where(i => i.PaleteId == _paleteAtual.Id)
@@ -840,13 +1002,16 @@ namespace Reverse
                 dgvItensPalete.DataSource = dados;
 
                 decimal totalPalete = dados.Sum(i => i.Quantidade * i.ValorUnitario);
-                lblTotalPalete.Text = $"Total: {totalPalete:C2}";
+                int totalItens = dados.Sum(i => i.Quantidade);
 
-                if (!string.IsNullOrEmpty(produtoIdParaFocar))
+                lblTotalPalete.Text = $"Total: {totalPalete:C2} | Itens: {totalItens}";
+
+                if (!string.IsNullOrEmpty(codigoBarrasParaFocar))
                 {
                     var row = dgvItensPalete.Rows
                         .Cast<DataGridViewRow>()
-                        .FirstOrDefault(r => (r.DataBoundItem as ItemPalete)?.ProdutoId.ToString() == produtoIdParaFocar);
+                        .FirstOrDefault(r =>
+                            (r.DataBoundItem as ItemPalete)?.CodigoBarras == codigoBarrasParaFocar);
 
                     if (row != null)
                     {
@@ -855,38 +1020,6 @@ namespace Reverse
                     }
                 }
             }
-        }
-
-        private void LoadProdutos(string filtro = "")
-        {
-            using var ctx = new ReverseContext();
-            var query = ctx.Produtos.AsNoTracking();
-
-            if (!string.IsNullOrWhiteSpace(filtro))
-            {
-                query = (System.Data.Entity.Infrastructure.DbQuery<Produto>)query.Where(p =>
-                    p.Descricao.Contains(filtro) ||
-                    (p.CodigoBarras != null && p.CodigoBarras.Contains(filtro)));
-            }
-
-            query = (System.Data.Entity.Infrastructure.DbQuery<Produto>)(chkUltimosPrimeiro.Checked
-                ? query.OrderByDescending(p => p.DataUltimaAlteracao)
-                : query.OrderBy(p => p.Descricao));
-
-            var lista = query.ToList();
-
-            foreach (var prod in lista)
-            {
-                if (prod.DataUltimaAlteracao <= DateTime.Today.AddMonths(-1))
-                    prod.Flag = FlagType.SemAlteracao;
-            }
-
-            dgvProdutos.DataSource = lista;
-        }
-
-        private void chkUltimosPrimeiro_CheckedChanged(object sender, EventArgs e)
-        {
-            LoadProdutos(txtBusca.Text);
         }
 
         private Color GetFlagColor(FlagType flag) => flag switch
@@ -977,7 +1110,9 @@ namespace Reverse
                 {
                     if (colName == "colProdCodigoBarras")
                     {
-                        e.Value = string.IsNullOrWhiteSpace(prod.CodigoBarras) ? "" : prod.CodigoBarras;
+                        e.Value = (!string.IsNullOrWhiteSpace(prod.CodigoBarras) && prod.CodigoBarras.StartsWith("MDL-"))
+                            ? "-"
+                            : (string.IsNullOrWhiteSpace(prod.CodigoBarras) ? "-" : prod.CodigoBarras);
                         e.FormattingApplied = true;
                     }
                     else if (colName == "colProdFlag")
@@ -998,17 +1133,15 @@ namespace Reverse
         {
             if (e.RowIndex < 0) return;
 
-            if (_paleteAtual == null || _paleteAtual.Status == 2)
+            if (_paleteAtual == null || _paleteAtual.Status == 2 || _paleteAtual.Status == 3)
                 return;
 
             _ = AddItemToPaleteAsync();
         }
 
-        private void DgvProdutos_FlagFormatting(object sender,
-                                                DataGridViewCellFormattingEventArgs e)
+        private void DgvProdutos_FlagFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dgvProdutos.Columns[e.ColumnIndex].Name != "colProdFlag")
-                return;
+            if (dgvProdutos.Columns[e.ColumnIndex].Name != "colProdFlag") return;
 
             if (dgvProdutos.Rows[e.RowIndex].DataBoundItem is Produto prod)
             {
@@ -1017,11 +1150,9 @@ namespace Reverse
             }
         }
 
-        private void DgvProdutos_CellFormatting(object sender,
-                                                DataGridViewCellFormattingEventArgs e)
+        private void DgvProdutos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dgvProdutos.Columns[e.ColumnIndex].Name != "colProdVencimento")
-                return;
+            if (dgvProdutos.Columns[e.ColumnIndex].Name != "colProdVencimento") return;
 
             if (dgvProdutos.Rows[e.RowIndex].DataBoundItem is Produto prod)
                 PreencherStatusVencimento(prod.DataValidade, e);
@@ -1037,25 +1168,24 @@ namespace Reverse
             dgvItensPalete.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             dgvItensPalete.DefaultCellStyle.ForeColor = Color.Black;
 
-            var colDesc = new DataGridViewTextBoxColumn
+            dgvItensPalete.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Descricao",
                 HeaderText = "Descrição",
                 Name = "colItemDescricao",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                FillWeight = 55,
+                FillWeight = 65,
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Alignment = DataGridViewContentAlignment.MiddleLeft
                 }
-            };
-            dgvItensPalete.Columns.Add(colDesc);
+            });
 
-            var colBarras = new DataGridViewTextBoxColumn
+            dgvItensPalete.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "CodigoBarras",
-                HeaderText = "Codigo de Barras",
+                HeaderText = "Código de Barras",
                 Name = "colItemCodigoBarras",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                 FillWeight = 20,
@@ -1065,52 +1195,35 @@ namespace Reverse
                     Font = new Font("Segoe UI", 10F, FontStyle.Bold),
                     Alignment = DataGridViewContentAlignment.MiddleCenter
                 }
-            };
-            dgvItensPalete.Columns.Add(colBarras);
+            });
 
-            var colQtd = new DataGridViewTextBoxColumn
+            dgvItensPalete.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Quantidade",
                 HeaderText = "Qtd",
                 Name = "colItemQtd",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                 FillWeight = 10,
+                ReadOnly = false,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Alignment = DataGridViewContentAlignment.MiddleCenter
                 }
-            };
-            dgvItensPalete.Columns.Add(colQtd);
+            });
 
-            var colValor = new DataGridViewTextBoxColumn
+            dgvItensPalete.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "ValorUnitario",
                 HeaderText = "Valor Unit.",
                 Name = "colItemValorUnit",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                FillWeight = 10,
+                FillWeight = 15,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Format = "C2",
                     Alignment = DataGridViewContentAlignment.MiddleRight
                 }
-            };
-            dgvItensPalete.Columns.Add(colValor);
-
-            var colVenc = new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Vencimento",
-                HeaderText = "Vencimento",
-                Name = "colItemVencimento",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                FillWeight = 5,
-                ReadOnly = true,
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Alignment = DataGridViewContentAlignment.MiddleCenter
-                }
-            };
-            dgvItensPalete.Columns.Add(colVenc);
+            });
 
             foreach (DataGridViewColumn c in dgvItensPalete.Columns)
                 c.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -1136,46 +1249,14 @@ namespace Reverse
 
             if (col == "colItemCodigoBarras")
             {
-                if (string.IsNullOrWhiteSpace(item.CodigoBarras) || item.CodigoBarras.StartsWith("MDL"))
-                    e.Value = "-";
-                else
-                    e.Value = item.CodigoBarras;
-
+                e.Value = (!string.IsNullOrWhiteSpace(item.CodigoBarras) && item.CodigoBarras.StartsWith("MDL-"))
+                    ? "-"
+                    : (string.IsNullOrWhiteSpace(item.CodigoBarras) ? "-" : item.CodigoBarras);
                 e.FormattingApplied = true;
             }
             else if (col == "colItemDescricao")
             {
                 e.Value = item.Produto?.Descricao ?? "-";
-                e.FormattingApplied = true;
-            }
-            else if (col == "colItemVencimento")
-            {
-                var dataVal = item.Produto?.DataValidade;
-                if (dataVal == null)
-                {
-                    e.Value = "-";
-                    e.FormattingApplied = true;
-                    return;
-                }
-
-                var dias = (dataVal.Value.Date - DateTime.Today).TotalDays;
-
-                if (dias < 0)
-                {
-                    e.Value = $"Vencido em {dataVal.Value:dd/MM/yyyy}";
-                    e.CellStyle.ForeColor = Color.Red;
-                }
-                else if (dias <= 30)
-                {
-                    e.Value = $"A vencer ({dataVal.Value:dd/MM/yyyy})";
-                    e.CellStyle.ForeColor = Color.Orange;
-                }
-                else
-                {
-                    e.Value = $"Válido até {dataVal.Value:dd/MM/yyyy}";
-                    e.CellStyle.ForeColor = Color.Green;
-                }
-
                 e.FormattingApplied = true;
             }
         }
@@ -1231,7 +1312,7 @@ namespace Reverse
                     break;
                 case 1:
                     statusTexto = "Em andamento";
-                    statusCor = Color.Orange;
+                    statusCor = Color.DarkSlateBlue;
                     break;
                 case 2:
                     statusTexto = "Finalizado";
@@ -1239,7 +1320,7 @@ namespace Reverse
                     break;
                 case 3:
                     statusTexto = "Vendido";
-                    statusCor = Color.Blue;
+                    statusCor = Color.Black;
                     break;
                 default:
                     statusTexto = "Desconhecido";
@@ -1268,11 +1349,11 @@ namespace Reverse
 
                 if (!File.Exists(path))
                 {
-                    if (faceName == "SegoeUI-Bold#" && File.Exists(Path.Combine(FontsFolder, "segoeui.ttf")))
+                    if ((faceName == "SegoeUI-Bold#" || faceName == "SegoeUI-Italic#")
+                        && File.Exists(Path.Combine(FontsFolder, "segoeui.ttf")))
                         path = Path.Combine(FontsFolder, "segoeui.ttf");
-                    else if (faceName == "SegoeUI-Italic#" && File.Exists(Path.Combine(FontsFolder, "segoeui.ttf")))
-                        path = Path.Combine(FontsFolder, "segoeui.ttf");
-                    else if (faceName == "SegoeUI-BoldItalic#" && File.Exists(Path.Combine(FontsFolder, "segoeuib.ttf")))
+                    else if (faceName == "SegoeUI-BoldItalic#"
+                        && File.Exists(Path.Combine(FontsFolder, "segoeuib.ttf")))
                         path = Path.Combine(FontsFolder, "segoeuib.ttf");
                 }
 
@@ -1288,11 +1369,9 @@ namespace Reverse
                     if (isItalic) return new FontResolverInfo("SegoeUI-Italic#");
                     return new FontResolverInfo("SegoeUI#");
                 }
-
                 return new FontResolverInfo("SegoeUI#");
             }
         }
-
 
         private void txtBusca_TextChanged(object sender, EventArgs e)
         {
@@ -1300,43 +1379,40 @@ namespace Reverse
             _debounceTimer.Start();
         }
 
-        private CancellationTokenSource _cts;
-        private async void DebounceTimer_Tick(object sender, EventArgs e)
+        private void DebounceTimer_Tick(object sender, EventArgs e)
         {
             _debounceTimer.Stop();
 
-            _cts?.Cancel();
-            _cts = new CancellationTokenSource();
+            if (this.IsDisposed || !this.IsHandleCreated) return;
 
-            try
-            {
-                await AtualizarGridProdutosAsync(txtBusca.Text.Trim(), _cts.Token);
-            }
-            catch (OperationCanceledException)
-            {
-            }
+            if (this.InvokeRequired)
+                this.BeginInvoke((MethodInvoker)ExecutarBusca);
+            else
+                ExecutarBusca();
         }
 
-        private async Task AtualizarGridProdutosAsync(string filtro, CancellationToken ct)
+        private void ExecutarBusca()
         {
-            IQueryable<Produto> query = _ctx.Produtos.AsNoTracking();
-
-            if (!string.IsNullOrEmpty(filtro))
-                query = query.Where(p =>
-                    p.CodigoBarras.Contains(filtro) ||
-                    p.Descricao.Contains(filtro));
-
-            var lista = await query
-                .OrderBy(p => p.Descricao)
-                .ToListAsync(ct);
-
-            bsProdutos.DataSource = lista;
+            string termo = txtBusca.Text.Trim();
+            try
+            {
+                CarregarProdutosComBuscaInteligente(termo);
+                if (dgvProdutos.Rows.Count > 0)
+                {
+                    dgvProdutos.Rows[0].Selected = true;
+                    dgvProdutos.CurrentCell = dgvProdutos.Rows[0].Cells[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro na busca: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnExportarExcel_Click(object sender, EventArgs e)
         {
-            if (_paleteAtual == null)
-                return;
+            if (_paleteAtual == null) return;
             int paleteId = _paleteAtual.Id;
 
             using (var ctx = new ReverseContext())
@@ -1346,8 +1422,7 @@ namespace Reverse
                     .AsNoTracking()
                     .FirstOrDefault(p => p.Id == paleteId);
 
-                if (palete == null)
-                    return;
+                if (palete == null) return;
 
                 decimal totalPalete = palete.Itens.Sum(i => i.Quantidade * i.ValorUnitario);
                 int totalItens = palete.Itens.Sum(i => i.Quantidade);
@@ -1362,7 +1437,7 @@ namespace Reverse
 
                     int row = 1;
 
-                    ws.Range(row, 1, row, 6).Merge();
+                    ws.Range(row, 1, row, 6).Merge();   
                     ws.Cell(row, 1).Value = $"Valor total da palete: R$ {totalPalete:N2}";
                     ws.Cell(row, 1).Style
                         .Font.SetBold()
@@ -1425,14 +1500,13 @@ namespace Reverse
                     }
 
                     ws.Range(4, 1, row - 1, 6).Style.Border.SetInsideBorder(XLBorderStyleValues.Thin);
-
                     ws.Columns().AdjustToContents();
                     ws.Column(3).Width = Math.Max(ws.Column(3).Width, 40);
 
                     wb.SaveAs(fileXlsx);
 
                     MessageBox.Show($"Excel gerado em:\n{fileXlsx}",
-                        "Exportação Concluida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        "Exportação Concluída", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
@@ -1451,6 +1525,7 @@ namespace Reverse
                     using (var ctx = new ReverseContext())
                     {
                         _paleteAtual = ctx.Paletes
+                            .Include(p => p.Categoria)
                             .Include(p => p.Itens.Select(i => i.Produto))
                             .FirstOrDefault(p => p.Id == selector.PaleteSelecionada.Id);
                     }
@@ -1465,6 +1540,255 @@ namespace Reverse
                     LoadItensDaPalete();
                     AtualizarLabelPaleteAtual();
                     AtualizarEstadoBotoes();
+                }
+            }
+        }
+
+        private void btnImprimirNumeracao_Click(object sender, EventArgs e)
+        {
+            if (_paleteAtual == null)
+            {
+                MessageBox.Show("Nenhuma palete selecionada.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var resultado = MessageBox.Show(
+                "Deseja imprimir a numeração da palete?",
+                "Imprimir Numeração", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
+                ImprimirNumeracaoPalete();
+        }
+
+        private void ImprimirNumeracaoPalete()
+        {
+            try
+            {
+                string nomePalete;
+                using (var ctx = new ReverseContext())
+                {
+                    var paleteDb = ctx.Paletes
+                        .Include(p => p.Categoria)
+                        .AsNoTracking()
+                        .FirstOrDefault(p => p.Id == _paleteAtual.Id);
+
+                    if (paleteDb == null)
+                    {
+                        MessageBox.Show("Não foi possível carregar a palete do banco.", "Erro",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    nomePalete = paleteDb.Nome;
+                }
+
+                string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string filePdf = Path.Combine(desktop, nomePalete + ".pdf");
+
+                // ── Resolve a URL do QR Code para esta palete específica ─────
+                string urlParaQr = null;
+
+                if (!File.Exists(filePdf))
+                {
+                    // PDF não existe — avisa e pergunta se imprime sem QR Code
+                    var resposta = MessageBox.Show(
+                        $"O PDF desta palete não foi encontrado em:\n{filePdf}\n\n" +
+                        "Gere o PDF primeiro usando o botão \"Exportar PDF\".\n\n" +
+                        "Deseja imprimir mesmo assim sem o QR Code?",
+                        "PDF não encontrado", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (resposta != DialogResult.Yes)
+                        return;
+
+                    urlParaQr = null; // imprime sem QR
+                }
+                else
+                {
+                    // Busca (ou cria) o serviço específico para ESTE arquivo de palete.
+                    // Cada palete tem seu próprio serviço em sua própria porta,
+                    // então a palete 31 e a 32 podem ser escaneadas independentemente.
+                    // Inicia servidor unico (se necessario) e registra este PDF
+                    try
+                    {
+                        if (_pdfHostService == null)
+                        {
+                            _pdfHostService = new PdfHostService();
+                            _pdfHostService.Iniciar();
+                        }
+                        urlParaQr = _pdfHostService.RegistrarPdf(filePdf);
+                    }
+                    catch (Exception exSvc)
+                    {
+                        var resposta = MessageBox.Show(
+                            $"Não foi possível iniciar o serviço de QR Code:\\n{exSvc.Message}\\n\\n" +
+                            "Deseja imprimir sem o QR Code?",
+                            "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                        if (resposta != DialogResult.Yes)
+                            return;
+
+                        urlParaQr = null;
+                    }
+                }
+
+                // ── Impressão — URL passada via parâmetro (sem race condition) ─
+                var printDoc = new System.Drawing.Printing.PrintDocument();
+                printDoc.PrintPage += (s, ev) => PrintDoc_PrintPage(s, ev, urlParaQr);
+                printDoc.DefaultPageSettings.Landscape = false;
+                printDoc.DefaultPageSettings.Margins =
+                    new System.Drawing.Printing.Margins(0, 0, 0, 0);
+
+                var printDialog = new PrintDialog { Document = printDoc };
+                if (printDialog.ShowDialog() == DialogResult.OK)
+                    printDoc.Print();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao imprimir: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            // finally removido — _pdfHostService e limpo no FormClosing
+        }
+
+        // Assinatura alterada: recebe urlQrCode por parâmetro em vez de campo da instância
+        private void PrintDoc_PrintPage(object sender,
+            System.Drawing.Printing.PrintPageEventArgs e,
+            string urlQrCode)
+        {
+            if (_paleteAtual == null) return;
+
+            Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+
+            int larguraPagina = e.PageBounds.Width;
+            int alturaPagina = e.PageBounds.Height;
+            int margemBorda = 40;
+
+            using (var fundoGradiente = new System.Drawing.Drawing2D.LinearGradientBrush(
+                new Rectangle(0, 0, larguraPagina, alturaPagina),
+                Color.FromArgb(250, 250, 252),
+                Color.FromArgb(240, 245, 255), 45f))
+            {
+                g.FillRectangle(fundoGradiente, 0, 0, larguraPagina, alturaPagina);
+            }
+
+            Rectangle retanguloBorda = new Rectangle(
+                margemBorda, margemBorda,
+                larguraPagina - (margemBorda * 2),
+                alturaPagina - (margemBorda * 2));
+
+            using (var bordaGradiente = new System.Drawing.Drawing2D.LinearGradientBrush(
+                retanguloBorda,
+                Color.FromArgb(41, 128, 185),
+                Color.FromArgb(52, 73, 94),
+                System.Drawing.Drawing2D.LinearGradientMode.Vertical))
+            using (var caneta = new Pen(bordaGradiente, 12))
+            {
+                g.DrawRectangle(caneta, retanguloBorda);
+            }
+
+            using (var canetaInterna = new Pen(Color.FromArgb(100, 149, 237), 3))
+            {
+                g.DrawRectangle(canetaInterna, new Rectangle(
+                    margemBorda + 20, margemBorda + 20,
+                    larguraPagina - (margemBorda * 2) - 40,
+                    alturaPagina - (margemBorda * 2) - 40));
+            }
+
+            using (var fonteNumero = new Font("Segoe UI", 140, FontStyle.Bold))
+            using (var fonteDescricao = new Font("Segoe UI", 28, FontStyle.Bold))
+            using (var fonteCategoria = new Font("Segoe UI", 20, FontStyle.Italic))
+            using (var fonteRodape = new Font("Segoe UI", 11, FontStyle.Regular))
+            {
+                string numeroTexto = _paleteAtual.Numero.ToString("D4");
+                SizeF tamanhoNumero = g.MeasureString(numeroTexto, fonteNumero);
+
+                PointF posicaoNumero = new PointF(
+                    (larguraPagina - tamanhoNumero.Width) / 2,
+                    (alturaPagina - tamanhoNumero.Height) / 2 - 60);
+
+                using (var sombraBrush = new SolidBrush(Color.FromArgb(50, 0, 0, 0)))
+                    g.DrawString(numeroTexto, fonteNumero, sombraBrush,
+                        posicaoNumero.X + 5, posicaoNumero.Y + 5);
+
+                using (var pincelNumero = new SolidBrush(Color.FromArgb(52, 73, 94)))
+                    g.DrawString(numeroTexto, fonteNumero, pincelNumero, posicaoNumero);
+
+                string descricaoTexto = "PALETE";
+                SizeF tamanhoDescricao = g.MeasureString(descricaoTexto, fonteDescricao);
+                PointF posicaoDescricao = new PointF(
+                    (larguraPagina - tamanhoDescricao.Width) / 2,
+                    posicaoNumero.Y - tamanhoDescricao.Height - 30);
+
+                using (var pincelDescricao = new SolidBrush(Color.FromArgb(41, 128, 185)))
+                    g.DrawString(descricaoTexto, fonteDescricao, pincelDescricao, posicaoDescricao);
+
+                using (var linhaPen = new Pen(Color.FromArgb(41, 128, 185), 3))
+                {
+                    int linhaY = (int)(posicaoDescricao.Y + tamanhoDescricao.Height + 10);
+                    g.DrawLine(linhaPen,
+                        larguraPagina / 2 - 150, linhaY,
+                        larguraPagina / 2 + 150, linhaY);
+                }
+
+                string categoriaTexto = _paleteAtual.Categoria?.Nome ?? "Sem categoria";
+                SizeF tamanhoCategoria = g.MeasureString(categoriaTexto, fonteCategoria);
+                PointF posicaoCategoria = new PointF(
+                    (larguraPagina - tamanhoCategoria.Width) / 2,
+                    posicaoNumero.Y + tamanhoNumero.Height + 20);
+
+                using (var pincelCategoria = new SolidBrush(Color.FromArgb(100, 149, 237)))
+                    g.DrawString(categoriaTexto, fonteCategoria, pincelCategoria, posicaoCategoria);
+
+                // ── QR Code ───────────────────────────────────────────────────
+                if (!string.IsNullOrEmpty(urlQrCode))
+                {
+                    try
+                    {
+                        using (var qrGenerator = new QRCoder.QRCodeGenerator())
+                        using (var qrData = qrGenerator.CreateQrCode(urlQrCode, QRCoder.QRCodeGenerator.ECCLevel.M))
+                        using (var qrCode = new QRCoder.QRCode(qrData))
+                        using (var qrBitmap = qrCode.GetGraphic(4, Color.FromArgb(52, 73, 94), Color.White, true))
+                        {
+                            int qrTamanho = 110;
+                            int qrX = (larguraPagina - qrTamanho) / 2;
+                            int qrY = (int)(posicaoCategoria.Y + tamanhoCategoria.Height + 20);
+
+                            g.DrawImage(qrBitmap, new Rectangle(qrX, qrY, qrTamanho, qrTamanho));
+
+                            using (var fonteQrLegenda = new Font("Segoe UI", 8, FontStyle.Regular))
+                            using (var pincelQrLegenda = new SolidBrush(Color.FromArgb(130, 130, 130)))
+                            {
+                                string legenda = "Escaneie para baixar o PDF da palete";
+                                SizeF tamLegenda = g.MeasureString(legenda, fonteQrLegenda);
+                                g.DrawString(legenda, fonteQrLegenda, pincelQrLegenda,
+                                    (larguraPagina - tamLegenda.Width) / 2,
+                                    qrY + qrTamanho + 6);
+                            }
+                        }
+                    }
+                    catch (Exception exQr)
+                    {
+                        using (var fonteErro = new Font("Segoe UI", 7, FontStyle.Italic))
+                        using (var pincelErro = new SolidBrush(Color.FromArgb(180, 0, 0)))
+                        {
+                            g.DrawString($"QR Code indisponível: {exQr.Message}",
+                                fonteErro, pincelErro,
+                                margemBorda + 10, alturaPagina - margemBorda - 90);
+                        }
+                    }
+                }
+                // ── Fim QR Code ───────────────────────────────────────────────
+
+                string dataTexto = $"Criado em: {_paleteAtual.DataCriacao:dd/MM/yyyy HH:mm}";
+                SizeF tamanhoData = g.MeasureString(dataTexto, fonteRodape);
+
+                using (var pincelRodape = new SolidBrush(Color.FromArgb(100, 100, 100)))
+                {
+                    g.DrawString(dataTexto, fonteRodape, pincelRodape,
+                        (larguraPagina - tamanhoData.Width) / 2,
+                        alturaPagina - margemBorda - 70);
                 }
             }
         }

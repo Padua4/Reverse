@@ -237,12 +237,11 @@
             this.chkSemCodigoBarras.Text = "É Modelo?";
             this.chkSemCodigoBarras.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkSemCodigoBarras.UseVisualStyleBackColor = false;
-            this.chkSemCodigoBarras.CheckedChanged += new System.EventHandler(this.chkSemCodigo_CheckedChanged);
             this.chkSemCodigoBarras.CheckStateChanged += new System.EventHandler(this.chkSemCodigoBarras_CheckedChanged);
             // 
             // lblUltimoUsuario
             // 
-            this.lblUltimoUsuario.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUltimoUsuario.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUltimoUsuario.ForeColor = System.Drawing.Color.Black;
             this.lblUltimoUsuario.Location = new System.Drawing.Point(-4, 485);
             this.lblUltimoUsuario.Name = "lblUltimoUsuario";

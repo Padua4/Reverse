@@ -25,13 +25,34 @@ namespace Reverse.Forms.FormsFinanceiro
             InitializeComponent();
             CarregarCombos();
             ConfigurarGridClientes();
-            ConfigurarGrid(dgvClientes);
-            ConfigurarGrid(dgvCompras);
-            ConfigurarGrid(dgvAtendimentos);
-            ConfigurarGrid(dgvProdutosComprados);
+
+            ConfigurarGridComFormPagarStyle(dgvAtendimentos);
+            ConfigurarGridComFormPagarStyle(dgvProdutosComprados);
+
             dgvClientes.CellFormatting += dgvClientes_CellFormatting;
+            txtFiltro.TextChanged += txtFiltro_TextChanged;
 
             _ = CarregarClientesAsync();
+        }
+
+        private System.Threading.Timer debounceTimer;
+
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            debounceTimer?.Dispose();
+
+            debounceTimer = new System.Threading.Timer(async _ =>
+            {
+                if (InvokeRequired)
+                {
+                    Invoke(new Action(async () => await CarregarClientesAsync(txtFiltro.Text.Trim())));
+                }
+                else
+                {
+                    await CarregarClientesAsync(txtFiltro.Text.Trim());
+                }
+                debounceTimer?.Dispose();
+            }, null, 500, System.Threading.Timeout.Infinite);
         }
 
         private void ConfigurarGridClientes()
@@ -40,49 +61,172 @@ namespace Reverse.Forms.FormsFinanceiro
             dgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvClientes.MultiSelect = false;
             dgvClientes.AllowUserToAddRows = false;
+
+            dgvClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
             dgvClientes.Columns.Clear();
 
-            dgvClientes.Columns.Add(new DataGridViewTextBoxColumn { Name = "ClienteId", DataPropertyName = "ClienteId", Visible = false });
-            dgvClientes.Columns.Add(new DataGridViewTextBoxColumn { Name = "Nome", HeaderText = "Nome/Razão Social", DataPropertyName = "Nome" });
-            dgvClientes.Columns.Add(new DataGridViewTextBoxColumn { Name = "CPF_CNPJ", HeaderText = "CPF/CNPJ", DataPropertyName = "CPF_CNPJ" });
-            dgvClientes.Columns.Add(new DataGridViewTextBoxColumn { Name = "Telefone", HeaderText = "Telefone", DataPropertyName = "Telefone" });
-            dgvClientes.Columns.Add(new DataGridViewTextBoxColumn { Name = "Cidade", HeaderText = "Cidade", DataPropertyName = "Cidade" });
-            dgvClientes.Columns.Add(new DataGridViewTextBoxColumn { Name = "Status", HeaderText = "Status", DataPropertyName = "Status" });
+            var colunaNome = new DataGridViewTextBoxColumn
+            {
+                Name = "Nome",
+                HeaderText = "Nome/Razão Social",
+                DataPropertyName = "Nome",
+                FillWeight = 40
+            };
+
+            var colunaCpfCnpj = new DataGridViewTextBoxColumn
+            {
+                Name = "CPF_CNPJ",
+                HeaderText = "CPF/CNPJ",
+                DataPropertyName = "CPF_CNPJ",
+                FillWeight = 20
+            };
+
+            var colunaTelefone = new DataGridViewTextBoxColumn
+            {
+                Name = "Telefone",
+                HeaderText = "Telefone",
+                DataPropertyName = "Telefone",
+                FillWeight = 15
+            };
+
+            var colunaCidade = new DataGridViewTextBoxColumn
+            {
+                Name = "Cidade",
+                HeaderText = "Cidade",
+                DataPropertyName = "Cidade",
+                FillWeight = 15
+            };
+
+            var colunaStatus = new DataGridViewTextBoxColumn
+            {
+                Name = "Status",
+                HeaderText = "Status",
+                DataPropertyName = "Status",
+                FillWeight = 10
+            };
+
+            dgvClientes.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "ClienteId",
+                DataPropertyName = "ClienteId",
+                Visible = false
+            });
+
+            dgvClientes.Columns.Add(colunaNome);
+            dgvClientes.Columns.Add(colunaCpfCnpj);
+            dgvClientes.Columns.Add(colunaTelefone);
+            dgvClientes.Columns.Add(colunaCidade);
+            dgvClientes.Columns.Add(colunaStatus);
+
+            AplicarEstiloFormPagar(dgvClientes);
         }
-        private void ConfigurarGrid(DataGridView dgv)
+
+        private void ConfigurarGridComFormPagarStyle(DataGridView dgv)
         {
-            // Ajuste de colunas e linhas
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv.MultiSelect = false;
-            dgv.ReadOnly = true;
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.ReadOnly = true;
             dgv.AllowUserToResizeRows = false;
             dgv.RowHeadersVisible = false;
 
-            // Cores e fontes
-            dgv.BackgroundColor = Color.FromArgb(242, 243, 244);
-            dgv.DefaultCellStyle.BackColor = Color.White;
-            dgv.DefaultCellStyle.ForeColor = Color.Black;
-            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 120, 215);
-            dgv.DefaultCellStyle.SelectionForeColor = Color.White;
-            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 10);
-
-            // Cabeçalho
-            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240);
-            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            dgv.EnableHeadersVisualStyles = false;
+            AplicarEstiloFormPagar(dgv);
         }
 
+        private void AplicarEstiloFormPagar(DataGridView grid)
+        {
+            grid.BackgroundColor = Color.FromArgb(250, 250, 252);
+            grid.BorderStyle = BorderStyle.FixedSingle;
+            grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            grid.GridColor = Color.FromArgb(230, 230, 235);
 
-        private async Task CarregarClientesAsync()
+            grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 73, 94);
+            grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            grid.ColumnHeadersHeight = 40;
+
+            grid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 249, 255);
+            grid.RowsDefaultCellStyle.BackColor = Color.White;
+
+            grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 237, 255);
+            grid.DefaultCellStyle.SelectionForeColor = Color.Black;
+            grid.ColumnHeadersDefaultCellStyle.SelectionBackColor = grid.ColumnHeadersDefaultCellStyle.BackColor;
+            grid.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+
+            grid.DefaultCellStyle.ForeColor = Color.Black;
+            grid.AlternatingRowsDefaultCellStyle.ForeColor = Color.Black;
+
+            grid.EnableHeadersVisualStyles = false;
+            grid.RowHeadersVisible = false;
+            grid.DefaultCellStyle.Font = new Font("Segoe UI", 10F);
+            grid.RowTemplate.Height = 36;
+
+            foreach (DataGridViewColumn column in grid.Columns)
+            {
+                column.DefaultCellStyle = grid.DefaultCellStyle;
+                column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                column.HeaderCell.Style = grid.ColumnHeadersDefaultCellStyle;
+            }
+        }
+
+        private async Task CarregarClientesAsync(string filtro = "")
         {
             using (var conn = new SqlConnection(connectionString))
             {
                 await conn.OpenAsync();
-                var cmd = new SqlCommand("SELECT ClienteId, Nome, CPF_CNPJ, Telefone, Cidade, Status FROM Clientes ORDER BY Nome", conn);
+                SqlCommand cmd;
+
+                if (string.IsNullOrEmpty(filtro))
+                {
+                    cmd = new SqlCommand(@"
+                SELECT ClienteId, Nome, CPF_CNPJ, Telefone, Cidade, Status 
+                FROM Clientes 
+                ORDER BY Nome", conn);
+                }
+                else
+                {
+                    string filtroNumerico = new string(filtro.Where(char.IsDigit).ToArray());
+                    string filtroNormalizado = filtro.ToLower().Trim();
+
+                    cmd = new SqlCommand(@"
+                SELECT ClienteId, Nome, CPF_CNPJ, Telefone, Cidade, Status 
+                FROM Clientes 
+                WHERE 
+                    LOWER(Nome) LIKE @Filtro 
+                    OR LOWER(CPF_CNPJ) LIKE @FiltroNumerico
+                    OR LOWER(RG_IE) LIKE @Filtro
+                    OR LOWER(Telefone) LIKE @Filtro
+                    OR LOWER(Cidade) LIKE @Filtro
+                    OR LOWER(Email) LIKE @Filtro
+                    OR LOWER(ResponsavelComercial) LIKE @Filtro
+                    OR LOWER(RazaoSocial) LIKE @Filtro
+                ORDER BY 
+                    CASE 
+                        WHEN LOWER(Nome) LIKE @FiltroInicio THEN 1
+                        WHEN LOWER(RazaoSocial) LIKE @FiltroInicio THEN 2
+                        ELSE 3
+                    END,
+                    Nome", conn);
+
+                    cmd.Parameters.AddWithValue("@Filtro", $"%{filtroNormalizado}%");
+                    cmd.Parameters.AddWithValue("@FiltroInicio", $"{filtroNormalizado}%");
+
+                    if (!string.IsNullOrEmpty(filtroNumerico))
+                    {
+                        cmd.Parameters.AddWithValue("@FiltroNumerico", $"%{filtroNumerico}%");
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@FiltroNumerico", DBNull.Value);
+                    }
+                }
+
                 var dt = new DataTable();
                 using (var reader = await cmd.ExecuteReaderAsync())
                 {
@@ -90,7 +234,15 @@ namespace Reverse.Forms.FormsFinanceiro
                 }
                 dgvClientes.DataSource = dt;
             }
-            dgvClientes.ClearSelection();
+
+            if (!string.IsNullOrEmpty(filtro) && dgvClientes.Rows.Count > 0)
+            {
+                dgvClientes.Rows[0].Selected = true;
+            }
+            else
+            {
+                dgvClientes.ClearSelection();
+            }
         }
 
         private void dgvClientes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -121,8 +273,23 @@ namespace Reverse.Forms.FormsFinanceiro
                     e.CellStyle.ForeColor = Color.Red;
                     e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
                 }
+            }
 
-                e.FormattingApplied = true;
+            if (dgvClientes.Columns[e.ColumnIndex].Name == "CPF_CNPJ" && e.Value != null)
+            {
+                string cpfCnpj = e.Value.ToString();
+                string digits = new string(cpfCnpj.Where(char.IsDigit).ToArray());
+
+                if (digits.Length == 11)
+                {
+                    e.Value = Convert.ToUInt64(digits).ToString(@"000\.000\.000\-00");
+                    e.FormattingApplied = true;
+                }
+                else if (digits.Length == 14)
+                {
+                    e.Value = Convert.ToUInt64(digits).ToString(@"00\.000\.000\/0000\-00");
+                    e.FormattingApplied = true;
+                }
             }
         }
 
@@ -131,9 +298,9 @@ namespace Reverse.Forms.FormsFinanceiro
                     cmbEstado.Items.Clear();
                     cmbEstado.Items.AddRange(new string[]
                     {
-                "AC","AL","AP","AM","BA","CE","DF","ES","GO","MA",
-                "MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN",
-                "RS","RO","RR","SC","SP","SE","TO"
+                    "AC","AL","AP","AM","BA","CE","DF","ES","GO","MA",
+                    "MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN",
+                    "RS","RO","RR","SC","SP","SE","TO"
                     });
 
                     cmbStatus.Items.Clear();
@@ -142,35 +309,35 @@ namespace Reverse.Forms.FormsFinanceiro
                     cmbPagamento.Items.Clear();
                     cmbPagamento.Items.AddRange(new string[]
                     {
-                "À vista",
-                "7 dias",
-                "15 dias",
-                "21 dias",
-                "30 dias",
-                "45 dias",
-                "60 dias",
-                "Parcelado 2x",
-                "Parcelado 3x",
-                "Parcelado 4x"
+                    "À vista",
+                    "7 dias",
+                    "15 dias",
+                    "21 dias",
+                    "30 dias",
+                    "45 dias",
+                    "60 dias",
+                    "Parcelado 2x",
+                    "Parcelado 3x",
+                    "Parcelado 4x"
                     });
 
                     cmbFormaPagamento.Items.Clear();
                     cmbFormaPagamento.Items.AddRange(new string[]
                     {
-                "Dinheiro",
-                "PIX",
-                "Cartão de Débito",
-                "Boleto Bancário",
-                "Transferência Bancária"
+                    "Dinheiro",
+                    "PIX",
+                    "Cartão de Débito",
+                    "Boleto Bancário",
+                    "Transferência Bancária"
                     });
 
 
                     cmbRisco.Items.Clear();
                     cmbRisco.Items.AddRange(new string[]
                     {
-                "Baixa",
-                "Média",
-                "Alta"
+                    "Baixa",
+                    "Média",
+                    "Alta"
                     });
 
             if (cmbEstado.Items.Count > 0) cmbEstado.SelectedIndex = 0;
@@ -182,6 +349,13 @@ namespace Reverse.Forms.FormsFinanceiro
 
         private async void dgvClientes_SelectionChanged(object sender, EventArgs e)
         {
+            if (dgvClientes.Rows.Count == 0)
+            {
+                clienteAtualId = null;
+                LimparCampos();
+                return;
+            }
+
             if (dgvClientes.CurrentRow == null || dgvClientes.CurrentRow.IsNewRow)
             {
                 clienteAtualId = null;
@@ -208,31 +382,21 @@ namespace Reverse.Forms.FormsFinanceiro
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 await conn.OpenAsync();
-
-                // Query única com múltiplos resultsets
                 var cmd = new SqlCommand(@"
-            SELECT Nome, CPF_CNPJ, RG_IE, ResponsavelComercial, Telefone, Celular, Email, Site, 
-                   Rua, Numero, Bairro, Cidade, Estado, CEP, DataCadastro, Status, LimiteCredito, 
-                   CondicaoPagamento, FormaPagamentoPreferida, SaldoAberto, ValorAtrasado, QtdAtrasos, 
-                   UltimaCompraData, UltimaCompraValor, TicketMedio, Observacoes, ClassificacaoRisco, 
-                   RankingCliente, PercentualParticipacao
-            FROM Clientes WHERE ClienteId = @Id;
+                SELECT Nome, CPF_CNPJ, RG_IE, ResponsavelComercial, Telefone, Celular, Email, Site, 
+                       Rua, Numero, Bairro, Cidade, Estado, CEP, DataCadastro, Status, LimiteCredito, 
+                       CondicaoPagamento, FormaPagamentoPreferida, SaldoAberto, ValorAtrasado, QtdAtrasos, 
+                       UltimaCompraData, UltimaCompraValor, TicketMedio, Observacoes, ClassificacaoRisco, 
+                       RankingCliente, PercentualParticipacao
+                FROM Clientes WHERE ClienteId = @Id;
             
-            SELECT DataCompra, ProdutoServico, Valor, StatusPagamento
-            FROM Compras WHERE ClienteId = @Id ORDER BY DataCompra DESC;
-            
-            SELECT NumeroChamado, DataAbertura, Assunto, Status
-            FROM Atendimentos WHERE ClienteId = @Id ORDER BY DataAbertura DESC;
-            
-            SELECT TOP 10 ProdutoServico, COUNT(*) AS Quantidade, SUM(Valor) AS Total
-            FROM Compras WHERE ClienteId = @Id
-            GROUP BY ProdutoServico ORDER BY Quantidade DESC", conn);
+                SELECT NumeroChamado, DataAbertura, Assunto, Status
+                FROM Atendimentos WHERE ClienteId = @Id ORDER BY DataAbertura DESC;", conn);
 
                 cmd.Parameters.AddWithValue("@Id", clienteId);
 
                 using (var reader = await cmd.ExecuteReaderAsync())
                 {
-                    // CORREÇÃO: Verificar se há dados antes de ler
                     if (reader.HasRows && await reader.ReadAsync())
                     {
                         txtNome.Text = reader["Nome"]?.ToString();
@@ -289,30 +453,6 @@ namespace Reverse.Forms.FormsFinanceiro
                         lblRanking.Text = reader["RankingCliente"] != DBNull.Value ? reader["RankingCliente"].ToString() : "0";
                         prbPercentual.Value = reader["PercentualParticipacao"] != DBNull.Value ? Convert.ToInt32(reader["PercentualParticipacao"]) : 0;
                     }
-
-                    // CORREÇÃO: Só avança se não estiver fechado
-                    if (!reader.IsClosed && await reader.NextResultAsync())
-                    {
-                        var dtCompras = new DataTable();
-                        dtCompras.Load(reader);
-                        dgvCompras.DataSource = dtCompras;
-
-                        // Terceiro resultset - Atendimentos
-                        if (!reader.IsClosed && await reader.NextResultAsync())
-                        {
-                            var dtAtendimentos = new DataTable();
-                            dtAtendimentos.Load(reader);
-                            dgvAtendimentos.DataSource = dtAtendimentos;
-
-                            // Quarto resultset - Produtos
-                            if (!reader.IsClosed && await reader.NextResultAsync())
-                            {
-                                var dtProdutos = new DataTable();
-                                dtProdutos.Load(reader);
-                                dgvProdutosComprados.DataSource = dtProdutos;
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -363,7 +503,6 @@ namespace Reverse.Forms.FormsFinanceiro
             }
         }
 
-
         private string GetCpfCnpjNumerico()
         {
             var originalText = mtbCPF.Text;
@@ -380,8 +519,6 @@ namespace Reverse.Forms.FormsFinanceiro
                 mtbCPF.TextMaskFormat = originalMaskFormat;
             }
         }
-
-
         private bool ValidarCampos()
         {
             var erros = new List<string>();
@@ -394,6 +531,14 @@ namespace Reverse.Forms.FormsFinanceiro
                 erros.Add("CPF/CNPJ é obrigatório.");
             else if (!(cpfCnpj.Length == 11 || cpfCnpj.Length == 14))
                 erros.Add("CPF/CNPJ inválido. Informe 11 dígitos (CPF) ou 14 dígitos (CNPJ).");
+            else
+            {
+                string clienteExistente = ClienteExistePorCpfCnpj(cpfCnpj, clienteAtualId);
+                if (!string.IsNullOrEmpty(clienteExistente))
+                {
+                    erros.Add($"CPF/CNPJ já cadastrado para o cliente: {clienteExistente}");
+                }
+            }
 
             if (!string.IsNullOrWhiteSpace(txtEmail.Text) &&
                 !System.Text.RegularExpressions.Regex.IsMatch(txtEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
@@ -407,7 +552,30 @@ namespace Reverse.Forms.FormsFinanceiro
 
             return true;
         }
+        private string ClienteExistePorCpfCnpj(string cpfCnpj, int? clienteIdIgnorar = null)
+        {
+            if (string.IsNullOrWhiteSpace(cpfCnpj)) return null;
 
+            using (var conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string sql = "SELECT Nome FROM Clientes WHERE CPF_CNPJ = @cpf";
+
+                if (clienteIdIgnorar.HasValue)
+                    sql += " AND ClienteId != @clienteId";
+
+                var cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@cpf", cpfCnpj);
+
+                if (clienteIdIgnorar.HasValue)
+                    cmd.Parameters.AddWithValue("@clienteId", clienteIdIgnorar.Value);
+
+                var resultado = cmd.ExecuteScalar();
+
+                return resultado != null ? resultado.ToString() : null;
+            }
+        }
 
         private void SelecionarClienteNaGrid(int clienteId)
         {
@@ -650,12 +818,13 @@ namespace Reverse.Forms.FormsFinanceiro
                 else if (ctrl is Label lbl &&
                         (lbl.Name == "lblTicket" || lbl.Name == "lblRanking"))
                     lbl.Text = "0";
-                else if (ctrl is DataGridView dgv && dgv.Name != "dgvClientes")
+                else if (ctrl is DataGridView dgv &&
+                        dgv.Name != "dgvClientes" &&
+                        dgv.Name != "dgvCompras")
                     dgv.DataSource = null;
                 else if (ctrl is ProgressBar pb)
                     pb.Value = 0;
 
-                // Continua percorrendo controles filhos
                 if (ctrl.HasChildren)
                     LimparCampos(ctrl);
             }

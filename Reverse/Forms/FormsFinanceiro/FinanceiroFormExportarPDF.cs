@@ -30,9 +30,9 @@ namespace Reverse.Forms.FormsFinanceiro
         {
             try
             {
-                // Executa operações de banco em paralelo para melhor performance
                 var taskAnos = CarregarAnosAsync();
                 var taskCategorias = CarregarCategoriasAsync();
+                var taskVerificarCategoria = VerificarCategoriasAsync();
 
                 await Task.WhenAll(taskAnos, taskCategorias);
 
@@ -71,7 +71,7 @@ namespace Reverse.Forms.FormsFinanceiro
             SELECT DataVencimento FROM ContasReceber
         ) AS TodasDatas
         WHERE YEAR(DataVencimento) IS NOT NULL
-        ORDER BY Ano DESC"; // DESC para anos mais recentes primeiro
+        ORDER BY Ano DESC";
 
             using (var conn = new SqlConnection(connectionString))
             {
@@ -143,9 +143,33 @@ namespace Reverse.Forms.FormsFinanceiro
             }
         }
 
+        private async Task VerificarCategoriasAsync()
+        {
+            try
+            {
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    await conn.OpenAsync();
+                    var query = "SELECT Id, Nome FROM Categorias WHERE Nome LIKE '%prolabore%' OR Nome LIKE '%pró-labore%' OR Nome LIKE '%PROLABORE%'";
+
+                    using (var cmd = new SqlCommand(query, conn))
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            System.Diagnostics.Debug.WriteLine($"Categoria encontrada: ID={reader["Id"]}, Nome={reader["Nome"]}");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Erro ao verificar categorias: {ex.Message}");
+            }
+        }
+
         private async Task CarregarGraficoAsync(int ano)
         {
-            // Configuração inicial do gráfico (sem alterações)
             crtGrafico.Series.Clear();
             crtGrafico.Titles.Clear();
             crtGrafico.ChartAreas.Clear();
@@ -186,41 +210,42 @@ namespace Reverse.Forms.FormsFinanceiro
                 await conn.OpenAsync();
 
                 var query = @"
-           WITH DadosMensais AS (
-                    SELECT 
-                        MONTH(DataVencimento) AS Mes, 
-                        SUM(Valor) AS Total, 
-                        'Lucro' AS Tipo 
-                    FROM ContasReceber 
-                    WHERE YEAR(DataVencimento) = @ano 
-                    GROUP BY MONTH(DataVencimento)
+            WITH DadosMensais AS (
+                -- Lucros (ContasReceber)
+                SELECT 
+                    MONTH(DataVencimento) AS Mes, 
+                    SUM(Valor) as Total, 
+                    'Lucro' AS Tipo 
+                FROM ContasReceber 
+                WHERE YEAR(DataVencimento) = @ano 
+                GROUP BY MONTH(DataVencimento)
 
-                    UNION ALL
+                UNION ALL
 
-                    SELECT 
-                        MONTH(cp.DataVencimento) AS Mes, 
-                        SUM(cp.Valor) AS Total, 
-                        'Gasto' AS Tipo 
-                    FROM ContasPagar cp
-                    INNER JOIN Categorias c ON cp.CategoriaId = c.Id
-                    WHERE YEAR(cp.DataVencimento) = @ano 
-                      AND c.Nome <> 'PROLABORE'
-                    GROUP BY MONTH(cp.DataVencimento)
+                -- Gastos (excluindo Prolabore)
+                SELECT 
+                    MONTH(cp.DataVencimento) AS Mes, 
+                    SUM(cp.ValorPago) AS Total, 
+                    'Gasto' AS Tipo 
+                FROM ContasPagar cp
+                WHERE YEAR(cp.DataVencimento) = @ano 
+                  AND cp.CategoriaId <> 49
+                GROUP BY MONTH(cp.DataVencimento)
 
-                    UNION ALL
+                UNION ALL
 
-                    SELECT 
-                        MONTH(cp.DataVencimento) AS Mes, 
-                        SUM(cp.Valor) AS Total, 
-                        'Prolabore' AS Tipo 
-                    FROM ContasPagar cp
-                    INNER JOIN Categorias c ON cp.CategoriaId = c.Id
-                    WHERE YEAR(cp.DataVencimento) = @ano 
-                      AND c.Nome = 'PROLABORE'
-                    GROUP BY MONTH(cp.DataVencimento)
-                )
-                SELECT Mes, Tipo, Total FROM DadosMensais;
-                ";
+                -- Prolabore (apenas a categoria específica)
+                SELECT 
+                    MONTH(cp.DataVencimento) AS Mes, 
+                    SUM(cp.ValorPago) AS Total, 
+                    'Prolabore' AS Tipo 
+                FROM ContasPagar cp
+                WHERE YEAR(cp.DataVencimento) = @ano 
+                  AND cp.CategoriaId = 49
+                GROUP BY MONTH(cp.DataVencimento)
+            )
+            SELECT Mes, Tipo, Total FROM DadosMensais;";
+
                 using (var cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@ano", ano);
@@ -247,6 +272,12 @@ namespace Reverse.Forms.FormsFinanceiro
                         }
                     }
                 }
+            }
+
+            System.Diagnostics.Debug.WriteLine($"=== DADOS CARREGADOS PARA O ANO {ano} ===");
+            for (int i = 0; i < 12; i++)
+            {
+                System.Diagnostics.Debug.WriteLine($"Mês {i + 1}: Lucros={lucros[i]}, Gastos={gastos[i]}, Prolabore={prolabore[i]}");
             }
 
             string[] meses = { "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",

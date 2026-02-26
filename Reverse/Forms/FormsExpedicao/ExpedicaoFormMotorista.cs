@@ -54,7 +54,7 @@ namespace Reverse.Forms.FormsExpedicao
         private void CarregarComboFuncao()
         {
             cmbFuncao.Items.Clear();
-            cmbFuncao.Items.AddRange(new string[] { "Motorista", "Ajudante" });
+            cmbFuncao.Items.AddRange(new string[] { "Motorista", "Ajudante", "Transportadora" });
         }
 
         private async Task CarregarMotoristasAsync()
@@ -170,7 +170,6 @@ namespace Reverse.Forms.FormsExpedicao
 
             foreach (DataGridViewRow row in dgvMotorista.Rows)
             {
-                // Verificar CNH
                 if (row.Cells["VencimentoCNH"].Value != DBNull.Value)
                 {
                     DateTime vencCNH = Convert.ToDateTime(row.Cells["VencimentoCNH"].Value);
@@ -178,7 +177,6 @@ namespace Reverse.Forms.FormsExpedicao
                         row.Cells["VencimentoCNH"].Style.BackColor = Color.LightCoral;
                 }
 
-                // Verificar Toxicológico
                 if (row.Cells["VencimentoToxicologico"].Value != DBNull.Value)
                 {
                     DateTime vencToxico = Convert.ToDateTime(row.Cells["VencimentoToxicologico"].Value);
@@ -186,7 +184,6 @@ namespace Reverse.Forms.FormsExpedicao
                         row.Cells["VencimentoToxicologico"].Style.BackColor = Color.LightCoral;
                 }
 
-                // Verificar Curso
                 if (row.Cells["VencimentoCurso"].Value != DBNull.Value)
                 {
                     DateTime vencCurso = Convert.ToDateTime(row.Cells["VencimentoCurso"].Value);
@@ -217,7 +214,6 @@ namespace Reverse.Forms.FormsExpedicao
                     SqlCommand cmd;
                     if (motoristaAtualId.HasValue)
                     {
-                        // UPDATE
                         cmd = new SqlCommand(@"
                             UPDATE Motoristas SET
                                 NomeCompleto = @NomeCompleto,
@@ -239,7 +235,6 @@ namespace Reverse.Forms.FormsExpedicao
                     }
                     else
                     {
-                        // INSERT
                         cmd = new SqlCommand(@"
                             INSERT INTO Motoristas 
                             (NomeCompleto, NomeInterno, Funcao, RG, CPF, CNH, CategoriaCNH,
@@ -262,7 +257,6 @@ namespace Reverse.Forms.FormsExpedicao
                 LimparCampos();
                 motoristaAtualId = null;
 
-                // Notifica o form de controle para atualizar as combos
                 MotoristasAtualizados?.Invoke();
             }
             catch (SqlException ex) when (ex.Number == 2601 || ex.Number == 2627)
@@ -303,7 +297,21 @@ namespace Reverse.Forms.FormsExpedicao
                 return false;
             }
 
-            // Validar CPF se preenchido
+            if (cmbFuncao.Text == "Transportadora")
+                return true;
+
+            if (cmbFuncao.Text == "Ajudante")
+            {
+                if (!string.IsNullOrWhiteSpace(txtCPF.Text) && !ValidarCPF(txtCPF.Text))
+                {
+                    MessageBox.Show("CPF inválido!", "Validação",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCPF.Focus();
+                    return false;
+                }
+                return true;
+            }
+
             if (!string.IsNullOrWhiteSpace(txtCPF.Text) && !ValidarCPF(txtCPF.Text))
             {
                 MessageBox.Show("CPF inválido!", "Validação",
@@ -322,7 +330,6 @@ namespace Reverse.Forms.FormsExpedicao
             if (cpf.Length != 11)
                 return false;
 
-            // Verifica se todos os dígitos são iguais
             bool todosIguais = true;
             for (int i = 1; i < 11 && todosIguais; i++)
                 if (cpf[i] != cpf[0])
@@ -331,7 +338,6 @@ namespace Reverse.Forms.FormsExpedicao
             if (todosIguais)
                 return false;
 
-            // Calcula os dígitos verificadores
             int[] multiplicador1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 
@@ -363,24 +369,44 @@ namespace Reverse.Forms.FormsExpedicao
             cmd.Parameters.AddWithValue("@NomeCompleto", txtNome.Text.Trim());
             cmd.Parameters.AddWithValue("@NomeInterno", txtNomeInterno.Text.Trim().ToUpper());
             cmd.Parameters.AddWithValue("@Funcao", cmbFuncao.Text);
-            cmd.Parameters.AddWithValue("@RG",
-                string.IsNullOrWhiteSpace(txtRG.Text) ? DBNull.Value : (object)txtRG.Text.Trim());
-            cmd.Parameters.AddWithValue("@CPF",
-                string.IsNullOrWhiteSpace(txtCPF.Text) ? DBNull.Value : (object)txtCPF.Text.Trim());
-            cmd.Parameters.AddWithValue("@CNH",
-                string.IsNullOrWhiteSpace(txtCNH.Text) ? DBNull.Value : (object)txtCNH.Text.Trim());
-            cmd.Parameters.AddWithValue("@CategoriaCNH",
-                string.IsNullOrWhiteSpace(txtCategoria.Text) ? DBNull.Value : (object)txtCategoria.Text.Trim());
-            cmd.Parameters.AddWithValue("@VencimentoCNH",
-                dtpCNH.Checked ? (object)dtpCNH.Value.Date : DBNull.Value);
-            cmd.Parameters.AddWithValue("@VencimentoToxicologico",
-                dtpToxicologico.Checked ? (object)dtpToxicologico.Value.Date : DBNull.Value);
-            cmd.Parameters.AddWithValue("@VencimentoCurso",
-                dtpCurso.Checked ? (object)dtpCurso.Value.Date : DBNull.Value);
-            cmd.Parameters.AddWithValue("@ChavePIX",
-                string.IsNullOrWhiteSpace(txtPIX.Text) ? DBNull.Value : (object)txtPIX.Text.Trim());
-            cmd.Parameters.AddWithValue("@CartaoCredito",
-                string.IsNullOrWhiteSpace(txtCartao.Text) ? DBNull.Value : (object)txtCartao.Text.Trim());
+
+            if (cmbFuncao.Text == "Transportadora")
+            {
+                cmd.Parameters.AddWithValue("@RG", DBNull.Value);
+                cmd.Parameters.AddWithValue("@CPF", DBNull.Value);
+                cmd.Parameters.AddWithValue("@CNH", DBNull.Value);
+                cmd.Parameters.AddWithValue("@CategoriaCNH", DBNull.Value);
+                cmd.Parameters.AddWithValue("@VencimentoCNH", DBNull.Value);
+                cmd.Parameters.AddWithValue("@VencimentoToxicologico", DBNull.Value);
+                cmd.Parameters.AddWithValue("@VencimentoCurso", DBNull.Value);
+                cmd.Parameters.AddWithValue("@ChavePIX", DBNull.Value);
+                cmd.Parameters.AddWithValue("@CartaoCredito", DBNull.Value);
+                return;
+            }
+
+            if (cmbFuncao.Text == "Ajudante")
+            {
+                cmd.Parameters.AddWithValue("@RG", string.IsNullOrWhiteSpace(txtRG.Text) ? DBNull.Value : (object)txtRG.Text.Trim());
+                cmd.Parameters.AddWithValue("@CPF", string.IsNullOrWhiteSpace(txtCPF.Text) ? DBNull.Value : (object)txtCPF.Text.Trim());
+                cmd.Parameters.AddWithValue("@CNH", DBNull.Value);
+                cmd.Parameters.AddWithValue("@CategoriaCNH", DBNull.Value);
+                cmd.Parameters.AddWithValue("@VencimentoCNH", DBNull.Value);
+                cmd.Parameters.AddWithValue("@VencimentoToxicologico", DBNull.Value);
+                cmd.Parameters.AddWithValue("@VencimentoCurso", DBNull.Value);
+                cmd.Parameters.AddWithValue("@ChavePIX", DBNull.Value);
+                cmd.Parameters.AddWithValue("@CartaoCredito", DBNull.Value);
+                return;
+            }
+
+            cmd.Parameters.AddWithValue("@RG", string.IsNullOrWhiteSpace(txtRG.Text) ? DBNull.Value : (object)txtRG.Text.Trim());
+            cmd.Parameters.AddWithValue("@CPF", string.IsNullOrWhiteSpace(txtCPF.Text) ? DBNull.Value : (object)txtCPF.Text.Trim());
+            cmd.Parameters.AddWithValue("@CNH", string.IsNullOrWhiteSpace(txtCNH.Text) ? DBNull.Value : (object)txtCNH.Text.Trim());
+            cmd.Parameters.AddWithValue("@CategoriaCNH", string.IsNullOrWhiteSpace(txtCategoria.Text) ? DBNull.Value : (object)txtCategoria.Text.Trim());
+            cmd.Parameters.AddWithValue("@VencimentoCNH", dtpCNH.Checked ? (object)dtpCNH.Value.Date : DBNull.Value);
+            cmd.Parameters.AddWithValue("@VencimentoToxicologico", dtpToxicologico.Checked ? (object)dtpToxicologico.Value.Date : DBNull.Value);
+            cmd.Parameters.AddWithValue("@VencimentoCurso", dtpCurso.Checked ? (object)dtpCurso.Value.Date : DBNull.Value);
+            cmd.Parameters.AddWithValue("@ChavePIX", string.IsNullOrWhiteSpace(txtPIX.Text) ? DBNull.Value : (object)txtPIX.Text.Trim());
+            cmd.Parameters.AddWithValue("@CartaoCredito", string.IsNullOrWhiteSpace(txtCartao.Text) ? DBNull.Value : (object)txtCartao.Text.Trim());
         }
 
         private async void btnExcluir_Click(object sender, EventArgs e)
@@ -419,7 +445,6 @@ namespace Reverse.Forms.FormsExpedicao
                 {
                     await conn.OpenAsync();
 
-                    // Soft delete - marca como inativo
                     var cmd = new SqlCommand(
                         "UPDATE Motoristas SET Ativo = 0, DataAlteracao = GETDATE() WHERE MotoristaId = @Id",
                         conn);
@@ -434,7 +459,6 @@ namespace Reverse.Forms.FormsExpedicao
                 LimparCampos();
                 motoristaAtualId = null;
 
-                // Notifica o form de controle
                 MotoristasAtualizados?.Invoke();
             }
             catch (Exception ex)

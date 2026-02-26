@@ -1,10 +1,14 @@
-﻿using Reverse.Forms.FormsComercial;
+﻿using Reverse.Forms.FormsAtendimento;
+using Reverse.Forms.FormsComercial;
 using Reverse.Forms.FormsExpedicao;
+using Reverse.Forms.FormsFiscal;
 using Reverse.Forms.FormsLogin;
+using Reverse.Forms.FormsProducao;
 using Reverse.Forms.FormsRH;
 using Reverse.Forms.FormsTriagem;
 using Reverse.Models;
 using SeuProjeto;
+using Reverse.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -19,50 +23,86 @@ namespace Reverse.Forms
         private readonly string _usuario;
         private readonly string _setor;
         private readonly int _usuarioId;
+
+        private RastreadorAtividades _rastreador;
+        private static readonly object _cacheLock = new object();
         private static int? _cachedUsuarioId = null;
         private static string _cachedUsuarioNome = null;
         private static HashSet<string> _permissoesCache = null;
-        private static int? _usuarioIdCache = null;
+        private static int? _permissoesCacheUsuarioId = null;
 
         public MainForm()
         {
             InitializeComponent();
 
             Rectangle areaTrabalho = Screen.PrimaryScreen.WorkingArea;
-
             this.Location = areaTrabalho.Location;
             this.Size = areaTrabalho.Size;
         }
 
-        public MainForm(string usuario, string setor)
-            : this()
+        public MainForm(string usuario, string setor) : this()
         {
             _usuario = usuario;
             _setor = setor;
 
-            if (_cachedUsuarioNome == usuario && _cachedUsuarioId.HasValue)
+            lock (_cacheLock)
             {
-                _usuarioId = _cachedUsuarioId.Value;
-            }
-            else
-            {
-                using (var ctx = new ReverseContext())
+                if (_cachedUsuarioNome == usuario && _cachedUsuarioId.HasValue)
                 {
-                    var usuarioObj = ctx.Usuarios.FirstOrDefault(u => u.UsuarioNome == usuario);
-                    if (usuarioObj != null)
+                    _usuarioId = _cachedUsuarioId.Value;
+                }
+                else
+                {
+                    using (var ctx = new ReverseContext())
                     {
-                        _usuarioId = usuarioObj.Id;
-                        _cachedUsuarioId = _usuarioId;
-                        _cachedUsuarioNome = usuario;
+                        var usuarioObj = ctx.Usuarios
+                            .Where(u => u.UsuarioNome == usuario)
+                            .Select(u => new { u.Id })
+                            .FirstOrDefault();
+
+                        if (usuarioObj != null)
+                        {
+                            _usuarioId = usuarioObj.Id;
+                            _cachedUsuarioId = _usuarioId;
+                            _cachedUsuarioNome = usuario;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Usuário não encontrado no sistema.",
+                                "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Application.Exit();
+                            return;
+                        }
                     }
                 }
             }
-
-            string saudacao = DateTime.Now.Hour < 12 ? "Bom dia" :
-                              DateTime.Now.Hour < 18 ? "Boa tarde" : "Boa noite";
-
+            string saudacao = ObterSaudacao();
             lblGreeting.Text = $"{saudacao}, {_usuario}!";
             btnConfiguracao.Visible = _setor.Equals("ADM", StringComparison.OrdinalIgnoreCase);
+
+            InicializarRastreamento();
+        }
+
+        private void InicializarRastreamento()
+        {
+            try
+            {
+                _rastreador = new RastreadorAtividades(_usuarioId, _usuario);
+                _rastreador.IniciarSessao();
+                _rastreador.RegistrarAberturaFormulario(this);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Erro ao inicializar rastreamento: {ex.Message}");
+            }
+        }
+
+        private static string ObterSaudacao()
+        {
+            int hora = DateTime.Now.Hour;
+            if (hora < 12) return "Bom dia";
+            if (hora < 18) return "Boa tarde";
+            return "Boa noite";
         }
 
         [DllImport("user32.dll")]
@@ -85,19 +125,39 @@ namespace Reverse.Forms
 
         private bool TemPermissao(string formName)
         {
-            if (_usuarioIdCache != _usuarioId || _permissoesCache == null)
+            lock (_cacheLock)
             {
-                using (var ctx = new ReverseContext())
+                if (_permissoesCacheUsuarioId != _usuarioId || _permissoesCache == null)
                 {
-                    _permissoesCache = ctx.Permissoes
-                        .Where(p => p.UsuarioId == _usuarioId && p.PodeAcessar)
-                        .Select(p => p.FormName)
-                        .ToHashSet();
-                    _usuarioIdCache = _usuarioId;
+                    using (var ctx = new ReverseContext())
+                    {
+                        _permissoesCache = ctx.Permissoes
+                            .Where(p => p.UsuarioId == _usuarioId && p.PodeAcessar)
+                            .Select(p => p.FormName)
+                            .ToHashSet();
+                        _permissoesCacheUsuarioId = _usuarioId;
+                    }
                 }
+
+                return _permissoesCache.Contains(formName);
+            }
+        }
+
+        private void AbrirFormComPermissao(string formName, Func<Form> criarForm)
+        {
+            if (!TemPermissao(formName))
+            {
+                MessageBox.Show($"Você não tem permissão para acessar {formName.Replace("Form", "").Replace("Hub", "")}.",
+                    "Acesso negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-            return _permissoesCache.Contains(formName);
+            using var form = criarForm();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            _rastreador?.RegistrarAberturaFormulario(form);
+            Hide();
+            form.ShowDialog();
+            Show();
         }
 
         private void btnConfiguracao_Click(object sender, EventArgs e)
@@ -107,97 +167,39 @@ namespace Reverse.Forms
             config.ShowDialog();
         }
 
-        private void picTriagem_Click(object sender, EventArgs e)
+        private void picTriagem_Click(object sender, EventArgs e) =>
+            AbrirFormComPermissao("TriagemFormHub", () => new TriagemFormHub(_usuarioId));
+
+        private void picExp_Click(object sender, EventArgs e) =>
+            AbrirFormComPermissao("ExpedicaoFormExpHub", () => new ExpedicaoFormExpHub(_usuarioId));
+
+        private void picRH_Click(object sender, EventArgs e) =>
+            AbrirFormComPermissao("RHFormRHHub", () => new RHFormRHHub(_usuarioId));
+
+        private void picFinanceiro_Click(object sender, EventArgs e) =>
+            AbrirFormComPermissao("FinanceiroFormFinanceiroHub", () => new FinanceiroFormFinanceiroHub(_usuarioId));
+
+        private void picComercial_Click(object sender, EventArgs e) =>
+            AbrirFormComPermissao("ComercialFormComercialHub", () => new ComercialFormComercialHub(_usuarioId));
+
+        private void picFiscal_Click(object sender, EventArgs e) =>
+            AbrirFormComPermissao("FiscalFormHub", () => new FiscalFormHub(_usuarioId));
+
+        private void picProducao_Click(object sender, EventArgs e) =>
+            AbrirFormComPermissao("ProducaoFormHub", () => new ProducaoFormHub(_usuarioId));
+        private void picAtendimento_Click(object sender, EventArgs e) =>
+            AbrirFormComPermissao("AtendimentoFormHub", () => new AtendimentoFormHub(_usuarioId));
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            if (!TemPermissao("TriagemFormHub"))
-            {
-                MessageBox.Show("Você não tem permissão para acessar Triagem.",
-                                "Acesso negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            using var tri = new TriagemFormHub(_usuarioId)
-            {
-                StartPosition = FormStartPosition.CenterScreen
-            };
-            Hide();
-            tri.ShowDialog();
-            Show();
-        }
-        private void picExp_Click(object sender, EventArgs e)
-        {
-            if (!TemPermissao("ExpedicaoFormExpHub"))
-            {
-                MessageBox.Show("Você não tem permissão para acessar este módulo.",
-                                "Acesso negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            using var expHub = new ExpedicaoFormExpHub(_usuarioId)
-            {
-                StartPosition = FormStartPosition.CenterScreen
-            };
-            Hide();
-            expHub.ShowDialog();
-            Show();
-        }
-
-        private void picRH_Click(object sender, EventArgs e)
-        {
-            if (!TemPermissao("RHFormRHHub"))
-            {
-                MessageBox.Show("Você não tem permissão para acessar RH.",
-                                "Acesso negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            using var rhHub = new RHFormRHHub(_usuarioId)
-            {
-                StartPosition = FormStartPosition.CenterScreen
-            };
-            Hide();
-            rhHub.ShowDialog();
-            Show();
-        }
-        private void picFinanceiro_Click(object sender, EventArgs e)
-        {
-            if (!TemPermissao("FinanceiroFormFinanceiroHub"))
-            {
-                MessageBox.Show("Você não tem permissão para acessar Financeiro.",
-                                "Acesso negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            using var finHub = new FinanceiroFormFinanceiroHub(_usuarioId)
-            {
-                StartPosition = FormStartPosition.CenterScreen
-            };
-            Hide();
-            finHub.ShowDialog();
-            Show();
+            _rastreador?.EncerrarSessao();
+            base.OnFormClosing(e);
         }
 
         private void btnSair_Click(object sender, EventArgs e)
         {
+            _rastreador?.EncerrarSessao();
             this.Close();
-        }
-
-        private void picComercial_Click(object sender, EventArgs e)
-        {
-            if (!TemPermissao("ComercialFormComercialHub"))
-            {
-                MessageBox.Show("Você não tem permissão para acessar Comercial.",
-                                "Acesso negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            using var fincom = new ComercialFormComercialHub(_usuarioId)
-            {
-                StartPosition = FormStartPosition.CenterScreen
-            };
-            Hide();
-            fincom.ShowDialog();
-            Show();
         }
     }
 }

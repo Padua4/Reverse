@@ -40,8 +40,8 @@ namespace Reverse
 
         [System.Runtime.InteropServices.DllImport("gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn(
-    int nLeftRect, int nTopRect, int nRightRect, int nBottomRect,
-    int nWidthEllipse, int nHeightEllipse
+        int nLeftRect, int nTopRect, int nRightRect, int nBottomRect,
+        int nWidthEllipse, int nHeightEllipse
 );
         protected override void OnResize(EventArgs e)
         {
@@ -51,13 +51,24 @@ namespace Reverse
             );
         }
 
+        private async Task<bool> UsuarioExisteAsync(string usuario)
+        {
+            const string sql = "SELECT COUNT(*) FROM Usuarios WITH (NOLOCK) WHERE UsuarioNome = @user";
+
+            using var conn = new SqlConnection(ConnectionString);
+            using var cmd = new SqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue("@user", usuario);
+
+            await conn.OpenAsync();
+            int count = (int)await cmd.ExecuteScalarAsync();
+            return count > 0;
+        }
+
         private async void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (!ValidateInputs(out string user,
-                                out string pass,
-                                out string confirm,
-                                out string key,
-                                out string setor))
+            if (!ValidateInputs(out string user, out string pass, out string confirm,
+                               out string key, out string setor))
                 return;
 
             if (key != MasterKey)
@@ -72,10 +83,22 @@ namespace Reverse
                 return;
             }
 
+            if (pass.Length < 6)
+            {
+                ShowError("A senha deve ter no mínimo 6 caracteres.", txtNewSenha);
+                return;
+            }
+
             SetUiBusy(true);
 
             try
             {
+                if (await UsuarioExisteAsync(user))
+                {
+                    ShowError("Este usuário já existe no sistema.", txtNewUsuario);
+                    return;
+                }
+
                 string hashPass = ComputeSha256Hash(pass);
                 await RegisterUserAsync(user, hashPass, setor);
 
@@ -87,6 +110,10 @@ namespace Reverse
                 );
 
                 this.Close();
+            }
+            catch (SqlException sqlEx) when (sqlEx.Number == 2627 || sqlEx.Number == 2601)
+            {
+                ShowError("Este usuário já existe no sistema.", txtNewUsuario);
             }
             catch (Exception ex)
             {

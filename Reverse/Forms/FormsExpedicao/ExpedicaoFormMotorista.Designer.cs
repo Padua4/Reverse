@@ -126,9 +126,9 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(145, 37);
+            this.label1.Size = new System.Drawing.Size(256, 37);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Motorista";
+            this.label1.Text = "Cadastro Logistico";
             // 
             // tableLayoutPanel1
             // 
@@ -286,7 +286,7 @@
             this.txtCartao.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.txtCartao.Location = new System.Drawing.Point(3, 16);
             this.txtCartao.Name = "txtCartao";
-            this.txtCartao.Size = new System.Drawing.Size(416, 33);
+            this.txtCartao.Size = new System.Drawing.Size(547, 33);
             this.txtCartao.TabIndex = 3;
             // 
             // panel13
@@ -304,7 +304,7 @@
             this.txtPIX.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.txtPIX.Location = new System.Drawing.Point(3, 10);
             this.txtPIX.Name = "txtPIX";
-            this.txtPIX.Size = new System.Drawing.Size(416, 33);
+            this.txtPIX.Size = new System.Drawing.Size(547, 33);
             this.txtPIX.TabIndex = 3;
             // 
             // panel12
@@ -323,7 +323,7 @@
             this.dtpCurso.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpCurso.Location = new System.Drawing.Point(3, 10);
             this.dtpCurso.Name = "dtpCurso";
-            this.dtpCurso.Size = new System.Drawing.Size(416, 33);
+            this.dtpCurso.Size = new System.Drawing.Size(547, 33);
             this.dtpCurso.TabIndex = 1;
             // 
             // panel11
@@ -342,7 +342,7 @@
             this.dtpToxicologico.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpToxicologico.Location = new System.Drawing.Point(3, 10);
             this.dtpToxicologico.Name = "dtpToxicologico";
-            this.dtpToxicologico.Size = new System.Drawing.Size(416, 33);
+            this.dtpToxicologico.Size = new System.Drawing.Size(547, 33);
             this.dtpToxicologico.TabIndex = 1;
             // 
             // panel10
@@ -361,7 +361,7 @@
             this.dtpCNH.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpCNH.Location = new System.Drawing.Point(3, 8);
             this.dtpCNH.Name = "dtpCNH";
-            this.dtpCNH.Size = new System.Drawing.Size(416, 33);
+            this.dtpCNH.Size = new System.Drawing.Size(547, 33);
             this.dtpCNH.TabIndex = 0;
             // 
             // panel9
@@ -379,7 +379,7 @@
             this.txtCategoria.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.txtCategoria.Location = new System.Drawing.Point(3, 10);
             this.txtCategoria.Name = "txtCategoria";
-            this.txtCategoria.Size = new System.Drawing.Size(416, 33);
+            this.txtCategoria.Size = new System.Drawing.Size(547, 33);
             this.txtCategoria.TabIndex = 2;
             // 
             // panel8
@@ -397,7 +397,7 @@
             this.txtCNH.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.txtCNH.Location = new System.Drawing.Point(3, 10);
             this.txtCNH.Name = "txtCNH";
-            this.txtCNH.Size = new System.Drawing.Size(416, 33);
+            this.txtCNH.Size = new System.Drawing.Size(547, 33);
             this.txtCNH.TabIndex = 1;
             // 
             // panel7
@@ -415,7 +415,7 @@
             this.txtCPF.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.txtCPF.Location = new System.Drawing.Point(3, 10);
             this.txtCPF.Name = "txtCPF";
-            this.txtCPF.Size = new System.Drawing.Size(416, 33);
+            this.txtCPF.Size = new System.Drawing.Size(547, 33);
             this.txtCPF.TabIndex = 1;
             // 
             // panel6
@@ -433,7 +433,7 @@
             this.txtRG.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.txtRG.Location = new System.Drawing.Point(3, 10);
             this.txtRG.Name = "txtRG";
-            this.txtRG.Size = new System.Drawing.Size(416, 33);
+            this.txtRG.Size = new System.Drawing.Size(547, 33);
             this.txtRG.TabIndex = 1;
             // 
             // panel5
@@ -452,7 +452,7 @@
             this.cmbFuncao.FormattingEnabled = true;
             this.cmbFuncao.Location = new System.Drawing.Point(3, 11);
             this.cmbFuncao.Name = "cmbFuncao";
-            this.cmbFuncao.Size = new System.Drawing.Size(416, 33);
+            this.cmbFuncao.Size = new System.Drawing.Size(547, 33);
             this.cmbFuncao.TabIndex = 0;
             // 
             // panel4
@@ -470,7 +470,7 @@
             this.txtNomeInterno.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.txtNomeInterno.Location = new System.Drawing.Point(3, 10);
             this.txtNomeInterno.Name = "txtNomeInterno";
-            this.txtNomeInterno.Size = new System.Drawing.Size(416, 33);
+            this.txtNomeInterno.Size = new System.Drawing.Size(547, 33);
             this.txtNomeInterno.TabIndex = 1;
             // 
             // label24

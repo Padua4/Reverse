@@ -181,60 +181,58 @@ namespace SeuProjeto
         private async Task LoadAllChartsDataAsync(SqlConnection conn)
         {
             const string query = @"
-                -- Dados diários do mês atual (CORRIGIDO: usando DataVencimento igual ao FormExportarPDF)
-                WITH DadosDiarios AS (
-                    SELECT 
-                        'Receita' as Tipo,
-                        DAY(DataVencimento) as Dia,
-                        SUM(Valor) as Total
-                    FROM ContasReceber
-                    WHERE YEAR(DataVencimento) = YEAR(GETDATE())
-                        AND MONTH(DataVencimento) = MONTH(GETDATE())
-                        AND DataVencimento IS NOT NULL
-                    GROUP BY DAY(DataVencimento)
-                    
-                    UNION ALL
-                    
-                    SELECT 
-                        'Gasto' as Tipo,
-                        DAY(DataVencimento) as Dia,
-                        SUM(Valor) as Total
-                    FROM ContasPagar
-                    WHERE YEAR(DataVencimento) = YEAR(GETDATE())
-                        AND MONTH(DataVencimento) = MONTH(GETDATE())
-                        AND DataVencimento IS NOT NULL
-                    GROUP BY DAY(DataVencimento)
-                ),
-                -- Dados mensais dos últimos 2 anos (CORRIGIDO: usando DataVencimento)
-                DadosMensais AS (
-                    SELECT 
-                        'Receita' as Tipo,
-                        YEAR(DataVencimento) as Ano,
-                        MONTH(DataVencimento) as Mes,
-                        SUM(Valor) as Total
-                    FROM ContasReceber
-                    WHERE DataVencimento IS NOT NULL
-                        AND YEAR(DataVencimento) IN (YEAR(GETDATE()), YEAR(GETDATE()) - 1)
-                    GROUP BY YEAR(DataVencimento), MONTH(DataVencimento)
-                    
-                    UNION ALL
-                    
-                    SELECT 
-                        'Gasto' as Tipo,
-                        YEAR(DataVencimento) as Ano,
-                        MONTH(DataVencimento) as Mes,
-                        SUM(Valor) as Total
-                    FROM ContasPagar
-                    WHERE DataVencimento IS NOT NULL
-                        AND YEAR(DataVencimento) IN (YEAR(GETDATE()), YEAR(GETDATE()) - 1)
-                    GROUP BY YEAR(DataVencimento), MONTH(DataVencimento)
-                )
-                SELECT 'DIARIO' as Dataset, Tipo, Dia as Periodo, 0 as Ano, 0 as Mes, Total
-                FROM DadosDiarios
-                UNION ALL
-                SELECT 'MENSAL' as Dataset, Tipo, 0 as Periodo, Ano, Mes, Total
-                FROM DadosMensais
-                ORDER BY Dataset, Ano, Mes, Periodo";
+        WITH DadosDiarios AS (
+            SELECT 
+                'Receita' as Tipo,
+                DAY(DataVencimento) as Dia,
+                SUM(Valor) as Total  -- Alterado: ContasReceber usa 'Valor'
+            FROM ContasReceber
+            WHERE YEAR(DataVencimento) = YEAR(GETDATE())
+                AND MONTH(DataVencimento) = MONTH(GETDATE())
+                AND DataVencimento IS NOT NULL
+            GROUP BY DAY(DataVencimento)
+    
+            UNION ALL
+    
+            SELECT 
+                'Gasto' as Tipo,
+                DAY(DataVencimento) as Dia,
+                SUM(ValorPago) as Total  -- Mantido: ContasPagar usa 'ValorPago'
+            FROM ContasPagar
+            WHERE YEAR(DataVencimento) = YEAR(GETDATE())
+                AND MONTH(DataVencimento) = MONTH(GETDATE())
+                AND DataVencimento IS NOT NULL
+            GROUP BY DAY(DataVencimento)
+        ),
+        DadosMensais AS (
+            SELECT 
+                'Receita' as Tipo,
+                YEAR(DataVencimento) as Ano,
+                MONTH(DataVencimento) as Mes,
+                SUM(Valor) as Total  -- Alterado: ContasReceber usa 'Valor'
+            FROM ContasReceber
+            WHERE DataVencimento IS NOT NULL
+                AND YEAR(DataVencimento) IN (YEAR(GETDATE()), YEAR(GETDATE()) - 1)
+            GROUP BY YEAR(DataVencimento), MONTH(DataVencimento)
+    
+            UNION ALL
+    
+            SELECT 
+                'Gasto' as Tipo,
+                YEAR(DataVencimento) as Ano,
+                MONTH(DataVencimento) as Mes,
+                SUM(ValorPago) as Total  -- Mantido: ContasPagar usa 'ValorPago'
+            FROM ContasPagar
+            WHERE DataVencimento IS NOT NULL
+                AND YEAR(DataVencimento) IN (YEAR(GETDATE()), YEAR(GETDATE()) - 1)
+            GROUP BY YEAR(DataVencimento), MONTH(DataVencimento)
+            )
+            SELECT 'DIARIO' as Dataset, Tipo, Dia as Periodo, 0 as Ano, 0 as Mes, Total
+            FROM DadosDiarios
+            UNION ALL
+            SELECT 'MENSAL' as Dataset, Tipo, 0 as Periodo, Ano, Mes, Total
+            FROM DadosMensais
+            ORDER BY Dataset, Ano, Mes, Periodo";
 
             using (var cmd = new SqlCommand(query, conn))
             {

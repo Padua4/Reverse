@@ -10,7 +10,7 @@ namespace Reverse.Forms.FormsRH
     {
         private readonly int _usuarioId;
         private Form _formFilhoAtual;
-        private readonly Size _tamanhoMinimo = new Size(800, 600);
+
         public RHFormRHHub(int usuarioId)
         {
             InitializeComponent();
@@ -23,88 +23,59 @@ namespace Reverse.Forms.FormsRH
             panelConteudo.AutoScroll = true;
             panelConteudo.AutoScrollMargin = new Size(0, 0);
             panelConteudo.Padding = new Padding(0);
+            panelConteudo.Margin = new Padding(0);
+            panelConteudo.Dock = DockStyle.Fill;
 
-            this.MinimumSize = _tamanhoMinimo;
+            this.Resize += (s, e) => AjustarFormFilho();
 
             ConfigurarEventos();
         }
 
         private void ConfigurarEventos()
         {
+            picFormFuncionarios.MouseEnter += Pic_MouseEnter;
+            picFormFuncionarios.MouseLeave += Pic_MouseLeave;
             picFormFuncionarios.Click += (s, e) =>
             {
-                if (Reverse.Forms.FormsLogin.FormConfigU.PermissaoHelper.TemPermissao(_usuarioId, nameof(FormFuncionarios)))
+                if (Reverse.Forms.FormsLogin.FormConfigU.PermissaoHelper.TemPermissao(_usuarioId, nameof(RHFormFuncionarios)))
                 {
-                    AbrirFormNoPainel(new FormFuncionarios(_usuarioId));
+                    AbrirFormNoPainel(new RHFormFuncionarios(_usuarioId));
                 }
                 else
                 {
-                    MessageBox.Show("Você não tem permissão para acessar Funcionarios.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Você não tem permissão para acessar o módulo de Funcionários.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             };
 
-            picFormFuncionariosInativos.Click += (s, e) =>
+            picFormInatividade.MouseEnter += Pic_MouseEnter;
+            picFormInatividade.MouseLeave += Pic_MouseLeave;
+            picFormInatividade.Click += (s, e) =>
             {
-                if (Reverse.Forms.FormsLogin.FormConfigU.PermissaoHelper.TemPermissao(_usuarioId, nameof(FormFuncionariosInativos)))
+                if (Reverse.Forms.FormsLogin.FormConfigU.PermissaoHelper.TemPermissao(_usuarioId, nameof(RHFormInatividade)))
                 {
-                    AbrirFormNoPainel(new FormFuncionariosInativos(_usuarioId));
+                    AbrirFormNoPainel(new RHFormInatividade(_usuarioId));
                 }
                 else
                 {
-                    MessageBox.Show("Você não tem permissão para acessar Funcionarios Inativos.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Você não tem permissão para acessar o módulo de Inatividade.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             };
 
+            picFormCestaBasica.MouseEnter += Pic_MouseEnter;
+            picFormCestaBasica.MouseLeave += Pic_MouseLeave;
             picFormCestaBasica.Click += (s, e) =>
             {
-                if (Reverse.Forms.FormsLogin.FormConfigU.PermissaoHelper.TemPermissao(_usuarioId, nameof(FormCestaBasica)))
+                if (Reverse.Forms.FormsLogin.FormConfigU.PermissaoHelper.TemPermissao(_usuarioId, nameof(RHFormCesta)))
                 {
-                    AbrirFormNoPainel(new FormCestaBasica(_usuarioId));
+                    AbrirFormNoPainel(new RHFormCesta(_usuarioId));
                 }
                 else
                 {
-                    MessageBox.Show("Você não tem permissão para acessar Cesta Básica.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Você não tem permissão para acessar o módulo de Cesta Básica.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             };
-
-            picFormCurriculosNovos.Click += (s, e) =>
-            {
-                if (Reverse.Forms.FormsLogin.FormConfigU.PermissaoHelper.TemPermissao(_usuarioId, nameof(FormCurriculosNovos)))
-                {
-                    AbrirFormNoPainel(new FormCurriculosNovos(_usuarioId));
-                }
-                else
-                {
-                    MessageBox.Show("Você não tem permissão para acessar Currículos Novos.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            };
-
-            picFormParticipantesAptos.Click += (s, e) =>
-            {
-                if (Reverse.Forms.FormsLogin.FormConfigU.PermissaoHelper.TemPermissao(_usuarioId, nameof(FormParticipantesAptos)))
-                {
-                    AbrirFormNoPainel(new FormParticipantesAptos(_usuarioId));
-                }
-                else
-                {
-                    MessageBox.Show("Você não tem permissão para acessar Participantes Aptos.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            };
-
-            ConfigurarHoverPictureBox(picFormFuncionarios);
-            ConfigurarHoverPictureBox(picFormFuncionariosInativos);
-            ConfigurarHoverPictureBox(picFormCestaBasica);
-            ConfigurarHoverPictureBox(picFormCurriculosNovos);
-            ConfigurarHoverPictureBox(picFormParticipantesAptos);
 
             btnSair.Click += (s, e) => Close();
-        }
-
-        private void ConfigurarHoverPictureBox(PictureBox pictureBox)
-        {
-            pictureBox.MouseEnter += Pic_MouseEnter;
-            pictureBox.MouseLeave += Pic_MouseLeave;
-            pictureBox.Cursor = Cursors.Hand;
         }
 
         private void Pic_MouseEnter(object sender, EventArgs e)
@@ -112,6 +83,7 @@ namespace Reverse.Forms.FormsRH
             if (sender is PictureBox pic)
             {
                 pic.BackColor = Color.LightBlue;
+                pic.Cursor = Cursors.Hand;
             }
         }
 
@@ -127,30 +99,43 @@ namespace Reverse.Forms.FormsRH
         {
             if (_formFilhoAtual != null)
             {
+                panelConteudo.Controls.Clear();
                 _formFilhoAtual.Close();
                 _formFilhoAtual.Dispose();
             }
 
             _formFilhoAtual = formFilho;
 
-            panelConteudo.Controls.Clear();
-
             formFilho.TopLevel = false;
             formFilho.FormBorderStyle = FormBorderStyle.None;
             formFilho.Dock = DockStyle.None;
-            formFilho.Location = Point.Empty;
 
             panelConteudo.Controls.Add(formFilho);
-
-            panelConteudo.AutoScrollMinSize = formFilho.Size;
-
             formFilho.Show();
+            AjustarFormFilho();
+        }
+
+        private void AjustarFormFilho()
+        {
+            if (_formFilhoAtual == null) return;
+
+            _formFilhoAtual.Margin = new Padding(0);
+            _formFilhoAtual.Padding = new Padding(0);
+
+            _formFilhoAtual.Location = new Point(0, 0);
+
+            _formFilhoAtual.Size = new Size(
+                panelConteudo.ClientSize.Width,
+                panelConteudo.ClientSize.Height
+            );
+
+            panelConteudo.PerformLayout();
+            _formFilhoAtual.PerformLayout();
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
             MaximizarSemCobrirBarraTarefas();
         }
 

@@ -30,37 +30,55 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RHFormRHHub));
             this.pnlHeader = new System.Windows.Forms.Panel();
-            this.btnMinimizar = new System.Windows.Forms.Button();
-            this.picFormParticipantesAptos = new System.Windows.Forms.PictureBox();
-            this.picFormCurriculosNovos = new System.Windows.Forms.PictureBox();
-            this.picFormCestaBasica = new System.Windows.Forms.PictureBox();
-            this.picFormFuncionariosInativos = new System.Windows.Forms.PictureBox();
+            this.picFormInatividade = new System.Windows.Forms.PictureBox();
             this.picFormFuncionarios = new System.Windows.Forms.PictureBox();
+            this.btnMinimizar = new System.Windows.Forms.Button();
             this.btnSair = new System.Windows.Forms.Button();
             this.panelConteudo = new System.Windows.Forms.Panel();
+            this.picFormCestaBasica = new System.Windows.Forms.PictureBox();
             this.pnlHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picFormParticipantesAptos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picFormCurriculosNovos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picFormCestaBasica)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picFormFuncionariosInativos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picFormInatividade)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFormFuncionarios)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picFormCestaBasica)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(160)))));
-            this.pnlHeader.Controls.Add(this.btnMinimizar);
-            this.pnlHeader.Controls.Add(this.picFormParticipantesAptos);
-            this.pnlHeader.Controls.Add(this.picFormCurriculosNovos);
             this.pnlHeader.Controls.Add(this.picFormCestaBasica);
-            this.pnlHeader.Controls.Add(this.picFormFuncionariosInativos);
+            this.pnlHeader.Controls.Add(this.picFormInatividade);
             this.pnlHeader.Controls.Add(this.picFormFuncionarios);
+            this.pnlHeader.Controls.Add(this.btnMinimizar);
             this.pnlHeader.Controls.Add(this.btnSair);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(1920, 34);
             this.pnlHeader.TabIndex = 0;
+            // 
+            // picFormInatividade
+            // 
+            this.picFormInatividade.BackColor = System.Drawing.Color.White;
+            this.picFormInatividade.Dock = System.Windows.Forms.DockStyle.Left;
+            this.picFormInatividade.Image = ((System.Drawing.Image)(resources.GetObject("picFormInatividade.Image")));
+            this.picFormInatividade.Location = new System.Drawing.Point(59, 0);
+            this.picFormInatividade.Name = "picFormInatividade";
+            this.picFormInatividade.Size = new System.Drawing.Size(59, 34);
+            this.picFormInatividade.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picFormInatividade.TabIndex = 9;
+            this.picFormInatividade.TabStop = false;
+            // 
+            // picFormFuncionarios
+            // 
+            this.picFormFuncionarios.BackColor = System.Drawing.Color.White;
+            this.picFormFuncionarios.Dock = System.Windows.Forms.DockStyle.Left;
+            this.picFormFuncionarios.Image = ((System.Drawing.Image)(resources.GetObject("picFormFuncionarios.Image")));
+            this.picFormFuncionarios.Location = new System.Drawing.Point(0, 0);
+            this.picFormFuncionarios.Name = "picFormFuncionarios";
+            this.picFormFuncionarios.Size = new System.Drawing.Size(59, 34);
+            this.picFormFuncionarios.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picFormFuncionarios.TabIndex = 8;
+            this.picFormFuncionarios.TabStop = false;
             // 
             // btnMinimizar
             // 
@@ -76,66 +94,6 @@
             this.btnMinimizar.Text = "-";
             this.btnMinimizar.UseVisualStyleBackColor = false;
             this.btnMinimizar.Click += new System.EventHandler(this.btnMinimizar_Click);
-            // 
-            // picFormParticipantesAptos
-            // 
-            this.picFormParticipantesAptos.BackColor = System.Drawing.Color.White;
-            this.picFormParticipantesAptos.Dock = System.Windows.Forms.DockStyle.Left;
-            this.picFormParticipantesAptos.Image = ((System.Drawing.Image)(resources.GetObject("picFormParticipantesAptos.Image")));
-            this.picFormParticipantesAptos.Location = new System.Drawing.Point(224, 0);
-            this.picFormParticipantesAptos.Name = "picFormParticipantesAptos";
-            this.picFormParticipantesAptos.Size = new System.Drawing.Size(56, 34);
-            this.picFormParticipantesAptos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picFormParticipantesAptos.TabIndex = 6;
-            this.picFormParticipantesAptos.TabStop = false;
-            // 
-            // picFormCurriculosNovos
-            // 
-            this.picFormCurriculosNovos.BackColor = System.Drawing.Color.White;
-            this.picFormCurriculosNovos.Dock = System.Windows.Forms.DockStyle.Left;
-            this.picFormCurriculosNovos.Image = ((System.Drawing.Image)(resources.GetObject("picFormCurriculosNovos.Image")));
-            this.picFormCurriculosNovos.Location = new System.Drawing.Point(168, 0);
-            this.picFormCurriculosNovos.Name = "picFormCurriculosNovos";
-            this.picFormCurriculosNovos.Size = new System.Drawing.Size(56, 34);
-            this.picFormCurriculosNovos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picFormCurriculosNovos.TabIndex = 5;
-            this.picFormCurriculosNovos.TabStop = false;
-            // 
-            // picFormCestaBasica
-            // 
-            this.picFormCestaBasica.BackColor = System.Drawing.Color.White;
-            this.picFormCestaBasica.Dock = System.Windows.Forms.DockStyle.Left;
-            this.picFormCestaBasica.Image = ((System.Drawing.Image)(resources.GetObject("picFormCestaBasica.Image")));
-            this.picFormCestaBasica.Location = new System.Drawing.Point(112, 0);
-            this.picFormCestaBasica.Name = "picFormCestaBasica";
-            this.picFormCestaBasica.Size = new System.Drawing.Size(56, 34);
-            this.picFormCestaBasica.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picFormCestaBasica.TabIndex = 4;
-            this.picFormCestaBasica.TabStop = false;
-            // 
-            // picFormFuncionariosInativos
-            // 
-            this.picFormFuncionariosInativos.BackColor = System.Drawing.Color.White;
-            this.picFormFuncionariosInativos.Dock = System.Windows.Forms.DockStyle.Left;
-            this.picFormFuncionariosInativos.Image = ((System.Drawing.Image)(resources.GetObject("picFormFuncionariosInativos.Image")));
-            this.picFormFuncionariosInativos.Location = new System.Drawing.Point(56, 0);
-            this.picFormFuncionariosInativos.Name = "picFormFuncionariosInativos";
-            this.picFormFuncionariosInativos.Size = new System.Drawing.Size(56, 34);
-            this.picFormFuncionariosInativos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picFormFuncionariosInativos.TabIndex = 3;
-            this.picFormFuncionariosInativos.TabStop = false;
-            // 
-            // picFormFuncionarios
-            // 
-            this.picFormFuncionarios.BackColor = System.Drawing.Color.White;
-            this.picFormFuncionarios.Dock = System.Windows.Forms.DockStyle.Left;
-            this.picFormFuncionarios.Image = global::Reverse.Properties.Resources.groupIcon;
-            this.picFormFuncionarios.Location = new System.Drawing.Point(0, 0);
-            this.picFormFuncionarios.Name = "picFormFuncionarios";
-            this.picFormFuncionarios.Size = new System.Drawing.Size(56, 34);
-            this.picFormFuncionarios.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picFormFuncionarios.TabIndex = 2;
-            this.picFormFuncionarios.TabStop = false;
             // 
             // btnSair
             // 
@@ -157,6 +115,18 @@
             this.panelConteudo.Size = new System.Drawing.Size(1920, 966);
             this.panelConteudo.TabIndex = 1;
             // 
+            // picFormCestaBasica
+            // 
+            this.picFormCestaBasica.BackColor = System.Drawing.Color.White;
+            this.picFormCestaBasica.Dock = System.Windows.Forms.DockStyle.Left;
+            this.picFormCestaBasica.Image = ((System.Drawing.Image)(resources.GetObject("picFormCestaBasica.Image")));
+            this.picFormCestaBasica.Location = new System.Drawing.Point(118, 0);
+            this.picFormCestaBasica.Name = "picFormCestaBasica";
+            this.picFormCestaBasica.Size = new System.Drawing.Size(59, 34);
+            this.picFormCestaBasica.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picFormCestaBasica.TabIndex = 10;
+            this.picFormCestaBasica.TabStop = false;
+            // 
             // RHFormRHHub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -177,11 +147,9 @@
             this.Text = "FormRHHub";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.pnlHeader.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picFormParticipantesAptos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picFormCurriculosNovos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picFormCestaBasica)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picFormFuncionariosInativos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picFormInatividade)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFormFuncionarios)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picFormCestaBasica)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -190,12 +158,10 @@
 
         private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.Button btnSair;
-        private System.Windows.Forms.PictureBox picFormFuncionarios;
-        private System.Windows.Forms.PictureBox picFormFuncionariosInativos;
-        private System.Windows.Forms.PictureBox picFormCestaBasica;
-        private System.Windows.Forms.PictureBox picFormCurriculosNovos;
-        private System.Windows.Forms.PictureBox picFormParticipantesAptos;
         private System.Windows.Forms.Panel panelConteudo;
         private System.Windows.Forms.Button btnMinimizar;
+        private System.Windows.Forms.PictureBox picFormFuncionarios;
+        private System.Windows.Forms.PictureBox picFormInatividade;
+        private System.Windows.Forms.PictureBox picFormCestaBasica;
     }
 }

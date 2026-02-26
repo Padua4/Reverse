@@ -487,6 +487,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="QRCoder.dll" size="144384">
+      <assemblyIdentity name="QRCoder" version="1.4.3.0" publicKeyToken="C4ED5B9AE8358A28" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>VhrP5LGhTIN7GJ+5/FxtPoJEAYS73mGRLecj1i1jaLM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RBush.dll" size="58880">
       <assemblyIdentity name="RBush" version="4.0.0.0" publicKeyToken="C77E27B81F4D0187" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -499,14 +511,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Reverse.exe" size="44377560">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Reverse.exe" size="47615448">
       <assemblyIdentity name="Reverse" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>rTH5nEVkTSMe/vvJF26IQxm771nIPwbfpH+V+bhz7+w=</dsig:DigestValue>
+        <dsig:DigestValue>Ni/OhWFYoBG/yU3qu542Nox8GE8YRtmk7ZlVy4Gtn9Y=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -798,13 +810,13 @@
       <dsig:DigestValue>w/q8Fc2TNMVO8XD2cBZY0jk3wWaB1zvf8uM86GZIP2w=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Reverse.exe.config" size="3261">
+  <file name="Reverse.exe.config" size="3252">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>rW0fOaTdY619ngYDes72p6g7za1DBPS8xmiLMhpWZLg=</dsig:DigestValue>
+      <dsig:DigestValue>LunirQvCVxlVZfVoE1x8uIA2BoOpgwuJ4wzNutt5UW4=</dsig:DigestValue>
     </hash>
   </file>
   <file name="runtimes\win-arm64\native\WebView2Loader.dll" size="146024">

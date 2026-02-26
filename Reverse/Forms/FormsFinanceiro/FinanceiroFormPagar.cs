@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Reverse.Forms.FormsFinanceiro
@@ -18,12 +14,15 @@ namespace Reverse.Forms.FormsFinanceiro
         private int loteAtualId = 0;
         private DateTime dataLoteAtual = DateTime.Today;
         private DataTable dtCategorias;
+        private static bool avisoFreteMostrado = false;
 
         public FormPagar(int _usuarioId)
         {
             InitializeComponent();
             ConfigurarFormulario();
             CarregarCategorias();
+
+            VerificarFretePendentes();
         }
 
         private void ConfigurarFormulario()
@@ -40,13 +39,19 @@ namespace Reverse.Forms.FormsFinanceiro
             dgvContasPagar.DataError += DgvContasPagar_DataError;
             dgvContasPagar.CellFormatting += DgvContasPagar_CellFormatting_Simple;
 
-            dgvContasPagar.DefaultCellStyle.ForeColor = Color.Black;
-            dgvContasPagar.DefaultCellStyle.BackColor = Color.White;
-            dgvContasPagar.DefaultCellStyle.SelectionForeColor = Color.Black;
-            dgvContasPagar.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
-            dgvContasPagar.EnableHeadersVisualStyles = false;
-            dgvContasPagar.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(230, 230, 230);
-            dgvContasPagar.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+            dgvContasPagar.CurrentCellDirtyStateChanged += (s, ev) =>
+            {
+                if (dgvContasPagar.IsCurrentCellDirty)
+                {
+                    dgvContasPagar.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                }
+            };
+            dgvContasPagar.EditingControlShowing += dgvContasPagar_EditingControlShowing;
+        }
+
+        public void RecarregarLoteAtual()
+        {
+            CarregarContasLote();
         }
 
         private void ConfigurarGrid()
@@ -55,12 +60,9 @@ namespace Reverse.Forms.FormsFinanceiro
 
             dgvContasPagar.MultiSelect = false;
             dgvContasPagar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvContasPagar.RowHeadersVisible = false;
             dgvContasPagar.AllowUserToAddRows = false;
             dgvContasPagar.AllowUserToDeleteRows = false;
             dgvContasPagar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvContasPagar.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dgvContasPagar.Dock = DockStyle.Fill;
 
             // Coluna ID (oculta)
             var colId = new DataGridViewTextBoxColumn
@@ -93,17 +95,29 @@ namespace Reverse.Forms.FormsFinanceiro
             };
             dgvContasPagar.Columns.Add(colObservacao);
 
-            var colValor = new DataGridViewTextBoxColumn
+            // Coluna Valor Real
+            var colValorReal = new DataGridViewTextBoxColumn
             {
-                Name = "Valor",
-                HeaderText = "Valor",
-                FillWeight = 15
+                Name = "ValorReal",
+                HeaderText = "Valor Real",
+                FillWeight = 10
             };
-            colValor.DefaultCellStyle.Format = "C2";
-            colValor.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            colValorReal.DefaultCellStyle.Format = "C2";
+            colValorReal.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            colValorReal.DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("pt-BR");
+            dgvContasPagar.Columns.Add(colValorReal);
 
-            colValor.DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("pt-BR");
-            dgvContasPagar.Columns.Add(colValor);
+            // Coluna Valor Pago
+            var colValorPago = new DataGridViewTextBoxColumn
+            {
+                Name = "ValorPago",
+                HeaderText = "Valor Pago",
+                FillWeight = 10
+            };
+            colValorPago.DefaultCellStyle.Format = "C2";
+            colValorPago.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            colValorPago.DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("pt-BR");
+            dgvContasPagar.Columns.Add(colValorPago);
 
             // Coluna Data Vencimento
             var colDataVencimento = new DataGridViewTextBoxColumn
@@ -121,7 +135,6 @@ namespace Reverse.Forms.FormsFinanceiro
                 Name = "DataPagamento",
                 HeaderText = "Data Pagamento",
                 FillWeight = 12
-                //EXPLICITO: removido ReadOnly = true para permitir edição manual
             };
             colDataPagamento.DefaultCellStyle.Format = "dd/MM/yyyy";
             dgvContasPagar.Columns.Add(colDataPagamento);
@@ -144,10 +157,48 @@ namespace Reverse.Forms.FormsFinanceiro
                 FillWeight = 11
             };
             dgvContasPagar.Columns.Add(colStatusDisplay);
+
+            // Aplicar estilo visual
+            AplicarEstiloVisualProducao(dgvContasPagar);
         }
+
+        private void AplicarEstiloVisualProducao(DataGridView grid)
+        {
+            grid.BackgroundColor = Color.FromArgb(250, 250, 252);
+            grid.BorderStyle = BorderStyle.FixedSingle;
+            grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            grid.GridColor = Color.FromArgb(230, 230, 235);
+
+            grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 73, 94);
+            grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            grid.ColumnHeadersHeight = 40;
+
+            grid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 249, 255);
+            grid.RowsDefaultCellStyle.BackColor = Color.White;
+
+            grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 237, 255);
+            grid.DefaultCellStyle.SelectionForeColor = Color.Black;
+            grid.ColumnHeadersDefaultCellStyle.SelectionBackColor = grid.ColumnHeadersDefaultCellStyle.BackColor;
+            grid.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+
+            grid.DefaultCellStyle.ForeColor = Color.Black;
+            grid.AlternatingRowsDefaultCellStyle.ForeColor = Color.Black;
+
+            grid.EnableHeadersVisualStyles = false;
+            grid.RowHeadersVisible = false;
+            grid.DefaultCellStyle.Font = new Font("Segoe UI", 10F);
+            grid.RowTemplate.Height = 36;
+        }
+
         private void DgvContasPagar_CellFormatting_Simple(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dgvContasPagar.Columns[e.ColumnIndex].Name == "Valor" && e.Value != null)
+            string columnName = dgvContasPagar.Columns[e.ColumnIndex].Name;
+
+            if ((columnName == "ValorReal" || columnName == "ValorPago") && e.Value != null)
             {
                 if (decimal.TryParse(e.Value.ToString(), out decimal valor))
                 {
@@ -156,17 +207,66 @@ namespace Reverse.Forms.FormsFinanceiro
                 }
             }
         }
+        private void dgvContasPagar_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            string columnName = dgvContasPagar.Columns[dgvContasPagar.CurrentCell.ColumnIndex].Name;
+
+            if (columnName == "ValorReal" || columnName == "ValorPago")
+            {
+                TextBox tb = e.Control as TextBox;
+                if (tb != null)
+                {
+                    tb.KeyPress -= TxtValor_KeyPressDecimal;
+                    tb.KeyPress += TxtValor_KeyPressDecimal;
+                }
+            }
+        }
+
+        private void TxtValor_KeyPressDecimal(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == ',' && (sender as TextBox).Text.Contains(","))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void VerificarFretePendentes()
+        {
+            if (avisoFreteMostrado) return;
+
+            try
+            {
+                string mensagem = Reverse.Forms.FormsExpedicao.ExpedicaoFormFrete.ObterFretePendentesInfo();
+
+                if (!string.IsNullOrEmpty(mensagem))
+                {
+                    MessageBox.Show(mensagem, "Fretes Pendentes",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    avisoFreteMostrado = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Erro ao verificar fretes pendentes: {ex.Message}");
+            }
+        }
 
         private void DgvContasPagar_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             e.ThrowException = false;
 
-            if (dgvContasPagar.Columns[e.ColumnIndex].Name == "Valor")
+            string columnName = dgvContasPagar.Columns[e.ColumnIndex].Name;
+
+            if (columnName == "ValorReal" || columnName == "ValorPago")
             {
                 dgvContasPagar.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0;
             }
         }
-
         private void CarregarCategorias()
         {
             try
@@ -195,7 +295,6 @@ namespace Reverse.Forms.FormsFinanceiro
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void BtnContasSelecionar_Click(object sender, EventArgs e)
         {
             using (FinanceiroFormContasSelecionar form = new FinanceiroFormContasSelecionar())
@@ -209,7 +308,6 @@ namespace Reverse.Forms.FormsFinanceiro
                 }
             }
         }
-
         private void CarregarContasLote()
         {
             if (loteAtualId == 0) return;
@@ -219,17 +317,18 @@ namespace Reverse.Forms.FormsFinanceiro
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     string query = @"
-                    SELECT 
-                        cp.Id,
-                        cp.CategoriaId,
-                        cp.Observacao,
-                        cp.Valor,
-                        cp.DataVencimento,
-                        cp.DataPagamento,
-                        cp.StatusPagamento
-                    FROM ContasPagar cp
-                    WHERE cp.LoteId = @LoteId
-                    ORDER BY cp.DataVencimento";
+                        SELECT 
+                            cp.Id,
+                            cp.CategoriaId,
+                            cp.Observacao,
+                            cp.ValorReal,
+                            cp.ValorPago,
+                            cp.DataVencimento,
+                            cp.DataPagamento,
+                            cp.StatusPagamento
+                        FROM ContasPagar cp
+                        WHERE cp.LoteId = @LoteId
+                        ORDER BY cp.DataVencimento";
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
                     {
@@ -238,10 +337,8 @@ namespace Reverse.Forms.FormsFinanceiro
                         DataTable dt = new DataTable();
                         adapter.Fill(dt);
 
-                        // Limpar grid
                         dgvContasPagar.Rows.Clear();
 
-                        // Adicionar linhas
                         foreach (DataRow row in dt.Rows)
                         {
                             int rowIndex = dgvContasPagar.Rows.Add();
@@ -250,12 +347,12 @@ namespace Reverse.Forms.FormsFinanceiro
                             gridRow.Cells["Id"].Value = row["Id"];
                             gridRow.Cells["CategoriaId"].Value = row["CategoriaId"];
                             gridRow.Cells["Observacao"].Value = row["Observacao"];
-                            gridRow.Cells["Valor"].Value = row["Valor"];
+                            gridRow.Cells["ValorReal"].Value = row["ValorReal"];
+                            gridRow.Cells["ValorPago"].Value = row["ValorPago"];
                             gridRow.Cells["DataVencimento"].Value = row["DataVencimento"];
                             gridRow.Cells["DataPagamento"].Value = row.IsNull("DataPagamento") ? null : row["DataPagamento"];
                             gridRow.Cells["StatusPagamento"].Value = row["StatusPagamento"];
 
-                            // Calcular e definir status display e cor da linha
                             AtualizarStatusLinha(gridRow);
                         }
                     }
@@ -267,7 +364,6 @@ namespace Reverse.Forms.FormsFinanceiro
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void AtualizarStatusLinha(DataGridViewRow row)
         {
             if (row == null) return;
@@ -308,7 +404,6 @@ namespace Reverse.Forms.FormsFinanceiro
                 }
             }
         }
-
         private void BtnCriar_Click(object sender, EventArgs e)
         {
             if (loteAtualId == 0)
@@ -335,15 +430,16 @@ namespace Reverse.Forms.FormsFinanceiro
                         try
                         {
                             string query = @"
-                    INSERT INTO ContasPagar (CategoriaId, Observacao, Valor, DataVencimento, StatusPagamento, LoteId, DataCadastro)
-                    VALUES (@CategoriaId, @Observacao, @Valor, @DataVencimento, @StatusPagamento, @LoteId, @DataCadastro);
-                    SELECT SCOPE_IDENTITY();";
+                                INSERT INTO ContasPagar (CategoriaId, Observacao, ValorReal, ValorPago, DataVencimento, StatusPagamento, LoteId, DataCadastro)
+                                VALUES (@CategoriaId, @Observacao, @ValorReal, @ValorPago, @DataVencimento, @StatusPagamento, @LoteId, @DataCadastro);
+                                SELECT SCOPE_IDENTITY();";
 
                             using (SqlCommand cmd = new SqlCommand(query, conn, transaction))
                             {
                                 cmd.Parameters.AddWithValue("@CategoriaId", dtCategorias.Rows[0]["Id"]);
                                 cmd.Parameters.AddWithValue("@Observacao", "");
-                                cmd.Parameters.AddWithValue("@Valor", 0);
+                                cmd.Parameters.AddWithValue("@ValorReal", 0);
+                                cmd.Parameters.AddWithValue("@ValorPago", 0);
                                 cmd.Parameters.AddWithValue("@DataVencimento", DateTime.Today);
                                 cmd.Parameters.AddWithValue("@StatusPagamento", 0);
                                 cmd.Parameters.AddWithValue("@LoteId", loteAtualId);
@@ -360,7 +456,8 @@ namespace Reverse.Forms.FormsFinanceiro
                                 row.Cells["Id"].Value = novoId;
                                 row.Cells["CategoriaId"].Value = dtCategorias.Rows[0]["Id"];
                                 row.Cells["Observacao"].Value = "";
-                                row.Cells["Valor"].Value = 0m;
+                                row.Cells["ValorReal"].Value = 0m;
+                                row.Cells["ValorPago"].Value = 0m;
                                 row.Cells["DataVencimento"].Value = DateTime.Today;
                                 row.Cells["DataPagamento"].Value = null;
                                 row.Cells["StatusPagamento"].Value = 0;
@@ -386,7 +483,6 @@ namespace Reverse.Forms.FormsFinanceiro
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void BtnExcluir_Click(object sender, EventArgs e)
         {
             if (dgvContasPagar.SelectedRows.Count == 0)
@@ -396,14 +492,36 @@ namespace Reverse.Forms.FormsFinanceiro
                 return;
             }
 
-            if (MessageBox.Show("Deseja realmente excluir esta linha?", "Confirmação",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                return;
-
             try
             {
                 DataGridViewRow row = dgvContasPagar.SelectedRows[0];
                 int id = Convert.ToInt32(row.Cells["Id"].Value);
+
+                // Verificar se a conta está vinculada a um frete
+                bool possuiFrete = false;
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string queryVerifica = "SELECT COUNT(*) FROM ContasPagar WHERE Id = @Id AND FreteId IS NOT NULL";
+                    using (SqlCommand cmd = new SqlCommand(queryVerifica, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", id);
+                        possuiFrete = Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+                    }
+                }
+
+                if (possuiFrete)
+                {
+                    MessageBox.Show("Esta conta está vinculada a um frete criado pela expedição e não pode ser excluída!\n\n" +
+                                  "Para remover esta conta, exclua o frete correspondente no formulário de Fretes.",
+                                  "Operação não permitida",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (MessageBox.Show("Deseja realmente excluir esta linha?", "Confirmação",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    return;
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -418,6 +536,9 @@ namespace Reverse.Forms.FormsFinanceiro
                 }
 
                 dgvContasPagar.Rows.RemoveAt(row.Index);
+
+                MessageBox.Show("Linha excluída com sucesso!", "Sucesso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -425,7 +546,6 @@ namespace Reverse.Forms.FormsFinanceiro
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void BtnPago_Click(object sender, EventArgs e)
         {
             if (dgvContasPagar.CurrentRow == null) return;
@@ -439,28 +559,64 @@ namespace Reverse.Forms.FormsFinanceiro
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = @"
-                UPDATE ContasPagar
-                SET StatusPagamento = 1, DataPagamento = @DataPagamento
-                WHERE Id = @Id";
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    using (SqlTransaction transaction = conn.BeginTransaction())
                     {
-                        cmd.Parameters.AddWithValue("@Id", id);
-                        cmd.Parameters.AddWithValue("@DataPagamento", dataPagamento);
-                        cmd.ExecuteNonQuery();
+                        try
+                        {
+                            string queryUpdate = @"
+                        UPDATE ContasPagar
+                        SET StatusPagamento = 1, DataPagamento = @DataPagamento
+                        OUTPUT DELETED.FreteId
+                        WHERE Id = @Id";
+
+                            int? freteId = null;
+                            using (SqlCommand cmd = new SqlCommand(queryUpdate, conn, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@Id", id);
+                                cmd.Parameters.AddWithValue("@DataPagamento", dataPagamento);
+
+                                var result = cmd.ExecuteScalar();
+                                if (result != null && result != DBNull.Value)
+                                {
+                                    freteId = Convert.ToInt32(result);
+                                }
+                            }
+
+                            if (freteId.HasValue)
+                            {
+                                string updateFrete = @"
+                            UPDATE Fretes SET
+                                Status = 'Finalizado',
+                                DataBaixa = @DataBaixa,
+                                DataAlteracao = GETDATE()
+                            WHERE FreteId = @FreteId";
+
+                                using (SqlCommand cmdUpdateFrete = new SqlCommand(updateFrete, conn, transaction))
+                                {
+                                    cmdUpdateFrete.Parameters.AddWithValue("@DataBaixa", dataPagamento);
+                                    cmdUpdateFrete.Parameters.AddWithValue("@FreteId", freteId.Value);
+                                    cmdUpdateFrete.ExecuteNonQuery();
+                                }
+
+                                avisoFreteMostrado = false;
+                            }
+
+                            transaction.Commit();
+
+                            row.Cells["StatusPagamento"].Value = 1;
+                            row.Cells["DataPagamento"].Value = dataPagamento;
+                            AtualizarStatusLinha(row);
+
+                            var formContas = Application.OpenForms.OfType<FinanceiroFormContasSelecionar>().FirstOrDefault();
+                            formContas?.AtualizarTotais();
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
                     }
                 }
-
-                // Atualiza a grid local
-                row.Cells["StatusPagamento"].Value = 1;
-                row.Cells["DataPagamento"].Value = dataPagamento;
-                AtualizarStatusLinha(row);
-
-                // Atualiza totais no outro form
-                var formContas = Application.OpenForms.OfType<FinanceiroFormContasSelecionar>().FirstOrDefault();
-                if (formContas != null)
-                    formContas.AtualizarTotais();
             }
             catch (Exception ex)
             {
@@ -468,7 +624,6 @@ namespace Reverse.Forms.FormsFinanceiro
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void DgvContasPagar_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -505,28 +660,111 @@ namespace Reverse.Forms.FormsFinanceiro
                         break;
 
                     case "DataPagamento":
-                        if (row.Cells["DataPagamento"].Value != null &&
-                            row.Cells["DataPagamento"].Value != DBNull.Value &&
-                            DateTime.TryParse(row.Cells["DataPagamento"].Value.ToString(), out DateTime dataPag))
+                        using (SqlConnection conn = new SqlConnection(connectionString))
                         {
-                            query = "UPDATE ContasPagar SET DataPagamento = @Valor, StatusPagamento = 1 WHERE Id = @Id";
-                            valorParametro = dataPag;
-                            row.Cells["StatusPagamento"].Value = 1;
+                            conn.Open();
+                            using (SqlTransaction transaction = conn.BeginTransaction())
+                            {
+                                try
+                                {
+                                    int? freteId = null;
+                                    string queryFreteId = "SELECT FreteId FROM ContasPagar WHERE Id = @Id";
+                                    using (SqlCommand cmdFrete = new SqlCommand(queryFreteId, conn, transaction))
+                                    {
+                                        cmdFrete.Parameters.AddWithValue("@Id", id);
+                                        var result = cmdFrete.ExecuteScalar();
+                                        if (result != null && result != DBNull.Value)
+                                        {
+                                            freteId = Convert.ToInt32(result);
+                                        }
+                                    }
+
+                                    if (row.Cells["DataPagamento"].Value != null &&
+                                        row.Cells["DataPagamento"].Value != DBNull.Value &&
+                                        DateTime.TryParse(row.Cells["DataPagamento"].Value.ToString(), out DateTime dataPag))
+                                    {
+                                        query = "UPDATE ContasPagar SET DataPagamento = @Valor, StatusPagamento = 1 WHERE Id = @Id";
+                                        using (SqlCommand cmd = new SqlCommand(query, conn, transaction))
+                                        {
+                                            cmd.Parameters.AddWithValue("@Valor", dataPag);
+                                            cmd.Parameters.AddWithValue("@Id", id);
+                                            cmd.ExecuteNonQuery();
+                                        }
+
+                                        row.Cells["StatusPagamento"].Value = 1;
+
+                                        if (freteId.HasValue)
+                                        {
+                                            string updateFrete = @"
+                                        UPDATE Fretes SET
+                                            Status = 'Finalizado',
+                                            DataBaixa = @DataBaixa,
+                                            DataAlteracao = GETDATE()
+                                        WHERE FreteId = @FreteId";
+
+                                            using (SqlCommand cmdUpdateFrete = new SqlCommand(updateFrete, conn, transaction))
+                                            {
+                                                cmdUpdateFrete.Parameters.AddWithValue("@DataBaixa", dataPag);
+                                                cmdUpdateFrete.Parameters.AddWithValue("@FreteId", freteId.Value);
+                                                cmdUpdateFrete.ExecuteNonQuery();
+                                            }
+                                            avisoFreteMostrado = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        query = "UPDATE ContasPagar SET DataPagamento = NULL, StatusPagamento = 0 WHERE Id = @Id";
+                                        using (SqlCommand cmd = new SqlCommand(query, conn, transaction))
+                                        {
+                                            cmd.Parameters.AddWithValue("@Id", id);
+                                            cmd.ExecuteNonQuery();
+                                        }
+
+                                        row.Cells["StatusPagamento"].Value = 0;
+
+                                        if (freteId.HasValue)
+                                        {
+                                            string updateFrete = @"
+                                        UPDATE Fretes SET
+                                            Status = 'Em Aberto',
+                                            DataBaixa = NULL,
+                                            DataAlteracao = GETDATE()
+                                        WHERE FreteId = @FreteId";
+
+                                            using (SqlCommand cmdUpdateFrete = new SqlCommand(updateFrete, conn, transaction))
+                                            {
+                                                cmdUpdateFrete.Parameters.AddWithValue("@FreteId", freteId.Value);
+                                                cmdUpdateFrete.ExecuteNonQuery();
+                                            }
+                                        }
+                                    }
+
+                                    transaction.Commit();
+                                    executarQuery = false;
+                                }
+                                catch
+                                {
+                                    transaction.Rollback();
+                                    throw;
+                                }
+                            }
                         }
-                        else
-                        {
-                            query = "UPDATE ContasPagar SET DataPagamento = NULL, StatusPagamento = 0 WHERE Id = @Id";
-                            valorParametro = DBNull.Value;
-                            row.Cells["StatusPagamento"].Value = 0;
-                        }
-                        executarQuery = true;
                         break;
 
-                    case "Valor":
-                        if (decimal.TryParse(row.Cells["Valor"].Value?.ToString(), out decimal valor))
+                    case "ValorReal":
+                        if (decimal.TryParse(row.Cells["ValorReal"].Value?.ToString(), out decimal valorReal))
                         {
-                            query = "UPDATE ContasPagar SET Valor = @Valor WHERE Id = @Id";
-                            valorParametro = valor;
+                            query = "UPDATE ContasPagar SET ValorReal = @Valor WHERE Id = @Id";
+                            valorParametro = valorReal;
+                            executarQuery = true;
+                        }
+                        break;
+
+                    case "ValorPago":
+                        if (decimal.TryParse(row.Cells["ValorPago"].Value?.ToString(), out decimal valorPago))
+                        {
+                            query = "UPDATE ContasPagar SET ValorPago = @Valor WHERE Id = @Id";
+                            valorParametro = valorPago;
                             executarQuery = true;
                         }
                         break;
@@ -538,7 +776,7 @@ namespace Reverse.Forms.FormsFinanceiro
                         break;
                 }
 
-                if (!string.IsNullOrEmpty(query) && executarQuery) // CORREÇÃO: usar flag em vez de verificar null
+                if (!string.IsNullOrEmpty(query) && executarQuery)
                 {
                     using (SqlConnection conexao = new SqlConnection(connectionString))
                     {
@@ -560,7 +798,6 @@ namespace Reverse.Forms.FormsFinanceiro
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void DgvContasPagar_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
@@ -597,8 +834,6 @@ namespace Reverse.Forms.FormsFinanceiro
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         private void DgvContasPagar_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             foreach (DataGridViewRow row in dgvContasPagar.Rows)

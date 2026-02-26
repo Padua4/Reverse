@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Drawing;
 
 namespace Reverse
 {
@@ -16,17 +17,109 @@ namespace Reverse
         private Panel panel1;
         private PictureBox pictureBox1;
         private Label label1;
+        private Label lblUsuariosOnline;
+        private Timer timerAtualizarOnline;
         private Button btnSair;
 
-        public LoginForm() => InitializeComponent();
+        public LoginForm() 
+        { InitializeComponent();
+          InicializarContadorOnline();
+        }
+
+        #region Contador de Usuários Online
+
+        private void InicializarContadorOnline()
+        {
+            this.Controls.Add(lblUsuariosOnline);
+            lblUsuariosOnline.BringToFront();
+
+            timerAtualizarOnline = new Timer { Interval = 10000 };
+            timerAtualizarOnline.Tick += TimerAtualizarOnline_Tick;
+            timerAtualizarOnline.Start();
+
+            _ = AtualizarUsuariosOnlineAsync();
+        }
+
+        private async void TimerAtualizarOnline_Tick(object sender, EventArgs e)
+        {
+            await AtualizarUsuariosOnlineAsync();
+        }
+
+        private async Task AtualizarUsuariosOnlineAsync()
+        {
+            try
+            {
+                int totalOnline = await ObterTotalUsuariosOnlineAsync();
+
+                if (lblUsuariosOnline.InvokeRequired)
+                {
+                    lblUsuariosOnline.Invoke(new Action(() =>
+                    {
+                        AtualizarTextoLabel(totalOnline);
+                    }));
+                }
+                else
+                {
+                    AtualizarTextoLabel(totalOnline);
+                }
+            }
+            catch
+            {
+                if (lblUsuariosOnline != null)
+                    lblUsuariosOnline.Text = "Sistema online";
+            }
+        }
+
+        private void AtualizarTextoLabel(int total)
+        {
+            string icone = total > 0 ? "●" : "○";
+            Color cor = total > 0 ? Color.FromArgb(34, 139, 34) : Color.Gray;
+
+            lblUsuariosOnline.ForeColor = cor;
+
+            string texto = total switch
+            {
+                0 => $"Nenhum usuário online",
+                1 => $"{icone} 1 usuário online",
+                _ => $"{icone} {total} usuários online"
+            };
+
+            lblUsuariosOnline.Text = texto;
+        }
+
+        private async Task<int> ObterTotalUsuariosOnlineAsync()
+        {
+            const string sql = @"
+        SELECT COUNT(DISTINCT IdUsuario)
+        FROM SessoesUsuarios WITH (NOLOCK)
+        WHERE StatusSessao = 'Ativo'";
+
+            try
+            {
+                using var conn = new SqlConnection(ConnectionString);
+                using var cmd = new SqlCommand(sql, conn);
+
+                cmd.CommandTimeout = 5;
+                await conn.OpenAsync();
+
+                var result = await cmd.ExecuteScalarAsync();
+                return result != null ? Convert.ToInt32(result) : 0;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        #endregion
 
         public string UsuarioLogado { get; private set; }
 
         [System.Runtime.InteropServices.DllImport("gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn(
-    int nLeftRect, int nTopRect, int nRightRect, int nBottomRect,
-    int nWidthEllipse, int nHeightEllipse
-);
+        int nLeftRect, int nTopRect, int nRightRect, int nBottomRect,
+        int nWidthEllipse, int nHeightEllipse
+    );
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
@@ -52,6 +145,7 @@ namespace Reverse
             }
         }
 
+
         public string SetorLogado { get; private set; }
 
         private async void btnLogin_Click_1(object sender, EventArgs e)
@@ -59,11 +153,34 @@ namespace Reverse
             if (!TryGetCredentials(out var user, out var passHash))
                 return;
 
-            string setor = await GetUserSetorAsync(user, passHash);
-            if (setor != null)
-                OnLoginSuccess(user, setor);
-            else
-                ShowError("Usuário ou senha inválidos.");
+            btnLogin.Enabled = false;
+            btnRegister.Enabled = false;
+            btnSair.Enabled = false;
+            Cursor = Cursors.WaitCursor;
+
+            try
+            {
+                string setor = await GetUserSetorAsync(user, passHash);
+                if (setor != null)
+                    OnLoginSuccess(user, setor);
+                else
+                    ShowError("Usuário ou senha inválidos.");
+            }
+            catch (InvalidOperationException ex)
+            {
+                ShowError(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ShowError($"Erro inesperado ao fazer login: {ex.Message}");
+            }
+            finally
+            {
+                btnLogin.Enabled = true;
+                btnRegister.Enabled = true;
+                btnSair.Enabled = true;
+                Cursor = Cursors.Default;
+            }
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -105,20 +222,35 @@ namespace Reverse
         private async Task<string> GetUserSetorAsync(string user, string hashPass)
         {
             const string sql = @"
-SELECT Setor
-  FROM Usuarios
- WHERE UsuarioNome = @user
-   AND PasswordHash = CONVERT(varbinary(max), @passHex, 2);
-";
-            using var conn = new SqlConnection(ConnectionString);
-            using var cmd = new SqlCommand(sql, conn);
+                SELECT Setor
+                FROM Usuarios WITH (NOLOCK)
+                WHERE UsuarioNome = @user
+                  AND PasswordHash = CONVERT(varbinary(max), @passHex, 2);
+                ";
 
-            cmd.Parameters.Add(new SqlParameter("@user", System.Data.SqlDbType.NVarChar, 50) { Value = user });
-            cmd.Parameters.Add(new SqlParameter("@passHex", System.Data.SqlDbType.NVarChar, 128) { Value = hashPass });
+            try
+            {
+                using var conn = new SqlConnection(ConnectionString);
+                using var cmd = new SqlCommand(sql, conn);
 
-            await conn.OpenAsync();
-            var result = await cmd.ExecuteScalarAsync();
-            return result as string;
+                cmd.Parameters.AddWithValue("@user", user);
+                cmd.Parameters.AddWithValue("@passHex", hashPass);
+                cmd.CommandTimeout = 10;
+
+                await conn.OpenAsync();
+                var result = await cmd.ExecuteScalarAsync();
+                return result as string;
+            }
+            catch (SqlException ex)
+            {
+                throw new InvalidOperationException(
+                    "Não foi possível estabelecer conexão com o sistema. " +
+                    "Verifique sua conexão com a rede ou se o servidor está disponível.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Erro ao acessar o sistema: {ex.Message}", ex);
+            }
         }
 
         private void OnLoginSuccess(string user, string setor)
@@ -147,6 +279,7 @@ SELECT Setor
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnRegister = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblUsuariosOnline = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSair = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -210,7 +343,7 @@ SELECT Setor
             this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogin.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnLogin.ForeColor = System.Drawing.Color.White;
             this.btnLogin.Location = new System.Drawing.Point(13, 527);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(10, 20, 10, 10);
             this.btnLogin.Name = "btnLogin";
@@ -239,6 +372,7 @@ SELECT Setor
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
+            this.panel1.Controls.Add(this.lblUsuariosOnline);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnSair);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -255,15 +389,25 @@ SELECT Setor
             this.panel1.Size = new System.Drawing.Size(400, 722);
             this.panel1.TabIndex = 7;
             // 
+            // lblUsuariosOnline
+            // 
+            this.lblUsuariosOnline.AutoSize = true;
+            this.lblUsuariosOnline.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold);
+            this.lblUsuariosOnline.Location = new System.Drawing.Point(15, 693);
+            this.lblUsuariosOnline.Name = "lblUsuariosOnline";
+            this.lblUsuariosOnline.Size = new System.Drawing.Size(132, 20);
+            this.lblUsuariosOnline.TabIndex = 10;
+            this.lblUsuariosOnline.Text = "lblUsuariosOnline";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(314, 693);
+            this.label1.Location = new System.Drawing.Point(305, 693);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 20);
+            this.label1.Size = new System.Drawing.Size(83, 20);
             this.label1.TabIndex = 9;
-            this.label1.Text = "Ver. 1.1.5";
+            this.label1.Text = "Ver. 1.0.33";
             // 
             // btnSair
             // 
@@ -312,6 +456,7 @@ SELECT Setor
             this.ResumeLayout(false);
 
         }
+
         private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.Label lblSenha;

@@ -7,6 +7,9 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using System.Threading.Tasks;
+using ClosedXML.Excel;
+using System.IO;
 using ADGV;
 
 namespace Reverse.Forms.FormsExpedicao
@@ -60,6 +63,8 @@ namespace Reverse.Forms.FormsExpedicao
 
             cmbCliente.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cmbCliente.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cmbStatus.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbStatus.AutoCompleteSource = AutoCompleteSource.ListItems;
 
             ConfigurarGrid();
 
@@ -82,6 +87,7 @@ namespace Reverse.Forms.FormsExpedicao
             txtQuantidade.KeyPress += TxtQuantidade_KeyPressInteiro;
             rbmQuantidade.CheckedChanged += rbmQuantidade_CheckedChanged;
             rbmPeso.CheckedChanged += rbmPeso_CheckedChanged;
+            btnExportarExcel.Click += btnExportarExcel_Click;
 
             txtQuantidade.Leave += txtQuantidade_Leave;
             cmbMaterial.Leave += (s, ev) => AtualizarCampo_Material();
@@ -92,8 +98,28 @@ namespace Reverse.Forms.FormsExpedicao
             this.cmbMes.SelectedIndexChanged += new System.EventHandler(this.cmbMes_SelectedIndexChanged);
             this.cmbAno.SelectedIndexChanged += new System.EventHandler(this.cmbAno_SelectedIndexChanged);
 
+            ConfigurarGridMaterialFiltrado();
+            dgvMaterialFiltrado.CellFormatting += dgvMaterialFiltrado_CellFormatting;
+
+            lblTotal30.Text = "0,000";
+            lblSegregado.Text = "0,000";
+            lblVolumes.Text = "0";
+
             CarregarEstoque();
             LimparCampos();
+        }
+
+        private void ConfigurarGridMaterialFiltrado()
+        {
+            dgvMaterialFiltrado.AutoGenerateColumns = true;
+            dgvMaterialFiltrado.ReadOnly = true;
+            dgvMaterialFiltrado.AllowUserToAddRows = false;
+            dgvMaterialFiltrado.AllowUserToDeleteRows = false;
+            dgvMaterialFiltrado.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvMaterialFiltrado.MultiSelect = false;
+            dgvMaterialFiltrado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            AplicarEstiloVisualProducao(dgvMaterialFiltrado);
         }
 
         private void AtualizarCampo_Material()
@@ -105,13 +131,16 @@ namespace Reverse.Forms.FormsExpedicao
                 string materialAnterior = _linhaAtual.Material;
                 string materialNovo = cmbMaterial.SelectedItem is Material mat ? mat.Nome : cmbMaterial.Text;
 
+                materialNovo = string.IsNullOrWhiteSpace(materialNovo) ? "" : materialNovo.Trim();
+
                 if (materialAnterior != materialNovo)
                 {
                     _linhaAtual.Material = materialNovo;
 
                     using (var ctx = new ReverseContext())
                     {
-                        var material = ctx.Materiais.FirstOrDefault(m => m.Nome == materialNovo);
+                        var material = ctx.Materiais.FirstOrDefault(m =>
+                                            string.Equals(m.Nome, materialNovo, StringComparison.OrdinalIgnoreCase));
                         if (material != null)
                         {
                             _linhaAtual.Valorizacao = material.Valorizacao;
@@ -192,8 +221,6 @@ namespace Reverse.Forms.FormsExpedicao
             }
         }
 
-
-
         private void ConfigurarGrid()
         {
             dgvMaterial.AutoGenerateColumns = false;
@@ -210,10 +237,10 @@ namespace Reverse.Forms.FormsExpedicao
                 {
                     ForeColor = Color.Black,
                     Font = new Font("Segoe UI", 9F),
-                    Alignment = DataGridViewContentAlignment.MiddleCenter
+                    Alignment = DataGridViewContentAlignment.MiddleLeft
                 }
             };
-            colMaterial.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colMaterial.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             var colValorizacao = new DataGridViewTextBoxColumn
             {
@@ -225,11 +252,11 @@ namespace Reverse.Forms.FormsExpedicao
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     ForeColor = Color.Black,
-                    Alignment = DataGridViewContentAlignment.MiddleCenter,
+                    Alignment = DataGridViewContentAlignment.MiddleLeft,
                     Font = new Font("Segoe UI", 9F)
                 }
             };
-            colValorizacao.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colValorizacao.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             var colDataEntrada = new DataGridViewTextBoxColumn
             {
@@ -243,10 +270,10 @@ namespace Reverse.Forms.FormsExpedicao
                     Format = "dd/MM/yyyy",
                     ForeColor = Color.Black,
                     Font = new Font("Segoe UI", 9F),
-                    Alignment = DataGridViewContentAlignment.MiddleCenter
+                    Alignment = DataGridViewContentAlignment.MiddleLeft
                 }
             };
-            colDataEntrada.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colDataEntrada.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             var colDataSaida = new DataGridViewTextBoxColumn
             {
@@ -260,10 +287,10 @@ namespace Reverse.Forms.FormsExpedicao
                     Format = "dd/MM/yyyy",
                     ForeColor = Color.Black,
                     Font = new Font("Segoe UI", 9F),
-                    Alignment = DataGridViewContentAlignment.MiddleCenter
+                    Alignment = DataGridViewContentAlignment.MiddleLeft
                 }
             };
-            colDataSaida.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colDataSaida.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             var colQuantidade = new DataGridViewTextBoxColumn
             {
@@ -275,12 +302,12 @@ namespace Reverse.Forms.FormsExpedicao
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     ForeColor = Color.Black,
-                    Alignment = DataGridViewContentAlignment.MiddleCenter,
+                    Alignment = DataGridViewContentAlignment.MiddleLeft,
                     Format = "N2",
                     Font = new Font("Segoe UI", 9F)
                 }
             };
-            colQuantidade.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colQuantidade.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             var colStatus = new DataGridViewTextBoxColumn
             {
@@ -293,10 +320,10 @@ namespace Reverse.Forms.FormsExpedicao
                 {
                     ForeColor = Color.Black,
                     Font = new Font("Segoe UI", 9F),
-                    Alignment = DataGridViewContentAlignment.MiddleCenter
+                    Alignment = DataGridViewContentAlignment.MiddleLeft
                 }
             };
-            colStatus.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colStatus.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             var colCliente = new DataGridViewTextBoxColumn
             {
@@ -309,10 +336,10 @@ namespace Reverse.Forms.FormsExpedicao
                 {
                     ForeColor = Color.Black,
                     Font = new Font("Segoe UI", 9F),
-                    Alignment = DataGridViewContentAlignment.MiddleCenter
+                    Alignment = DataGridViewContentAlignment.MiddleLeft
                 }
             };
-            colCliente.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colCliente.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             var colObservacao = new DataGridViewTextBoxColumn
             {
@@ -325,10 +352,10 @@ namespace Reverse.Forms.FormsExpedicao
                 {
                     ForeColor = Color.Black,
                     Font = new Font("Segoe UI", 9F),
-                    Alignment = DataGridViewContentAlignment.MiddleCenter
+                    Alignment = DataGridViewContentAlignment.MiddleLeft
                 }
             };
-            colCliente.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colObservacao.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             var colId = new DataGridViewTextBoxColumn
             {
@@ -340,8 +367,8 @@ namespace Reverse.Forms.FormsExpedicao
 
             dgvMaterial.Columns.AddRange(new DataGridViewColumn[]
             {
-                colMaterial, colValorizacao, colDataEntrada, colDataSaida, colQuantidade,
-                colStatus, colCliente, colObservacao, colId
+        colMaterial, colValorizacao, colDataEntrada, colDataSaida, colQuantidade,
+        colStatus, colCliente, colObservacao, colId
             });
 
             dgvMaterial.AllowUserToAddRows = false;
@@ -350,8 +377,40 @@ namespace Reverse.Forms.FormsExpedicao
             dgvMaterial.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvMaterial.MultiSelect = false;
             dgvMaterial.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvMaterial.RowHeadersWidth = 25;
 
+            AplicarEstiloVisualProducao(dgvMaterial);
+        }
+
+        private void AplicarEstiloVisualProducao(DataGridView grid)
+        {
+            grid.BackgroundColor = Color.FromArgb(250, 250, 252);
+            grid.BorderStyle = BorderStyle.FixedSingle;
+            grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            grid.GridColor = Color.FromArgb(230, 230, 235);
+
+            grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 73, 94);
+            grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            grid.ColumnHeadersHeight = 40;
+
+            grid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 249, 255);
+            grid.RowsDefaultCellStyle.BackColor = Color.White;
+
+            grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 237, 255);
+            grid.DefaultCellStyle.SelectionForeColor = Color.Black;
+            grid.ColumnHeadersDefaultCellStyle.SelectionBackColor = grid.ColumnHeadersDefaultCellStyle.BackColor;
+            grid.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+
+            grid.DefaultCellStyle.ForeColor = Color.Black;
+            grid.AlternatingRowsDefaultCellStyle.ForeColor = Color.Black;
+
+            grid.EnableHeadersVisualStyles = false;
+            grid.RowHeadersVisible = false;
+            grid.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
+            grid.RowTemplate.Height = 36;
         }
 
         private void AtualizarPesoFiltro()
@@ -368,7 +427,6 @@ namespace Reverse.Forms.FormsExpedicao
 
             lblPesoFiltro.Text = $"Total filtrado: {totalPeso:N3}";
         }
-
 
         private void dgvMaterial_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -428,7 +486,8 @@ namespace Reverse.Forms.FormsExpedicao
                 {
                     var dados = ctx.Estoques
                         .Where(e => e.Mes == mes && e.Ano == ano)
-                        .OrderBy(e => e.DataEntrada)
+                        .OrderByDescending(e => e.Status == "Segregado")
+                        .ThenBy(e => e.DataEntrada)
                         .ToList();
 
                     var nomesMateriais = dados
@@ -482,11 +541,12 @@ namespace Reverse.Forms.FormsExpedicao
                     dt.Columns.Add("Status", typeof(string));
                     dt.Columns.Add("ClienteNome", typeof(string));
                     dt.Columns.Add("Observacao", typeof(string));
+                    dt.Columns.Add("EhPeso", typeof(bool));
 
                     foreach (var item in _estoqueList)
                     {
                         dt.Rows.Add(item.Id, item.Material, item.Valorizacao, item.DataEntrada, item.DataSaida,
-                                    item.Quantidade, item.Status, item.ClienteNome, item.Observacao);
+                                    item.Quantidade, item.Status, item.ClienteNome, item.Observacao, item.EhPeso);  // Incluir EhPeso
                     }
 
                     _bindingSource.DataSource = dt;
@@ -502,7 +562,6 @@ namespace Reverse.Forms.FormsExpedicao
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void rbmQuantidade_CheckedChanged(object sender, EventArgs e)
         {
             if (rbmQuantidade.Checked)
@@ -528,10 +587,8 @@ namespace Reverse.Forms.FormsExpedicao
 
             }
         }
-
         private void TxtQuantidade_KeyPressInteiro(object sender, KeyPressEventArgs e)
         {
-            // Só aceita números e backspace
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
@@ -540,13 +597,11 @@ namespace Reverse.Forms.FormsExpedicao
 
         private void TxtQuantidade_KeyPressDecimal(object sender, KeyPressEventArgs e)
         {
-            // Aceita números, vírgula e backspace
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
             {
                 e.Handled = true;
             }
 
-            // Só permite uma vírgula
             if (e.KeyChar == ',' && (sender as TextBox).Text.Contains(","))
             {
                 e.Handled = true;
@@ -624,17 +679,35 @@ namespace Reverse.Forms.FormsExpedicao
                 Status = "Aguardando Peso",
                 ClienteNome = "",
                 Observacao = "",
-                EhPeso = rbmPeso.Checked
+                EhPeso = rbmPeso.Checked,
+                Valorizacao = 1
             };
 
             _estoqueList.Add(novaLinha);
 
-            dgvMaterial.ClearSelection();
-            int novoIndex = dgvMaterial.Rows.Count - 1;
-            dgvMaterial.Rows[novoIndex].Selected = true;
-            dgvMaterial.CurrentCell = dgvMaterial.Rows[novoIndex].Cells[0];
+            if (_bindingSource.DataSource is DataTable dt)
+            {
+                var newRow = dt.NewRow();
+                newRow["Id"] = novaLinha.Id;
+                newRow["Material"] = novaLinha.Material;
+                newRow["Valorizacao"] = novaLinha.Valorizacao;
+                newRow["DataEntrada"] = novaLinha.DataEntrada;
+                newRow["DataSaida"] = DBNull.Value;
+                newRow["Quantidade"] = novaLinha.Quantidade;
+                newRow["Status"] = novaLinha.Status;
+                newRow["ClienteNome"] = novaLinha.ClienteNome;
+                newRow["Observacao"] = novaLinha.Observacao;
+                dt.Rows.Add(newRow);
 
-            // Carregar nos campos
+                dgvMaterial.ClearSelection();
+                int novoIndex = dgvMaterial.Rows.Count - 1;
+                if (novoIndex >= 0)
+                {
+                    dgvMaterial.Rows[novoIndex].Selected = true;
+                    dgvMaterial.CurrentCell = dgvMaterial.Rows[novoIndex].Cells[0];
+                }
+            }
+
             _linhaAtual = novaLinha;
             CarregarCamposDaLinhaNovaLinha(novaLinha);
         }
@@ -667,12 +740,23 @@ namespace Reverse.Forms.FormsExpedicao
                 return;
             }
 
-            var estoque = dgvMaterial.CurrentRow.DataBoundItem as EstoqueViewModel;
+            var rowView = dgvMaterial.CurrentRow.DataBoundItem as DataRowView;
+            if (rowView == null) return;
+
+            int estoqueId = rowView.Row.Field<int>("Id");
+            var estoque = _estoqueList.FirstOrDefault(e => e.Id == estoqueId);
             if (estoque == null) return;
 
             if (estoque.Id == 0)
             {
                 _estoqueList.Remove(estoque);
+
+                if (_bindingSource.DataSource is DataTable dt)
+                {
+                    rowView.Row.Delete();
+                    dt.AcceptChanges();
+                }
+
                 _linhaAtual = null;
                 LimparCampos();
                 return;
@@ -711,15 +795,27 @@ namespace Reverse.Forms.FormsExpedicao
             if (dgvMaterial.CurrentRow == null || dgvMaterial.CurrentRow.DataBoundItem == null)
             {
                 _linhaAtual = null;
+                lblTotal30.Text = "0,000";
+                lblSegregado.Text = "0,000";
+                lblVolumes.Text = "0";
+                dgvMaterialFiltrado.DataSource = null;
                 return;
             }
 
             var rowView = dgvMaterial.CurrentRow.DataBoundItem as DataRowView;
-            if (rowView == null) { _linhaAtual = null; return; }
+            if (rowView == null)
+            {
+                _linhaAtual = null;
+                return;
+            }
 
             int id = rowView.Row.Field<int>("Id");
             var estoque = _estoqueList.FirstOrDefault(x => x.Id == id);
-            if (estoque == null) { _linhaAtual = null; return; }
+            if (estoque == null)
+            {
+                _linhaAtual = null;
+                return;
+            }
 
             _linhaAtual = estoque;
 
@@ -729,6 +825,129 @@ namespace Reverse.Forms.FormsExpedicao
             _atualizandoCampos = false;
 
             CarregarCamposDaLinha(estoque);
+
+            _ = AtualizarGridsResumoPorMaterialAsync(estoque.Material);
+        }
+
+        private async Task AtualizarGridsResumoPorMaterialAsync(string materialSelecionado)
+        {
+            if (string.IsNullOrWhiteSpace(materialSelecionado))
+            {
+                lblTotal30.Text = "0,000";
+                lblSegregado.Text = "0,000";
+                lblVolumes.Text = "0";
+                dgvMaterialFiltrado.DataSource = null;
+                return;
+            }
+
+            try
+            {
+                await Task.Run(() =>
+                {
+                    using (var ctx = new ReverseContext())
+                    {
+                        DateTime dataLimite = DateTime.Now.AddDays(-30);
+
+                        var dados = ctx.Estoques
+                            .Where(e => e.Material == materialSelecionado)
+                            .GroupBy(e => 1)
+                            .Select(g => new
+                            {
+                                Total30Dias = g.Where(e => e.DataEntrada >= dataLimite)
+                                               .Sum(e => (decimal?)e.Quantidade) ?? 0,
+                                TotalSegregado = g.Where(e => e.Status == "Segregado")
+                                                  .Sum(e => (decimal?)e.Quantidade) ?? 0,
+                                Volumes = g.Count(e => e.Status == "Segregado")
+                            })
+                            .FirstOrDefault();
+
+                        var registros = ctx.Estoques
+                            .Where(e => e.Material == materialSelecionado)
+                            .OrderByDescending(e => e.DataEntrada)
+                            .Select(e => new
+                            {
+                                e.Id,
+                                e.Material,
+                                e.DataEntrada,
+                                e.DataSaida,
+                                e.Quantidade,
+                                e.Status,
+                                ClienteNome = ctx.Clientes
+                                    .Where(c => c.ClienteId == e.ClienteId)
+                                    .Select(c => c.Nome)
+                                    .FirstOrDefault() ?? "",
+                                e.Observacao
+                            })
+                            .ToList();
+
+                        this.Invoke(new Action(() =>
+                        {
+                            lblTotal30.Text = (dados?.Total30Dias ?? 0).ToString("N3");
+                            lblSegregado.Text = (dados?.TotalSegregado ?? 0).ToString("N3");
+                            lblVolumes.Text = (dados?.Volumes ?? 0).ToString("N0");
+
+                            dgvMaterialFiltrado.DataSource = registros;
+
+                            ConfigurarColunasGridFiltrado();
+                        }));
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Erro ao atualizar resumo: {ex.Message}");
+            }
+        }
+
+        private void dgvMaterialFiltrado_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvMaterialFiltrado.Columns[e.ColumnIndex].Name == "Status" && e.Value != null)
+            {
+                string status = e.Value.ToString();
+
+                if (status == "Aguardando Peso")
+                {
+                    e.CellStyle.BackColor = Color.FromArgb(177, 2, 2);
+                    e.CellStyle.ForeColor = Color.White;
+                }
+                else if (status == "Segregado")
+                {
+                    e.CellStyle.BackColor = Color.FromArgb(255, 229, 160);
+                    e.CellStyle.ForeColor = Color.Black;
+                }
+                else if (status == "Vendido")
+                {
+                    e.CellStyle.BackColor = Color.FromArgb(17, 115, 75);
+                    e.CellStyle.ForeColor = Color.White;
+                }
+            }
+        }
+
+        private void ConfigurarColunasGridFiltrado()
+        {
+            if (dgvMaterialFiltrado.Columns.Contains("Id"))
+                dgvMaterialFiltrado.Columns["Id"].Visible = false;
+
+            if (dgvMaterialFiltrado.Columns.Contains("Material"))
+                dgvMaterialFiltrado.Columns["Material"].HeaderText = "MATERIAL";
+
+            if (dgvMaterialFiltrado.Columns.Contains("DataEntrada"))
+                dgvMaterialFiltrado.Columns["DataEntrada"].HeaderText = "DATA ENTRADA";
+
+            if (dgvMaterialFiltrado.Columns.Contains("DataSaida"))
+                dgvMaterialFiltrado.Columns["DataSaida"].HeaderText = "DATA SAÍDA";
+
+            if (dgvMaterialFiltrado.Columns.Contains("Quantidade"))
+                dgvMaterialFiltrado.Columns["Quantidade"].HeaderText = "QUANTIDADE";
+
+            if (dgvMaterialFiltrado.Columns.Contains("Status"))
+                dgvMaterialFiltrado.Columns["Status"].HeaderText = "STATUS";
+
+            if (dgvMaterialFiltrado.Columns.Contains("ClienteNome"))
+                dgvMaterialFiltrado.Columns["ClienteNome"].HeaderText = "CLIENTE";
+
+            if (dgvMaterialFiltrado.Columns.Contains("Observacao"))
+                dgvMaterialFiltrado.Columns["Observacao"].HeaderText = "OBSERVAÇÃO";
         }
 
         private void CarregarCamposDaLinha(EstoqueViewModel estoque)
@@ -737,12 +956,13 @@ namespace Reverse.Forms.FormsExpedicao
 
             if (cmbMaterial.DataSource is List<Material> lista)
             {
-                var sel = lista.FirstOrDefault(m => m.Nome == estoque.Material);
+                var sel = lista.FirstOrDefault(m =>
+                    string.Equals(m.Nome, estoque.Material, StringComparison.OrdinalIgnoreCase));
                 cmbMaterial.SelectedItem = sel;
             }
             else
             {
-                cmbMaterial.SelectedItem = estoque.Material;
+                cmbMaterial.Text = estoque.Material;
             }
 
             if (estoque.Quantidade > 0)
@@ -816,9 +1036,6 @@ namespace Reverse.Forms.FormsExpedicao
 
                         foreach (var item in _estoqueList)
                         {
-                            if (string.IsNullOrWhiteSpace(item.Material))
-                                continue;
-
                             Estoque estoque;
                             if (item.Id > 0)
                             {
@@ -831,7 +1048,10 @@ namespace Reverse.Forms.FormsExpedicao
                                 ctx.Estoques.Add(estoque);
                             }
 
-                            estoque.Material = item.Material;
+                            estoque.Material = string.IsNullOrWhiteSpace(item.Material)
+                                ? ""
+                                : item.Material.Trim();
+
                             estoque.DataEntrada = item.DataEntrada;
                             estoque.DataSaida = item.DataSaida;
                             estoque.Quantidade = item.EhPeso
@@ -839,7 +1059,7 @@ namespace Reverse.Forms.FormsExpedicao
                                 : Math.Truncate(item.Quantidade);
                             estoque.EhPeso = item.EhPeso;
                             estoque.Status = item.Status ?? "Aguardando Peso";
-                            estoque.Observacao = item.Observacao;
+                            estoque.Observacao = item.Observacao ?? "";
                             estoque.Mes = mes;
                             estoque.Ano = ano;
 
@@ -973,5 +1193,313 @@ namespace Reverse.Forms.FormsExpedicao
                 }
             }
         }
+
+        private async void btnExportarExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_bindingSource == null || _bindingSource.Count == 0)
+                {
+                    MessageBox.Show("Não há dados para exportar.", "Aviso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                var resultado = MessageBox.Show(
+                    "Deseja exportar apenas os dados FILTRADOS?\n\n" +
+                    "SIM = Exportar apenas dados filtrados/visíveis\n" +
+                    "NÃO = Exportar TODO o estoque do mês",
+                    "Opção de Exportação",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question);
+
+                if (resultado == DialogResult.Cancel)
+                    return;
+
+                bool exportarApenasFiltrados = (resultado == DialogResult.Yes);
+
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    string mesNome = cmbMes.SelectedItem?.ToString() ?? "Mes";
+                    string ano = cmbAno.SelectedItem?.ToString() ?? "Ano";
+
+                    sfd.Filter = "Arquivo Excel (*.xlsx)|*.xlsx";
+                    sfd.Title = "Salvar Exportação de Estoque";
+                    sfd.FileName = $"Estoque_{mesNome}_{ano}_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+
+                    if (sfd.ShowDialog() != DialogResult.OK)
+                        return;
+
+                    btnExportarExcel.Enabled = false;
+                    btnExportarExcel.Text = "Exportando...";
+                    Cursor = Cursors.WaitCursor;
+
+                    try
+                    {
+                        await Task.Run(() => ExportarEstoqueParaExcel(sfd.FileName, exportarApenasFiltrados));
+
+                        MessageBox.Show(
+                            $"Dados exportados com sucesso!\n\nArquivo: {Path.GetFileName(sfd.FileName)}",
+                            "Exportação Concluída",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+
+                        var abrirArquivo = MessageBox.Show(
+                            "Deseja abrir o arquivo agora?",
+                            "Abrir Arquivo",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question);
+
+                        if (abrirArquivo == DialogResult.Yes)
+                        {
+                            System.Diagnostics.Process.Start(sfd.FileName);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro ao exportar: {ex.Message}", "Erro",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        btnExportarExcel.Enabled = true;
+                        btnExportarExcel.Text = "Exportar Excel";
+                        Cursor = Cursors.Default;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ExportarEstoqueParaExcel(string caminhoArquivo, bool apenasFiltrados)
+        {
+            using (var workbook = new XLWorkbook())
+            {
+                string mesNome = cmbMes.SelectedItem?.ToString() ?? "Mês";
+                string ano = cmbAno.SelectedItem?.ToString() ?? "Ano";
+
+                var worksheet = workbook.Worksheets.Add($"Estoque {mesNome} {ano}");
+
+                DataTable dadosExportar = ObterDadosEstoqueParaExportacao(apenasFiltrados);
+
+                if (dadosExportar.Rows.Count == 0)
+                {
+                    throw new InvalidOperationException("Nenhum dado disponível para exportação.");
+                }
+
+                int colIndex = 1;
+                var colunasVisiveis = ObterColunasVisiveisEstoque();
+
+                foreach (var coluna in colunasVisiveis)
+                {
+                    var cell = worksheet.Cell(1, colIndex);
+                    cell.Value = coluna.HeaderText;
+                    cell.Style.Font.Bold = true;
+                    cell.Style.Font.FontColor = XLColor.White;
+                    cell.Style.Fill.BackgroundColor = XLColor.FromArgb(52, 73, 94);
+                    cell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    cell.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                    colIndex++;
+                }
+
+                int rowIndex = 2;
+                foreach (DataRow row in dadosExportar.Rows)
+                {
+                    colIndex = 1;
+                    foreach (var coluna in colunasVisiveis)
+                    {
+                        var cell = worksheet.Cell(rowIndex, colIndex);
+                        var valor = row[coluna.Name];
+
+                        if (valor != null && valor != DBNull.Value)
+                        {
+                            if (coluna.Name == "Valorizacao")
+                            {
+                                int val = Convert.ToInt32(valor);
+                                if (val >= 1 && val <= 5)
+                                {
+                                    cell.Value = new string('★', val);
+                                    cell.Style.Font.FontSize = 14;
+                                    cell.Style.Font.FontColor = XLColor.Gold;
+                                }
+                                else
+                                {
+                                    cell.Value = "-";
+                                }
+                            }
+                            else if (coluna.Name == "DataEntrada" || coluna.Name == "DataSaida")
+                            {
+                                if (DateTime.TryParse(valor.ToString(), out DateTime data))
+                                {
+                                    cell.Value = data;
+                                    cell.Style.DateFormat.Format = "dd/MM/yyyy";
+                                }
+                            }
+                            else if (coluna.Name == "Quantidade")
+                            {
+                                decimal quantidade = Convert.ToDecimal(valor);
+                                bool ehPeso = row["EhPeso"] != DBNull.Value && Convert.ToBoolean(row["EhPeso"]);
+
+                                cell.Value = quantidade;
+
+                                if (ehPeso)
+                                {
+                                    cell.Style.NumberFormat.Format = "#,##0.000";
+                                }
+                                else
+                                {
+                                    cell.Style.NumberFormat.Format = "#,##0";
+                                }
+                            }
+                            else if (coluna.Name == "Status")
+                            {
+                                string status = valor.ToString();
+                                cell.Value = status;
+                                cell.Style.Font.Bold = true;
+
+                                switch (status)
+                                {
+                                    case "Aguardando Peso":
+                                        cell.Style.Fill.BackgroundColor = XLColor.FromArgb(177, 2, 2);
+                                        cell.Style.Font.FontColor = XLColor.White;
+                                        break;
+                                    case "Segregado":
+                                        cell.Style.Fill.BackgroundColor = XLColor.FromArgb(255, 229, 160);
+                                        cell.Style.Font.FontColor = XLColor.Black;
+                                        break;
+                                    case "Vendido":
+                                        cell.Style.Fill.BackgroundColor = XLColor.FromArgb(17, 115, 75);
+                                        cell.Style.Font.FontColor = XLColor.White;
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                cell.Value = valor.ToString();
+                            }
+                        }
+
+                        cell.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                        cell.Style.Border.OutsideBorderColor = XLColor.Gray;
+
+                        if (rowIndex % 2 == 0 && coluna.Name != "Status")
+                        {
+                            if (cell.Style.Fill.BackgroundColor == XLColor.NoColor)
+                            {
+                                cell.Style.Fill.BackgroundColor = XLColor.FromArgb(245, 249, 255);
+                            }
+                        }
+
+                        colIndex++;
+                    }
+                    rowIndex++;
+                }
+
+                worksheet.Columns().AdjustToContents(5, 50);
+
+                var range = worksheet.Range(1, 1, rowIndex - 1, colunasVisiveis.Count);
+                range.SetAutoFilter();
+
+                worksheet.SheetView.FreezeRows(1);
+
+                decimal totalPeso = 0;
+                decimal totalSegregado = 0;
+                int totalVolumes = 0;
+
+                foreach (DataRow row in dadosExportar.Rows)
+                {
+                    if (row["Quantidade"] != DBNull.Value)
+                    {
+                        decimal qtd = Convert.ToDecimal(row["Quantidade"]);
+                        totalPeso += qtd;
+
+                        if (row["Status"]?.ToString() == "Segregado")
+                        {
+                            totalSegregado += qtd;
+                            totalVolumes++;
+                        }
+                    }
+                }
+
+                int footerRow = rowIndex + 2;
+
+                worksheet.Cell(footerRow, 1).Value = "RESUMO DO ESTOQUE";
+                worksheet.Cell(footerRow, 1).Style.Font.Bold = true;
+                worksheet.Cell(footerRow, 1).Style.Font.FontSize = 12;
+                worksheet.Cell(footerRow, 1).Style.Font.FontColor = XLColor.FromArgb(52, 73, 94);
+
+                worksheet.Cell(footerRow + 1, 1).Value = $"Total Geral: {totalPeso:N3}";
+                worksheet.Cell(footerRow + 1, 1).Style.Font.Bold = true;
+
+                worksheet.Cell(footerRow + 2, 1).Value = $"Total Segregado: {totalSegregado:N3}";
+                worksheet.Cell(footerRow + 2, 1).Style.Font.Bold = true;
+
+                worksheet.Cell(footerRow + 3, 1).Value = $"Volumes Segregados: {totalVolumes}";
+                worksheet.Cell(footerRow + 3, 1).Style.Font.Bold = true;
+
+                worksheet.Cell(footerRow + 5, 1).Value = $"Exportado em: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                worksheet.Cell(footerRow + 5, 1).Style.Font.Italic = true;
+                worksheet.Cell(footerRow + 5, 1).Style.Font.FontColor = XLColor.Gray;
+
+                worksheet.Cell(footerRow + 6, 1).Value = $"Período: {mesNome}/{ano}";
+                worksheet.Cell(footerRow + 6, 1).Style.Font.Italic = true;
+                worksheet.Cell(footerRow + 6, 1).Style.Font.FontColor = XLColor.Gray;
+
+                if (apenasFiltrados && !string.IsNullOrEmpty(dgvMaterial.FilterString))
+                {
+                    worksheet.Cell(footerRow + 7, 1).Value = "Filtros aplicados: Sim";
+                    worksheet.Cell(footerRow + 7, 1).Style.Font.Italic = true;
+                    worksheet.Cell(footerRow + 7, 1).Style.Font.FontColor = XLColor.Gray;
+                }
+
+                worksheet.Cell(footerRow + 8, 1).Value = $"Total de registros: {dadosExportar.Rows.Count}";
+                worksheet.Cell(footerRow + 8, 1).Style.Font.Bold = true;
+
+                workbook.SaveAs(caminhoArquivo);
+            }
+        }
+
+        private DataTable ObterDadosEstoqueParaExportacao(bool apenasFiltrados)
+        {
+            if (!apenasFiltrados)
+            {
+                if (_bindingSource.DataSource is DataTable dt)
+                {
+                    return dt.Copy();
+                }
+            }
+
+            DataTable resultado = (_bindingSource.DataSource as DataTable)?.Clone();
+
+            if (resultado == null)
+                return new DataTable();
+
+            foreach (DataRowView rowView in _bindingSource)
+            {
+                resultado.ImportRow(rowView.Row);
+            }
+
+            return resultado;
+        }
+
+        private List<DataGridViewColumn> ObterColunasVisiveisEstoque()
+        {
+            var colunasVisiveis = new List<DataGridViewColumn>();
+
+            foreach (DataGridViewColumn col in dgvMaterial.Columns)
+            {
+                if (col.Visible && col.Name != "Id" && col.Name != "EhPeso")
+                {
+                    colunasVisiveis.Add(col);
+                }
+            }
+
+            return colunasVisiveis.OrderBy(c => c.DisplayIndex).ToList();
+        }
+
     }
 }

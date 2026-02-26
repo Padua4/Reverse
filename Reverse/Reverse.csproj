@@ -174,6 +174,10 @@
       <HintPath>..\packages\PDFsharp.6.2.1\lib\netstandard2.0\PdfSharp.WPFonts.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.4.3.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.4.3\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="RBush, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c77e27b81f4d0187, processorArchitecture=MSIL">
       <HintPath>..\packages\RBush.Signed.4.0.0\lib\net47\RBush.dll</HintPath>
     </Reference>
@@ -260,11 +264,41 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\FormsAtendimento\AtendimentoChamadoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsAtendimento\AtendimentoChamadoForm.Designer.cs">
+      <DependentUpon>AtendimentoChamadoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsAtendimento\AtendimentoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsAtendimento\AtendimentoForm.Designer.cs">
+      <DependentUpon>AtendimentoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsAtendimento\AtendimentoFormHub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsAtendimento\AtendimentoFormHub.Designer.cs">
+      <DependentUpon>AtendimentoFormHub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsAtendimento\AtendimentoFormProtocolo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsAtendimento\AtendimentoFormProtocolo.Designer.cs">
+      <DependentUpon>AtendimentoFormProtocolo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormsComercial\ComercialFormComercialHub.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FormsComercial\ComercialFormComercialHub.Designer.cs">
       <DependentUpon>ComercialFormComercialHub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsComercial\ComercialFormPedidos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsComercial\ComercialFormPedidos.Designer.cs">
+      <DependentUpon>ComercialFormPedidos.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormsComercial\ComercialFormVenda.cs">
       <SubType>Form</SubType>
@@ -315,6 +349,12 @@
     <Compile Include="Forms\FormsExpedicao\ExpedicaoFormFrete.Designer.cs">
       <DependentUpon>ExpedicaoFormFrete.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormGraficos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormGraficos.Designer.cs">
+      <DependentUpon>ExpedicaoFormGraficos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormsExpedicao\ExpedicaoFormLancamentos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -338,6 +378,12 @@
     </Compile>
     <Compile Include="Forms\FormsExpedicao\ExpedicaoFormMotorista.Designer.cs">
       <DependentUpon>ExpedicaoFormMotorista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormNovoMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsExpedicao\ExpedicaoFormNovoMaterial.Designer.cs">
+      <DependentUpon>ExpedicaoFormNovoMaterial.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormsExpedicao\ExpedicaoFormTickets.cs">
       <SubType>Form</SubType>
@@ -384,6 +430,12 @@
     <Compile Include="Forms\FormsFinanceiro\FinanceiroFormLotesReceber.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormRecebimentos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormRecebimentos.Designer.cs">
+      <DependentUpon>FinanceiroFormRecebimentos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormsFinanceiro\formLotesReceber.Designer.cs">
       <DependentUpon>FinanceiroFormLotesReceber.cs</DependentUpon>
     </Compile>
@@ -417,32 +469,29 @@
     <Compile Include="Forms\FormsFiscal\FiscalFormHub.Designer.cs">
       <DependentUpon>FiscalFormHub.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormsFiscal\FiscalFormPedidos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsFiscal\FiscalFormPedidos.Designer.cs">
+      <DependentUpon>FiscalFormPedidos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormsLogin\FormConfigU.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FormsLogin\FormConfigU.Designer.cs">
       <DependentUpon>FormConfigU.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormsRH\CustomScrollPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Forms\FormsRH\RHFormCestaBasica.cs">
+    <Compile Include="Forms\FormsLogin\NotificacaoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormsRH\RHFormCestaBasica.Designer.cs">
-      <DependentUpon>RHFormCestaBasica.cs</DependentUpon>
+    <Compile Include="Forms\FormsLogin\NotificacaoForm.Designer.cs">
+      <DependentUpon>NotificacaoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormsRH\RHFormCurriculosNovos.cs">
+    <Compile Include="Forms\FormsRH\RHFormCesta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormsRH\RHFormCurriculosNovos.Designer.cs">
-      <DependentUpon>RHFormCurriculosNovos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormsRH\RHFormFuncionariosInativos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormsRH\RHFormFuncionariosInativos.Designer.cs">
-      <DependentUpon>RHFormFuncionariosInativos.cs</DependentUpon>
+    <Compile Include="Forms\FormsRH\RHFormCesta.Designer.cs">
+      <DependentUpon>RHFormCesta.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormsRH\RHFormFuncionarios.cs">
       <SubType>Form</SubType>
@@ -450,11 +499,33 @@
     <Compile Include="Forms\FormsRH\RHFormFuncionarios.Designer.cs">
       <DependentUpon>RHFormFuncionarios.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormsRH\RHFormParticipantesAptos.cs">
+    <Compile Include="Forms\FormsRH\RHFormInatividade.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormsRH\RHFormParticipantesAptos.Designer.cs">
-      <DependentUpon>RHFormParticipantesAptos.cs</DependentUpon>
+    <Compile Include="Forms\FormsRH\RHFormInatividade.Designer.cs">
+      <DependentUpon>RHFormInatividade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ConnectionHelper.cs" />
+    <Compile Include="Forms\FormsProducao\ProducaoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsProducao\ProducaoForm.Designer.cs">
+      <DependentUpon>ProducaoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsProducao\ProducaoFormGrafico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsProducao\ProducaoFormGrafico.Designer.cs">
+      <DependentUpon>ProducaoFormGrafico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsProducao\ProducaoFormHub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsProducao\ProducaoFormHub.Designer.cs">
+      <DependentUpon>ProducaoFormHub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsRH\CustomScrollPanel.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\FormsRH\RHFormRHHub.cs">
       <SubType>Form</SubType>
@@ -519,14 +590,20 @@
     <Compile Include="Forms\FormsTriagem\TriagemSelecionarPaletesForm.Designer.cs">
       <DependentUpon>TriagemSelecionarPaletesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\RastreadorAtividades_EF.cs" />
     <Compile Include="Microsoft\VisualBasic\Interaction.cs" />
+    <Compile Include="Models\Categoriapalete.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Estoque.cs" />
     <Compile Include="Models\ExcelImportService.cs" />
     <Compile Include="Models\ItemPalete.cs" />
     <Compile Include="Models\Material.cs" />
+    <Compile Include="Models\Models_EF_Inatividade.cs" />
     <Compile Include="Models\Palete.cs" />
+    <Compile Include="Models\PdfHostService.cs" />
     <Compile Include="Models\Permissao.cs" />
+    <Compile Include="Models\ProducaoModels.cs" />
+    <Compile Include="Models\ProducaoRepository.cs" />
     <Compile Include="Models\Produto.cs" />
     <Compile Include="Models\ProdutoService.cs" />
     <Compile Include="Models\ReverseContext.cs" />
@@ -539,8 +616,23 @@
     <Compile Include="Forms\FormsLogin\RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\FormsAtendimento\AtendimentoChamadoForm.resx">
+      <DependentUpon>AtendimentoChamadoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsAtendimento\AtendimentoForm.resx">
+      <DependentUpon>AtendimentoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsAtendimento\AtendimentoFormHub.resx">
+      <DependentUpon>AtendimentoFormHub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsAtendimento\AtendimentoFormProtocolo.resx">
+      <DependentUpon>AtendimentoFormProtocolo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsComercial\ComercialFormComercialHub.resx">
       <DependentUpon>ComercialFormComercialHub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsComercial\ComercialFormPedidos.resx">
+      <DependentUpon>ComercialFormPedidos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsComercial\ComercialFormVenda.resx">
       <DependentUpon>ComercialFormVenda.cs</DependentUpon>
@@ -566,6 +658,9 @@
     <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormFrete.resx">
       <DependentUpon>ExpedicaoFormFrete.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormGraficos.resx">
+      <DependentUpon>ExpedicaoFormGraficos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormLancamentos.resx">
       <DependentUpon>ExpedicaoFormLancamentos.cs</DependentUpon>
     </EmbeddedResource>
@@ -577,6 +672,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormMotorista.resx">
       <DependentUpon>ExpedicaoFormMotorista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormNovoMaterial.resx">
+      <DependentUpon>ExpedicaoFormNovoMaterial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsExpedicao\ExpedicaoFormTickets.resx">
       <DependentUpon>ExpedicaoFormTickets.cs</DependentUpon>
@@ -608,6 +706,9 @@
     <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormReceber.resx">
       <DependentUpon>FinanceiroFormReceber.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormRecebimentos.resx">
+      <DependentUpon>FinanceiroFormRecebimentos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormRelatorioReceber.resx">
       <DependentUpon>FinanceiroFormRelatorioReceber.cs</DependentUpon>
     </EmbeddedResource>
@@ -617,26 +718,35 @@
     <EmbeddedResource Include="Forms\FormsFiscal\FiscalFormHub.resx">
       <DependentUpon>FiscalFormHub.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsFiscal\FiscalFormPedidos.resx">
+      <DependentUpon>FiscalFormPedidos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsLogin\FormConfigU.resx">
       <DependentUpon>FormConfigU.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormsRH\RHFormCestaBasica.resx">
-      <DependentUpon>RHFormCestaBasica.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormsLogin\NotificacaoForm.resx">
+      <DependentUpon>NotificacaoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormsRH\RHFormCurriculosNovos.resx">
-      <DependentUpon>RHFormCurriculosNovos.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormsProducao\ProducaoForm.resx">
+      <DependentUpon>ProducaoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormsRH\RHFormFuncionariosInativos.resx">
-      <DependentUpon>RHFormFuncionariosInativos.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormsProducao\ProducaoFormGrafico.resx">
+      <DependentUpon>ProducaoFormGrafico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsProducao\ProducaoFormHub.resx">
+      <DependentUpon>ProducaoFormHub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsRH\RHFormCesta.resx">
+      <DependentUpon>RHFormCesta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsRH\RHFormFuncionarios.resx">
       <DependentUpon>RHFormFuncionarios.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormsRH\RHFormParticipantesAptos.resx">
-      <DependentUpon>RHFormParticipantesAptos.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsRH\RHFormRHHub.resx">
       <DependentUpon>RHFormRHHub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsRH\RHFormInatividade.resx">
+      <DependentUpon>RHFormInatividade.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsTriagem\TriagemControleForm.resx">
       <DependentUpon>TriagemControleForm.cs</DependentUpon>

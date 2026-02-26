@@ -104,6 +104,20 @@ namespace SeuProjeto
                 }
             };
 
+            picRecebimentos.MouseEnter += Pic_MouseEnter;
+            picRecebimentos.MouseLeave += Pic_MouseLeave;
+            picRecebimentos.Click += (s, e) =>
+            {
+                if (Reverse.Forms.FormsLogin.FormConfigU.PermissaoHelper.TemPermissao(_usuarioId, nameof(FinanceiroFormRecebimentos)))
+                {
+                    AbrirFormNoPainel(new FinanceiroFormRecebimentos(_usuarioId));
+                }
+                else
+                {
+                    MessageBox.Show("Você não tem permissão para acessar os Recebimentos.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            };
+
             btnSair.Click += (s, e) => Close();
         }
 

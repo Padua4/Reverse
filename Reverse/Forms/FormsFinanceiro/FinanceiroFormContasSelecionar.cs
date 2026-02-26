@@ -26,6 +26,11 @@ namespace Reverse.Forms.FormsFinanceiro
             BtnFiltrar_Click(null, null);
         }
 
+        public void RecarregarDados()
+        {
+            BtnFiltrar_Click(null, null);
+        }
+
         private void ConfigurarFormulario()
         {
             CarregarMeses();
@@ -105,7 +110,7 @@ namespace Reverse.Forms.FormsFinanceiro
                     l.LoteId,
                     l.DataLote,
                     COUNT(cp.Id) AS QuantidadeContas,
-                    ISNULL(SUM(cp.Valor), 0) AS ValorTotal,
+                    ISNULL(SUM(cp.ValorPago), 0) AS ValorTotal,
                     CASE 
                         WHEN SUM(CASE WHEN cp.StatusPagamento = 0 THEN 1 ELSE 0 END) > 0 THEN 'Pendente'
                         ELSE 'Tudo pago'
@@ -244,7 +249,7 @@ namespace Reverse.Forms.FormsFinanceiro
                     l.LoteId,
                     l.DataLote,
                     COUNT(cp.Id) AS QuantidadeContas,
-                    ISNULL(SUM(cp.Valor), 0) AS ValorTotal,
+                    ISNULL(SUM(cp.ValorPago), 0) AS ValorTotal,
                     CASE 
                         WHEN SUM(CASE WHEN cp.StatusPagamento = 0 THEN 1 ELSE 0 END) > 0 THEN 'Pendente'
                         ELSE 'Tudo pago'
@@ -275,7 +280,6 @@ namespace Reverse.Forms.FormsFinanceiro
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void BtnAbrir_Click(object sender, EventArgs e)
         {
@@ -326,13 +330,13 @@ namespace Reverse.Forms.FormsFinanceiro
                     string query = @"
             SELECT 
                 -- Pendente: tudo que está aberto (status 0), incluindo vencimento próximo
-                SUM(CASE WHEN cp.StatusPagamento = 0 THEN cp.Valor ELSE 0 END) AS TotalPendente,
+                SUM(CASE WHEN cp.StatusPagamento = 0 THEN cp.ValorPago ELSE 0 END) AS TotalPendente,
 
                 -- Vencido: status 2
-                SUM(CASE WHEN cp.StatusPagamento = 2 THEN cp.Valor ELSE 0 END) AS TotalVencido,
+                SUM(CASE WHEN cp.StatusPagamento = 2 THEN cp.ValorPago ELSE 0 END) AS TotalVencido,
 
                 -- Pago: status 1
-                SUM(CASE WHEN cp.StatusPagamento = 1 THEN cp.Valor ELSE 0 END) AS TotalPago
+                SUM(CASE WHEN cp.StatusPagamento = 1 THEN cp.ValorPago ELSE 0 END) AS TotalPago
             FROM ContasPagar cp
             INNER JOIN LotesContasPagar l ON cp.LoteId = l.LoteId
             WHERE MONTH(l.DataLote) = @Mes AND YEAR(l.DataLote) = @Ano";

@@ -38,20 +38,23 @@
             this.picGraficos = new System.Windows.Forms.PictureBox();
             this.btnSair = new System.Windows.Forms.Button();
             this.pnlConteudo = new System.Windows.Forms.Panel();
+            this.picRecebimentos = new System.Windows.Forms.PictureBox();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picExportar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picReceber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPagar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picClientes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picGraficos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRecebimentos)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(160)))));
-            this.pnlHeader.Controls.Add(this.btnMinimizar);
-            this.pnlHeader.Controls.Add(this.picExportar);
             this.pnlHeader.Controls.Add(this.picReceber);
+            this.pnlHeader.Controls.Add(this.picExportar);
+            this.pnlHeader.Controls.Add(this.picRecebimentos);
+            this.pnlHeader.Controls.Add(this.btnMinimizar);
             this.pnlHeader.Controls.Add(this.picPagar);
             this.pnlHeader.Controls.Add(this.picClientes);
             this.pnlHeader.Controls.Add(this.picGraficos);
@@ -94,7 +97,7 @@
             this.picReceber.BackColor = System.Drawing.Color.White;
             this.picReceber.Dock = System.Windows.Forms.DockStyle.Left;
             this.picReceber.Image = ((System.Drawing.Image)(resources.GetObject("picReceber.Image")));
-            this.picReceber.Location = new System.Drawing.Point(168, 0);
+            this.picReceber.Location = new System.Drawing.Point(280, 0);
             this.picReceber.Name = "picReceber";
             this.picReceber.Size = new System.Drawing.Size(56, 34);
             this.picReceber.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -159,6 +162,18 @@
             this.pnlConteudo.Size = new System.Drawing.Size(1920, 966);
             this.pnlConteudo.TabIndex = 2;
             // 
+            // picRecebimentos
+            // 
+            this.picRecebimentos.BackColor = System.Drawing.Color.White;
+            this.picRecebimentos.Dock = System.Windows.Forms.DockStyle.Left;
+            this.picRecebimentos.Image = ((System.Drawing.Image)(resources.GetObject("picRecebimentos.Image")));
+            this.picRecebimentos.Location = new System.Drawing.Point(168, 0);
+            this.picRecebimentos.Name = "picRecebimentos";
+            this.picRecebimentos.Size = new System.Drawing.Size(56, 34);
+            this.picRecebimentos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picRecebimentos.TabIndex = 7;
+            this.picRecebimentos.TabStop = false;
+            // 
             // FinanceiroFormFinanceiroHub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
@@ -181,6 +196,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picPagar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picClientes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picGraficos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRecebimentos)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -195,5 +211,6 @@
         private System.Windows.Forms.PictureBox picExportar;
         private System.Windows.Forms.Panel pnlConteudo;
         private System.Windows.Forms.Button btnMinimizar;
+        private System.Windows.Forms.PictureBox picRecebimentos;
     }
 }

@@ -3,24 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\T.I\\source\\repos\\Reverse\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|c:\\users\\t.i\\source\\repos\\reverse\\reverse\\forms\\formsexpedicao\\expedicaoformcontrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\forms\\formsexpedicao\\expedicaoformcontrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|c:\\users\\t.i\\source\\repos\\reverse\\reverse\\models\\pdfhostservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\models\\pdfhostservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|c:\\users\\t.i\\source\\repos\\reverse\\reverse\\forms\\formsexpedicao\\expedicaoformcontrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\forms\\formsexpedicao\\expedicaoformcontrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|C:\\Users\\T.I\\source\\repos\\Reverse\\reverse\\forms\\formstriagem\\triagemform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\forms\\formstriagem\\triagemform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|c:\\users\\t.i\\source\\repos\\reverse\\reverse\\forms\\formsfinanceiro\\financeiroformpagar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\forms\\formsfinanceiro\\financeiroformpagar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|C:\\Users\\T.I\\source\\repos\\Reverse\\reverse\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|c:\\users\\t.i\\source\\repos\\reverse\\reverse\\forms\\formsfinanceiro\\financeiroformpagar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\forms\\formsfinanceiro\\financeiroformpagar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|c:\\users\\t.i\\source\\repos\\reverse\\reverse\\forms\\formsexpedicao\\expedicaoformfrete.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\forms\\formsexpedicao\\expedicaoformfrete.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|C:\\Users\\T.I\\source\\repos\\Reverse\\reverse\\forms\\formstriagem\\triagemform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\forms\\formstriagem\\triagemform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,64 +46,53 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "App.config",
+              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\App.config",
+              "RelativeDocumentMoniker": "Reverse\\App.config",
+              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\App.config",
+              "RelativeToolTip": "Reverse\\App.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-02-24T20:42:18.863Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ExpedicaoFormControle.cs",
-              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormControle.cs",
-              "RelativeDocumentMoniker": "Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormControle.cs",
-              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormControle.cs",
-              "RelativeToolTip": "Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormControle.cs",
-              "ViewState": "AgIAAHACAAAAAAAAAADwv3wCAAAAAAAAAAAAAA==",
+              "Title": "PdfHostService.cs",
+              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Models\\PdfHostService.cs",
+              "RelativeDocumentMoniker": "Reverse\\Models\\PdfHostService.cs",
+              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Models\\PdfHostService.cs",
+              "RelativeToolTip": "Reverse\\Models\\PdfHostService.cs",
+              "ViewState": "AgIAAOkBAAAAAAAAAAA4wAACAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T13:42:09.373Z",
+              "WhenOpened": "2026-02-24T14:37:12.328Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ExpedicaoFormControle.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormControle.cs",
-              "RelativeDocumentMoniker": "Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormControle.cs",
-              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormControle.cs [Design]",
-              "RelativeToolTip": "Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormControle.cs [Design]",
+              "Title": "TriagemForm.cs",
+              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsTriagem\\TriagemForm.cs",
+              "RelativeDocumentMoniker": "Reverse\\Forms\\FormsTriagem\\TriagemForm.cs",
+              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsTriagem\\TriagemForm.cs",
+              "RelativeToolTip": "Reverse\\Forms\\FormsTriagem\\TriagemForm.cs",
+              "ViewState": "AgIAANoGAAAAAAAAAAAAwAQHAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T13:42:06.515Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FinanceiroFormPagar.cs",
-              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsFinanceiro\\FinanceiroFormPagar.cs",
-              "RelativeDocumentMoniker": "Reverse\\Forms\\FormsFinanceiro\\FinanceiroFormPagar.cs",
-              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsFinanceiro\\FinanceiroFormPagar.cs",
-              "RelativeToolTip": "Reverse\\Forms\\FormsFinanceiro\\FinanceiroFormPagar.cs",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAwwE4AAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T11:20:14.425Z",
+              "WhenOpened": "2026-02-24T14:14:59.859Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "FinanceiroFormPagar.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsFinanceiro\\FinanceiroFormPagar.cs",
-              "RelativeDocumentMoniker": "Reverse\\Forms\\FormsFinanceiro\\FinanceiroFormPagar.cs",
-              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsFinanceiro\\FinanceiroFormPagar.cs [Design]",
-              "RelativeToolTip": "Reverse\\Forms\\FormsFinanceiro\\FinanceiroFormPagar.cs [Design]",
+              "Title": "TriagemForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsTriagem\\TriagemForm.cs",
+              "RelativeDocumentMoniker": "Reverse\\Forms\\FormsTriagem\\TriagemForm.cs",
+              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsTriagem\\TriagemForm.cs [Design]",
+              "RelativeToolTip": "Reverse\\Forms\\FormsTriagem\\TriagemForm.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T11:20:10.179Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ExpedicaoFormFrete.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormFrete.cs",
-              "RelativeDocumentMoniker": "Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormFrete.cs",
-              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormFrete.cs [Design]",
-              "RelativeToolTip": "Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormFrete.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T11:13:50.145Z",
+              "WhenOpened": "2026-02-24T14:05:36.154Z",
               "EditorCaption": " [Design]"
             }
           ]

@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace Reverse.Forms.FormsExpedicao
 {
@@ -33,6 +34,14 @@ namespace Reverse.Forms.FormsExpedicao
         {
             InitializeComponent();
             this.controleLogisticoId = controleLogisticoId;
+
+            this.clienteId = 0;
+            this.isPrimeiraVez = false;
+            this.linhaJaTemTicket = false;
+            this.dadosControle = null;
+            this.dadosCliente = null;
+            this.dadosVeiculo = null;
+
             this.Load += FormTicket_Load;
         }
 
@@ -64,8 +73,9 @@ namespace Reverse.Forms.FormsExpedicao
 
             await CarregarDadosAsync();
             PreencherCampos();
+
             if (!linhaJaTemTicket)
-                VerificarPrimeiraVez();
+                await VerificarPrimeiraVez();
 
             string caminhoPreview = GerarPDFPreview();
             MostrarPreviewPDF(caminhoPreview);
@@ -73,6 +83,14 @@ namespace Reverse.Forms.FormsExpedicao
 
         private async System.Threading.Tasks.Task CarregarDadosAsync()
         {
+            if (controleLogisticoId <= 0)
+            {
+                MessageBox.Show("ID de controle inválido!", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
+
             using (var conn = new SqlConnection(connectionString))
             {
                 await conn.OpenAsync();
@@ -87,7 +105,7 @@ namespace Reverse.Forms.FormsExpedicao
                         c.CodigoEmpresa, 
                         c.Nome AS NomeCliente,
                         c.RazaoSocial,
-                        c.Complemento,
+                        c.ComplementoEntrega,
                         c.RuaEntrega, c.BairroEntrega, c.NumeroEntrega, 
                         c.MunicipioEntrega, c.EstadoEntrega, c.Telefone, c.ResponsavelComercial,
                         c.CPF_CNPJ, c.NomeContato,
@@ -131,7 +149,7 @@ namespace Reverse.Forms.FormsExpedicao
                             CodigoEmpresa = reader["CodigoEmpresa"]?.ToString() ?? "",
                             Nome = reader["NomeCliente"]?.ToString() ?? "",
                             RazaoSocial = reader["RazaoSocial"]?.ToString() ?? "",
-                            Complemento = reader["Complemento"]?.ToString() ?? "",
+                            ComplementoEntrega = reader["ComplementoEntrega"]?.ToString() ?? "",
                             RuaEntrega = reader["RuaEntrega"]?.ToString() ?? "",
                             BairroEntrega = reader["BairroEntrega"]?.ToString() ?? "",
                             NumeroEntrega = reader["NumeroEntrega"]?.ToString() ?? "",
@@ -165,11 +183,35 @@ namespace Reverse.Forms.FormsExpedicao
                         {
                             txtTicket.Text = ticketExistente;
                         }
+
+                        if (reader["ClienteId"] == DBNull.Value)
+                        {
+                            MessageBox.Show("Registro sem ClienteId associado!", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            this.Close();
+                            return;
+                        }
+
+                        clienteId = Convert.ToInt32(reader["ClienteId"]);
+
+                        if (clienteId <= 0)
+                        {
+                            MessageBox.Show($"ClienteId inválido: {clienteId}", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            this.Close();
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Registro com Id={controleLogisticoId} não encontrado!",
+                            "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+                        return;
                     }
                 }
             }
         }
-
         private void PreencherCampos()
         {
             bool dldEhReceptor = dadosControle.Servico.Contains("COLETA") ||
@@ -203,13 +245,12 @@ namespace Reverse.Forms.FormsExpedicao
                 : dadosCliente.NomeContato;
         }
 
-        private void VerificarPrimeiraVez()
+        private async Task VerificarPrimeiraVez()
         {
             isPrimeiraVez = (dadosCliente.TicketSequencialGeral == 0 && !linhaJaTemTicket);
 
             if (isPrimeiraVez)
             {
-                // É realmente a primeira vez deste cliente no sistema
                 txtTicket.ReadOnly = false;
                 txtTicket.BackColor = Color.LightYellow;
 
@@ -236,7 +277,7 @@ namespace Reverse.Forms.FormsExpedicao
             }
             else if (!linhaJaTemTicket)
             {
-                GerarNumeroTicketAutomatico();
+                await GerarNumeroTicketAutomatico();
                 txtTicket.ReadOnly = false;
                 txtTicket.BackColor = Color.LightYellow;
             }
@@ -246,6 +287,7 @@ namespace Reverse.Forms.FormsExpedicao
                 txtTicket.BackColor = Color.LightYellow;
             }
         }
+
 
         private string GerarPDFPreview()
         {
@@ -261,25 +303,85 @@ namespace Reverse.Forms.FormsExpedicao
             pdfViewer.Document = PdfiumViewer.PdfDocument.Load(caminhoArquivo);
         }
 
-        private void GerarNumeroTicketAutomatico()
+        private async Task GerarNumeroTicketAutomatico()
         {
-            int novoSeqGeral = dadosCliente.TicketSequencialGeral + 1;
-            int serialAtual = dadosCliente.TicketSequencialAnoAtual;
+            int clienteIdLocal = this.clienteId;
 
-            if (novoSeqGeral > 9999)
+            if (clienteIdLocal <= 0)
             {
-                novoSeqGeral = 1;
-                serialAtual += 1;
+                throw new InvalidOperationException($"ClienteId inválido: {clienteIdLocal}");
             }
 
-            string codigo4 = (dadosCliente.CodigoEmpresa ?? "").Trim();
-            if (int.TryParse(codigo4, out var codNum))
-                codigo4 = codNum.ToString("D4");
-            else
-                codigo4 = codigo4.PadLeft(4, '0');
+            using (var conn = new SqlConnection(connectionString))
+            {
+                await conn.OpenAsync();
 
-            txtTicket.Text = $"{codigo4}/{novoSeqGeral:D4}-{serialAtual}";
+                using (var transaction = conn.BeginTransaction(System.Data.IsolationLevel.Serializable))
+                {
+                    try
+                    {
+                        var cmdLock = new SqlCommand(@"
+                            SELECT TicketSequencialGeral, TicketSequencialAnoAtual
+                            FROM Clientes WITH (UPDLOCK, HOLDLOCK, ROWLOCK)
+                            WHERE ClienteId = @ClienteId", conn, transaction);
+
+                        cmdLock.Parameters.AddWithValue("@ClienteId", clienteIdLocal);
+
+                        int seqGeralAtual;
+                        int serialAtual;
+
+                        using (var reader = await cmdLock.ExecuteReaderAsync())
+                        {
+                            if (!await reader.ReadAsync())
+                            {
+                                throw new Exception($"Cliente {clienteIdLocal} não encontrado!");
+                            }
+
+                            seqGeralAtual = reader["TicketSequencialGeral"] != DBNull.Value
+                                ? Convert.ToInt32(reader["TicketSequencialGeral"])
+                                : 0;
+
+                            serialAtual = reader["TicketSequencialAnoAtual"] != DBNull.Value
+                                ? Convert.ToInt32(reader["TicketSequencialAnoAtual"])
+                                : 1;
+                        }
+
+                        int novoSeqGeral = seqGeralAtual + 1;
+
+                        if (novoSeqGeral > 9999)
+                        {
+                            novoSeqGeral = 1;
+                            serialAtual += 1;
+                        }
+
+                        string codigo4 = (dadosCliente.CodigoEmpresa ?? "").Trim();
+                        if (int.TryParse(codigo4, out var codNum))
+                            codigo4 = codNum.ToString("D4");
+                        else
+                            codigo4 = codigo4.PadLeft(4, '0');
+
+                        txtTicket.Text = $"{codigo4}/{novoSeqGeral:D4}-{serialAtual}";
+
+                        dadosCliente.TicketSequencialGeral = seqGeralAtual;
+                        dadosCliente.TicketSequencialAnoAtual = serialAtual;
+
+                        transaction.Commit();
+
+                        System.Diagnostics.Debug.WriteLine(
+                            $"✅ TICKET GERADO - Cliente: {clienteIdLocal}, " +
+                            $"Ticket: {txtTicket.Text}, " +
+                            $"Usuário: {Environment.UserName}, " +
+                            $"Data/Hora: {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}");
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
         }
+
         private async void btnExportarPDF_Click(object sender, EventArgs e)
         {
             try
@@ -320,6 +422,16 @@ namespace Reverse.Forms.FormsExpedicao
                 string caminhoArquivo = GerarPDF();
                 MostrarPreviewPDF(caminhoArquivo);
 
+                var parentForm = Application.OpenForms["ExpedicaoFormControle"];
+                if (parentForm != null && parentForm is ExpedicaoFormControle controleForm)
+                {
+                    var txtTicketControle = controleForm.Controls.Find("txtTicket", true).FirstOrDefault() as TextBox;
+                    if (txtTicketControle != null)
+                    {
+                        txtTicketControle.Text = txtTicket.Text;
+                    }
+                }
+
                 var resultado = MessageBox.Show(
                     $"PDF gerado com sucesso!\n\n{caminhoArquivo}\n\nDeseja abrir o arquivo?",
                     "Sucesso",
@@ -356,7 +468,6 @@ namespace Reverse.Forms.FormsExpedicao
             if (seq.Length != 4 || !int.TryParse(seq, out var seqVal)) return false;
             if (!int.TryParse(serialStr, out var serialVal)) return false;
 
-            // Regras adicionais
             if (seqVal < 1 || seqVal > 9999) return false;
             if (serialVal < 1) return false;
 
@@ -365,6 +476,20 @@ namespace Reverse.Forms.FormsExpedicao
 
         private async System.Threading.Tasks.Task AtualizarSequenciaisCliente(string ticketManual)
         {
+            // CRÍTICO: Captura IDs no início
+            int clienteIdLocal = this.clienteId;
+            int controleLogisticoIdLocal = this.controleLogisticoId;
+
+            if (clienteIdLocal <= 0)
+            {
+                throw new InvalidOperationException($"ClienteId inválido: {clienteIdLocal}");
+            }
+
+            if (controleLogisticoIdLocal <= 0)
+            {
+                throw new InvalidOperationException($"ControleLogisticoId inválido: {controleLogisticoIdLocal}");
+            }
+
             var partesBarra = ticketManual.Split('/');
             var codigo = partesBarra[0];
             var resto = partesBarra[1];
@@ -377,24 +502,71 @@ namespace Reverse.Forms.FormsExpedicao
             {
                 await conn.OpenAsync();
 
-                using (var transaction = conn.BeginTransaction())
+                using (var transaction = conn.BeginTransaction(System.Data.IsolationLevel.Serializable))
                 {
                     try
                     {
+                        var cmdLock = new SqlCommand(@"
+                SELECT TicketSequencialGeral, TicketSequencialAnoAtual
+                FROM Clientes WITH (UPDLOCK, HOLDLOCK, ROWLOCK)
+                WHERE ClienteId = @ClienteId", conn, transaction);
+
+                        cmdLock.Parameters.AddWithValue("@ClienteId", clienteIdLocal); // ← LOCAL
+
+                        using (var reader = await cmdLock.ExecuteReaderAsync())
+                        {
+                            if (!await reader.ReadAsync())
+                            {
+                                throw new Exception($"Cliente {clienteIdLocal} não encontrado!");
+                            }
+
+                            int seqAtualBanco = reader["TicketSequencialGeral"] != DBNull.Value
+                                ? Convert.ToInt32(reader["TicketSequencialGeral"])
+                                : 0;
+
+                            int serialAtualBanco = reader["TicketSequencialAnoAtual"] != DBNull.Value
+                                ? Convert.ToInt32(reader["TicketSequencialAnoAtual"])
+                                : 1;
+
+                            if (seqGeral <= seqAtualBanco && !isPrimeiraVez)
+                            {
+                                reader.Close();
+                                throw new Exception(
+                                    $"ERRO: O ticket {ticketManual} é MENOR OU IGUAL ao último registrado no sistema.\n\n" +
+                                    $"Último ticket no banco: {codigo}/{seqAtualBanco:D4}-{serialAtualBanco}\n" +
+                                    $"Ticket tentando salvar: {ticketManual}\n\n" +
+                                    $"Não é possível regredir ou repetir a sequência.\n" +
+                                    $"O próximo ticket válido seria: {codigo}/{(seqAtualBanco + 1):D4}-{serialAtualBanco}");
+                            }
+                        }
+
+                        string ticketAntigo = null;
+                        var cmdBusca = new SqlCommand(@"
+                            SELECT Ticket 
+                            FROM ControleLogistico 
+                            WHERE Id = @ControleId", conn, transaction);
+                                    cmdBusca.Parameters.AddWithValue("@ControleId", controleLogisticoIdLocal); // ← LOCAL
+
+                        var resultado = await cmdBusca.ExecuteScalarAsync();
+                        if (resultado != null && resultado != DBNull.Value)
+                        {
+                            ticketAntigo = resultado.ToString();
+                        }
+
                         var cmdCliente = new SqlCommand(@"
-                    UPDATE Clientes 
-                    SET TicketSequencialGeral = @SeqGeral,
-                        TicketSequencialAnoAtual = @Serial,
-                        TicketUltimoAno = YEAR(GETDATE())
-                    WHERE ClienteId = @ClienteId", conn, transaction);
+                            UPDATE Clientes 
+                            SET TicketSequencialGeral = @SeqGeral,
+                                TicketSequencialAnoAtual = @Serial,
+                                TicketUltimoAno = YEAR(GETDATE())
+                            WHERE ClienteId = @ClienteId", conn, transaction);
 
                         cmdCliente.Parameters.AddWithValue("@SeqGeral", seqGeral);
                         cmdCliente.Parameters.AddWithValue("@Serial", serial);
-                        cmdCliente.Parameters.AddWithValue("@ClienteId", clienteId);
+                        cmdCliente.Parameters.AddWithValue("@ClienteId", clienteIdLocal); // ← LOCAL
 
                         int linhasAfetadasCliente = await cmdCliente.ExecuteNonQueryAsync();
                         if (linhasAfetadasCliente == 0)
-                            throw new Exception($"Cliente {clienteId} não foi encontrado para atualizar sequenciais!");
+                            throw new Exception($"Cliente {clienteIdLocal} não foi encontrado para atualizar sequenciais!");
 
                         var cmdControle = new SqlCommand(@"
                             UPDATE ControleLogistico
@@ -402,11 +574,36 @@ namespace Reverse.Forms.FormsExpedicao
                             WHERE Id = @ControleId", conn, transaction);
 
                         cmdControle.Parameters.AddWithValue("@Ticket", ticketManual);
-                        cmdControle.Parameters.AddWithValue("@ControleId", controleLogisticoId);
+                        cmdControle.Parameters.AddWithValue("@ControleId", controleLogisticoIdLocal); // ← LOCAL
 
                         await cmdControle.ExecuteNonQueryAsync();
 
+                        if (!string.IsNullOrWhiteSpace(ticketAntigo) && ticketAntigo != ticketManual)
+                        {
+                            var cmdLancamentos = new SqlCommand(@"
+                                UPDATE LancamentosMateriais 
+                                SET Ticket = @TicketNovo 
+                                WHERE Ticket = @TicketAntigo", conn, transaction);
+
+                            cmdLancamentos.Parameters.AddWithValue("@TicketAntigo", ticketAntigo);
+                            cmdLancamentos.Parameters.AddWithValue("@TicketNovo", ticketManual);
+
+                            int linhasAtualizadas = await cmdLancamentos.ExecuteNonQueryAsync();
+
+                            if (linhasAtualizadas > 0)
+                            {
+                                System.Diagnostics.Debug.WriteLine($"✅ {linhasAtualizadas} lançamento(s) atualizado(s) de '{ticketAntigo}' para '{ticketManual}'");
+                            }
+                        }
+
                         transaction.Commit();
+
+                        System.Diagnostics.Debug.WriteLine(
+                            $"✅ TICKET ATUALIZADO - Cliente: {clienteIdLocal}, " +
+                            $"Ticket: {ticketManual}, " +
+                            $"SeqGeral: {seqGeral}, Serial: {serial}, " +
+                            $"Usuário: {Environment.UserName}, " +
+                            $"Data/Hora: {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}");
 
                         dadosCliente.TicketSequencialGeral = seqGeral;
                         dadosCliente.TicketSequencialAnoAtual = serial;
@@ -420,66 +617,108 @@ namespace Reverse.Forms.FormsExpedicao
                 }
             }
         }
-
         private async System.Threading.Tasks.Task IncrementarSequenciais()
         {
-            int novoSeqGeral = dadosCliente.TicketSequencialGeral + 1;
-            int serialAtual = dadosCliente.TicketSequencialAnoAtual;
+            int clienteIdLocal = this.clienteId;
+            int controleLogisticoIdLocal = this.controleLogisticoId;
 
-            if (novoSeqGeral > 9999)
+            if (clienteIdLocal <= 0)
             {
-                novoSeqGeral = 1;
-                serialAtual += 1;
+                throw new InvalidOperationException($"ClienteId inválido: {clienteIdLocal}");
             }
 
-            string codigo4 = (dadosCliente.CodigoEmpresa ?? "").Trim();
-            if (int.TryParse(codigo4, out var codNum))
-                codigo4 = codNum.ToString("D4");
-            else
-                codigo4 = codigo4.PadLeft(4, '0');
-
-            string novoTicket = $"{codigo4}/{novoSeqGeral:D4}-{serialAtual}";
+            if (controleLogisticoIdLocal <= 0)
+            {
+                throw new InvalidOperationException($"ControleLogisticoId inválido: {controleLogisticoIdLocal}");
+            }
 
             using (var conn = new SqlConnection(connectionString))
             {
                 await conn.OpenAsync();
-                using (var transaction = conn.BeginTransaction())
+
+                using (var transaction = conn.BeginTransaction(System.Data.IsolationLevel.Serializable))
                 {
                     try
                     {
-                        // 🔹 Atualiza os sequenciais no cadastro do cliente
+                        var cmdLer = new SqlCommand(@"
+                            SELECT TicketSequencialGeral, TicketSequencialAnoAtual
+                            FROM Clientes WITH (UPDLOCK, HOLDLOCK, ROWLOCK)
+                            WHERE ClienteId = @ClienteId", conn, transaction);
+
+                        cmdLer.Parameters.AddWithValue("@ClienteId", clienteIdLocal); // ← LOCAL
+
+                        int seqGeralAtual;
+                        int serialAtual;
+
+                        using (var reader = await cmdLer.ExecuteReaderAsync())
+                        {
+                            if (!await reader.ReadAsync())
+                            {
+                                throw new Exception($"Cliente {clienteIdLocal} não encontrado!");
+                            }
+
+                            seqGeralAtual = reader["TicketSequencialGeral"] != DBNull.Value
+                                ? Convert.ToInt32(reader["TicketSequencialGeral"])
+                                : 0;
+
+                            serialAtual = reader["TicketSequencialAnoAtual"] != DBNull.Value
+                                ? Convert.ToInt32(reader["TicketSequencialAnoAtual"])
+                                : 1;
+                        }
+
+                        int novoSeqGeral = seqGeralAtual + 1;
+
+                        if (novoSeqGeral > 9999)
+                        {
+                            novoSeqGeral = 1;
+                            serialAtual += 1;
+                        }
+
+                        string codigo4 = (dadosCliente.CodigoEmpresa ?? "").Trim();
+                        if (int.TryParse(codigo4, out var codNum))
+                            codigo4 = codNum.ToString("D4");
+                        else
+                            codigo4 = codigo4.PadLeft(4, '0');
+
+                        string novoTicket = $"{codigo4}/{novoSeqGeral:D4}-{serialAtual}";
+
                         var cmdCliente = new SqlCommand(@"
-                    UPDATE Clientes 
-                    SET TicketSequencialGeral = @SeqGeral,
-                        TicketSequencialAnoAtual = @Serial
-                    WHERE ClienteId = @ClienteId", conn, transaction);
+                            UPDATE Clientes 
+                            SET TicketSequencialGeral = @SeqGeral,
+                                TicketSequencialAnoAtual = @Serial,
+                                TicketUltimoAno = YEAR(GETDATE())
+                            WHERE ClienteId = @ClienteId", conn, transaction);
 
                         cmdCliente.Parameters.AddWithValue("@SeqGeral", novoSeqGeral);
                         cmdCliente.Parameters.AddWithValue("@Serial", serialAtual);
-                        cmdCliente.Parameters.AddWithValue("@ClienteId", clienteId);
+                        cmdCliente.Parameters.AddWithValue("@ClienteId", clienteIdLocal); // ← LOCAL
 
                         int linhasAfetadasCliente = await cmdCliente.ExecuteNonQueryAsync();
 
-                        // 🔹 DEBUG: Verifica se atualizou
                         if (linhasAfetadasCliente == 0)
                         {
-                            throw new Exception($"Cliente {clienteId} não foi encontrado para atualizar sequenciais!");
+                            throw new Exception($"Cliente {clienteIdLocal} não foi encontrado para atualizar sequenciais!");
                         }
 
-                        // 🔹 Salva o ticket na linha de controle
                         var cmdControle = new SqlCommand(@"
-                    UPDATE ControleLogistico
-                    SET Ticket = @Ticket
-                    WHERE Id = @ControleId", conn, transaction);
+                            UPDATE ControleLogistico
+                            SET Ticket = @Ticket
+                            WHERE Id = @ControleId", conn, transaction);
 
                         cmdControle.Parameters.AddWithValue("@Ticket", novoTicket);
-                        cmdControle.Parameters.AddWithValue("@ControleId", controleLogisticoId);
+                        cmdControle.Parameters.AddWithValue("@ControleId", controleLogisticoIdLocal); // ← LOCAL
 
                         await cmdControle.ExecuteNonQueryAsync();
 
                         transaction.Commit();
 
-                        // 🔹 Atualiza os dados em memória
+                        System.Diagnostics.Debug.WriteLine(
+                            $"✅ TICKET INCREMENTADO - Cliente: {clienteIdLocal}, " +
+                            $"Ticket: {novoTicket}, " +
+                            $"SeqGeral: {novoSeqGeral}, Serial: {serialAtual}, " +
+                            $"Usuário: {Environment.UserName}, " +
+                            $"Data/Hora: {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}");
+
                         dadosCliente.TicketSequencialGeral = novoSeqGeral;
                         dadosCliente.TicketSequencialAnoAtual = serialAtual;
                         txtTicket.Text = novoTicket;
@@ -515,16 +754,13 @@ namespace Reverse.Forms.FormsExpedicao
             double larguraUtil = page.Width.Point - 2 * margemEsq;
             double y = margemTopo;
 
-            // Borda única
             gfx.DrawRectangle(new XPen(XColors.Black, 1),
                 margemEsq, margemTopo, larguraUtil, page.Height.Point - 80);
 
-            // Cabeçalho
             double altCabecalho = 80;
             XRect rectCabecalho = new XRect(margemEsq, y, larguraUtil, altCabecalho);
             gfx.DrawRectangle(new XPen(XColors.Black, 1), XBrushes.White, rectCabecalho);
 
-            // Logo
             try
             {
                 var assembly = Assembly.GetExecutingAssembly();
@@ -544,7 +780,6 @@ namespace Reverse.Forms.FormsExpedicao
             }
             catch { }
 
-            // Caixa do Ticket
             double larguraTicketBox = 180;
             XRect rectTicket = new XRect(margemEsq + larguraUtil - larguraTicketBox - 10, y + 15, larguraTicketBox, 55);
             gfx.DrawRectangle(new XPen(XColors.Black, 2), XBrushes.White, rectTicket);
@@ -555,7 +790,6 @@ namespace Reverse.Forms.FormsExpedicao
 
             y += altCabecalho + 15;
 
-            // Materiais ou Observações
             double alturaBlocoMateriais = 150;
             XRect rectMateriais = new XRect(margemEsq, y, larguraUtil, alturaBlocoMateriais);
             gfx.DrawRectangle(new XPen(XColors.Black, 1), XBrushes.White, rectMateriais);
@@ -567,7 +801,6 @@ namespace Reverse.Forms.FormsExpedicao
 
             if (mostrarMateriais)
             {
-                // 🔹 CABEÇALHO "MATERIAIS TRANSPORTADOS"
                 gfx.DrawRectangle(new XPen(XColors.Black, 1), XBrushes.White,
                     margemEsq, y, larguraUtil, 25);
                 gfx.DrawString("MATERIAIS TRANSPORTADOS", fontSubtitulo, XBrushes.Black,
@@ -612,15 +845,13 @@ namespace Reverse.Forms.FormsExpedicao
             }
             else
             {
-                // 🔹 CABEÇALHO "OBSERVAÇÕES"
                 gfx.DrawRectangle(new XPen(XColors.Black, 1), XBrushes.White,
                     margemEsq, y, larguraUtil, 25);
                 gfx.DrawString("OBSERVAÇÕES", fontSubtitulo, XBrushes.Black,
                     margemEsq + 10, y + 17);
 
-                // 🔹 CORREÇÃO: Linhas de observação dentro do bloco correto
                 double yObs = y + 40;
-                double limiteInferior = y + alturaBlocoMateriais - 10; // Limite do retângulo
+                double limiteInferior = y + alturaBlocoMateriais - 10;
 
                 while (yObs < limiteInferior)
                 {
@@ -630,7 +861,6 @@ namespace Reverse.Forms.FormsExpedicao
                 }
             }
 
-            // Define títulos dinâmicos
             bool clienteEhFornecedor =
                 dadosControle.Servico.ToUpper().Contains("COLETA") ||
                 dadosControle.Servico.ToUpper().Contains("RECEBIMENTO") ||
@@ -641,7 +871,6 @@ namespace Reverse.Forms.FormsExpedicao
 
             y += alturaBlocoMateriais + 15;
 
-            // Bloco Cliente
             double alturaCliente = 160;
             XRect rectCliente = new XRect(margemEsq, y, larguraUtil, alturaCliente);
             gfx.DrawRectangle(new XPen(XColors.Black, 1), XBrushes.White, rectCliente);
@@ -662,10 +891,10 @@ namespace Reverse.Forms.FormsExpedicao
             yCliente += 18;
 
             // Complemento + CNPJ na mesma linha
-            if (!string.IsNullOrWhiteSpace(dadosCliente.Complemento) || !string.IsNullOrWhiteSpace(dadosCliente.CNPJ))
+            if (!string.IsNullOrWhiteSpace(dadosCliente.ComplementoEntrega) || !string.IsNullOrWhiteSpace(dadosCliente.CNPJ))
             {
                 gfx.DrawString("Complemento: ", fontBold, XBrushes.Black, margemEsq + 15, yCliente);
-                gfx.DrawString(dadosCliente.Complemento, fontNormal, XBrushes.Black, margemEsq + 95, yCliente);
+                gfx.DrawString(dadosCliente.ComplementoEntrega, fontNormal, XBrushes.Black, margemEsq + 95, yCliente);
 
                 if (!string.IsNullOrWhiteSpace(dadosCliente.CNPJ))
                 {
@@ -860,7 +1089,7 @@ namespace Reverse.Forms.FormsExpedicao
             public string RuaEntrega { get; set; }
             public string BairroEntrega { get; set; }
             public string NumeroEntrega { get; set; }
-            public string Complemento { get; set; }
+            public string ComplementoEntrega { get; set; }
             public string MunicipioEntrega { get; set; }
             public string EstadoEntrega { get; set; }
             public string Telefone { get; set; }
