@@ -64,7 +64,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1467, 56);
+            this.panel1.Size = new System.Drawing.Size(1467, 40);
             this.panel1.TabIndex = 2;
             // 
             // btnSair
@@ -73,7 +73,7 @@
             this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSair.Location = new System.Drawing.Point(1406, 0);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(61, 56);
+            this.btnSair.Size = new System.Drawing.Size(61, 40);
             this.btnSair.TabIndex = 3;
             this.btnSair.Text = "X";
             this.btnSair.UseVisualStyleBackColor = true;
@@ -82,11 +82,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(189, 37);
+            this.label1.Size = new System.Drawing.Size(167, 32);
             this.label1.TabIndex = 2;
             this.label1.Text = "Controle Mês";
             // 
@@ -105,7 +105,7 @@
             this.panel2.Controls.Add(this.btnSelecionar);
             this.panel2.Controls.Add(this.dtpDataControle);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 56);
+            this.panel2.Location = new System.Drawing.Point(0, 40);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1467, 34);
             this.panel2.TabIndex = 4;
@@ -245,14 +245,14 @@
             this.ChartGraficos.Dock = System.Windows.Forms.DockStyle.Fill;
             legend1.Name = "Legend1";
             this.ChartGraficos.Legends.Add(legend1);
-            this.ChartGraficos.Location = new System.Drawing.Point(0, 90);
+            this.ChartGraficos.Location = new System.Drawing.Point(0, 74);
             this.ChartGraficos.Name = "ChartGraficos";
             this.ChartGraficos.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.ChartGraficos.Series.Add(series1);
-            this.ChartGraficos.Size = new System.Drawing.Size(1467, 741);
+            this.ChartGraficos.Size = new System.Drawing.Size(1467, 757);
             this.ChartGraficos.TabIndex = 6;
             this.ChartGraficos.Text = "chart1";
             // 

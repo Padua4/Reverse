@@ -1,6 +1,7 @@
 ﻿using PdfSharp.Fonts;
 using Reverse.Forms;
 using Reverse.Forms.FormsExpedicao;
+using Reverse.Forms.FormsLogin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,6 @@ namespace Reverse
 {
     internal static class Program
     {
-
         [STAThread]
         static void Main()
         {
@@ -22,15 +22,12 @@ namespace Reverse
             using var login = new LoginForm();
             if (login.ShowDialog() == DialogResult.OK)
             {
-                var main = new MainForm(
+                var main = new MainFormV2(
                     login.UsuarioLogado,
                     login.SetorLogado
                 );
-
                 Application.Run(main);
             }
         }
     }
 }
-
-

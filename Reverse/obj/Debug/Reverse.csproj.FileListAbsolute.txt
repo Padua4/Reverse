@@ -105,7 +105,6 @@ C:\Users\T.I\source\repos\Reverse\Reverse\bin\Debug\System.Diagnostics.Diagnosti
 C:\Users\T.I\source\repos\Reverse\Reverse\bin\Debug\System.Security.Cryptography.Pkcs.xml
 C:\Users\T.I\source\repos\Reverse\Reverse\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\T.I\source\repos\Reverse\Reverse\bin\Debug\System.ValueTuple.xml
-C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.MainForm.resources
 C:\Users\T.I\source\repos\Reverse\Reverse\bin\Debug\UglyToad.PdfPig.Core.dll
 C:\Users\T.I\source\repos\Reverse\Reverse\bin\Debug\UglyToad.PdfPig.dll
 C:\Users\T.I\source\repos\Reverse\Reverse\bin\Debug\UglyToad.PdfPig.DocumentLayoutAnalysis.dll
@@ -160,7 +159,6 @@ C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.FormsExpedicao
 C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.FormsExpedicao.ExpedicaoFormTickets.resources
 C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.FormsFinanceiro.FinanceiroFormClientes.resources
 C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.FormsFinanceiro.FinanceiroFormContasSelecionar.resources
-C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.FormsFinanceiro.FinanceiroFormExportarPDF.resources
 C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\SeuProjeto.FinanceiroFormFinanceiroHub.resources
 C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.FormsComercial.ComercialFormComercialHub.resources
 C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.TriagemControleForm.resources
@@ -197,6 +195,8 @@ C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.FormsAtendimen
 C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.FormsAtendimento.AtendimentoFormProtocolo.resources
 C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.FormsRH.RHFormCesta.resources
 C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.FormsExpedicao.ExpedicaoFormNovoMaterial.resources
-C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.exe.config
 C:\Users\T.I\source\repos\Reverse\Reverse\bin\Debug\QRCoder.dll
-C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.FormsLogin.NotificacaoForm.resources
+C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.FormsNotificacao.FormMensagem.resources
+C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.FormsNotificacao.FormNotificacoes.resources
+C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.Forms.FormsLogin.MainFormV2.resources
+C:\Users\T.I\source\repos\Reverse\Reverse\obj\Debug\Reverse.exe.config

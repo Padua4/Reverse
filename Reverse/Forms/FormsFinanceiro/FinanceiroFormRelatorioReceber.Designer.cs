@@ -184,16 +184,16 @@
             this.dgvRelatorio.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRelatorio.Location = new System.Drawing.Point(0, 55);
             this.dgvRelatorio.Name = "dgvRelatorio";
-            this.dgvRelatorio.Size = new System.Drawing.Size(897, 325);
+            this.dgvRelatorio.Size = new System.Drawing.Size(897, 328);
             this.dgvRelatorio.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.tableLayoutPanel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 533);
+            this.panel1.Location = new System.Drawing.Point(0, 547);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(900, 67);
+            this.panel1.Size = new System.Drawing.Size(900, 53);
             this.panel1.TabIndex = 3;
             // 
             // tableLayoutPanel2
@@ -206,11 +206,11 @@
             this.tableLayoutPanel2.Controls.Add(this.btnFechar, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnImprimir, 2, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, -3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(900, 67);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(900, 56);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // btnExportar
@@ -221,7 +221,7 @@
             this.btnExportar.ForeColor = System.Drawing.Color.Black;
             this.btnExportar.Location = new System.Drawing.Point(303, 3);
             this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(294, 61);
+            this.btnExportar.Size = new System.Drawing.Size(294, 50);
             this.btnExportar.TabIndex = 1;
             this.btnExportar.Text = "Exportar";
             this.btnExportar.UseVisualStyleBackColor = true;
@@ -235,7 +235,7 @@
             this.btnFechar.ForeColor = System.Drawing.Color.Black;
             this.btnFechar.Location = new System.Drawing.Point(3, 3);
             this.btnFechar.Name = "btnFechar";
-            this.btnFechar.Size = new System.Drawing.Size(294, 61);
+            this.btnFechar.Size = new System.Drawing.Size(294, 50);
             this.btnFechar.TabIndex = 2;
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = true;
@@ -249,7 +249,7 @@
             this.btnImprimir.ForeColor = System.Drawing.Color.Black;
             this.btnImprimir.Location = new System.Drawing.Point(603, 3);
             this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(294, 61);
+            this.btnImprimir.Size = new System.Drawing.Size(294, 50);
             this.btnImprimir.TabIndex = 0;
             this.btnImprimir.Text = "Imprimir";
             this.btnImprimir.UseVisualStyleBackColor = true;

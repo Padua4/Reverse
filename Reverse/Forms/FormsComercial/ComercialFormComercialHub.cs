@@ -51,9 +51,6 @@ namespace Reverse.Forms.FormsComercial
                     MessageBox.Show("Você não tem permissão para acessar Vendas.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             };
-
-            btnSair.Click += (s, e) => Close();
-            btnMinimizar.Click += (s, e) => this.WindowState = FormWindowState.Minimized;
         }
 
         private void Pic_MouseEnter(object sender, EventArgs e)
@@ -82,24 +79,26 @@ namespace Reverse.Forms.FormsComercial
             AjustarFormFilho();
             formFilho.Show();
         }
-
         private void AjustarFormFilho()
         {
             if (_formFilhoAtual == null) return;
 
-            pnlConteudo.AutoScrollMinSize = _formFilhoAtual.Size;
+            _formFilhoAtual.Location = Point.Empty;
+            _formFilhoAtual.Margin = new Padding(0);
+            _formFilhoAtual.Padding = new Padding(0);
 
-            if (pnlConteudo.ClientSize.Width > _formFilhoAtual.Width &&
-                pnlConteudo.ClientSize.Height > _formFilhoAtual.Height)
-            {
-                _formFilhoAtual.Location = new Point(
-                    (pnlConteudo.ClientSize.Width - _formFilhoAtual.Width) / 2,
-                    (pnlConteudo.ClientSize.Height - _formFilhoAtual.Height) / 2);
-            }
-            else
-            {
-                _formFilhoAtual.Location = Point.Empty;
-            }
+            pnlConteudo.AutoScrollMinSize = _formFilhoAtual.Size;
+            pnlConteudo.PerformLayout();
+        }
+
+        private void btnMinimizar_Click(object sender, EventArgs e)
+        {
+            Form formPrincipal = this;
+
+            while (formPrincipal.ParentForm != null)
+                formPrincipal = formPrincipal.ParentForm;
+
+            formPrincipal.WindowState = FormWindowState.Minimized;
         }
     }
 }

@@ -137,7 +137,7 @@ namespace Reverse.Forms.FormsLogin
         {
             if (_formsCache == null)
             {
-                _formsCache = typeof(MainForm).Assembly
+                _formsCache = typeof(MainFormV2).Assembly
                     .GetTypes()
                     .Where(t => t.IsSubclassOf(typeof(Form)) &&
                                !t.IsAbstract &&

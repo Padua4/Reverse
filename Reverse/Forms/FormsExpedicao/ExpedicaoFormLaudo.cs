@@ -832,7 +832,7 @@ namespace Reverse.Forms.FormsExpedicao
                         Peso = g.Sum(s => s.Peso),
                         Tratamento = g.Key.Tratamento
                     })
-                    .OrderBy(s => s.Tipo)
+                    .OrderBy(s => s.Peso)
                     .ToList();
 
                 // Definições de layout

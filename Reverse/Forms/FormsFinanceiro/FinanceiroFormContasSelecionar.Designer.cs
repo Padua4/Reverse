@@ -69,16 +69,16 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1467, 56);
+            this.panel1.Size = new System.Drawing.Size(1467, 40);
             this.panel1.TabIndex = 0;
             // 
             // btnAbrir
             // 
             this.btnAbrir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAbrir.ForeColor = System.Drawing.Color.White;
-            this.btnAbrir.Location = new System.Drawing.Point(1247, 6);
+            this.btnAbrir.Location = new System.Drawing.Point(1234, 4);
             this.btnAbrir.Name = "btnAbrir";
-            this.btnAbrir.Size = new System.Drawing.Size(148, 44);
+            this.btnAbrir.Size = new System.Drawing.Size(148, 32);
             this.btnAbrir.TabIndex = 10;
             this.btnAbrir.Text = "Abrir Tabela";
             this.btnAbrir.UseVisualStyleBackColor = true;
@@ -91,7 +91,7 @@
             this.btnSair.ForeColor = System.Drawing.Color.White;
             this.btnSair.Location = new System.Drawing.Point(1401, 0);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(66, 56);
+            this.btnSair.Size = new System.Drawing.Size(66, 40);
             this.btnSair.TabIndex = 9;
             this.btnSair.Text = "←";
             this.btnSair.UseVisualStyleBackColor = true;
@@ -100,25 +100,26 @@
             // 
             this.btnFiltrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFiltrar.ForeColor = System.Drawing.Color.White;
-            this.btnFiltrar.Location = new System.Drawing.Point(1093, 6);
+            this.btnFiltrar.Location = new System.Drawing.Point(1065, 4);
             this.btnFiltrar.Name = "btnFiltrar";
-            this.btnFiltrar.Size = new System.Drawing.Size(148, 44);
+            this.btnFiltrar.Size = new System.Drawing.Size(148, 32);
             this.btnFiltrar.TabIndex = 8;
             this.btnFiltrar.Text = "Filtrar";
             this.btnFiltrar.UseVisualStyleBackColor = true;
             // 
             // cmbAno
             // 
+            this.cmbAno.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbAno.FormattingEnabled = true;
-            this.cmbAno.Location = new System.Drawing.Point(840, 12);
+            this.cmbAno.Location = new System.Drawing.Point(800, 4);
             this.cmbAno.Name = "cmbAno";
-            this.cmbAno.Size = new System.Drawing.Size(231, 33);
+            this.cmbAno.Size = new System.Drawing.Size(231, 29);
             this.cmbAno.TabIndex = 7;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(781, 15);
+            this.label3.Location = new System.Drawing.Point(740, 8);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 25);
             this.label3.TabIndex = 6;
@@ -126,16 +127,17 @@
             // 
             // cmbMes
             // 
+            this.cmbMes.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbMes.FormattingEnabled = true;
-            this.cmbMes.Location = new System.Drawing.Point(544, 12);
+            this.cmbMes.Location = new System.Drawing.Point(503, 5);
             this.cmbMes.Name = "cmbMes";
-            this.cmbMes.Size = new System.Drawing.Size(231, 33);
+            this.cmbMes.Size = new System.Drawing.Size(231, 29);
             this.cmbMes.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(481, 15);
+            this.label2.Location = new System.Drawing.Point(444, 8);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 25);
             this.label2.TabIndex = 4;
@@ -145,9 +147,9 @@
             // 
             this.btnContasSelecionar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnContasSelecionar.ForeColor = System.Drawing.Color.White;
-            this.btnContasSelecionar.Location = new System.Drawing.Point(236, 10);
+            this.btnContasSelecionar.Location = new System.Drawing.Point(210, 4);
             this.btnContasSelecionar.Name = "btnContasSelecionar";
-            this.btnContasSelecionar.Size = new System.Drawing.Size(208, 37);
+            this.btnContasSelecionar.Size = new System.Drawing.Size(208, 32);
             this.btnContasSelecionar.TabIndex = 3;
             this.btnContasSelecionar.Text = "Criar Tabela";
             this.btnContasSelecionar.UseVisualStyleBackColor = true;
@@ -155,11 +157,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(218, 37);
+            this.label1.Size = new System.Drawing.Size(192, 32);
             this.label1.TabIndex = 2;
             this.label1.Text = "Selecionar Data";
             // 
@@ -168,9 +170,10 @@
             this.dgvLotes.AllowUserToAddRows = false;
             this.dgvLotes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvLotes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvLotes.Location = new System.Drawing.Point(0, 56);
+            this.dgvLotes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvLotes.Location = new System.Drawing.Point(0, 40);
             this.dgvLotes.Name = "dgvLotes";
-            this.dgvLotes.Size = new System.Drawing.Size(1467, 735);
+            this.dgvLotes.Size = new System.Drawing.Size(1467, 825);
             this.dgvLotes.TabIndex = 1;
             // 
             // panel2

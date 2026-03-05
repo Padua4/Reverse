@@ -104,7 +104,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1730, 56);
+            this.panel1.Size = new System.Drawing.Size(1730, 40);
             this.panel1.TabIndex = 2;
             // 
             // btnSair
@@ -113,7 +113,7 @@
             this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSair.Location = new System.Drawing.Point(1669, 0);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(61, 56);
+            this.btnSair.Size = new System.Drawing.Size(61, 40);
             this.btnSair.TabIndex = 3;
             this.btnSair.Text = "X";
             this.btnSair.UseVisualStyleBackColor = true;
@@ -122,11 +122,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(256, 37);
+            this.label1.Size = new System.Drawing.Size(225, 32);
             this.label1.TabIndex = 2;
             this.label1.Text = "Cadastro Logistico";
             // 
@@ -138,12 +138,12 @@
             this.tableLayoutPanel1.Controls.Add(this.dgvMotorista, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 56);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 40);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1730, 809);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1730, 825);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // dgvMotorista
@@ -153,7 +153,7 @@
             this.dgvMotorista.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvMotorista.Location = new System.Drawing.Point(868, 3);
             this.dgvMotorista.Name = "dgvMotorista";
-            this.dgvMotorista.Size = new System.Drawing.Size(859, 803);
+            this.dgvMotorista.Size = new System.Drawing.Size(859, 819);
             this.dgvMotorista.TabIndex = 0;
             // 
             // panel2
@@ -163,7 +163,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(859, 803);
+            this.panel2.Size = new System.Drawing.Size(859, 819);
             this.panel2.TabIndex = 1;
             // 
             // tableLayoutPanel3
@@ -176,12 +176,12 @@
             this.tableLayoutPanel3.Controls.Add(this.btnExcluir, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnNovo, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 743);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 760);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(859, 60);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(859, 59);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // btnSalvar
@@ -191,7 +191,7 @@
             this.btnSalvar.ForeColor = System.Drawing.Color.Black;
             this.btnSalvar.Location = new System.Drawing.Point(575, 3);
             this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(281, 54);
+            this.btnSalvar.Size = new System.Drawing.Size(281, 53);
             this.btnSalvar.TabIndex = 0;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
@@ -204,7 +204,7 @@
             this.btnExcluir.ForeColor = System.Drawing.Color.Black;
             this.btnExcluir.Location = new System.Drawing.Point(289, 3);
             this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(280, 54);
+            this.btnExcluir.Size = new System.Drawing.Size(280, 53);
             this.btnExcluir.TabIndex = 1;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
@@ -217,7 +217,7 @@
             this.btnNovo.ForeColor = System.Drawing.Color.Black;
             this.btnNovo.Location = new System.Drawing.Point(3, 3);
             this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(280, 54);
+            this.btnNovo.Size = new System.Drawing.Size(280, 53);
             this.btnNovo.TabIndex = 2;
             this.btnNovo.Text = "Novo";
             this.btnNovo.UseVisualStyleBackColor = true;
@@ -268,7 +268,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(859, 743);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(859, 760);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // panel14
@@ -276,9 +276,9 @@
             this.panel14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel14.Controls.Add(this.txtCartao);
             this.panel14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel14.Location = new System.Drawing.Point(301, 674);
+            this.panel14.Location = new System.Drawing.Point(301, 696);
             this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(555, 66);
+            this.panel14.Size = new System.Drawing.Size(555, 61);
             this.panel14.TabIndex = 34;
             // 
             // txtCartao
@@ -294,9 +294,9 @@
             this.panel13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel13.Controls.Add(this.txtPIX);
             this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel13.Location = new System.Drawing.Point(301, 613);
+            this.panel13.Location = new System.Drawing.Point(301, 633);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(555, 55);
+            this.panel13.Size = new System.Drawing.Size(555, 57);
             this.panel13.TabIndex = 33;
             // 
             // txtPIX
@@ -312,9 +312,9 @@
             this.panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel12.Controls.Add(this.dtpCurso);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel12.Location = new System.Drawing.Point(301, 552);
+            this.panel12.Location = new System.Drawing.Point(301, 570);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(555, 55);
+            this.panel12.Size = new System.Drawing.Size(555, 57);
             this.panel12.TabIndex = 32;
             // 
             // dtpCurso
@@ -331,9 +331,9 @@
             this.panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel11.Controls.Add(this.dtpToxicologico);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel11.Location = new System.Drawing.Point(301, 491);
+            this.panel11.Location = new System.Drawing.Point(301, 507);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(555, 55);
+            this.panel11.Size = new System.Drawing.Size(555, 57);
             this.panel11.TabIndex = 31;
             // 
             // dtpToxicologico
@@ -350,9 +350,9 @@
             this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel10.Controls.Add(this.dtpCNH);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel10.Location = new System.Drawing.Point(301, 430);
+            this.panel10.Location = new System.Drawing.Point(301, 444);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(555, 55);
+            this.panel10.Size = new System.Drawing.Size(555, 57);
             this.panel10.TabIndex = 30;
             // 
             // dtpCNH
@@ -369,9 +369,9 @@
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel9.Controls.Add(this.txtCategoria);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(301, 369);
+            this.panel9.Location = new System.Drawing.Point(301, 381);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(555, 55);
+            this.panel9.Size = new System.Drawing.Size(555, 57);
             this.panel9.TabIndex = 29;
             // 
             // txtCategoria
@@ -387,9 +387,9 @@
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel8.Controls.Add(this.txtCNH);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(301, 308);
+            this.panel8.Location = new System.Drawing.Point(301, 318);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(555, 55);
+            this.panel8.Size = new System.Drawing.Size(555, 57);
             this.panel8.TabIndex = 28;
             // 
             // txtCNH
@@ -405,9 +405,9 @@
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel7.Controls.Add(this.txtCPF);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(301, 247);
+            this.panel7.Location = new System.Drawing.Point(301, 255);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(555, 55);
+            this.panel7.Size = new System.Drawing.Size(555, 57);
             this.panel7.TabIndex = 27;
             // 
             // txtCPF
@@ -423,9 +423,9 @@
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel6.Controls.Add(this.txtRG);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(301, 186);
+            this.panel6.Location = new System.Drawing.Point(301, 192);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(555, 55);
+            this.panel6.Size = new System.Drawing.Size(555, 57);
             this.panel6.TabIndex = 26;
             // 
             // txtRG
@@ -441,9 +441,9 @@
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.cmbFuncao);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(301, 125);
+            this.panel5.Location = new System.Drawing.Point(301, 129);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(555, 55);
+            this.panel5.Size = new System.Drawing.Size(555, 57);
             this.panel5.TabIndex = 25;
             // 
             // cmbFuncao
@@ -460,9 +460,9 @@
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.txtNomeInterno);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(301, 64);
+            this.panel4.Location = new System.Drawing.Point(301, 66);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(555, 55);
+            this.panel4.Size = new System.Drawing.Size(555, 57);
             this.panel4.TabIndex = 24;
             // 
             // txtNomeInterno
@@ -478,9 +478,9 @@
             this.label24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label24.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label24.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label24.Location = new System.Drawing.Point(3, 671);
+            this.label24.Location = new System.Drawing.Point(3, 693);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(292, 72);
+            this.label24.Size = new System.Drawing.Size(292, 67);
             this.label24.TabIndex = 22;
             this.label24.Text = "Cartão de Credito";
             this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -490,9 +490,9 @@
             this.label22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label22.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label22.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label22.Location = new System.Drawing.Point(3, 610);
+            this.label22.Location = new System.Drawing.Point(3, 630);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(292, 61);
+            this.label22.Size = new System.Drawing.Size(292, 63);
             this.label22.TabIndex = 20;
             this.label22.Text = "Chave PIX";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -502,9 +502,9 @@
             this.label20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label20.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label20.Location = new System.Drawing.Point(3, 549);
+            this.label20.Location = new System.Drawing.Point(3, 567);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(292, 61);
+            this.label20.Size = new System.Drawing.Size(292, 63);
             this.label20.TabIndex = 18;
             this.label20.Text = "Vencimento Curso";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -514,9 +514,9 @@
             this.label18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label18.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label18.Location = new System.Drawing.Point(3, 488);
+            this.label18.Location = new System.Drawing.Point(3, 504);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(292, 61);
+            this.label18.Size = new System.Drawing.Size(292, 63);
             this.label18.TabIndex = 16;
             this.label18.Text = "Vencimento Toxicologico";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -526,9 +526,9 @@
             this.label16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label16.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label16.Location = new System.Drawing.Point(3, 427);
+            this.label16.Location = new System.Drawing.Point(3, 441);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(292, 61);
+            this.label16.Size = new System.Drawing.Size(292, 63);
             this.label16.TabIndex = 14;
             this.label16.Text = "Vencimento CNH";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -538,9 +538,9 @@
             this.label14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label14.Location = new System.Drawing.Point(3, 366);
+            this.label14.Location = new System.Drawing.Point(3, 378);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(292, 61);
+            this.label14.Size = new System.Drawing.Size(292, 63);
             this.label14.TabIndex = 12;
             this.label14.Text = "Categoria";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -550,9 +550,9 @@
             this.label12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label12.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label12.Location = new System.Drawing.Point(3, 305);
+            this.label12.Location = new System.Drawing.Point(3, 315);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(292, 61);
+            this.label12.Size = new System.Drawing.Size(292, 63);
             this.label12.TabIndex = 10;
             this.label12.Text = "CNH";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -562,9 +562,9 @@
             this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Location = new System.Drawing.Point(3, 244);
+            this.label10.Location = new System.Drawing.Point(3, 252);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(292, 61);
+            this.label10.Size = new System.Drawing.Size(292, 63);
             this.label10.TabIndex = 8;
             this.label10.Text = "CPF";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -574,9 +574,9 @@
             this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Location = new System.Drawing.Point(3, 183);
+            this.label8.Location = new System.Drawing.Point(3, 189);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(292, 61);
+            this.label8.Size = new System.Drawing.Size(292, 63);
             this.label8.TabIndex = 6;
             this.label8.Text = "RG";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -586,9 +586,9 @@
             this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Location = new System.Drawing.Point(3, 122);
+            this.label6.Location = new System.Drawing.Point(3, 126);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(292, 61);
+            this.label6.Size = new System.Drawing.Size(292, 63);
             this.label6.TabIndex = 4;
             this.label6.Text = "Função";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -598,9 +598,9 @@
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(3, 61);
+            this.label4.Location = new System.Drawing.Point(3, 63);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(292, 61);
+            this.label4.Size = new System.Drawing.Size(292, 63);
             this.label4.TabIndex = 2;
             this.label4.Text = "Nome Interno";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -613,7 +613,7 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(292, 61);
+            this.label2.Size = new System.Drawing.Size(292, 63);
             this.label2.TabIndex = 0;
             this.label2.Text = "Nome Completo";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -625,7 +625,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(301, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(555, 55);
+            this.panel3.Size = new System.Drawing.Size(555, 57);
             this.panel3.TabIndex = 23;
             // 
             // txtNome

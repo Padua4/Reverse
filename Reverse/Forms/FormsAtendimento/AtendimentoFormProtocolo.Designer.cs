@@ -77,7 +77,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1230, 56);
+            this.panel1.Size = new System.Drawing.Size(1230, 40);
             this.panel1.TabIndex = 6;
             // 
             // btnSair
@@ -88,7 +88,7 @@
             this.btnSair.Location = new System.Drawing.Point(1169, 0);
             this.btnSair.Margin = new System.Windows.Forms.Padding(6);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(61, 56);
+            this.btnSair.Size = new System.Drawing.Size(61, 40);
             this.btnSair.TabIndex = 3;
             this.btnSair.Text = "X";
             this.btnSair.UseVisualStyleBackColor = true;
@@ -97,12 +97,12 @@
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
-            this.lblTitulo.Location = new System.Drawing.Point(4, 9);
+            this.lblTitulo.Location = new System.Drawing.Point(6, 5);
             this.lblTitulo.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(145, 37);
+            this.lblTitulo.Size = new System.Drawing.Size(127, 32);
             this.lblTitulo.TabIndex = 2;
             this.lblTitulo.Text = "Protocolo";
             // 
@@ -116,7 +116,7 @@
             this.tableLayoutPanel1.Controls.Add(this.panel7, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 56);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 40);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.35463F));
@@ -124,16 +124,16 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 39.73856F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.72549F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.27451F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1230, 765);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1230, 781);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // rtbHistorico
             // 
             this.rtbHistorico.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbHistorico.Location = new System.Drawing.Point(3, 160);
+            this.rtbHistorico.Location = new System.Drawing.Point(3, 163);
             this.rtbHistorico.Name = "rtbHistorico";
             this.rtbHistorico.ReadOnly = true;
-            this.rtbHistorico.Size = new System.Drawing.Size(1224, 296);
+            this.rtbHistorico.Size = new System.Drawing.Size(1224, 302);
             this.rtbHistorico.TabIndex = 4;
             this.rtbHistorico.Text = "";
             // 
@@ -154,7 +154,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1224, 103);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1224, 105);
             this.tableLayoutPanel2.TabIndex = 5;
             // 
             // panel8
@@ -162,9 +162,9 @@
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel8.Controls.Add(this.lblAtribuido);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(817, 54);
+            this.panel8.Location = new System.Drawing.Point(817, 55);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(404, 46);
+            this.panel8.Size = new System.Drawing.Size(404, 47);
             this.panel8.TabIndex = 5;
             // 
             // lblAtribuido
@@ -172,7 +172,7 @@
             this.lblAtribuido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAtribuido.Location = new System.Drawing.Point(0, 0);
             this.lblAtribuido.Name = "lblAtribuido";
-            this.lblAtribuido.Size = new System.Drawing.Size(402, 44);
+            this.lblAtribuido.Size = new System.Drawing.Size(402, 45);
             this.lblAtribuido.TabIndex = 1;
             this.lblAtribuido.Text = "Atribuição";
             this.lblAtribuido.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -182,9 +182,9 @@
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.lblDataCriacao);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(3, 54);
+            this.panel5.Location = new System.Drawing.Point(3, 55);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(401, 46);
+            this.panel5.Size = new System.Drawing.Size(401, 47);
             this.panel5.TabIndex = 3;
             // 
             // lblDataCriacao
@@ -192,7 +192,7 @@
             this.lblDataCriacao.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblDataCriacao.Location = new System.Drawing.Point(0, 0);
             this.lblDataCriacao.Name = "lblDataCriacao";
-            this.lblDataCriacao.Size = new System.Drawing.Size(399, 44);
+            this.lblDataCriacao.Size = new System.Drawing.Size(399, 45);
             this.lblDataCriacao.TabIndex = 1;
             this.lblDataCriacao.Text = "Data de Criação";
             this.lblDataCriacao.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -204,7 +204,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(817, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(404, 45);
+            this.panel4.Size = new System.Drawing.Size(404, 46);
             this.panel4.TabIndex = 2;
             // 
             // lblStatus
@@ -212,7 +212,7 @@
             this.lblStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblStatus.Location = new System.Drawing.Point(0, 0);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(402, 43);
+            this.lblStatus.Size = new System.Drawing.Size(402, 44);
             this.lblStatus.TabIndex = 1;
             this.lblStatus.Text = "Status";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -225,7 +225,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(410, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(401, 45);
+            this.panel3.Size = new System.Drawing.Size(401, 46);
             this.panel3.TabIndex = 1;
             // 
             // cmbPrioridade
@@ -253,7 +253,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(401, 45);
+            this.panel2.Size = new System.Drawing.Size(401, 46);
             this.panel2.TabIndex = 0;
             // 
             // lblChamado
@@ -261,7 +261,7 @@
             this.lblChamado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblChamado.Location = new System.Drawing.Point(0, 0);
             this.lblChamado.Name = "lblChamado";
-            this.lblChamado.Size = new System.Drawing.Size(399, 43);
+            this.lblChamado.Size = new System.Drawing.Size(399, 44);
             this.lblChamado.TabIndex = 0;
             this.lblChamado.Text = "Chamado";
             this.lblChamado.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -274,12 +274,12 @@
             this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.txtAssunto, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 112);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 114);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1224, 42);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1224, 43);
             this.tableLayoutPanel3.TabIndex = 6;
             // 
             // label1
@@ -287,7 +287,7 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 42);
+            this.label1.Size = new System.Drawing.Size(88, 43);
             this.label1.TabIndex = 0;
             this.label1.Text = "Assunto";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -304,9 +304,9 @@
             // 
             this.panel7.Controls.Add(this.txtMensagem);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(3, 462);
+            this.panel7.Location = new System.Drawing.Point(3, 471);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1224, 250);
+            this.panel7.Size = new System.Drawing.Size(1224, 256);
             this.panel7.TabIndex = 9;
             // 
             // txtMensagem
@@ -315,7 +315,7 @@
             this.txtMensagem.Location = new System.Drawing.Point(0, 0);
             this.txtMensagem.Multiline = true;
             this.txtMensagem.Name = "txtMensagem";
-            this.txtMensagem.Size = new System.Drawing.Size(1224, 250);
+            this.txtMensagem.Size = new System.Drawing.Size(1224, 256);
             this.txtMensagem.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -331,11 +331,11 @@
             this.tableLayoutPanel4.Controls.Add(this.btnEnviar, 4, 0);
             this.tableLayoutPanel4.Controls.Add(this.btnAtualizar, 3, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 718);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 733);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1224, 44);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1224, 45);
             this.tableLayoutPanel4.TabIndex = 10;
             // 
             // btnAnexo
@@ -344,7 +344,7 @@
             this.btnAnexo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAnexo.Location = new System.Drawing.Point(3, 3);
             this.btnAnexo.Name = "btnAnexo";
-            this.btnAnexo.Size = new System.Drawing.Size(238, 38);
+            this.btnAnexo.Size = new System.Drawing.Size(238, 39);
             this.btnAnexo.TabIndex = 4;
             this.btnAnexo.Text = "Anexar Arquivo";
             this.btnAnexo.UseVisualStyleBackColor = true;
@@ -356,7 +356,7 @@
             this.btnEnviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEnviar.Location = new System.Drawing.Point(979, 3);
             this.btnEnviar.Name = "btnEnviar";
-            this.btnEnviar.Size = new System.Drawing.Size(242, 38);
+            this.btnEnviar.Size = new System.Drawing.Size(242, 39);
             this.btnEnviar.TabIndex = 6;
             this.btnEnviar.Text = "Enviar";
             this.btnEnviar.UseVisualStyleBackColor = true;
@@ -368,7 +368,7 @@
             this.btnAtualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAtualizar.Location = new System.Drawing.Point(735, 3);
             this.btnAtualizar.Name = "btnAtualizar";
-            this.btnAtualizar.Size = new System.Drawing.Size(238, 38);
+            this.btnAtualizar.Size = new System.Drawing.Size(238, 39);
             this.btnAtualizar.TabIndex = 5;
             this.btnAtualizar.Text = "Atualizar";
             this.btnAtualizar.UseVisualStyleBackColor = true;

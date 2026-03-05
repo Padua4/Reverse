@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
+﻿using System.Data.Entity;
 using static Reverse.Forms.FormsExpedicao.ExpedicaoFormEstoque;
 
 namespace Reverse.Models
@@ -10,12 +8,10 @@ namespace Reverse.Models
         public ReverseContext() : base("ReverseDB")
         {
             Database.SetInitializer<ReverseContext>(null);
-
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
         }
 
-        // DbSets existentes
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Palete> Paletes { get; set; }
         public DbSet<ItemPalete> ItensPalete { get; set; }
@@ -26,7 +22,8 @@ namespace Reverse.Models
         public DbSet<Permissao> Permissoes { get; set; }
         public DbSet<AtividadeUsuario> AtividadesUsuarios { get; set; }
         public DbSet<SessaoUsuario> SessoesUsuarios { get; set; }
-
+        public DbSet<Notificacao> Notificacoes { get; set; }
+        public DbSet<NotificacaoLida> NotificacoesLidas { get; set; }   
         public DbSet<CategoriaPalete> CategoriasPalete { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -40,7 +37,6 @@ namespace Reverse.Models
             modelBuilder.Entity<Palete>().ToTable("Palete");
             modelBuilder.Entity<Estoque>().ToTable("Estoques");
             modelBuilder.Entity<Cliente>().ToTable("Clientes");
-
             modelBuilder.Entity<CategoriaPalete>().ToTable("CategoriaPalete");
 
             modelBuilder.Entity<Permissao>()
@@ -48,17 +44,12 @@ namespace Reverse.Models
                 .HasMaxLength(150)
                 .IsRequired();
 
-            modelBuilder.Entity<Produto>()
-                .HasKey(p => p.Id);
-
+            modelBuilder.Entity<Produto>().HasKey(p => p.Id);
             modelBuilder.Entity<Produto>()
                 .Property(p => p.CodigoBarras)
-                .IsOptional()
-                .HasMaxLength(50);
-
+                .IsOptional().HasMaxLength(50);
             modelBuilder.Entity<Produto>()
-                .HasIndex(p => p.CodigoBarras)
-                .IsUnique();
+                .HasIndex(p => p.CodigoBarras).IsUnique();
 
             modelBuilder.Entity<ItemPalete>()
                 .HasRequired(i => i.Produto)
@@ -76,6 +67,40 @@ namespace Reverse.Models
                 .HasRequired(p => p.Categoria)
                 .WithMany()
                 .HasForeignKey(p => p.CategoriaId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Notificacao>().ToTable("Notificacoes");
+
+            modelBuilder.Entity<Notificacao>()
+                .Property(n => n.Mensagem)
+                .IsRequired().HasMaxLength(500);
+
+            modelBuilder.Entity<Notificacao>()
+                .HasRequired<Usuario>(n => n.Remetente)
+                .WithMany()
+                .HasForeignKey(n => n.UsuarioRemetenteId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Notificacao>()
+                .HasOptional<Usuario>(n => n.Destinatario)
+                .WithMany()
+                .HasForeignKey(n => n.UsuarioDestinatarioId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<NotificacaoLida>()
+                .ToTable("NotificacoesLidas")
+                .HasKey(l => new { l.NotificacaoId, l.UsuarioId });
+
+            modelBuilder.Entity<NotificacaoLida>()
+                .HasRequired(l => l.Notificacao)
+                .WithMany()
+                .HasForeignKey(l => l.NotificacaoId)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<NotificacaoLida>()
+                .HasRequired(l => l.Usuario)
+                .WithMany()
+                .HasForeignKey(l => l.UsuarioId)
                 .WillCascadeOnDelete(false);
         }
     }

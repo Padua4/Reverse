@@ -409,12 +409,6 @@
     <Compile Include="Forms\FormsFinanceiro\FinanceiroFormContasSelecionar.Designer.cs">
       <DependentUpon>FinanceiroFormContasSelecionar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormExportarPDF.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormsFinanceiro\FinanceiroFormExportarPDF.Designer.cs">
-      <DependentUpon>FinanceiroFormExportarPDF.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FormsFinanceiro\FinanceiroFormFinanceiroHub.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -481,11 +475,17 @@
     <Compile Include="Forms\FormsLogin\FormConfigU.Designer.cs">
       <DependentUpon>FormConfigU.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormsLogin\NotificacaoForm.cs">
+    <Compile Include="Forms\FormsLogin\FormMensagem.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormsLogin\NotificacaoForm.Designer.cs">
-      <DependentUpon>NotificacaoForm.cs</DependentUpon>
+    <Compile Include="Forms\FormsLogin\FormNotificacoes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsLogin\MainFormV2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsLogin\MainFormV2.Designer.cs">
+      <DependentUpon>MainFormV2.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormsRH\RHFormCesta.cs">
       <SubType>Form</SubType>
@@ -542,12 +542,6 @@
     <Compile Include="Forms\FormsLogin\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormsLogin\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormsLogin\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FormsTriagem\TriagemForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -599,8 +593,9 @@
     <Compile Include="Models\ItemPalete.cs" />
     <Compile Include="Models\Material.cs" />
     <Compile Include="Models\Models_EF_Inatividade.cs" />
+    <Compile Include="Models\Notificacao.cs" />
+    <Compile Include="Models\NotificacaoLida.cs" />
     <Compile Include="Models\Palete.cs" />
-    <Compile Include="Models\PdfHostService.cs" />
     <Compile Include="Models\Permissao.cs" />
     <Compile Include="Models\ProducaoModels.cs" />
     <Compile Include="Models\ProducaoRepository.cs" />
@@ -688,9 +683,6 @@
     <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormContasSelecionar.resx">
       <DependentUpon>FinanceiroFormContasSelecionar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormExportarPDF.resx">
-      <DependentUpon>FinanceiroFormExportarPDF.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsFinanceiro\FinanceiroFormFinanceiroHub.resx">
       <DependentUpon>FinanceiroFormFinanceiroHub.cs</DependentUpon>
     </EmbeddedResource>
@@ -724,8 +716,14 @@
     <EmbeddedResource Include="Forms\FormsLogin\FormConfigU.resx">
       <DependentUpon>FormConfigU.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormsLogin\NotificacaoForm.resx">
-      <DependentUpon>NotificacaoForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormsLogin\FormMensagem.resx">
+      <DependentUpon>FormMensagem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsLogin\FormNotificacoes.resx">
+      <DependentUpon>FormNotificacoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsLogin\MainFormV2.resx">
+      <DependentUpon>MainFormV2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsProducao\ProducaoForm.resx">
       <DependentUpon>ProducaoForm.cs</DependentUpon>
@@ -753,9 +751,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsLogin\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormsLogin\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsTriagem\TriagemForm.resx">
       <DependentUpon>TriagemForm.cs</DependentUpon>

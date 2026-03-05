@@ -53,17 +53,17 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1920, 56);
+            this.pnlHeader.Size = new System.Drawing.Size(1920, 40);
             this.pnlHeader.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(109, 37);
+            this.label1.Size = new System.Drawing.Size(94, 32);
             this.label1.TabIndex = 1;
             this.label1.Text = "Paletes";
             // 
@@ -75,11 +75,11 @@
             this.tableLayoutPanel1.Controls.Add(this.dgvPaletes, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 56);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 40);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 910);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 926);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // dgvPaletes
@@ -89,7 +89,7 @@
             this.dgvPaletes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPaletes.Location = new System.Drawing.Point(392, 3);
             this.dgvPaletes.Name = "dgvPaletes";
-            this.dgvPaletes.Size = new System.Drawing.Size(1525, 904);
+            this.dgvPaletes.Size = new System.Drawing.Size(1525, 920);
             this.dgvPaletes.TabIndex = 0;
             // 
             // panel1
@@ -99,7 +99,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(383, 904);
+            this.panel1.Size = new System.Drawing.Size(383, 920);
             this.panel1.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -113,11 +113,18 @@
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowCount = 10;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(383, 496);
             this.tableLayoutPanel2.TabIndex = 4;
@@ -130,7 +137,7 @@
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(377, 124);
+            this.label2.Size = new System.Drawing.Size(377, 49);
             this.label2.TabIndex = 1;
             this.label2.Text = "STATUS PALETE";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -141,9 +148,9 @@
             this.btnEmAndamento.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnEmAndamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEmAndamento.ForeColor = System.Drawing.Color.Black;
-            this.btnEmAndamento.Location = new System.Drawing.Point(3, 127);
+            this.btnEmAndamento.Location = new System.Drawing.Point(3, 52);
             this.btnEmAndamento.Name = "btnEmAndamento";
-            this.btnEmAndamento.Size = new System.Drawing.Size(377, 118);
+            this.btnEmAndamento.Size = new System.Drawing.Size(377, 43);
             this.btnEmAndamento.TabIndex = 2;
             this.btnEmAndamento.Text = "Em Andamento";
             this.btnEmAndamento.UseVisualStyleBackColor = false;
@@ -155,9 +162,9 @@
             this.btnFinalizado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnFinalizado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFinalizado.ForeColor = System.Drawing.Color.Black;
-            this.btnFinalizado.Location = new System.Drawing.Point(3, 251);
+            this.btnFinalizado.Location = new System.Drawing.Point(3, 101);
             this.btnFinalizado.Name = "btnFinalizado";
-            this.btnFinalizado.Size = new System.Drawing.Size(377, 118);
+            this.btnFinalizado.Size = new System.Drawing.Size(377, 43);
             this.btnFinalizado.TabIndex = 3;
             this.btnFinalizado.Text = "Finalizado";
             this.btnFinalizado.UseVisualStyleBackColor = false;
@@ -168,9 +175,9 @@
             this.btnExcluir.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExcluir.ForeColor = System.Drawing.Color.Black;
-            this.btnExcluir.Location = new System.Drawing.Point(3, 375);
+            this.btnExcluir.Location = new System.Drawing.Point(3, 150);
             this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(377, 118);
+            this.btnExcluir.Size = new System.Drawing.Size(377, 43);
             this.btnExcluir.TabIndex = 4;
             this.btnExcluir.Text = "Excluir Palete";
             this.btnExcluir.UseVisualStyleBackColor = true;

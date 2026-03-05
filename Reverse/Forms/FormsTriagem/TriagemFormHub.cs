@@ -124,7 +124,6 @@ namespace Reverse.Forms.FormsTriagem
                 }
             };
 
-            btnSair.Click += (s, e) => Close();
         }
 
         private void Pic_MouseEnter(object sender, EventArgs e)
@@ -191,7 +190,12 @@ namespace Reverse.Forms.FormsTriagem
 
         private void btnMinimizar_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
+            Form formPrincipal = this;
+
+            while (formPrincipal.ParentForm != null)
+                formPrincipal = formPrincipal.ParentForm;
+
+            formPrincipal.WindowState = FormWindowState.Minimized;
         }
     }
 }

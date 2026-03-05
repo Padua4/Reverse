@@ -53,7 +53,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1260, 56);
+            this.pnlHeader.Size = new System.Drawing.Size(1260, 40);
             this.pnlHeader.TabIndex = 0;
             // 
             // btnAtualizar
@@ -61,9 +61,9 @@
             this.btnAtualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAtualizar.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAtualizar.ForeColor = System.Drawing.Color.White;
-            this.btnAtualizar.Location = new System.Drawing.Point(637, 11);
+            this.btnAtualizar.Location = new System.Drawing.Point(618, 5);
             this.btnAtualizar.Name = "btnAtualizar";
-            this.btnAtualizar.Size = new System.Drawing.Size(147, 33);
+            this.btnAtualizar.Size = new System.Drawing.Size(147, 32);
             this.btnAtualizar.TabIndex = 3;
             this.btnAtualizar.Text = "Atualizar";
             this.btnAtualizar.UseVisualStyleBackColor = true;
@@ -76,28 +76,28 @@
             this.btnSair.ForeColor = System.Drawing.Color.White;
             this.btnSair.Location = new System.Drawing.Point(1185, 0);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(75, 56);
+            this.btnSair.Size = new System.Drawing.Size(75, 40);
             this.btnSair.TabIndex = 2;
             this.btnSair.Text = "X";
             this.btnSair.UseVisualStyleBackColor = true;
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscar.Location = new System.Drawing.Point(83, 11);
+            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscar.Location = new System.Drawing.Point(83, 7);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(529, 33);
+            this.txtBuscar.Size = new System.Drawing.Size(529, 29);
             this.txtBuscar.TabIndex = 1;
             this.txtBuscar.TextChanged += new System.EventHandler(this.TxtBuscar_TextChanged);
             // 
             // lblFiltro
             // 
             this.lblFiltro.AutoSize = true;
-            this.lblFiltro.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold);
+            this.lblFiltro.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblFiltro.ForeColor = System.Drawing.Color.White;
-            this.lblFiltro.Location = new System.Drawing.Point(3, 7);
+            this.lblFiltro.Location = new System.Drawing.Point(3, 4);
             this.lblFiltro.Name = "lblFiltro";
-            this.lblFiltro.Size = new System.Drawing.Size(86, 37);
+            this.lblFiltro.Size = new System.Drawing.Size(74, 32);
             this.lblFiltro.TabIndex = 0;
             this.lblFiltro.Text = "Filtro";
             // 
@@ -145,11 +145,11 @@
             this.dgvPaletes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvPaletes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPaletes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvPaletes.Location = new System.Drawing.Point(0, 56);
+            this.dgvPaletes.Location = new System.Drawing.Point(0, 40);
             this.dgvPaletes.Name = "dgvPaletes";
             this.dgvPaletes.ReadOnly = true;
             this.dgvPaletes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPaletes.Size = new System.Drawing.Size(1260, 656);
+            this.dgvPaletes.Size = new System.Drawing.Size(1260, 672);
             this.dgvPaletes.TabIndex = 2;
             // 
             // TriagemPaleteSelectorForm

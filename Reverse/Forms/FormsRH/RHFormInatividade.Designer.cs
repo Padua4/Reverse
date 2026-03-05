@@ -75,17 +75,17 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1920, 56);
+            this.panel1.Size = new System.Drawing.Size(1870, 40);
             this.panel1.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(11, 9);
+            this.label1.Location = new System.Drawing.Point(5, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(163, 37);
+            this.label1.Size = new System.Drawing.Size(142, 32);
             this.label1.TabIndex = 0;
             this.label1.Text = "Inatividade";
             // 
@@ -97,11 +97,11 @@
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 56);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 40);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 910);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1870, 960);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // tableLayoutPanel2
@@ -131,7 +131,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.517699F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.628319F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.29646F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(493, 904);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(480, 954);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // panel3
@@ -139,9 +139,9 @@
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.cmbLimite);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 228);
+            this.panel3.Location = new System.Drawing.Point(3, 240);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(487, 69);
+            this.panel3.Size = new System.Drawing.Size(474, 73);
             this.panel3.TabIndex = 12;
             // 
             // cmbLimite
@@ -157,9 +157,9 @@
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(3, 150);
+            this.label4.Location = new System.Drawing.Point(3, 158);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(487, 75);
+            this.label4.Size = new System.Drawing.Size(474, 79);
             this.label4.TabIndex = 2;
             this.label4.Text = "Tempo Limite";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -171,7 +171,7 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(487, 75);
+            this.label2.Size = new System.Drawing.Size(474, 79);
             this.label2.TabIndex = 0;
             this.label2.Text = "Funcionario";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -181,9 +181,9 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.cmbFuncionario);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 78);
+            this.panel2.Location = new System.Drawing.Point(3, 82);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(487, 69);
+            this.panel2.Size = new System.Drawing.Size(474, 73);
             this.panel2.TabIndex = 11;
             // 
             // cmbFuncionario
@@ -199,9 +199,9 @@
             this.btnAtualizar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAtualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAtualizar.ForeColor = System.Drawing.Color.Black;
-            this.btnAtualizar.Location = new System.Drawing.Point(3, 754);
+            this.btnAtualizar.Location = new System.Drawing.Point(3, 794);
             this.btnAtualizar.Name = "btnAtualizar";
-            this.btnAtualizar.Size = new System.Drawing.Size(487, 71);
+            this.btnAtualizar.Size = new System.Drawing.Size(474, 75);
             this.btnAtualizar.TabIndex = 13;
             this.btnAtualizar.Text = "Atualizar";
             this.btnAtualizar.UseVisualStyleBackColor = true;
@@ -212,9 +212,9 @@
             this.btnExportar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportar.ForeColor = System.Drawing.Color.Black;
-            this.btnExportar.Location = new System.Drawing.Point(3, 831);
+            this.btnExportar.Location = new System.Drawing.Point(3, 875);
             this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(487, 70);
+            this.btnExportar.Size = new System.Drawing.Size(474, 76);
             this.btnExportar.TabIndex = 14;
             this.btnExportar.Text = "Exportar";
             this.btnExportar.UseVisualStyleBackColor = true;
@@ -228,12 +228,12 @@
             this.tableLayoutPanel3.Controls.Add(this.dgvInatividade, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.panel4, 0, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(502, 3);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(489, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 91.37168F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.628319F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1415, 904);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1378, 954);
             this.tableLayoutPanel3.TabIndex = 2;
             // 
             // dgvInatividade
@@ -243,7 +243,7 @@
             this.dgvInatividade.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvInatividade.Location = new System.Drawing.Point(3, 3);
             this.dgvInatividade.Name = "dgvInatividade";
-            this.dgvInatividade.Size = new System.Drawing.Size(1409, 820);
+            this.dgvInatividade.Size = new System.Drawing.Size(1372, 865);
             this.dgvInatividade.TabIndex = 0;
             // 
             // panel4
@@ -251,9 +251,9 @@
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.panel4.Controls.Add(this.tableLayoutPanel4);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(3, 829);
+            this.panel4.Location = new System.Drawing.Point(3, 874);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1409, 72);
+            this.panel4.Size = new System.Drawing.Size(1372, 77);
             this.panel4.TabIndex = 1;
             // 
             // tableLayoutPanel4
@@ -283,7 +283,7 @@
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1409, 72);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1372, 77);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // lblProxAtt
@@ -291,9 +291,9 @@
             this.lblProxAtt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblProxAtt.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.lblProxAtt.ForeColor = System.Drawing.Color.White;
-            this.lblProxAtt.Location = new System.Drawing.Point(1173, 36);
+            this.lblProxAtt.Location = new System.Drawing.Point(1143, 38);
             this.lblProxAtt.Name = "lblProxAtt";
-            this.lblProxAtt.Size = new System.Drawing.Size(233, 36);
+            this.lblProxAtt.Size = new System.Drawing.Size(226, 39);
             this.lblProxAtt.TabIndex = 11;
             this.lblProxAtt.Text = "lblProxAtt";
             this.lblProxAtt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -303,9 +303,9 @@
             this.lblAtualizado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAtualizado.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.lblAtualizado.ForeColor = System.Drawing.Color.White;
-            this.lblAtualizado.Location = new System.Drawing.Point(939, 36);
+            this.lblAtualizado.Location = new System.Drawing.Point(915, 38);
             this.lblAtualizado.Name = "lblAtualizado";
-            this.lblAtualizado.Size = new System.Drawing.Size(228, 36);
+            this.lblAtualizado.Size = new System.Drawing.Size(222, 39);
             this.lblAtualizado.TabIndex = 10;
             this.lblAtualizado.Text = "lblAtualizado";
             this.lblAtualizado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -315,9 +315,9 @@
             this.lblInativos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblInativos.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.lblInativos.ForeColor = System.Drawing.Color.White;
-            this.lblInativos.Location = new System.Drawing.Point(705, 36);
+            this.lblInativos.Location = new System.Drawing.Point(687, 38);
             this.lblInativos.Name = "lblInativos";
-            this.lblInativos.Size = new System.Drawing.Size(228, 36);
+            this.lblInativos.Size = new System.Drawing.Size(222, 39);
             this.lblInativos.TabIndex = 9;
             this.lblInativos.Text = "lblInativos";
             this.lblInativos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -327,9 +327,9 @@
             this.lblEmAlerta.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblEmAlerta.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.lblEmAlerta.ForeColor = System.Drawing.Color.White;
-            this.lblEmAlerta.Location = new System.Drawing.Point(471, 36);
+            this.lblEmAlerta.Location = new System.Drawing.Point(459, 38);
             this.lblEmAlerta.Name = "lblEmAlerta";
-            this.lblEmAlerta.Size = new System.Drawing.Size(228, 36);
+            this.lblEmAlerta.Size = new System.Drawing.Size(222, 39);
             this.lblEmAlerta.TabIndex = 8;
             this.lblEmAlerta.Text = "lblEmAlerta";
             this.lblEmAlerta.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -339,9 +339,9 @@
             this.lblAtivos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAtivos.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.lblAtivos.ForeColor = System.Drawing.Color.White;
-            this.lblAtivos.Location = new System.Drawing.Point(237, 36);
+            this.lblAtivos.Location = new System.Drawing.Point(231, 38);
             this.lblAtivos.Name = "lblAtivos";
-            this.lblAtivos.Size = new System.Drawing.Size(228, 36);
+            this.lblAtivos.Size = new System.Drawing.Size(222, 39);
             this.lblAtivos.TabIndex = 7;
             this.lblAtivos.Text = "lblAtivos";
             this.lblAtivos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -350,9 +350,9 @@
             // 
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(1173, 0);
+            this.label9.Location = new System.Drawing.Point(1143, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(233, 36);
+            this.label9.Size = new System.Drawing.Size(226, 38);
             this.label9.TabIndex = 5;
             this.label9.Text = "Próxima Atualização";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -361,9 +361,9 @@
             // 
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(939, 0);
+            this.label8.Location = new System.Drawing.Point(915, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(228, 36);
+            this.label8.Size = new System.Drawing.Size(222, 38);
             this.label8.TabIndex = 4;
             this.label8.Text = "Atualizado";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -372,9 +372,9 @@
             // 
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(705, 0);
+            this.label7.Location = new System.Drawing.Point(687, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(228, 36);
+            this.label7.Size = new System.Drawing.Size(222, 38);
             this.label7.TabIndex = 3;
             this.label7.Text = "Inativos";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -383,9 +383,9 @@
             // 
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(471, 0);
+            this.label6.Location = new System.Drawing.Point(459, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(228, 36);
+            this.label6.Size = new System.Drawing.Size(222, 38);
             this.label6.TabIndex = 2;
             this.label6.Text = "Em Alerta";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -394,9 +394,9 @@
             // 
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(237, 0);
+            this.label5.Location = new System.Drawing.Point(231, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(228, 36);
+            this.label5.Size = new System.Drawing.Size(222, 38);
             this.label5.TabIndex = 1;
             this.label5.Text = "Ativos";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -407,7 +407,7 @@
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(3, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(228, 36);
+            this.label3.Size = new System.Drawing.Size(222, 38);
             this.label3.TabIndex = 0;
             this.label3.Text = "Total";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -417,9 +417,9 @@
             this.lblTotal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotal.ForeColor = System.Drawing.Color.White;
-            this.lblTotal.Location = new System.Drawing.Point(3, 36);
+            this.lblTotal.Location = new System.Drawing.Point(3, 38);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(228, 36);
+            this.lblTotal.Size = new System.Drawing.Size(222, 39);
             this.lblTotal.TabIndex = 6;
             this.lblTotal.Text = "lblTotal";
             this.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -428,7 +428,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1920, 966);
+            this.ClientSize = new System.Drawing.Size(1870, 1000);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

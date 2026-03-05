@@ -127,6 +127,7 @@ namespace Reverse
                 CreateRoundRectRgn(0, 0, this.Width, this.Height, 30, 30)
             );
         }
+
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
 
@@ -144,7 +145,6 @@ namespace Reverse
                 SendMessage(this.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
             }
         }
-
 
         public string SetorLogado { get; private set; }
 
@@ -407,7 +407,7 @@ namespace Reverse
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 20);
             this.label1.TabIndex = 9;
-            this.label1.Text = "Ver. 1.0.33";
+            this.label1.Text = "Ver. 1.0.35";
             // 
             // btnSair
             // 
@@ -430,6 +430,7 @@ namespace Reverse
             this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(400, 326);

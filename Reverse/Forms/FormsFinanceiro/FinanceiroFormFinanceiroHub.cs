@@ -90,20 +90,6 @@ namespace SeuProjeto
                 }
             };
 
-            picExportar.MouseEnter += Pic_MouseEnter;
-            picExportar.MouseLeave += Pic_MouseLeave;
-            picExportar.Click += (s, e) =>
-            {
-                if (Reverse.Forms.FormsLogin.FormConfigU.PermissaoHelper.TemPermissao(_usuarioId, nameof(FinanceiroFormExportarPDF)))
-                {
-                    AbrirFormNoPainel(new FinanceiroFormExportarPDF(_usuarioId));
-                }
-                else
-                {
-                    MessageBox.Show("Você não tem permissão para acessar a Exportação de Dados Financeiros.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            };
-
             picRecebimentos.MouseEnter += Pic_MouseEnter;
             picRecebimentos.MouseLeave += Pic_MouseLeave;
             picRecebimentos.Click += (s, e) =>
@@ -117,8 +103,6 @@ namespace SeuProjeto
                     MessageBox.Show("Você não tem permissão para acessar os Recebimentos.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             };
-
-            btnSair.Click += (s, e) => Close();
         }
 
         private void Pic_MouseEnter(object sender, EventArgs e)
@@ -187,7 +171,12 @@ namespace SeuProjeto
 
         private void btnMinimizar_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
+            Form formPrincipal = this;
+
+            while (formPrincipal.ParentForm != null)
+                formPrincipal = formPrincipal.ParentForm;
+
+            formPrincipal.WindowState = FormWindowState.Minimized;
         }
     }
 }

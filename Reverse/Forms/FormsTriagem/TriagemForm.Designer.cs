@@ -75,7 +75,7 @@
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeader.Location = new System.Drawing.Point(0, 0);
             this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(1920, 56);
+            this.panelHeader.Size = new System.Drawing.Size(1870, 40);
             this.panelHeader.TabIndex = 1;
             // 
             // btnImprimirNumeracao
@@ -83,9 +83,9 @@
             this.btnImprimirNumeracao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimirNumeracao.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimirNumeracao.ForeColor = System.Drawing.Color.White;
-            this.btnImprimirNumeracao.Location = new System.Drawing.Point(1683, 2);
+            this.btnImprimirNumeracao.Location = new System.Drawing.Point(1633, 3);
             this.btnImprimirNumeracao.Name = "btnImprimirNumeracao";
-            this.btnImprimirNumeracao.Size = new System.Drawing.Size(234, 50);
+            this.btnImprimirNumeracao.Size = new System.Drawing.Size(234, 34);
             this.btnImprimirNumeracao.TabIndex = 10;
             this.btnImprimirNumeracao.Text = "Imprimir Numeração";
             this.btnImprimirNumeracao.UseVisualStyleBackColor = true;
@@ -103,7 +103,7 @@
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(335, 56);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(335, 40);
             this.tableLayoutPanel5.TabIndex = 9;
             // 
             // btnSelecionarPalete
@@ -114,7 +114,7 @@
             this.btnSelecionarPalete.ForeColor = System.Drawing.Color.White;
             this.btnSelecionarPalete.Location = new System.Drawing.Point(170, 3);
             this.btnSelecionarPalete.Name = "btnSelecionarPalete";
-            this.btnSelecionarPalete.Size = new System.Drawing.Size(162, 50);
+            this.btnSelecionarPalete.Size = new System.Drawing.Size(162, 34);
             this.btnSelecionarPalete.TabIndex = 7;
             this.btnSelecionarPalete.Text = "Selecionar Palete";
             this.btnSelecionarPalete.UseVisualStyleBackColor = true;
@@ -128,7 +128,7 @@
             this.btnCriarPalete.ForeColor = System.Drawing.Color.White;
             this.btnCriarPalete.Location = new System.Drawing.Point(3, 3);
             this.btnCriarPalete.Name = "btnCriarPalete";
-            this.btnCriarPalete.Size = new System.Drawing.Size(161, 50);
+            this.btnCriarPalete.Size = new System.Drawing.Size(161, 34);
             this.btnCriarPalete.TabIndex = 1;
             this.btnCriarPalete.Text = "Criar Palete";
             this.btnCriarPalete.UseVisualStyleBackColor = true;
@@ -137,11 +137,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 37);
+            this.label1.Size = new System.Drawing.Size(106, 32);
             this.label1.TabIndex = 8;
             this.label1.Text = "Triagem";
             // 
@@ -151,7 +151,7 @@
             this.chkUltimosPrimeiro.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkUltimosPrimeiro.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
             this.chkUltimosPrimeiro.ForeColor = System.Drawing.Color.White;
-            this.chkUltimosPrimeiro.Location = new System.Drawing.Point(1451, 14);
+            this.chkUltimosPrimeiro.Location = new System.Drawing.Point(1393, 5);
             this.chkUltimosPrimeiro.Name = "chkUltimosPrimeiro";
             this.chkUltimosPrimeiro.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkUltimosPrimeiro.Size = new System.Drawing.Size(226, 29);
@@ -164,9 +164,9 @@
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Controls.Add(this.txtBusca);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 56);
+            this.panel1.Location = new System.Drawing.Point(0, 40);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1920, 54);
+            this.panel1.Size = new System.Drawing.Size(1870, 40);
             this.panel1.TabIndex = 2;
             // 
             // tableLayoutPanel1
@@ -182,11 +182,11 @@
             this.tableLayoutPanel1.Controls.Add(this.btnExportarPDF, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnExportarExcel, 3, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(720, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(670, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1200, 54);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1200, 40);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
             // btnEditarItem
@@ -196,7 +196,7 @@
             this.btnEditarItem.ForeColor = System.Drawing.Color.Black;
             this.btnEditarItem.Location = new System.Drawing.Point(243, 3);
             this.btnEditarItem.Name = "btnEditarItem";
-            this.btnEditarItem.Size = new System.Drawing.Size(234, 48);
+            this.btnEditarItem.Size = new System.Drawing.Size(234, 34);
             this.btnEditarItem.TabIndex = 4;
             this.btnEditarItem.Text = "Editar Produto";
             this.btnEditarItem.UseVisualStyleBackColor = true;
@@ -209,7 +209,7 @@
             this.btnNovoItem.ForeColor = System.Drawing.Color.Black;
             this.btnNovoItem.Location = new System.Drawing.Point(3, 3);
             this.btnNovoItem.Name = "btnNovoItem";
-            this.btnNovoItem.Size = new System.Drawing.Size(234, 48);
+            this.btnNovoItem.Size = new System.Drawing.Size(234, 34);
             this.btnNovoItem.TabIndex = 3;
             this.btnNovoItem.Text = "Cadastrar Produto";
             this.btnNovoItem.UseVisualStyleBackColor = true;
@@ -222,7 +222,7 @@
             this.btnExportarPDF.ForeColor = System.Drawing.Color.Black;
             this.btnExportarPDF.Location = new System.Drawing.Point(963, 3);
             this.btnExportarPDF.Name = "btnExportarPDF";
-            this.btnExportarPDF.Size = new System.Drawing.Size(234, 48);
+            this.btnExportarPDF.Size = new System.Drawing.Size(234, 34);
             this.btnExportarPDF.TabIndex = 5;
             this.btnExportarPDF.Text = "Exportar PDF";
             this.btnExportarPDF.UseVisualStyleBackColor = true;
@@ -235,7 +235,7 @@
             this.btnExportarExcel.ForeColor = System.Drawing.Color.Black;
             this.btnExportarExcel.Location = new System.Drawing.Point(723, 3);
             this.btnExportarExcel.Name = "btnExportarExcel";
-            this.btnExportarExcel.Size = new System.Drawing.Size(234, 48);
+            this.btnExportarExcel.Size = new System.Drawing.Size(234, 34);
             this.btnExportarExcel.TabIndex = 6;
             this.btnExportarExcel.Text = "Exportar Excel";
             this.btnExportarExcel.UseVisualStyleBackColor = true;
@@ -244,9 +244,9 @@
             // txtBusca
             // 
             this.txtBusca.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusca.Location = new System.Drawing.Point(12, 12);
+            this.txtBusca.Location = new System.Drawing.Point(3, 4);
             this.txtBusca.Name = "txtBusca";
-            this.txtBusca.Size = new System.Drawing.Size(697, 33);
+            this.txtBusca.Size = new System.Drawing.Size(664, 33);
             this.txtBusca.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -257,11 +257,11 @@
             this.tableLayoutPanel2.Controls.Add(this.dgvProdutos, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 110);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 80);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1920, 895);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1870, 920);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // dgvProdutos
@@ -271,7 +271,7 @@
             this.dgvProdutos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvProdutos.Location = new System.Drawing.Point(3, 3);
             this.dgvProdutos.Name = "dgvProdutos";
-            this.dgvProdutos.Size = new System.Drawing.Size(785, 889);
+            this.dgvProdutos.Size = new System.Drawing.Size(764, 914);
             this.dgvProdutos.TabIndex = 1;
             this.dgvProdutos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DgvProdutos_CellFormatting);
             // 
@@ -283,13 +283,13 @@
             this.tableLayoutPanel3.Controls.Add(this.dgvItensPalete, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.lblPaleteAtual, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(794, 3);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(773, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.909953F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.98104F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.109005F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1123, 889);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1094, 914);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -306,11 +306,11 @@
             this.tableLayoutPanel4.Controls.Add(this.lblTotalPalete, 4, 0);
             this.tableLayoutPanel4.Controls.Add(this.btnFinalizado, 3, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 828);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 851);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1117, 58);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1088, 60);
             this.tableLayoutPanel4.TabIndex = 6;
             // 
             // btnAdicionarItem
@@ -321,7 +321,7 @@
             this.btnAdicionarItem.ForeColor = System.Drawing.Color.Black;
             this.btnAdicionarItem.Location = new System.Drawing.Point(3, 3);
             this.btnAdicionarItem.Name = "btnAdicionarItem";
-            this.btnAdicionarItem.Size = new System.Drawing.Size(201, 52);
+            this.btnAdicionarItem.Size = new System.Drawing.Size(195, 54);
             this.btnAdicionarItem.TabIndex = 0;
             this.btnAdicionarItem.Text = "Adicionar →";
             this.btnAdicionarItem.UseVisualStyleBackColor = true;
@@ -334,9 +334,9 @@
             this.btnAtualizarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAtualizarItem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnAtualizarItem.ForeColor = System.Drawing.Color.Black;
-            this.btnAtualizarItem.Location = new System.Drawing.Point(417, 3);
+            this.btnAtualizarItem.Location = new System.Drawing.Point(405, 3);
             this.btnAtualizarItem.Name = "btnAtualizarItem";
-            this.btnAtualizarItem.Size = new System.Drawing.Size(201, 52);
+            this.btnAtualizarItem.Size = new System.Drawing.Size(195, 54);
             this.btnAtualizarItem.TabIndex = 2;
             this.btnAtualizarItem.Text = "Atualizar Quantidade";
             this.btnAtualizarItem.UseVisualStyleBackColor = true;
@@ -348,9 +348,9 @@
             this.btnRemoverItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemoverItem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnRemoverItem.ForeColor = System.Drawing.Color.Black;
-            this.btnRemoverItem.Location = new System.Drawing.Point(210, 3);
+            this.btnRemoverItem.Location = new System.Drawing.Point(204, 3);
             this.btnRemoverItem.Name = "btnRemoverItem";
-            this.btnRemoverItem.Size = new System.Drawing.Size(201, 52);
+            this.btnRemoverItem.Size = new System.Drawing.Size(195, 54);
             this.btnRemoverItem.TabIndex = 1;
             this.btnRemoverItem.Text = "← Remover";
             this.btnRemoverItem.UseVisualStyleBackColor = true;
@@ -362,9 +362,9 @@
             this.lblTotalPalete.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTotalPalete.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalPalete.ForeColor = System.Drawing.Color.Black;
-            this.lblTotalPalete.Location = new System.Drawing.Point(831, 0);
+            this.lblTotalPalete.Location = new System.Drawing.Point(807, 0);
             this.lblTotalPalete.Name = "lblTotalPalete";
-            this.lblTotalPalete.Size = new System.Drawing.Size(283, 58);
+            this.lblTotalPalete.Size = new System.Drawing.Size(278, 60);
             this.lblTotalPalete.TabIndex = 3;
             this.lblTotalPalete.Text = "Total";
             this.lblTotalPalete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -375,9 +375,9 @@
             this.btnFinalizado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFinalizado.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnFinalizado.ForeColor = System.Drawing.Color.Black;
-            this.btnFinalizado.Location = new System.Drawing.Point(624, 3);
+            this.btnFinalizado.Location = new System.Drawing.Point(606, 3);
             this.btnFinalizado.Name = "btnFinalizado";
-            this.btnFinalizado.Size = new System.Drawing.Size(201, 52);
+            this.btnFinalizado.Size = new System.Drawing.Size(195, 54);
             this.btnFinalizado.TabIndex = 4;
             this.btnFinalizado.Text = "Finalizar";
             this.btnFinalizado.UseVisualStyleBackColor = true;
@@ -388,9 +388,9 @@
             this.dgvItensPalete.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvItensPalete.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvItensPalete.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvItensPalete.Location = new System.Drawing.Point(3, 37);
+            this.dgvItensPalete.Location = new System.Drawing.Point(3, 38);
             this.dgvItensPalete.Name = "dgvItensPalete";
-            this.dgvItensPalete.Size = new System.Drawing.Size(1117, 785);
+            this.dgvItensPalete.Size = new System.Drawing.Size(1088, 807);
             this.dgvItensPalete.TabIndex = 5;
             this.dgvItensPalete.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvItensPalete_CellFormatting);
             // 
@@ -402,7 +402,7 @@
             this.lblPaleteAtual.ForeColor = System.Drawing.Color.Black;
             this.lblPaleteAtual.Location = new System.Drawing.Point(3, 0);
             this.lblPaleteAtual.Name = "lblPaleteAtual";
-            this.lblPaleteAtual.Size = new System.Drawing.Size(1117, 34);
+            this.lblPaleteAtual.Size = new System.Drawing.Size(1088, 35);
             this.lblPaleteAtual.TabIndex = 4;
             this.lblPaleteAtual.Text = "PALETE ---";
             this.lblPaleteAtual.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -412,7 +412,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
-            this.ClientSize = new System.Drawing.Size(1920, 1005);
+            this.ClientSize = new System.Drawing.Size(1870, 1000);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelHeader);

@@ -93,7 +93,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1500, 56);
+            this.panel1.Size = new System.Drawing.Size(1500, 40);
             this.panel1.TabIndex = 6;
             // 
             // btnSair
@@ -102,7 +102,7 @@
             this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSair.Location = new System.Drawing.Point(1439, 0);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(61, 56);
+            this.btnSair.Size = new System.Drawing.Size(61, 40);
             this.btnSair.TabIndex = 3;
             this.btnSair.Text = "X";
             this.btnSair.UseVisualStyleBackColor = true;
@@ -111,11 +111,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 37);
+            this.label1.Size = new System.Drawing.Size(84, 32);
             this.label1.TabIndex = 2;
             this.label1.Text = "Laudo";
             // 
@@ -127,12 +127,12 @@
             this.tableLayoutPanel1.Controls.Add(this.pnlEditor, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.pnlVisualizer, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 56);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 40);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1500, 794);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1500, 810);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // pnlEditor
@@ -142,7 +142,7 @@
             this.pnlEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlEditor.Location = new System.Drawing.Point(3, 3);
             this.pnlEditor.Name = "pnlEditor";
-            this.pnlEditor.Size = new System.Drawing.Size(744, 788);
+            this.pnlEditor.Size = new System.Drawing.Size(744, 804);
             this.pnlEditor.TabIndex = 0;
             // 
             // panel12
@@ -151,15 +151,15 @@
             this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel12.Location = new System.Drawing.Point(0, 720);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(744, 68);
+            this.panel12.Size = new System.Drawing.Size(744, 84);
             this.panel12.TabIndex = 1;
             // 
             // btnExportarLaudo
             // 
-            this.btnExportarLaudo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnExportarLaudo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnExportarLaudo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportarLaudo.ForeColor = System.Drawing.Color.Black;
-            this.btnExportarLaudo.Location = new System.Drawing.Point(0, 0);
+            this.btnExportarLaudo.Location = new System.Drawing.Point(0, 16);
             this.btnExportarLaudo.Name = "btnExportarLaudo";
             this.btnExportarLaudo.Size = new System.Drawing.Size(744, 68);
             this.btnExportarLaudo.TabIndex = 0;
@@ -504,7 +504,7 @@
             this.pnlVisualizer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlVisualizer.Location = new System.Drawing.Point(753, 3);
             this.pnlVisualizer.Name = "pnlVisualizer";
-            this.pnlVisualizer.Size = new System.Drawing.Size(744, 788);
+            this.pnlVisualizer.Size = new System.Drawing.Size(744, 804);
             this.pnlVisualizer.TabIndex = 1;
             // 
             // ExpedicaoFormLaudo

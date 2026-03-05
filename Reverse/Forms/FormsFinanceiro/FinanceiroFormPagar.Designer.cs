@@ -54,17 +54,17 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1920, 56);
+            this.pnlHeader.Size = new System.Drawing.Size(1870, 40);
             this.pnlHeader.TabIndex = 2;
             // 
             // lblLoteAtual
             // 
             this.lblLoteAtual.AutoSize = true;
-            this.lblLoteAtual.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLoteAtual.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLoteAtual.ForeColor = System.Drawing.Color.White;
-            this.lblLoteAtual.Location = new System.Drawing.Point(494, 9);
+            this.lblLoteAtual.Location = new System.Drawing.Point(461, 5);
             this.lblLoteAtual.Name = "lblLoteAtual";
-            this.lblLoteAtual.Size = new System.Drawing.Size(240, 37);
+            this.lblLoteAtual.Size = new System.Drawing.Size(211, 32);
             this.lblLoteAtual.TabIndex = 3;
             this.lblLoteAtual.Text = "Lote: 00/00/0000";
             // 
@@ -72,9 +72,9 @@
             // 
             this.btnContasSelecionar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnContasSelecionar.ForeColor = System.Drawing.Color.White;
-            this.btnContasSelecionar.Location = new System.Drawing.Point(280, 9);
+            this.btnContasSelecionar.Location = new System.Drawing.Point(247, 5);
             this.btnContasSelecionar.Name = "btnContasSelecionar";
-            this.btnContasSelecionar.Size = new System.Drawing.Size(208, 37);
+            this.btnContasSelecionar.Size = new System.Drawing.Size(208, 32);
             this.btnContasSelecionar.TabIndex = 2;
             this.btnContasSelecionar.Text = "Selecionar Dia";
             this.btnContasSelecionar.UseVisualStyleBackColor = true;
@@ -82,11 +82,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(208, 37);
+            this.label1.Size = new System.Drawing.Size(184, 32);
             this.label1.TabIndex = 1;
             this.label1.Text = "Contas a Pagar";
             // 
@@ -96,9 +96,9 @@
             this.dgvContasPagar.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
             this.dgvContasPagar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvContasPagar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvContasPagar.Location = new System.Drawing.Point(0, 56);
+            this.dgvContasPagar.Location = new System.Drawing.Point(0, 40);
             this.dgvContasPagar.Name = "dgvContasPagar";
-            this.dgvContasPagar.Size = new System.Drawing.Size(1920, 949);
+            this.dgvContasPagar.Size = new System.Drawing.Size(1870, 960);
             this.dgvContasPagar.TabIndex = 3;
             // 
             // panel1
@@ -106,9 +106,9 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(82)))), ((int)(((byte)(171)))));
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 949);
+            this.panel1.Location = new System.Drawing.Point(0, 960);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1920, 56);
+            this.panel1.Size = new System.Drawing.Size(1870, 40);
             this.panel1.TabIndex = 4;
             // 
             // tableLayoutPanel1
@@ -126,7 +126,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1005, 56);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1005, 40);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnPago
@@ -137,7 +137,7 @@
             this.btnPago.ForeColor = System.Drawing.Color.White;
             this.btnPago.Location = new System.Drawing.Point(673, 3);
             this.btnPago.Name = "btnPago";
-            this.btnPago.Size = new System.Drawing.Size(329, 50);
+            this.btnPago.Size = new System.Drawing.Size(329, 34);
             this.btnPago.TabIndex = 4;
             this.btnPago.Text = "PAGO";
             this.btnPago.UseVisualStyleBackColor = false;
@@ -150,7 +150,7 @@
             this.btnExcluir.ForeColor = System.Drawing.Color.White;
             this.btnExcluir.Location = new System.Drawing.Point(338, 3);
             this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(329, 50);
+            this.btnExcluir.Size = new System.Drawing.Size(329, 34);
             this.btnExcluir.TabIndex = 3;
             this.btnExcluir.Text = "Excluir Linha";
             this.btnExcluir.UseVisualStyleBackColor = false;
@@ -163,7 +163,7 @@
             this.btnCriar.ForeColor = System.Drawing.Color.Black;
             this.btnCriar.Location = new System.Drawing.Point(3, 3);
             this.btnCriar.Name = "btnCriar";
-            this.btnCriar.Size = new System.Drawing.Size(329, 50);
+            this.btnCriar.Size = new System.Drawing.Size(329, 34);
             this.btnCriar.TabIndex = 2;
             this.btnCriar.Text = "Nova Linha";
             this.btnCriar.UseVisualStyleBackColor = false;
@@ -173,7 +173,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(1920, 1005);
+            this.ClientSize = new System.Drawing.Size(1870, 1000);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvContasPagar);
             this.Controls.Add(this.pnlHeader);

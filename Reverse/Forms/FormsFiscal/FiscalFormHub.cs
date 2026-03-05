@@ -51,9 +51,6 @@ namespace Reverse.Forms.FormsFiscal
                     MessageBox.Show("Você não tem permissão para acessar Pedidos Fiscais.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             };
-
-            btnSair.Click += (s, e) => Close();
-            btnMinimizar.Click += (s, e) => this.WindowState = FormWindowState.Minimized;
         }
 
         private void Pic_MouseEnter(object sender, EventArgs e)
@@ -100,6 +97,16 @@ namespace Reverse.Forms.FormsFiscal
             {
                 _formFilhoAtual.Location = Point.Empty;
             }
+        }
+
+        private void btnMinimizar_Click(object sender, EventArgs e)
+        {
+            Form formPrincipal = this;
+
+            while (formPrincipal.ParentForm != null)
+                formPrincipal = formPrincipal.ParentForm;
+
+            formPrincipal.WindowState = FormWindowState.Minimized;
         }
     }
 }

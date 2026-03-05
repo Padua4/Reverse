@@ -81,17 +81,17 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1920, 56);
+            this.panel1.Size = new System.Drawing.Size(1870, 40);
             this.panel1.TabIndex = 0;
             // 
             // lblGreeting
             // 
             this.lblGreeting.AutoSize = true;
-            this.lblGreeting.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGreeting.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblGreeting.ForeColor = System.Drawing.Color.White;
-            this.lblGreeting.Location = new System.Drawing.Point(12, 9);
+            this.lblGreeting.Location = new System.Drawing.Point(12, 5);
             this.lblGreeting.Name = "lblGreeting";
-            this.lblGreeting.Size = new System.Drawing.Size(165, 37);
+            this.lblGreeting.Size = new System.Drawing.Size(143, 32);
             this.lblGreeting.TabIndex = 0;
             this.lblGreeting.Text = "Texto Label";
             // 
@@ -99,9 +99,9 @@
             // 
             this.panel2.Controls.Add(this.tlpMain);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 56);
+            this.panel2.Location = new System.Drawing.Point(0, 40);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1920, 910);
+            this.panel2.Size = new System.Drawing.Size(1870, 960);
             this.panel2.TabIndex = 1;
             // 
             // tlpMain
@@ -118,7 +118,7 @@
             this.tlpMain.Name = "tlpMain";
             this.tlpMain.RowCount = 1;
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMain.Size = new System.Drawing.Size(1920, 910);
+            this.tlpMain.Size = new System.Drawing.Size(1870, 960);
             this.tlpMain.TabIndex = 3;
             // 
             // dgvNotas
@@ -129,7 +129,7 @@
             this.dgvNotas.Location = new System.Drawing.Point(3, 3);
             this.dgvNotas.Name = "dgvNotas";
             this.dgvNotas.ReadOnly = true;
-            this.dgvNotas.Size = new System.Drawing.Size(762, 904);
+            this.dgvNotas.Size = new System.Drawing.Size(742, 954);
             this.dgvNotas.TabIndex = 2;
             this.dgvNotas.SelectionChanged += new System.EventHandler(this.dgvNotas_SelectionChanged);
             // 
@@ -138,10 +138,10 @@
             this.pnlFiltros.Controls.Add(this.tableLayoutPanel2);
             this.pnlFiltros.Controls.Add(this.tableLayoutPanel1);
             this.pnlFiltros.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlFiltros.Location = new System.Drawing.Point(771, 3);
+            this.pnlFiltros.Location = new System.Drawing.Point(751, 3);
             this.pnlFiltros.Name = "pnlFiltros";
             this.pnlFiltros.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlFiltros.Size = new System.Drawing.Size(378, 904);
+            this.pnlFiltros.Size = new System.Drawing.Size(368, 954);
             this.pnlFiltros.TabIndex = 3;
             // 
             // tableLayoutPanel2
@@ -397,19 +397,19 @@
             this.pnlResultados.Controls.Add(this.panel3);
             this.pnlResultados.Controls.Add(this.dgvFiltrados);
             this.pnlResultados.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlResultados.Location = new System.Drawing.Point(1155, 3);
+            this.pnlResultados.Location = new System.Drawing.Point(1125, 3);
             this.pnlResultados.Name = "pnlResultados";
             this.pnlResultados.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlResultados.Size = new System.Drawing.Size(762, 904);
+            this.pnlResultados.Size = new System.Drawing.Size(742, 954);
             this.pnlResultados.TabIndex = 4;
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.lblTotal);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(10, 863);
+            this.panel3.Location = new System.Drawing.Point(10, 913);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(742, 31);
+            this.panel3.Size = new System.Drawing.Size(722, 31);
             this.panel3.TabIndex = 2;
             // 
             // lblTotal
@@ -418,7 +418,7 @@
             this.lblTotal.Dock = System.Windows.Forms.DockStyle.Right;
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
             this.lblTotal.ForeColor = System.Drawing.Color.Black;
-            this.lblTotal.Location = new System.Drawing.Point(595, 0);
+            this.lblTotal.Location = new System.Drawing.Point(575, 0);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(147, 30);
             this.lblTotal.TabIndex = 1;
@@ -432,14 +432,14 @@
             this.dgvFiltrados.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvFiltrados.Location = new System.Drawing.Point(10, 10);
             this.dgvFiltrados.Name = "dgvFiltrados";
-            this.dgvFiltrados.Size = new System.Drawing.Size(742, 884);
+            this.dgvFiltrados.Size = new System.Drawing.Size(722, 934);
             this.dgvFiltrados.TabIndex = 0;
             // 
             // TriagemControleForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
-            this.ClientSize = new System.Drawing.Size(1920, 966);
+            this.ClientSize = new System.Drawing.Size(1870, 1000);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

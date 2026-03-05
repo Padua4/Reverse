@@ -46,17 +46,17 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1920, 56);
+            this.pnlHeader.Size = new System.Drawing.Size(1870, 40);
             this.pnlHeader.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 37);
+            this.label1.Size = new System.Drawing.Size(108, 32);
             this.label1.TabIndex = 1;
             this.label1.Text = "Graficos";
             // 
@@ -68,11 +68,11 @@
             this.tableLayoutPanel1.Controls.Add(this.panelGastos, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panelComparativo, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 592);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 587);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1920, 413);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1870, 413);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // panelGastos
@@ -80,23 +80,23 @@
             this.panelGastos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelGastos.Location = new System.Drawing.Point(3, 3);
             this.panelGastos.Name = "panelGastos";
-            this.panelGastos.Size = new System.Drawing.Size(954, 407);
+            this.panelGastos.Size = new System.Drawing.Size(929, 407);
             this.panelGastos.TabIndex = 0;
             // 
             // panelComparativo
             // 
             this.panelComparativo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelComparativo.Location = new System.Drawing.Point(963, 3);
+            this.panelComparativo.Location = new System.Drawing.Point(938, 3);
             this.panelComparativo.Name = "panelComparativo";
-            this.panelComparativo.Size = new System.Drawing.Size(954, 407);
+            this.panelComparativo.Size = new System.Drawing.Size(929, 407);
             this.panelComparativo.TabIndex = 1;
             // 
             // panelLucros
             // 
             this.panelLucros.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelLucros.Location = new System.Drawing.Point(0, 56);
+            this.panelLucros.Location = new System.Drawing.Point(0, 40);
             this.panelLucros.Name = "panelLucros";
-            this.panelLucros.Size = new System.Drawing.Size(1920, 533);
+            this.panelLucros.Size = new System.Drawing.Size(1870, 533);
             this.panelLucros.TabIndex = 3;
             // 
             // FinanceiroFormGraficos
@@ -104,7 +104,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
-            this.ClientSize = new System.Drawing.Size(1920, 1005);
+            this.ClientSize = new System.Drawing.Size(1870, 1000);
             this.Controls.Add(this.panelLucros);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.pnlHeader);

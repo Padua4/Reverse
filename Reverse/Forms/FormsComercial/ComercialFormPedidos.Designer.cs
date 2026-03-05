@@ -73,7 +73,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1281, 56);
+            this.panel1.Size = new System.Drawing.Size(1281, 40);
             this.panel1.TabIndex = 2;
             // 
             // btnSair
@@ -82,7 +82,7 @@
             this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSair.Location = new System.Drawing.Point(1220, 0);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(61, 56);
+            this.btnSair.Size = new System.Drawing.Size(61, 40);
             this.btnSair.TabIndex = 3;
             this.btnSair.Text = "X";
             this.btnSair.UseVisualStyleBackColor = true;
@@ -91,11 +91,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(6, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 37);
+            this.label1.Size = new System.Drawing.Size(104, 32);
             this.label1.TabIndex = 2;
             this.label1.Text = "Pedidos";
             // 
@@ -107,12 +107,12 @@
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 56);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 40);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1281, 817);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1281, 833);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // tableLayoutPanel2
@@ -128,7 +128,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.32799F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.67201F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(937, 811);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(937, 827);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // panel2
@@ -136,9 +136,9 @@
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(52)))), ((int)(((byte)(105)))));
             this.panel2.Controls.Add(this.lblValorTotal);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 768);
+            this.panel2.Location = new System.Drawing.Point(3, 783);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(931, 40);
+            this.panel2.Size = new System.Drawing.Size(931, 41);
             this.panel2.TabIndex = 0;
             // 
             // lblValorTotal
@@ -148,7 +148,7 @@
             this.lblValorTotal.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblValorTotal.Location = new System.Drawing.Point(706, 0);
             this.lblValorTotal.Name = "lblValorTotal";
-            this.lblValorTotal.Size = new System.Drawing.Size(225, 40);
+            this.lblValorTotal.Size = new System.Drawing.Size(225, 41);
             this.lblValorTotal.TabIndex = 0;
             this.lblValorTotal.Text = "Total: R$ 0,00";
             this.lblValorTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -160,7 +160,7 @@
             this.dgvPedidos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPedidos.Location = new System.Drawing.Point(3, 3);
             this.dgvPedidos.Name = "dgvPedidos";
-            this.dgvPedidos.Size = new System.Drawing.Size(931, 759);
+            this.dgvPedidos.Size = new System.Drawing.Size(931, 774);
             this.dgvPedidos.TabIndex = 1;
             // 
             // panel3
@@ -170,14 +170,13 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(332, 811);
+            this.panel3.Size = new System.Drawing.Size(332, 827);
             this.panel3.TabIndex = 1;
             // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.Controls.Add(this.btnEnviarPedido, 0, 10);
             this.tableLayoutPanel3.Controls.Add(this.panel7, 0, 3);
             this.tableLayoutPanel3.Controls.Add(this.panel6, 0, 2);
@@ -201,7 +200,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(330, 809);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(330, 825);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // btnEnviarPedido
@@ -210,9 +209,9 @@
             this.btnEnviarPedido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnEnviarPedido.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnEnviarPedido.ForeColor = System.Drawing.Color.Black;
-            this.btnEnviarPedido.Location = new System.Drawing.Point(3, 673);
+            this.btnEnviarPedido.Location = new System.Drawing.Point(3, 683);
             this.btnEnviarPedido.Name = "btnEnviarPedido";
-            this.btnEnviarPedido.Size = new System.Drawing.Size(324, 61);
+            this.btnEnviarPedido.Size = new System.Drawing.Size(324, 62);
             this.btnEnviarPedido.TabIndex = 12;
             this.btnEnviarPedido.Text = "Enviar Pedido";
             this.btnEnviarPedido.UseVisualStyleBackColor = false;
@@ -223,9 +222,9 @@
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel7.Controls.Add(this.lblDataVenda);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(3, 204);
+            this.panel7.Location = new System.Drawing.Point(3, 207);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(324, 61);
+            this.panel7.Size = new System.Drawing.Size(324, 62);
             this.panel7.TabIndex = 3;
             // 
             // lblDataVenda
@@ -235,7 +234,7 @@
             this.lblDataVenda.ForeColor = System.Drawing.Color.Black;
             this.lblDataVenda.Location = new System.Drawing.Point(0, 0);
             this.lblDataVenda.Name = "lblDataVenda";
-            this.lblDataVenda.Size = new System.Drawing.Size(322, 59);
+            this.lblDataVenda.Size = new System.Drawing.Size(322, 60);
             this.lblDataVenda.TabIndex = 1;
             this.lblDataVenda.Text = "Data de Venda";
             this.lblDataVenda.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -245,9 +244,9 @@
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel6.Controls.Add(this.lblCliente);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(3, 137);
+            this.panel6.Location = new System.Drawing.Point(3, 139);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(324, 61);
+            this.panel6.Size = new System.Drawing.Size(324, 62);
             this.panel6.TabIndex = 2;
             // 
             // lblCliente
@@ -257,7 +256,7 @@
             this.lblCliente.ForeColor = System.Drawing.Color.Black;
             this.lblCliente.Location = new System.Drawing.Point(0, 0);
             this.lblCliente.Name = "lblCliente";
-            this.lblCliente.Size = new System.Drawing.Size(322, 59);
+            this.lblCliente.Size = new System.Drawing.Size(322, 60);
             this.lblCliente.TabIndex = 0;
             this.lblCliente.Text = "Cliente";
             this.lblCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -269,7 +268,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(324, 61);
+            this.panel4.Size = new System.Drawing.Size(324, 62);
             this.panel4.TabIndex = 0;
             // 
             // label2
@@ -279,7 +278,7 @@
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(322, 59);
+            this.label2.Size = new System.Drawing.Size(322, 60);
             this.label2.TabIndex = 0;
             this.label2.Text = "Nº Pedidos";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -289,9 +288,9 @@
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.cmbPedidos);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(3, 70);
+            this.panel5.Location = new System.Drawing.Point(3, 71);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(324, 61);
+            this.panel5.Size = new System.Drawing.Size(324, 62);
             this.panel5.TabIndex = 1;
             // 
             // cmbPedidos
@@ -308,9 +307,9 @@
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel8.Controls.Add(this.lblResponsavel);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(3, 271);
+            this.panel8.Location = new System.Drawing.Point(3, 275);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(324, 61);
+            this.panel8.Size = new System.Drawing.Size(324, 62);
             this.panel8.TabIndex = 4;
             // 
             // lblResponsavel
@@ -320,7 +319,7 @@
             this.lblResponsavel.ForeColor = System.Drawing.Color.Black;
             this.lblResponsavel.Location = new System.Drawing.Point(0, 0);
             this.lblResponsavel.Name = "lblResponsavel";
-            this.lblResponsavel.Size = new System.Drawing.Size(322, 59);
+            this.lblResponsavel.Size = new System.Drawing.Size(322, 60);
             this.lblResponsavel.TabIndex = 2;
             this.lblResponsavel.Text = "Responsável";
             this.lblResponsavel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -331,9 +330,9 @@
             this.btnCancelar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnCancelar.ForeColor = System.Drawing.Color.Black;
-            this.btnCancelar.Location = new System.Drawing.Point(3, 740);
+            this.btnCancelar.Location = new System.Drawing.Point(3, 751);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(324, 66);
+            this.btnCancelar.Size = new System.Drawing.Size(324, 71);
             this.btnCancelar.TabIndex = 5;
             this.btnCancelar.Text = "Cancelar Pedido";
             this.btnCancelar.UseVisualStyleBackColor = false;

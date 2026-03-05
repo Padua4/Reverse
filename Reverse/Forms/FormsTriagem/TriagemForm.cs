@@ -27,8 +27,6 @@ namespace Reverse
         private bool _adicionandoItem = false;
         private Palete _paleteAtual;
 
-        private PdfHostService _pdfHostService; // servidor unico para todas as paletes (porta fixa)
-
         public TriagemForm(int usuarioId)
         {
             InitializeComponent();
@@ -244,7 +242,6 @@ namespace Reverse
         {
             _debounceTimer?.Dispose();
             _ctx?.Dispose();
-            _pdfHostService?.Dispose();
         }
 
         private void btnNovoItem_Click(object sender, EventArgs e)
@@ -256,7 +253,6 @@ namespace Reverse
             CarregarProdutosComBuscaInteligente(txtBusca.Text);
         }
 
-        // ── Busca otimizada: reutiliza o _ctx da instância ────────────────────
         private void CarregarProdutosComBuscaInteligente(string filtro = "")
         {
             IQueryable<Produto> query = _ctx.Produtos.AsNoTracking();
@@ -337,7 +333,6 @@ namespace Reverse
             }
         }
 
-        // ── Exportar PDF — inicia/reinicia o serviço HTTP após salvar ─────────
         private void btnExportarPDF_Click(object sender, EventArgs e)
         {
             if (_paleteAtual == null)
@@ -501,25 +496,6 @@ namespace Reverse
                 }
 
                 document.Save(filePdf);
-
-                // Inicia servidor unico (se necessario) e registra este PDF
-                try
-                {
-                    if (_pdfHostService == null)
-                    {
-                        _pdfHostService = new PdfHostService();
-                        _pdfHostService.Iniciar();
-                    }
-                    _pdfHostService.RegistrarPdf(filePdf);
-                }
-                catch (Exception exSvc)
-                {
-                    MessageBox.Show(
-                        $"PDF gerado, mas o serviço de QR Code não pôde ser iniciado:\\n{exSvc.Message}\\n\\n" +
-                        "Verifique se a chave 'PdfDownloadSenha' está no App.config.",
-                        "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
 
                 MessageBox.Show(
                     $"PDF gerado em:\n{filePdf}",
@@ -700,7 +676,6 @@ namespace Reverse
                 {
                     MessageBox.Show("Produto já cadastrado na palete.\nUse o botão Atualizar...",
                         "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    // Correção: usa CodigoBarras como chave de foco (era produtoId.ToString())
                     LoadItensDaPalete(produto.CodigoBarras);
                     return;
                 }
@@ -721,7 +696,6 @@ namespace Reverse
                     await ctx.SaveChangesAsync();
                 }
 
-                // Correção: usa CodigoBarras como chave de foco (era produtoId.ToString())
                 LoadItensDaPalete(produto.CodigoBarras);
                 txtBusca.Clear();
                 txtBusca.Focus();
@@ -907,7 +881,6 @@ namespace Reverse
                 if (dgvItensPalete.CurrentCell != null)
                     SalvarQuantidadeLinha(dgvItensPalete.CurrentCell.RowIndex);
 
-                // Suprime o beep do Enter
                 var ke = new KeyEventArgs(Keys.Enter);
                 ke.SuppressKeyPress = true;
             }
@@ -955,7 +928,6 @@ namespace Reverse
             LoadItensDaPalete();
         }
 
-        // ── Correção: parâmetro renomeado e comparação por CodigoBarras ───────
         private void LoadItensDaPalete(string codigoBarrasParaFocar = null)
         {
             if (_paleteAtual == null)
@@ -1437,7 +1409,7 @@ namespace Reverse
 
                     int row = 1;
 
-                    ws.Range(row, 1, row, 6).Merge();   
+                    ws.Range(row, 1, row, 6).Merge();
                     ws.Cell(row, 1).Value = $"Valor total da palete: R$ {totalPalete:N2}";
                     ws.Cell(row, 1).Style
                         .Font.SetBold()
@@ -1565,75 +1537,8 @@ namespace Reverse
         {
             try
             {
-                string nomePalete;
-                using (var ctx = new ReverseContext())
-                {
-                    var paleteDb = ctx.Paletes
-                        .Include(p => p.Categoria)
-                        .AsNoTracking()
-                        .FirstOrDefault(p => p.Id == _paleteAtual.Id);
-
-                    if (paleteDb == null)
-                    {
-                        MessageBox.Show("Não foi possível carregar a palete do banco.", "Erro",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    nomePalete = paleteDb.Nome;
-                }
-
-                string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string filePdf = Path.Combine(desktop, nomePalete + ".pdf");
-
-                // ── Resolve a URL do QR Code para esta palete específica ─────
-                string urlParaQr = null;
-
-                if (!File.Exists(filePdf))
-                {
-                    // PDF não existe — avisa e pergunta se imprime sem QR Code
-                    var resposta = MessageBox.Show(
-                        $"O PDF desta palete não foi encontrado em:\n{filePdf}\n\n" +
-                        "Gere o PDF primeiro usando o botão \"Exportar PDF\".\n\n" +
-                        "Deseja imprimir mesmo assim sem o QR Code?",
-                        "PDF não encontrado", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                    if (resposta != DialogResult.Yes)
-                        return;
-
-                    urlParaQr = null; // imprime sem QR
-                }
-                else
-                {
-                    // Busca (ou cria) o serviço específico para ESTE arquivo de palete.
-                    // Cada palete tem seu próprio serviço em sua própria porta,
-                    // então a palete 31 e a 32 podem ser escaneadas independentemente.
-                    // Inicia servidor unico (se necessario) e registra este PDF
-                    try
-                    {
-                        if (_pdfHostService == null)
-                        {
-                            _pdfHostService = new PdfHostService();
-                            _pdfHostService.Iniciar();
-                        }
-                        urlParaQr = _pdfHostService.RegistrarPdf(filePdf);
-                    }
-                    catch (Exception exSvc)
-                    {
-                        var resposta = MessageBox.Show(
-                            $"Não foi possível iniciar o serviço de QR Code:\\n{exSvc.Message}\\n\\n" +
-                            "Deseja imprimir sem o QR Code?",
-                            "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                        if (resposta != DialogResult.Yes)
-                            return;
-
-                        urlParaQr = null;
-                    }
-                }
-
-                // ── Impressão — URL passada via parâmetro (sem race condition) ─
                 var printDoc = new System.Drawing.Printing.PrintDocument();
-                printDoc.PrintPage += (s, ev) => PrintDoc_PrintPage(s, ev, urlParaQr);
+                printDoc.PrintPage += (s, ev) => PrintDoc_PrintPage(s, ev);
                 printDoc.DefaultPageSettings.Landscape = false;
                 printDoc.DefaultPageSettings.Margins =
                     new System.Drawing.Printing.Margins(0, 0, 0, 0);
@@ -1647,13 +1552,10 @@ namespace Reverse
                 MessageBox.Show($"Erro ao imprimir: {ex.Message}", "Erro",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            // finally removido — _pdfHostService e limpo no FormClosing
         }
 
-        // Assinatura alterada: recebe urlQrCode por parâmetro em vez de campo da instância
         private void PrintDoc_PrintPage(object sender,
-            System.Drawing.Printing.PrintPageEventArgs e,
-            string urlQrCode)
+            System.Drawing.Printing.PrintPageEventArgs e)
         {
             if (_paleteAtual == null) return;
 
@@ -1740,46 +1642,6 @@ namespace Reverse
 
                 using (var pincelCategoria = new SolidBrush(Color.FromArgb(100, 149, 237)))
                     g.DrawString(categoriaTexto, fonteCategoria, pincelCategoria, posicaoCategoria);
-
-                // ── QR Code ───────────────────────────────────────────────────
-                if (!string.IsNullOrEmpty(urlQrCode))
-                {
-                    try
-                    {
-                        using (var qrGenerator = new QRCoder.QRCodeGenerator())
-                        using (var qrData = qrGenerator.CreateQrCode(urlQrCode, QRCoder.QRCodeGenerator.ECCLevel.M))
-                        using (var qrCode = new QRCoder.QRCode(qrData))
-                        using (var qrBitmap = qrCode.GetGraphic(4, Color.FromArgb(52, 73, 94), Color.White, true))
-                        {
-                            int qrTamanho = 110;
-                            int qrX = (larguraPagina - qrTamanho) / 2;
-                            int qrY = (int)(posicaoCategoria.Y + tamanhoCategoria.Height + 20);
-
-                            g.DrawImage(qrBitmap, new Rectangle(qrX, qrY, qrTamanho, qrTamanho));
-
-                            using (var fonteQrLegenda = new Font("Segoe UI", 8, FontStyle.Regular))
-                            using (var pincelQrLegenda = new SolidBrush(Color.FromArgb(130, 130, 130)))
-                            {
-                                string legenda = "Escaneie para baixar o PDF da palete";
-                                SizeF tamLegenda = g.MeasureString(legenda, fonteQrLegenda);
-                                g.DrawString(legenda, fonteQrLegenda, pincelQrLegenda,
-                                    (larguraPagina - tamLegenda.Width) / 2,
-                                    qrY + qrTamanho + 6);
-                            }
-                        }
-                    }
-                    catch (Exception exQr)
-                    {
-                        using (var fonteErro = new Font("Segoe UI", 7, FontStyle.Italic))
-                        using (var pincelErro = new SolidBrush(Color.FromArgb(180, 0, 0)))
-                        {
-                            g.DrawString($"QR Code indisponível: {exQr.Message}",
-                                fonteErro, pincelErro,
-                                margemBorda + 10, alturaPagina - margemBorda - 90);
-                        }
-                    }
-                }
-                // ── Fim QR Code ───────────────────────────────────────────────
 
                 string dataTexto = $"Criado em: {_paleteAtual.DataCriacao:dd/MM/yyyy HH:mm}";
                 SizeF tamanhoData = g.MeasureString(dataTexto, fonteRodape);

@@ -123,8 +123,6 @@ namespace Reverse.Forms.FormsExpedicao
                     MessageBox.Show("Você não tem permissão para acessar os Gráficos da Expedição.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             };
-
-            btnSair.Click += (s, e) => Close();
         }
 
         private void PicGraficos_MouseEnter(object sender, EventArgs e)
@@ -180,7 +178,12 @@ namespace Reverse.Forms.FormsExpedicao
 
         private void btnMinimizar_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
+            Form formPrincipal = this;
+
+            while (formPrincipal.ParentForm != null)
+                formPrincipal = formPrincipal.ParentForm;
+
+            formPrincipal.WindowState = FormWindowState.Minimized;
         }
     }
 }

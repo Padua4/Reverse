@@ -67,16 +67,6 @@ namespace Reverse.Forms.FormsAtendimento
                     }
                 };
             }
-
-            if (btnSair != null)
-            {
-                btnSair.Click += (s, e) => Close();
-            }
-
-            if (btnMinimizar != null)
-            {
-                btnMinimizar.Click += (s, e) => this.WindowState = FormWindowState.Minimized;
-            }
         }
 
         private void Pic_MouseEnter(object sender, EventArgs e)
@@ -164,6 +154,16 @@ namespace Reverse.Forms.FormsAtendimento
                 _formFilhoAtual.Dispose();
                 _formFilhoAtual = null;
             }
+        }
+
+        private void btnMinimizar_Click(object sender, EventArgs e)
+        {
+            Form formPrincipal = this;
+
+            while (formPrincipal.ParentForm != null)
+                formPrincipal = formPrincipal.ParentForm;
+
+            formPrincipal.WindowState = FormWindowState.Minimized;
         }
     }
 }

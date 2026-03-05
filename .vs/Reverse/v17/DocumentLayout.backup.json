@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\T.I\\source\\repos\\Reverse\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|c:\\users\\t.i\\source\\repos\\reverse\\reverse\\models\\pdfhostservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\models\\pdfhostservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|c:\\users\\t.i\\source\\repos\\reverse\\reverse\\forms\\formstriagem\\triagemformhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\forms\\formstriagem\\triagemformhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|C:\\Users\\T.I\\source\\repos\\Reverse\\reverse\\forms\\formstriagem\\triagemform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\forms\\formstriagem\\triagemform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|c:\\users\\t.i\\source\\repos\\reverse\\reverse\\forms\\formstriagem\\triagemformhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\forms\\formstriagem\\triagemformhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|C:\\Users\\T.I\\source\\repos\\Reverse\\reverse\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|c:\\users\\t.i\\source\\repos\\reverse\\reverse\\forms\\formsexpedicao\\expedicaoformexphub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\forms\\formsexpedicao\\expedicaoformexphub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|C:\\Users\\T.I\\source\\repos\\Reverse\\reverse\\forms\\formstriagem\\triagemform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\forms\\formstriagem\\triagemform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|c:\\users\\t.i\\source\\repos\\reverse\\reverse\\forms\\formsexpedicao\\expedicaoformexphub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\forms\\formsexpedicao\\expedicaoformexphub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|c:\\users\\t.i\\source\\repos\\reverse\\reverse\\forms\\formslogin\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5C98561E-C0D1-4393-8D73-9FDE3C4E1C9A}|Reverse\\Reverse.csproj|solutionrelative:reverse\\forms\\formslogin\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,53 +50,64 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "App.config",
-              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\App.config",
-              "RelativeDocumentMoniker": "Reverse\\App.config",
-              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\App.config",
-              "RelativeToolTip": "Reverse\\App.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2026-02-24T20:42:18.863Z",
-              "EditorCaption": ""
+              "DocumentIndex": 4,
+              "Title": "LoginForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsLogin\\LoginForm.cs",
+              "RelativeDocumentMoniker": "Reverse\\Forms\\FormsLogin\\LoginForm.cs",
+              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsLogin\\LoginForm.cs [Design]",
+              "RelativeToolTip": "Reverse\\Forms\\FormsLogin\\LoginForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-05T11:54:59.484Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "PdfHostService.cs",
-              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Models\\PdfHostService.cs",
-              "RelativeDocumentMoniker": "Reverse\\Models\\PdfHostService.cs",
-              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Models\\PdfHostService.cs",
-              "RelativeToolTip": "Reverse\\Models\\PdfHostService.cs",
-              "ViewState": "AgIAAOkBAAAAAAAAAAA4wAACAAAJAAAAAAAAAA==",
+              "Title": "TriagemFormHub.cs",
+              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsTriagem\\TriagemFormHub.cs",
+              "RelativeDocumentMoniker": "Reverse\\Forms\\FormsTriagem\\TriagemFormHub.cs",
+              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsTriagem\\TriagemFormHub.cs",
+              "RelativeToolTip": "Reverse\\Forms\\FormsTriagem\\TriagemFormHub.cs",
+              "ViewState": "AgIAAJAAAAAAAAAAAAAswLwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T14:37:12.328Z",
+              "WhenOpened": "2026-03-05T11:53:22.53Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "TriagemForm.cs",
-              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsTriagem\\TriagemForm.cs",
-              "RelativeDocumentMoniker": "Reverse\\Forms\\FormsTriagem\\TriagemForm.cs",
-              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsTriagem\\TriagemForm.cs",
-              "RelativeToolTip": "Reverse\\Forms\\FormsTriagem\\TriagemForm.cs",
-              "ViewState": "AgIAANoGAAAAAAAAAAAAwAQHAAABAAAAAAAAAA==",
+              "Title": "TriagemFormHub.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsTriagem\\TriagemFormHub.cs",
+              "RelativeDocumentMoniker": "Reverse\\Forms\\FormsTriagem\\TriagemFormHub.cs",
+              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsTriagem\\TriagemFormHub.cs [Design]",
+              "RelativeToolTip": "Reverse\\Forms\\FormsTriagem\\TriagemFormHub.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T14:14:59.859Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-05T11:53:12.116Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "TriagemForm.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsTriagem\\TriagemForm.cs",
-              "RelativeDocumentMoniker": "Reverse\\Forms\\FormsTriagem\\TriagemForm.cs",
-              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsTriagem\\TriagemForm.cs [Design]",
-              "RelativeToolTip": "Reverse\\Forms\\FormsTriagem\\TriagemForm.cs [Design]",
+              "Title": "ExpedicaoFormExpHub.cs",
+              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormExpHub.cs",
+              "RelativeDocumentMoniker": "Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormExpHub.cs",
+              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormExpHub.cs",
+              "RelativeToolTip": "Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormExpHub.cs",
+              "ViewState": "AgIAAJ8AAAAAAAAAAAAswLIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T14:05:36.154Z",
+              "WhenOpened": "2026-03-05T11:39:44.291Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ExpedicaoFormExpHub.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormExpHub.cs",
+              "RelativeDocumentMoniker": "Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormExpHub.cs",
+              "ToolTip": "C:\\Users\\T.I\\source\\repos\\Reverse\\Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormExpHub.cs [Design]",
+              "RelativeToolTip": "Reverse\\Forms\\FormsExpedicao\\ExpedicaoFormExpHub.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-05T11:34:56.147Z",
               "EditorCaption": " [Design]"
             }
           ]

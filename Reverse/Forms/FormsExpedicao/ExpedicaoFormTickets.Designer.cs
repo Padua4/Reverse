@@ -102,7 +102,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1500, 56);
+            this.panel1.Size = new System.Drawing.Size(1500, 40);
             this.panel1.TabIndex = 5;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitulo_MouseDown);
             // 
@@ -112,7 +112,7 @@
             this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSair.Location = new System.Drawing.Point(1439, 0);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(61, 56);
+            this.btnSair.Size = new System.Drawing.Size(61, 40);
             this.btnSair.TabIndex = 3;
             this.btnSair.Text = "X";
             this.btnSair.UseVisualStyleBackColor = true;
@@ -121,11 +121,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(258, 37);
+            this.label1.Size = new System.Drawing.Size(228, 32);
             this.label1.TabIndex = 2;
             this.label1.Text = "Gerador de Tickets";
             // 
@@ -137,11 +137,11 @@
             this.tableLayoutPanel1.Controls.Add(this.pnlEsquerdo, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.pnlDireito, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 56);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 40);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1500, 794);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1500, 810);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // pnlEsquerdo
@@ -151,7 +151,7 @@
             this.pnlEsquerdo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlEsquerdo.Location = new System.Drawing.Point(3, 3);
             this.pnlEsquerdo.Name = "pnlEsquerdo";
-            this.pnlEsquerdo.Size = new System.Drawing.Size(744, 788);
+            this.pnlEsquerdo.Size = new System.Drawing.Size(744, 804);
             this.pnlEsquerdo.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -162,7 +162,7 @@
             this.tableLayoutPanel2.Controls.Add(this.btnExportarPDF, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnImprimir, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 732);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 748);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -611,7 +611,7 @@
             this.pnlDireito.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlDireito.Location = new System.Drawing.Point(753, 3);
             this.pnlDireito.Name = "pnlDireito";
-            this.pnlDireito.Size = new System.Drawing.Size(744, 788);
+            this.pnlDireito.Size = new System.Drawing.Size(744, 804);
             this.pnlDireito.TabIndex = 1;
             // 
             // ExpedicaoFormTickets

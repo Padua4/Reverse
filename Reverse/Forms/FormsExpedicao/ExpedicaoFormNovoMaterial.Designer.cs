@@ -32,14 +32,14 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dgvMaterial = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnSalvar = new System.Windows.Forms.Button();
+            this.btnExcluir = new System.Windows.Forms.Button();
+            this.btnMaterial = new System.Windows.Forms.Button();
+            this.btnTratamento = new System.Windows.Forms.Button();
+            this.btnTipo = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSair = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnSalvar = new System.Windows.Forms.Button();
-            this.btnExcluir = new System.Windows.Forms.Button();
-            this.btnTratamento = new System.Windows.Forms.Button();
-            this.btnMaterial = new System.Windows.Forms.Button();
-            this.btnTipo = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMaterial)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -54,11 +54,11 @@
             this.tableLayoutPanel1.Controls.Add(this.dgvMaterial, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 56);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 40);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(853, 657);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(853, 673);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // dgvMaterial
@@ -68,7 +68,7 @@
             this.dgvMaterial.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvMaterial.Location = new System.Drawing.Point(3, 3);
             this.dgvMaterial.Name = "dgvMaterial";
-            this.dgvMaterial.Size = new System.Drawing.Size(633, 651);
+            this.dgvMaterial.Size = new System.Drawing.Size(633, 667);
             this.dgvMaterial.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -96,18 +96,78 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(208, 651);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(208, 667);
             this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // btnSalvar
+            // 
+            this.btnSalvar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalvar.ForeColor = System.Drawing.Color.Black;
+            this.btnSalvar.Location = new System.Drawing.Point(3, 608);
+            this.btnSalvar.Name = "btnSalvar";
+            this.btnSalvar.Size = new System.Drawing.Size(202, 56);
+            this.btnSalvar.TabIndex = 0;
+            this.btnSalvar.Text = "Salvar";
+            this.btnSalvar.UseVisualStyleBackColor = true;
+            // 
+            // btnExcluir
+            // 
+            this.btnExcluir.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExcluir.ForeColor = System.Drawing.Color.Black;
+            this.btnExcluir.Location = new System.Drawing.Point(3, 553);
+            this.btnExcluir.Name = "btnExcluir";
+            this.btnExcluir.Size = new System.Drawing.Size(202, 49);
+            this.btnExcluir.TabIndex = 1;
+            this.btnExcluir.Text = "Excluir";
+            this.btnExcluir.UseVisualStyleBackColor = true;
+            // 
+            // btnMaterial
+            // 
+            this.btnMaterial.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMaterial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMaterial.ForeColor = System.Drawing.Color.Black;
+            this.btnMaterial.Location = new System.Drawing.Point(3, 3);
+            this.btnMaterial.Name = "btnMaterial";
+            this.btnMaterial.Size = new System.Drawing.Size(202, 49);
+            this.btnMaterial.TabIndex = 3;
+            this.btnMaterial.Text = "Material";
+            this.btnMaterial.UseVisualStyleBackColor = true;
+            // 
+            // btnTratamento
+            // 
+            this.btnTratamento.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnTratamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTratamento.ForeColor = System.Drawing.Color.Black;
+            this.btnTratamento.Location = new System.Drawing.Point(3, 58);
+            this.btnTratamento.Name = "btnTratamento";
+            this.btnTratamento.Size = new System.Drawing.Size(202, 49);
+            this.btnTratamento.TabIndex = 2;
+            this.btnTratamento.Text = "Tratamento";
+            this.btnTratamento.UseVisualStyleBackColor = true;
+            // 
+            // btnTipo
+            // 
+            this.btnTipo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnTipo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTipo.ForeColor = System.Drawing.Color.Black;
+            this.btnTipo.Location = new System.Drawing.Point(3, 113);
+            this.btnTipo.Name = "btnTipo";
+            this.btnTipo.Size = new System.Drawing.Size(202, 49);
+            this.btnTipo.TabIndex = 4;
+            this.btnTipo.Text = "Tipo";
+            this.btnTipo.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(15, 9);
+            this.label1.Location = new System.Drawing.Point(15, 5);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(203, 37);
+            this.label1.Size = new System.Drawing.Size(178, 32);
             this.label1.TabIndex = 2;
             this.label1.Text = "Novo Material";
             // 
@@ -118,7 +178,7 @@
             this.btnSair.Location = new System.Drawing.Point(792, 0);
             this.btnSair.Margin = new System.Windows.Forms.Padding(6);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(61, 56);
+            this.btnSair.Size = new System.Drawing.Size(61, 40);
             this.btnSair.TabIndex = 3;
             this.btnSair.Text = "X";
             this.btnSair.UseVisualStyleBackColor = true;
@@ -133,68 +193,8 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(853, 56);
+            this.panel1.Size = new System.Drawing.Size(853, 40);
             this.panel1.TabIndex = 2;
-            // 
-            // btnSalvar
-            // 
-            this.btnSalvar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSalvar.ForeColor = System.Drawing.Color.Black;
-            this.btnSalvar.Location = new System.Drawing.Point(3, 597);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(202, 51);
-            this.btnSalvar.TabIndex = 0;
-            this.btnSalvar.Text = "Salvar";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            // 
-            // btnExcluir
-            // 
-            this.btnExcluir.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExcluir.ForeColor = System.Drawing.Color.Black;
-            this.btnExcluir.Location = new System.Drawing.Point(3, 543);
-            this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(202, 48);
-            this.btnExcluir.TabIndex = 1;
-            this.btnExcluir.Text = "Excluir";
-            this.btnExcluir.UseVisualStyleBackColor = true;
-            // 
-            // btnTratamento
-            // 
-            this.btnTratamento.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnTratamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTratamento.ForeColor = System.Drawing.Color.Black;
-            this.btnTratamento.Location = new System.Drawing.Point(3, 57);
-            this.btnTratamento.Name = "btnTratamento";
-            this.btnTratamento.Size = new System.Drawing.Size(202, 48);
-            this.btnTratamento.TabIndex = 2;
-            this.btnTratamento.Text = "Tratamento";
-            this.btnTratamento.UseVisualStyleBackColor = true;
-            // 
-            // btnMaterial
-            // 
-            this.btnMaterial.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnMaterial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMaterial.ForeColor = System.Drawing.Color.Black;
-            this.btnMaterial.Location = new System.Drawing.Point(3, 3);
-            this.btnMaterial.Name = "btnMaterial";
-            this.btnMaterial.Size = new System.Drawing.Size(202, 48);
-            this.btnMaterial.TabIndex = 3;
-            this.btnMaterial.Text = "Material";
-            this.btnMaterial.UseVisualStyleBackColor = true;
-            // 
-            // btnTipo
-            // 
-            this.btnTipo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnTipo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTipo.ForeColor = System.Drawing.Color.Black;
-            this.btnTipo.Location = new System.Drawing.Point(3, 111);
-            this.btnTipo.Name = "btnTipo";
-            this.btnTipo.Size = new System.Drawing.Size(202, 48);
-            this.btnTipo.TabIndex = 4;
-            this.btnTipo.Text = "Tipo";
-            this.btnTipo.UseVisualStyleBackColor = true;
             // 
             // ExpedicaoFormNovoMaterial
             // 

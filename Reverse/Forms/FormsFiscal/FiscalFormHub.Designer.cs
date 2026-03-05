@@ -31,23 +31,21 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FiscalFormHub));
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.picFiscalPedidos = new System.Windows.Forms.PictureBox();
-            this.btnMinimizar = new System.Windows.Forms.Button();
-            this.btnSair = new System.Windows.Forms.Button();
             this.pnlConteudo = new System.Windows.Forms.Panel();
+            this.btnMinimizar = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picFiscalPedidos)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(160)))));
-            this.pnlHeader.Controls.Add(this.picFiscalPedidos);
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(55)))), ((int)(((byte)(117)))));
             this.pnlHeader.Controls.Add(this.btnMinimizar);
-            this.pnlHeader.Controls.Add(this.btnSair);
+            this.pnlHeader.Controls.Add(this.picFiscalPedidos);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1920, 34);
+            this.pnlHeader.Size = new System.Drawing.Size(1870, 34);
             this.pnlHeader.TabIndex = 4;
             // 
             // picFiscalPedidos
@@ -62,45 +60,36 @@
             this.picFiscalPedidos.TabIndex = 9;
             this.picFiscalPedidos.TabStop = false;
             // 
-            // btnMinimizar
-            // 
-            this.btnMinimizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(160)))));
-            this.btnMinimizar.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnMinimizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMinimizar.ForeColor = System.Drawing.Color.White;
-            this.btnMinimizar.Location = new System.Drawing.Point(1808, 0);
-            this.btnMinimizar.Name = "btnMinimizar";
-            this.btnMinimizar.Size = new System.Drawing.Size(56, 34);
-            this.btnMinimizar.TabIndex = 8;
-            this.btnMinimizar.Text = "-";
-            this.btnMinimizar.UseVisualStyleBackColor = false;
-            // 
-            // btnSair
-            // 
-            this.btnSair.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(160)))));
-            this.btnSair.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSair.ForeColor = System.Drawing.Color.White;
-            this.btnSair.Location = new System.Drawing.Point(1864, 0);
-            this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(56, 34);
-            this.btnSair.TabIndex = 0;
-            this.btnSair.Text = "x";
-            this.btnSair.UseVisualStyleBackColor = false;
-            // 
             // pnlConteudo
             // 
+            this.pnlConteudo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlConteudo.BackgroundImage")));
+            this.pnlConteudo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pnlConteudo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlConteudo.Location = new System.Drawing.Point(0, 34);
             this.pnlConteudo.Name = "pnlConteudo";
-            this.pnlConteudo.Size = new System.Drawing.Size(1920, 966);
+            this.pnlConteudo.Size = new System.Drawing.Size(1870, 966);
             this.pnlConteudo.TabIndex = 5;
+            // 
+            // btnMinimizar
+            // 
+            this.btnMinimizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnMinimizar.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnMinimizar.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnMinimizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMinimizar.ForeColor = System.Drawing.Color.White;
+            this.btnMinimizar.Location = new System.Drawing.Point(1816, 0);
+            this.btnMinimizar.Name = "btnMinimizar";
+            this.btnMinimizar.Size = new System.Drawing.Size(54, 34);
+            this.btnMinimizar.TabIndex = 12;
+            this.btnMinimizar.Text = "-";
+            this.btnMinimizar.UseVisualStyleBackColor = true;
+            this.btnMinimizar.Click += new System.EventHandler(this.btnMinimizar_Click);
             // 
             // FiscalFormHub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1920, 1000);
+            this.ClientSize = new System.Drawing.Size(1870, 1000);
             this.Controls.Add(this.pnlConteudo);
             this.Controls.Add(this.pnlHeader);
             this.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -120,8 +109,7 @@
 
         private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.PictureBox picFiscalPedidos;
-        private System.Windows.Forms.Button btnMinimizar;
-        private System.Windows.Forms.Button btnSair;
         private System.Windows.Forms.Panel pnlConteudo;
+        private System.Windows.Forms.Button btnMinimizar;
     }
 }

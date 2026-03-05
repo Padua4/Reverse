@@ -31,11 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TriagemFormHub));
             this.panel1 = new System.Windows.Forms.Panel();
             this.picTriagemPalete = new System.Windows.Forms.PictureBox();
-            this.btnMinimizar = new System.Windows.Forms.Button();
-            this.btnSair = new System.Windows.Forms.Button();
             this.picControleTriagemForm = new System.Windows.Forms.PictureBox();
             this.picTriagemForm = new System.Windows.Forms.PictureBox();
             this.pnlConteudo = new System.Windows.Forms.Panel();
+            this.btnMinimizar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picTriagemPalete)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picControleTriagemForm)).BeginInit();
@@ -44,16 +43,15 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(160)))));
-            this.panel1.Controls.Add(this.picTriagemPalete);
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(55)))), ((int)(((byte)(117)))));
             this.panel1.Controls.Add(this.btnMinimizar);
-            this.panel1.Controls.Add(this.btnSair);
+            this.panel1.Controls.Add(this.picTriagemPalete);
             this.panel1.Controls.Add(this.picControleTriagemForm);
             this.panel1.Controls.Add(this.picTriagemForm);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1920, 34);
+            this.panel1.Size = new System.Drawing.Size(1870, 34);
             this.panel1.TabIndex = 0;
             // 
             // picTriagemPalete
@@ -67,33 +65,6 @@
             this.picTriagemPalete.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picTriagemPalete.TabIndex = 4;
             this.picTriagemPalete.TabStop = false;
-            // 
-            // btnMinimizar
-            // 
-            this.btnMinimizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(160)))));
-            this.btnMinimizar.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnMinimizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMinimizar.ForeColor = System.Drawing.Color.White;
-            this.btnMinimizar.Location = new System.Drawing.Point(1808, 0);
-            this.btnMinimizar.Name = "btnMinimizar";
-            this.btnMinimizar.Size = new System.Drawing.Size(56, 34);
-            this.btnMinimizar.TabIndex = 3;
-            this.btnMinimizar.Text = "-";
-            this.btnMinimizar.UseVisualStyleBackColor = false;
-            this.btnMinimizar.Click += new System.EventHandler(this.btnMinimizar_Click);
-            // 
-            // btnSair
-            // 
-            this.btnSair.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(160)))));
-            this.btnSair.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSair.ForeColor = System.Drawing.Color.White;
-            this.btnSair.Location = new System.Drawing.Point(1864, 0);
-            this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(56, 34);
-            this.btnSair.TabIndex = 2;
-            this.btnSair.Text = "x";
-            this.btnSair.UseVisualStyleBackColor = false;
             // 
             // picControleTriagemForm
             // 
@@ -121,18 +92,35 @@
             // 
             // pnlConteudo
             // 
+            this.pnlConteudo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlConteudo.BackgroundImage")));
+            this.pnlConteudo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pnlConteudo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlConteudo.Location = new System.Drawing.Point(0, 34);
             this.pnlConteudo.Name = "pnlConteudo";
-            this.pnlConteudo.Size = new System.Drawing.Size(1920, 966);
+            this.pnlConteudo.Size = new System.Drawing.Size(1870, 966);
             this.pnlConteudo.TabIndex = 1;
+            // 
+            // btnMinimizar
+            // 
+            this.btnMinimizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnMinimizar.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnMinimizar.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnMinimizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMinimizar.ForeColor = System.Drawing.Color.White;
+            this.btnMinimizar.Location = new System.Drawing.Point(1816, 0);
+            this.btnMinimizar.Name = "btnMinimizar";
+            this.btnMinimizar.Size = new System.Drawing.Size(54, 34);
+            this.btnMinimizar.TabIndex = 12;
+            this.btnMinimizar.Text = "-";
+            this.btnMinimizar.UseVisualStyleBackColor = true;
+            this.btnMinimizar.Click += new System.EventHandler(this.btnMinimizar_Click);
             // 
             // TriagemFormHub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(233)))), ((int)(((byte)(235)))));
-            this.ClientSize = new System.Drawing.Size(1920, 1000);
+            this.ClientSize = new System.Drawing.Size(1870, 1000);
             this.Controls.Add(this.pnlConteudo);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -156,8 +144,7 @@
         private System.Windows.Forms.PictureBox picTriagemForm;
         private System.Windows.Forms.PictureBox picControleTriagemForm;
         private System.Windows.Forms.Panel pnlConteudo;
-        private System.Windows.Forms.Button btnSair;
-        private System.Windows.Forms.Button btnMinimizar;
         private System.Windows.Forms.PictureBox picTriagemPalete;
+        private System.Windows.Forms.Button btnMinimizar;
     }
 }
